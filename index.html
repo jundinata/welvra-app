@@ -704,6 +704,143 @@ background:linear-gradient(135deg,rgba(10,123,108,.04),rgba(10,123,108,.02));tra
 .preview-img{width:100%;max-height:240px;object-fit:contain;border-radius:18px;margin-bottom:18px;background:var(--border-light);
 box-shadow:var(--shadow);border:1px solid var(--border-light)}
 
+/* ===== LAB PDF SUPPORT ===== */
+.upload-lab-icons{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px}
+.upload-lab-icons svg{width:36px;height:36px;color:var(--text-muted);transition:transform .3s,color .3s}
+.upload-area:hover .upload-lab-icons svg{transform:scale(1.08)}
+.upload-lab-pdf-icon{opacity:.75}
+.upload-area:hover .upload-lab-pdf-icon{color:#D63031;opacity:1}
+.upload-area:hover svg:not(.upload-lab-pdf-icon){color:var(--primary)}
+
+.lab-pdf-status{
+  background:linear-gradient(135deg,rgba(10,123,108,0.06),rgba(200,134,10,0.04));
+  border:1px solid rgba(10,123,108,0.14);
+  border-radius:14px;
+  padding:14px 16px;margin-bottom:18px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.86rem;color:var(--text);line-height:1.5;
+  text-align:center;font-weight:500;
+  transition:background .3s,border-color .3s;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+html.dark .lab-pdf-status{background:linear-gradient(135deg,rgba(10,123,108,0.12),rgba(200,134,10,0.06));border-color:rgba(10,123,108,0.22)}
+.lab-pdf-status::before{
+  content:'';width:16px;height:16px;
+  border:2.5px solid rgba(10,123,108,0.2);border-top-color:var(--primary);
+  border-radius:50%;display:inline-block;
+  animation:spin .7s linear infinite;
+  flex-shrink:0;
+}
+.lab-pdf-status.lab-pdf-status-error{
+  background:rgba(214,48,49,0.08);
+  border-color:rgba(214,48,49,0.25);
+  color:#B83232;
+  text-align:left;
+  padding:14px 18px;
+}
+html.dark .lab-pdf-status.lab-pdf-status-error{color:#E86B6B;background:rgba(214,48,49,0.14)}
+.lab-pdf-status.lab-pdf-status-error::before{display:none}
+.lab-pdf-status.lab-pdf-status-error strong{display:block;margin-bottom:4px;font-family:'Cormorant Garamond',serif;font-size:1rem}
+
+.lab-preview-wrap{position:relative;margin-bottom:18px}
+.lab-preview-wrap .preview-img{margin-bottom:0}
+.lab-file-badge{
+  position:absolute;top:10px;right:10px;
+  padding:5px 12px;border-radius:20px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:.3px;
+  backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+  display:inline-flex;align-items:center;gap:4px;
+  line-height:1;
+}
+.lab-file-badge.lab-file-badge-img{background:rgba(10,123,108,0.85);color:#fff;border:1px solid rgba(255,255,255,0.15)}
+.lab-file-badge.lab-file-badge-pdf{background:rgba(214,48,49,0.88);color:#fff;border:1px solid rgba(255,255,255,0.15)}
+
+/* Three-option input cards */
+.lab-options{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.lab-option-card{
+  position:relative;
+  background:#ffffff;
+  border:0.5px solid rgba(10,123,108,0.12);
+  border-radius:16px;
+  padding:14px 18px;
+  display:flex;align-items:center;gap:14px;
+  cursor:pointer;overflow:hidden;
+  transition:transform .2s cubic-bezier(.25,.8,.25,1),box-shadow .25s,border-color .25s,background .3s;
+  box-shadow:0 2px 8px rgba(10,123,108,0.04);
+  animation:cardReveal .5s cubic-bezier(.25,.8,.25,1) both;
+  min-height:72px;
+  -webkit-tap-highlight-color:transparent;
+}
+.lab-option-card:nth-child(1){animation-delay:.05s}
+.lab-option-card:nth-child(2){animation-delay:.12s}
+.lab-option-card:nth-child(3){animation-delay:.19s}
+html.dark .lab-option-card{
+  background:#1e293b;
+  border-color:rgba(10,123,108,0.22);
+  box-shadow:0 2px 8px rgba(0,0,0,0.22);
+}
+.lab-option-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(10,123,108,0.1);
+  border-color:rgba(10,123,108,0.28);
+}
+html.dark .lab-option-card:hover{box-shadow:0 6px 18px rgba(0,0,0,0.3);border-color:rgba(10,123,108,0.38)}
+.lab-option-card:active{transform:scale(.98);transition-duration:.08s}
+
+.lab-option-icon{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:transform .3s cubic-bezier(.25,.8,.25,1);
+}
+.lab-option-card:hover .lab-option-icon{transform:scale(1.06)}
+.lab-option-icon svg{width:22px;height:22px;stroke-width:1.8}
+.lab-option-card.opt-camera .lab-option-icon{background:rgba(10,123,108,0.1)}
+.lab-option-card.opt-camera .lab-option-icon svg{color:#0A7B6C}
+.lab-option-card.opt-gallery .lab-option-icon{background:rgba(200,134,10,0.12)}
+.lab-option-card.opt-gallery .lab-option-icon svg{color:#C8860A}
+.lab-option-card.opt-pdf .lab-option-icon{background:rgba(214,48,49,0.1)}
+.lab-option-card.opt-pdf .lab-option-icon svg{color:#D63031}
+
+.lab-option-text{flex:1;min-width:0}
+.lab-option-title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:15px;font-weight:700;color:var(--text);
+  line-height:1.2;margin-bottom:2px;
+  letter-spacing:.1px;
+}
+.lab-option-sub{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:12px;color:var(--text-muted);
+  line-height:1.4;font-weight:400;
+}
+.lab-option-chevron{
+  color:var(--text-muted);flex-shrink:0;
+  font-size:1.1rem;line-height:1;
+  transition:transform .25s,color .25s;
+}
+.lab-option-card:hover .lab-option-chevron{transform:translateX(2px);color:var(--primary)}
+.lab-option-input{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
+
+/* Ganti (change file) button */
+.lab-change-btn{
+  width:100%;padding:11px 16px;
+  border-radius:14px;
+  background:var(--card);color:var(--text);
+  border:1.5px solid var(--border);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.86rem;font-weight:500;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:border-color .2s,color .2s,background .3s;
+  margin-bottom:4px;
+  min-height:44px;
+}
+.lab-change-btn:hover{border-color:var(--primary);color:var(--primary)}
+.lab-change-btn svg{width:14px;height:14px}
+
 /* ===== FORM ELEMENTS ===== */
 .form-group{margin-bottom:16px}
 .form-group label{font-size:.78rem;font-weight:600;color:var(--text-muted);display:block;margin-bottom:7px;text-transform:uppercase;letter-spacing:.4px}
@@ -1919,6 +2056,8 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>if(window.pdfjsLib){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';}</script>
 </head>
 <body>
 
@@ -2104,13 +2243,45 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
 <div class="modal-panel" id="modal-lab">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Baca Hasil Lab</h2><button class="modal-close" onclick="closeModal('lab')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
-  <div class="upload-area" id="upload-lab" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event,'lab')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-    <p>Tap atau seret foto hasil lab ke sini</p><small>JPG, PNG &mdash; maks 10MB</small>
-    <input type="file" accept="image/*" onchange="handleFile(event,'lab')">
+  <div class="lab-options" id="upload-lab">
+    <label class="lab-option-card opt-camera">
+      <div class="lab-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+      <div class="lab-option-text">
+        <div class="lab-option-title">Foto Langsung</div>
+        <div class="lab-option-sub">Ambil foto hasil lab sekarang</div>
+      </div>
+      <span class="lab-option-chevron">&#x203A;</span>
+      <input type="file" class="lab-option-input" accept="image/*" capture="environment" onchange="handleFile(event,'lab')">
+    </label>
+    <label class="lab-option-card opt-gallery">
+      <div class="lab-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><polyline points="21 15 16 10 5 21"/></svg></div>
+      <div class="lab-option-text">
+        <div class="lab-option-title">Pilih dari Galeri</div>
+        <div class="lab-option-sub">Upload foto dari galeri HP</div>
+      </div>
+      <span class="lab-option-chevron">&#x203A;</span>
+      <input type="file" class="lab-option-input" accept="image/jpeg,image/png" onchange="handleFile(event,'lab')">
+    </label>
+    <label class="lab-option-card opt-pdf">
+      <div class="lab-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><text x="8" y="18.5" font-family="Plus Jakarta Sans,sans-serif" font-size="5" font-weight="700" fill="currentColor" stroke="none">PDF</text></svg></div>
+      <div class="lab-option-text">
+        <div class="lab-option-title">Upload File PDF</div>
+        <div class="lab-option-sub">Hasil lab dalam format PDF</div>
+      </div>
+      <span class="lab-option-chevron">&#x203A;</span>
+      <input type="file" class="lab-option-input" accept="application/pdf" onchange="handleFile(event,'lab')">
+    </label>
   </div>
-  <img id="preview-lab" class="preview-img" style="display:none">
-  <button class="btn-primary gold" id="btn-lab" onclick="analyzeLab()"><span>Baca & Jelaskan</span></button>
+  <div id="lab-pdf-status" class="lab-pdf-status" style="display:none"></div>
+  <div class="lab-preview-wrap" id="lab-preview-wrap" style="display:none">
+    <img id="preview-lab" class="preview-img" style="display:block">
+    <div class="lab-file-badge" id="lab-file-badge"></div>
+  </div>
+  <button class="lab-change-btn" id="lab-change-btn" onclick="labClearAndReselect()" style="display:none" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+    <span>Ganti File</span>
+  </button>
+  <button class="btn-primary gold" id="btn-lab" onclick="analyzeLab()" style="display:none"><span>Baca &amp; Jelaskan</span></button>
   <div class="results-area" id="results-lab"></div>
 </div>
 
@@ -3063,6 +3234,10 @@ function handleDrop(e, type) {
 }
 function handleFile(e, type) { var file = e.target.files[0]; if (file) processFile(file, type); }
 function processFile(file, type) {
+  if (type === 'lab' && file.type === 'application/pdf') {
+    processLabPDF(file);
+    return;
+  }
   if (!file.type.startsWith('image/')) return;
   var reader = new FileReader();
   reader.onload = function(e) {
@@ -3071,8 +3246,120 @@ function processFile(file, type) {
     var preview = document.getElementById('preview-' + type);
     preview.src = base64; preview.style.display = 'block';
     document.getElementById('upload-' + type).style.display = 'none';
+    if (type === 'lab') labShowPreview(false, 0);
   };
   reader.readAsDataURL(file);
+}
+
+// ===== LAB PDF SUPPORT =====
+function labShowPreview(isPdf, pageCount) {
+  var wrap = document.getElementById('lab-preview-wrap');
+  var badge = document.getElementById('lab-file-badge');
+  var status = document.getElementById('lab-pdf-status');
+  var chg = document.getElementById('lab-change-btn');
+  var btn = document.getElementById('btn-lab');
+  if (wrap) wrap.style.display = 'block';
+  if (status) status.style.display = 'none';
+  if (chg) chg.style.display = '';
+  if (btn) btn.style.display = '';
+  if (badge) {
+    if (isPdf) {
+      badge.className = 'lab-file-badge lab-file-badge-pdf';
+      badge.innerHTML = '\uD83D\uDCC4 PDF \u00B7 ' + pageCount + ' halaman';
+    } else {
+      badge.className = 'lab-file-badge lab-file-badge-img';
+      badge.innerHTML = '\uD83D\uDCF7 Foto';
+    }
+  }
+}
+function labResetUploadArea() {
+  var upload = document.getElementById('upload-lab');
+  var wrap = document.getElementById('lab-preview-wrap');
+  var status = document.getElementById('lab-pdf-status');
+  var chg = document.getElementById('lab-change-btn');
+  var btn = document.getElementById('btn-lab');
+  if (upload) upload.style.display = '';
+  if (wrap) wrap.style.display = 'none';
+  if (status) status.style.display = 'none';
+  if (chg) chg.style.display = 'none';
+  if (btn) btn.style.display = 'none';
+}
+function labClearAndReselect() {
+  imageData.lab = null;
+  document.querySelectorAll('.lab-option-input').forEach(function(inp){ inp.value = ''; });
+  labResetUploadArea();
+}
+async function processLabPDF(file) {
+  var status = document.getElementById('lab-pdf-status');
+  var upload = document.getElementById('upload-lab');
+  var wrap = document.getElementById('lab-preview-wrap');
+  var btn = document.getElementById('btn-lab');
+  function showStatusError(msg, html) {
+    if (!status) return;
+    status.style.display = 'flex';
+    status.className = 'lab-pdf-status lab-pdf-status-error';
+    if (html) status.innerHTML = html;
+    else status.textContent = msg;
+  }
+  function showStatusProgress(msg) {
+    if (!status) return;
+    status.style.display = 'flex';
+    status.className = 'lab-pdf-status';
+    status.textContent = msg;
+  }
+  if (!window.pdfjsLib) {
+    showStatusError('Library PDF gagal dimuat. Cek koneksi internet dan coba lagi.');
+    labResetUploadArea.call(null);
+    if (upload) upload.style.display = '';
+    return;
+  }
+  if (upload) upload.style.display = 'none';
+  if (wrap) wrap.style.display = 'none';
+  if (btn) btn.disabled = true;
+  imageData.lab = null;
+  showStatusProgress('Memproses PDF...');
+  try {
+    var buf = await file.arrayBuffer();
+    var pdf = await pdfjsLib.getDocument({data: buf}).promise;
+    if (pdf.numPages > 5) {
+      showStatusError('', '<div><strong>PDF terlalu panjang</strong>Mohon upload hanya halaman hasil lab saja (maks 5 halaman). PDF kamu punya ' + pdf.numPages + ' halaman.</div>');
+      if (upload) upload.style.display = '';
+      if (btn) btn.disabled = false;
+      return;
+    }
+    var pages = [];
+    var firstPreview = null;
+    for (var i = 1; i <= pdf.numPages; i++) {
+      showStatusProgress('Memproses PDF... Halaman ' + i + ' dari ' + pdf.numPages);
+      var page = await pdf.getPage(i);
+      var viewport = page.getViewport({scale: 2.0});
+      var canvas = document.createElement('canvas');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      var ctx = canvas.getContext('2d');
+      await page.render({canvasContext: ctx, viewport: viewport}).promise;
+      var dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+      pages.push({ base64: dataUrl.split(',')[1], mediaType: 'image/jpeg' });
+      if (i === 1) firstPreview = dataUrl;
+    }
+    imageData.lab = {
+      base64: pages[0].base64,
+      mediaType: 'image/jpeg',
+      pages: pages,
+      sourceType: 'pdf',
+      pageCount: pdf.numPages
+    };
+    var preview = document.getElementById('preview-lab');
+    if (preview && firstPreview) { preview.src = firstPreview; preview.style.display = 'block'; }
+    labShowPreview(true, pdf.numPages);
+    if (btn) btn.disabled = false;
+  } catch (err) {
+    var msg = (err && err.message) ? err.message : 'coba upload ulang.';
+    showStatusError('', '<div><strong>Gagal memproses PDF</strong>' + (msg.indexOf('password') > -1 ? 'PDF ini dilindungi password. Hilangkan password dulu ya.' : msg) + '</div>');
+    if (upload) upload.style.display = '';
+    if (btn) btn.disabled = false;
+    imageData.lab = null;
+  }
 }
 
 // ===== HEALTH PROFILE =====
@@ -3331,15 +3618,22 @@ async function analyzeFoto() {
 
 // ===== LAB ANALYSIS =====
 async function analyzeLab() {
-  if (!imageData.lab) { alert('Silakan upload foto hasil lab terlebih dahulu.'); return; }
+  if (!imageData.lab) { alert('Silakan upload foto atau PDF hasil lab terlebih dahulu.'); return; }
   var btn = document.getElementById('btn-lab');
   btn.disabled = true; btn.innerHTML = '<div class="spinner"></div><span>Membaca hasil lab...</span>';
-  var content = [
-    { type: 'image', source: { type: 'base64', media_type: imageData.lab.mediaType, data: imageData.lab.base64 } },
-    { type: 'text', text: 'Tolong baca dan analisa semua parameter dalam hasil lab ini secara detail.' }
-  ];
+  var content = [];
+  var systemAddendum = '';
+  if (imageData.lab.sourceType === 'pdf' && imageData.lab.pages && imageData.lab.pages.length) {
+    imageData.lab.pages.forEach(function(p) {
+      content.push({ type: 'image', source: { type: 'base64', media_type: p.mediaType, data: p.base64 } });
+    });
+    systemAddendum = '\n\nCatatan: User mengirim hasil lab dalam format PDF dengan ' + imageData.lab.pages.length + ' halaman. Analisa semua halaman secara komprehensif dan gabungkan hasilnya dalam satu penjelasan yang menyeluruh.';
+  } else {
+    content.push({ type: 'image', source: { type: 'base64', media_type: imageData.lab.mediaType, data: imageData.lab.base64 } });
+  }
+  content.push({ type: 'text', text: 'Tolong baca dan analisa semua parameter dalam hasil lab ini secara detail.' });
   try {
-    var result = await callClaude([{ role: 'user', content: content }], SYSTEM_LAB);
+    var result = await callClaude([{ role: 'user', content: content }], SYSTEM_LAB + systemAddendum);
     renderResults('lab', result);
     saveHistory('lab', result, 'Analisa hasil laboratorium');
   } catch (e) { alert('Error: ' + e.message); }
