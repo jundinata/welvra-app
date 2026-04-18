@@ -361,6 +361,302 @@ font-size:.75rem;color:var(--text-muted);transition:all .3s cubic-bezier(.25,.8,
 .feat-card.sage:hover .feat-chevron{background:var(--sage)}
 .feat-card.emerald:hover .feat-chevron{background:#2D8653}
 
+/* ===== HOME GRID REDESIGN ===== */
+/* Primary 2x2 grid (main 4 features) */
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 18px}
+/* Secondary 3-col grid (makan / aktiv / mens) */
+.feat-grid-sec{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:0 0 6px}
+
+.feat-tile{
+  background:linear-gradient(135deg,rgba(255,255,255,0.68),rgba(255,255,255,0.42));
+  border:0.5px solid rgba(255,255,255,0.4);
+  border-radius:24px;
+  aspect-ratio:1;
+  position:relative;cursor:pointer;overflow:hidden;
+  backdrop-filter:blur(12px) saturate(1.3);-webkit-backdrop-filter:blur(12px) saturate(1.3);
+  box-shadow:0 8px 32px rgba(10,123,108,.08),inset 0 1px 0 rgba(255,255,255,.55);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:18px 12px;gap:6px;
+  transition:transform .2s cubic-bezier(.25,.8,.25,1),box-shadow .25s,background .3s,border-color .3s;
+  animation:cardReveal .6s cubic-bezier(.25,.8,.25,1) both;
+}
+.feat-tile:nth-child(1){animation-delay:.05s}
+.feat-tile:nth-child(2){animation-delay:.1s}
+.feat-tile:nth-child(3){animation-delay:.15s}
+.feat-tile:nth-child(4){animation-delay:.2s}
+html.dark .feat-tile{
+  background:linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));
+  border-color:rgba(255,255,255,0.09);
+  box-shadow:0 8px 32px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.feat-tile:hover{transform:scale(1.04);box-shadow:0 12px 36px rgba(10,123,108,.16),inset 0 1px 0 rgba(255,255,255,.6)}
+html.dark .feat-tile:hover{box-shadow:0 12px 36px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.06)}
+.feat-tile:active{transform:scale(.97);transition-duration:.08s}
+
+/* Subtle colored backlight in top-right corner */
+.feat-tile::before{
+  content:'';position:absolute;top:-26px;right:-26px;
+  width:88px;height:88px;border-radius:50%;
+  opacity:.22;pointer-events:none;filter:blur(18px);
+}
+html.dark .feat-tile::before{opacity:.32}
+.feat-tile.tt-foto::before{background:#0A7B6C}
+.feat-tile.tt-lab::before{background:#C8860A}
+.feat-tile.tt-chat::before{background:#6B9E78}
+.feat-tile.tt-tensi::before{background:#D63031}
+.feat-tile.tt-makan::before{background:#2D8653}
+.feat-tile.tt-aktiv::before{background:#3B82F6}
+.feat-tile.tt-mens::before{background:#E91E8C}
+
+.feat-tile-icon{
+  width:48px;height:48px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:1;
+  transition:transform .3s cubic-bezier(.25,.8,.25,1);
+}
+.feat-tile:hover .feat-tile-icon{transform:translateY(-2px) scale(1.06)}
+.feat-tile-icon svg{width:44px;height:44px;stroke-width:1.6}
+.feat-tile.tt-foto .feat-tile-icon svg{color:#0A7B6C}
+.feat-tile.tt-lab .feat-tile-icon svg{color:#C8860A}
+.feat-tile.tt-chat .feat-tile-icon svg{color:#6B9E78}
+.feat-tile.tt-tensi .feat-tile-icon svg{color:#D63031}
+.feat-tile.tt-makan .feat-tile-icon svg{color:#2D8653}
+.feat-tile.tt-aktiv .feat-tile-icon svg{color:#3B82F6}
+.feat-tile.tt-mens .feat-tile-icon svg{color:#E91E8C}
+
+.feat-tile-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px;font-weight:700;color:var(--text);
+  text-align:center;line-height:1.2;letter-spacing:.2px;
+  position:relative;z-index:1;margin-top:4px;
+}
+.feat-tile-sub{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;color:var(--text-muted);
+  text-align:center;line-height:1.3;font-weight:500;
+  position:relative;z-index:1;
+}
+
+/* Secondary (smaller) tiles */
+.feat-tile-sm{padding:14px 8px;gap:4px;border-radius:20px}
+.feat-tile-sm .feat-tile-icon{width:34px;height:34px}
+.feat-tile-sm .feat-tile-icon svg{width:32px;height:32px;stroke-width:1.8}
+.feat-tile-sm .feat-tile-name{font-size:12px;margin-top:2px}
+.feat-tile-sm .feat-tile-sub{font-size:10px}
+.feat-tile-sm::before{width:60px;height:60px;top:-18px;right:-18px;filter:blur(12px)}
+
+/* ===== QUICK STATS BAR ===== */
+.home-section{margin-bottom:24px}
+.home-section-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:0 4px;margin:24px 0 12px;
+}
+.home-section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.12rem;font-weight:700;color:var(--text);letter-spacing:.3px;
+  display:flex;align-items:center;gap:8px;
+}
+.home-section-link{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.72rem;color:var(--primary);cursor:pointer;
+  background:none;border:none;padding:4px 8px;border-radius:8px;
+  transition:background .2s;font-weight:600;display:flex;align-items:center;gap:2px;
+}
+.home-section-link:hover{background:var(--primary-light)}
+
+/* Section title with gold accent (stats only) */
+.stats-title{position:relative;padding-bottom:10px}
+.stats-title::after{
+  content:'';position:absolute;left:0;bottom:0;
+  width:40px;height:2px;
+  background:#C8860A;border-radius:2px;
+}
+
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  padding:0;margin:0;
+}
+@media(max-width:359px){.stats-row{grid-template-columns:1fr 1fr}}
+
+.stat-card{
+  background:linear-gradient(160deg,rgba(10,123,108,0.06) 0%,rgba(255,255,255,0.9) 100%);
+  border:none;
+  border-radius:20px;
+  padding:16px 12px;
+  display:flex;flex-direction:column;align-items:flex-start;gap:8px;
+  min-width:0;
+  box-shadow:0 4px 16px rgba(10,123,108,0.06);
+  transition:transform .25s cubic-bezier(.25,.8,.25,1),box-shadow .3s,background .3s;
+  animation:cardReveal .5s cubic-bezier(.25,.8,.25,1) both;
+}
+.stat-card:nth-child(1){animation-delay:.05s}
+.stat-card:nth-child(2){animation-delay:.12s}
+.stat-card:nth-child(3){animation-delay:.19s}
+.stat-card:nth-child(4){animation-delay:.26s}
+.stat-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(10,123,108,0.1);
+}
+html.dark .stat-card{
+  background:#1e293b;
+  box-shadow:0 4px 16px rgba(0,0,0,0.3);
+}
+html.dark .stat-card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+
+.stat-label{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;
+  color:var(--text-muted);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  line-height:1;
+}
+.stat-value{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(22px,6vw,28px);
+  font-weight:700;
+  color:#0A7B6C;
+  line-height:1;
+  letter-spacing:-0.3px;
+  width:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:clip;
+}
+.stat-value.compact{font-size:clamp(18px,5vw,22px)}
+.stat-value.small{
+  font-size:clamp(18px,5vw,22px);
+  color:var(--text-muted);
+  font-weight:600;
+}
+html.dark .stat-value{color:#4BD1BE}
+html.dark .stat-value.small{color:var(--text-muted)}
+
+.stat-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:500;color:var(--text-light);line-height:1.2;
+}
+.stat-badge-dot{
+  width:7px;height:7px;
+  border-radius:50%;flex-shrink:0;display:inline-block;
+  background:var(--border);
+}
+.stat-badge.sb-normal .stat-badge-dot{background:#6B9E78}
+.stat-badge.sb-elevated .stat-badge-dot{background:#C8860A}
+.stat-badge.sb-high .stat-badge-dot{background:#D63031}
+.stat-badge.sb-low .stat-badge-dot{background:#3498DB}
+.stat-badge.sb-muted{color:var(--text-muted)}
+.stat-badge.sb-muted .stat-badge-dot{background:var(--border)}
+.stat-badge.sb-flame .stat-badge-dot{background:transparent;width:auto;font-size:12px;line-height:1}
+.stat-badge.sb-flame .stat-badge-dot::before{content:'\1F525'}
+
+/* ===== ACTIVITY FEED ===== */
+.activity-timeline{
+  position:relative;padding-left:18px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.activity-timeline::before{
+  content:'';position:absolute;left:5px;top:10px;bottom:10px;width:1px;
+  background:linear-gradient(to bottom,rgba(10,123,108,.25),rgba(10,123,108,.08) 70%,transparent);
+}
+html.dark .activity-timeline::before{background:linear-gradient(to bottom,rgba(10,123,108,.4),rgba(10,123,108,.15) 70%,transparent)}
+.activity-item{
+  background:var(--card);
+  border:1px solid var(--border-light);
+  border-radius:12px;
+  padding:10px 14px;
+  position:relative;
+  transition:background .3s,border-color .3s,transform .2s;
+  animation:cardReveal .55s cubic-bezier(.25,.8,.25,1) both;
+}
+.activity-item:nth-child(1){animation-delay:.08s}
+.activity-item:nth-child(2){animation-delay:.14s}
+.activity-item:nth-child(3){animation-delay:.2s}
+.activity-item:nth-child(4){animation-delay:.26s}
+.activity-item:nth-child(5){animation-delay:.32s}
+.activity-item:hover{transform:translateX(2px)}
+.activity-dot{
+  position:absolute;left:-17px;top:16px;
+  width:11px;height:11px;border-radius:50%;
+  background:var(--primary);
+  border:2px solid var(--bg);
+  box-shadow:0 0 0 1px rgba(10,123,108,.18);
+  transition:background .3s,border-color .3s;
+}
+.activity-dot.ad-chat,.activity-dot.ad-foto{background:#0A7B6C}
+.activity-dot.ad-lab{background:#C8860A;box-shadow:0 0 0 1px rgba(200,134,10,.2)}
+.activity-dot.ad-bp{background:#D63031;box-shadow:0 0 0 1px rgba(214,48,49,.2)}
+.activity-dot.ad-aktiv{background:#3B82F6;box-shadow:0 0 0 1px rgba(59,130,246,.2)}
+.activity-dot.ad-mens{background:#E91E8C;box-shadow:0 0 0 1px rgba(233,30,140,.2)}
+.activity-dot.ad-makan{background:#2D8653;box-shadow:0 0 0 1px rgba(45,134,83,.2)}
+.activity-dot.ad-profile{background:#6B9E78;box-shadow:0 0 0 1px rgba(107,158,120,.2)}
+.activity-meta{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;color:var(--text-muted);font-weight:500;margin-bottom:3px;
+}
+.activity-desc{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.84rem;color:var(--text);line-height:1.45;font-weight:500;
+}
+.activity-empty{
+  padding:28px 22px;
+  background:linear-gradient(135deg,rgba(10,123,108,.05),rgba(107,158,120,.03));
+  border:1px dashed rgba(10,123,108,.22);
+  border-radius:16px;
+  text-align:center;color:var(--text-light);
+  font-size:.84rem;line-height:1.6;font-style:italic;
+}
+html.dark .activity-empty{background:linear-gradient(135deg,rgba(10,123,108,.12),rgba(107,158,120,.06));border-color:rgba(10,123,108,.3)}
+.activity-empty-emoji{font-size:1.6rem;display:block;margin-bottom:6px;font-style:normal;opacity:.8}
+
+/* ===== HEALTH TIP OF THE DAY ===== */
+.tip-card{
+  background:linear-gradient(135deg,#0A7B6C 0%,#0D9488 55%,#6B9E78 100%);
+  border-radius:22px;padding:18px 20px;
+  display:flex;align-items:center;gap:16px;
+  color:#fff;position:relative;overflow:hidden;
+  box-shadow:0 8px 28px rgba(10,123,108,.22),inset 0 1px 0 rgba(255,255,255,.08);
+  margin-bottom:28px;
+  animation:cardReveal .65s .3s cubic-bezier(.25,.8,.25,1) both;
+}
+.tip-card::before{
+  content:'';position:absolute;right:-30px;bottom:-30px;
+  width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,134,10,.2),transparent 60%);
+  pointer-events:none;
+}
+html.dark .tip-card{box-shadow:0 8px 28px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.06)}
+.tip-icon{
+  width:48px;height:48px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,rgba(255,232,156,.95),rgba(200,134,10,.65));
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+  box-shadow:0 0 0 2px rgba(255,255,255,.16),0 4px 12px rgba(200,134,10,.32);
+  position:relative;z-index:1;
+}
+.tip-text{flex:1;min-width:0;position:relative;z-index:1}
+.tip-label{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.64rem;text-transform:uppercase;letter-spacing:1.8px;
+  color:rgba(255,255,255,.72);font-weight:600;margin-bottom:3px;
+}
+.tip-body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;line-height:1.5;color:#fff;font-weight:500;
+}
+
+/* Small-screen tweak for home grid */
+@media(max-width:360px){
+.feat-tile-name{font-size:13px}
+.feat-tile-sub{font-size:10px}
+.feat-tile-icon svg{width:40px;height:40px}
+.feat-tile-sm .feat-tile-name{font-size:11px}
+}
+
 /* ===== MAKAN MODAL ===== */
 .makan-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .makan-tab{padding:8px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;
@@ -1712,61 +2008,72 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
     </div>
     <div class="section-label">Layanan Kesehatan</div>
     <div class="features">
-      <div class="feat-card primary" onclick="openModal('foto')">
-        <svg class="feat-card-blob" width="120" height="120" viewBox="0 0 120 120"><ellipse cx="75" cy="40" rx="48" ry="36" fill="#0A7B6C" opacity=".10"/><ellipse cx="50" cy="55" rx="38" ry="30" fill="#0A7B6C" opacity=".10"/><ellipse cx="88" cy="68" rx="32" ry="26" fill="#0A7B6C" opacity=".10"/></svg>
-        <div class="feat-card-inner">
-          <div class="feat-icon ic-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
-          <div class="feat-info"><h3>Periksa Gejala</h3><p>Foto Kondisi Tubuhmu</p></div>
-          <div class="feat-right"><span class="feat-badge b-primary">FOTO & CERITA</span><span class="feat-chevron">&#x203A;</span></div>
+      <!-- PRIMARY 2x2 GRID -->
+      <div class="feat-grid">
+        <div class="feat-tile tt-foto" onclick="openModal('foto')" role="button" tabindex="0">
+          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="13" width="38" height="27" rx="4"/><circle cx="24" cy="27" r="8"/><path d="M17 13 l2-4 h10 l2 4"/><path d="M24 23 v8 M20 27 h8"/></svg></div>
+          <div class="feat-tile-name">Periksa Gejala</div>
+          <div class="feat-tile-sub">Foto &amp; cerita</div>
+        </div>
+        <div class="feat-tile tt-lab" onclick="openModal('lab')" role="button" tabindex="0">
+          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4 H28 L38 14 V42 A2 2 0 0 1 36 44 H10 A2 2 0 0 1 8 42 V6 A2 2 0 0 1 10 4 Z"/><path d="M28 4 V14 H38"/><path d="M14 32 L19 26 L24 30 L29 22 L34 27"/></svg></div>
+          <div class="feat-tile-name">Baca Hasil Lab</div>
+          <div class="feat-tile-sub">Dr. Sly jelasin</div>
+        </div>
+        <div class="feat-tile tt-chat" onclick="openModal('chat')" role="button" tabindex="0">
+          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M42 28 a2 2 0 0 1 -2 2 H18 l-8 8 V8 a2 2 0 0 1 2 -2 h28 a2 2 0 0 1 2 2 Z"/><path d="M25 26 C21.5 23 17 23.5 17 17.5 C17 13.5 21 12.5 25 16 C29 12.5 33 13.5 33 17.5 C33 23.5 28.5 23 25 26 Z" fill="currentColor" fill-opacity=".12"/></svg></div>
+          <div class="feat-tile-name">Tanya Dr. Sly</div>
+          <div class="feat-tile-sub">Konsultasi langsung</div>
+        </div>
+        <div class="feat-tile tt-tensi" onclick="openModal('tensi')" role="button" tabindex="0">
+          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M24 41 C24 41 7 30 7 18 C7 11 13 7 19 11 C21.5 12.6 24 16 24 16 C24 16 26.5 12.6 29 11 C35 7 41 11 41 18 C41 30 24 41 24 41 Z"/><path d="M4 25 H12 L16 19 L20 30 L24 22 L28 27 H44"/></svg></div>
+          <div class="feat-tile-name">Cek Tensi Anda</div>
+          <div class="feat-tile-sub">Pantau tekanan darah</div>
         </div>
       </div>
-      <div class="feat-card gold" onclick="openModal('lab')">
-        <svg class="feat-card-blob" width="120" height="120" viewBox="0 0 120 120"><ellipse cx="75" cy="40" rx="48" ry="36" fill="#C8860A" opacity=".10"/><ellipse cx="50" cy="55" rx="38" ry="30" fill="#C8860A" opacity=".10"/><ellipse cx="88" cy="68" rx="32" ry="26" fill="#C8860A" opacity=".10"/></svg>
-        <div class="feat-card-inner">
-          <div class="feat-icon ic-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
-          <div class="feat-info"><h3>Baca Hasil Lab</h3><p>Dr. Welvra Siap Jelaskan</p></div>
-          <div class="feat-right"><span class="feat-badge b-gold">UPLOAD LAB</span><span class="feat-chevron">&#x203A;</span></div>
+      <!-- SECONDARY 3-COLUMN GRID -->
+      <div class="feat-grid-sec">
+        <div class="feat-tile feat-tile-sm tt-makan" onclick="openModal('makan')" role="button" tabindex="0">
+          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M16 9 C10.5 9 7 12.5 7 18 C7 23.5 11 28 16 28 C21 28 25 23.5 25 18 C25 12.5 21.5 9 16 9 Z"/><path d="M16 9 C17 5.5 19.5 3.5 22.5 3.5"/><path d="M13 15 C14 15 15 16 15 17"/></svg></div>
+          <div class="feat-tile-name">Analisa Makanku</div>
+          <div class="feat-tile-sub">Cek gizimu</div>
+        </div>
+        <div class="feat-tile feat-tile-sm tt-aktiv" id="aktiv-feat-card" onclick="openAktivitasModal()" role="button" tabindex="0">
+          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="6" r="2.5"/><path d="M12 29 L15 22 L11 18 L16 13 L22 15 L26 21"/><path d="M18 23 L14 28"/></svg></div>
+          <div class="feat-tile-name">TrackFit</div>
+          <div class="feat-tile-sub">Langkah &amp; kalori</div>
+        </div>
+        <div class="feat-tile feat-tile-sm tt-mens" id="mens-feat-card" onclick="openMensModal()" role="button" tabindex="0" style="display:none">
+          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="22" height="22" rx="3"/><path d="M5 13 H27"/><path d="M10 4 V8"/><path d="M22 4 V8"/><path d="M16 18.5 C15 17.5 13 18 13 20 C13 22 16 24 16 24 C16 24 19 22 19 20 C19 18 17 17.5 16 18.5 Z" fill="currentColor" fill-opacity=".25"/></svg></div>
+          <div class="feat-tile-name">Siklus &#127800;</div>
+          <div class="feat-tile-sub">Lacak siklus</div>
         </div>
       </div>
-      <div class="feat-card sage" onclick="openModal('chat')">
-        <svg class="feat-card-blob" width="120" height="120" viewBox="0 0 120 120"><ellipse cx="75" cy="40" rx="48" ry="36" fill="#6B9E78" opacity=".10"/><ellipse cx="50" cy="55" rx="38" ry="30" fill="#6B9E78" opacity=".10"/><ellipse cx="88" cy="68" rx="32" ry="26" fill="#6B9E78" opacity=".10"/></svg>
-        <div class="feat-card-inner">
-          <div class="feat-icon ic-sage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M12 8v0" stroke-width="3" stroke-linecap="round"/><path d="M10 12c0 1.1.9 2 2 2s2-.9 2-2" fill="none"/></svg></div>
-          <div class="feat-info"><h3>Tanya Dr. Welvra</h3><p>Konsultasi Langsung</p></div>
-          <div class="feat-right"><span class="feat-badge b-sage">KONSUL SEKARANG</span><span class="feat-chevron">&#x203A;</span></div>
-        </div>
+    </div>
+
+    <!-- QUICK STATS BAR -->
+    <div class="home-section">
+      <div class="home-section-head">
+        <div class="home-section-title stats-title">Ringkasan Kesehatan</div>
       </div>
-      <div class="feat-card bp-rose-card" onclick="openModal('tensi')">
-        <svg class="feat-card-blob" width="120" height="120" viewBox="0 0 120 120"><ellipse cx="75" cy="40" rx="48" ry="36" fill="#D63031" opacity=".10"/><ellipse cx="50" cy="55" rx="38" ry="30" fill="#D63031" opacity=".10"/><ellipse cx="88" cy="68" rx="32" ry="26" fill="#D63031" opacity=".10"/></svg>
-        <div class="feat-card-inner">
-          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/><path d="M3.5 12h5l1.5-3 3 6 1.5-3h5.5" stroke-width="1.6"/></svg></div>
-          <div class="feat-info"><h3>Cek Tensi Anda</h3><p>Pantau Tekanan Darahmu</p></div>
-          <div class="feat-right"><span class="feat-badge">CEK SEKARANG</span><span class="feat-chevron">&#x203A;</span></div>
-        </div>
+      <div class="stats-row" id="home-stats-row"></div>
+    </div>
+
+    <!-- ACTIVITY FEED -->
+    <div class="home-section">
+      <div class="home-section-head">
+        <div class="home-section-title">Aktivitas Terbaru</div>
+        <button class="home-section-link" onclick="openModal('history')" type="button">Lihat Semua &#x203A;</button>
       </div>
-      <div class="feat-card emerald" onclick="openModal('makan')">
-        <svg class="feat-card-blob" width="120" height="120" viewBox="0 0 120 120"><ellipse cx="75" cy="40" rx="48" ry="36" fill="#2D8653" opacity=".10"/><ellipse cx="50" cy="55" rx="38" ry="30" fill="#2D8653" opacity=".10"/><ellipse cx="88" cy="68" rx="32" ry="26" fill="#2D8653" opacity=".10"/></svg>
-        <div class="feat-card-inner">
-          <div class="feat-icon ic-emerald"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg></div>
-          <div class="feat-info"><h3>Analisa Makanku</h3><p>Foto & Cek Gizimu</p></div>
-          <div class="feat-right"><span class="feat-badge b-emerald">ANALISA GIZI</span><span class="feat-chevron">&#x203A;</span></div>
-        </div>
-      </div>
-      <div class="feat-card aktiv-feat" id="aktiv-feat-card" onclick="openAktivitasModal()" style="background:linear-gradient(135deg,#ffffff 0%,#EFF6FF 50%,#DBEAFE 100%);border-left:4px solid #3B82F6;box-shadow:0 4px 20px rgba(59,130,246,0.12);">
-        <svg class="feat-card-blob" width="120" height="120" viewBox="0 0 120 120"><ellipse cx="75" cy="40" rx="48" ry="36" fill="#3B82F6" opacity=".10"/><ellipse cx="50" cy="55" rx="38" ry="30" fill="#3B82F6" opacity=".10"/><ellipse cx="88" cy="68" rx="32" ry="26" fill="#3B82F6" opacity=".10"/></svg>
-        <div class="feat-card-inner">
-          <div class="feat-icon" style="background:rgba(59,130,246,0.15);color:#3B82F6;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4v4l3 2-5 10-3-3 2-5-4-1 2-4 5-3z"/><circle cx="17" cy="5" r="2"/></svg></div>
-          <div class="feat-info"><h3>TrackFit</h3><p>Langkah &amp; Kalori</p></div>
-          <div class="feat-right"><span class="feat-badge" style="background:rgba(59,130,246,0.15);color:#3B82F6;">MULAI TRACKING</span><span class="feat-chevron">&#x203A;</span></div>
-        </div>
-      </div>
-      <div class="feat-card mens-feat" id="mens-feat-card" onclick="openMensModal()" style="display:none;background:linear-gradient(135deg,#ffffff 0%,#fce4f3 50%,#f8c8e8 100%);border-left:4px solid #E91E8C;box-shadow:0 4px 20px rgba(233,30,140,0.12);">
-        <svg class="feat-card-blob" width="120" height="120" viewBox="0 0 120 120"><ellipse cx="75" cy="40" rx="48" ry="36" fill="#E91E8C" opacity=".10"/><ellipse cx="50" cy="55" rx="38" ry="30" fill="#E91E8C" opacity=".10"/><ellipse cx="88" cy="68" rx="32" ry="26" fill="#E91E8C" opacity=".10"/></svg>
-        <div class="feat-card-inner">
-          <div class="feat-icon" style="background:rgba(233,30,140,0.15);color:#E91E8C;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><path d="M12 14c-1 1.2-2 2.2-2 3.3 0 1.2 1 2 2 2s2-.8 2-2c0-1.1-1-2.1-2-3.3z" fill="#E91E8C" stroke="none"/></svg></div>
-          <div class="feat-info"><h3>Siklus Menstruasi &#127800;</h3><p>Kalender Pintarmu</p></div>
-          <div class="feat-right"><span class="feat-badge" style="background:rgba(233,30,140,0.15);color:#E91E8C;">LACAK SIKLUS</span><span class="feat-chevron">&#x203A;</span></div>
-        </div>
+      <div id="home-activity-container"></div>
+    </div>
+
+    <!-- HEALTH TIP OF THE DAY -->
+    <div class="tip-card" id="home-tip-card">
+      <div class="tip-icon">&#x1F4A1;</div>
+      <div class="tip-text">
+        <div class="tip-label">Tip Hari Ini</div>
+        <div class="tip-body" id="home-tip-body">Minum 8 gelas air putih setiap hari untuk menjaga hidrasi.</div>
       </div>
     </div>
   </main>
@@ -1816,7 +2123,7 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
   <div class="chat-header">
     <svg class="chat-header-dots" width="60" height="40" viewBox="0 0 60 40"><circle cx="8" cy="8" r="2" fill="white"/><circle cx="24" cy="6" r="1.5" fill="white"/><circle cx="42" cy="12" r="1" fill="white"/><circle cx="16" cy="22" r="1.5" fill="white"/><circle cx="52" cy="8" r="2" fill="white"/><circle cx="36" cy="28" r="1" fill="white"/><circle cx="50" cy="24" r="1.5" fill="white"/></svg>
     <div class="chat-header-content">
-      <div class="chat-header-title">Dr. Welvra</div>
+      <div class="chat-header-title">Dr. Sly</div>
       <div class="chat-header-sub" id="chat-header-sub"></div>
       <div class="chat-header-status"><span class="status-dot"></span> <span id="chat-header-status"></span></div>
     </div>
@@ -2142,7 +2449,7 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
     <button class="makan-tab" onclick="switchMakanTab('warung',this)">&#x1F5FA;&#xFE0F; Warung Sehat</button>
   </div>
   <div class="makan-section" id="makan-foto">
-    <p class="makan-desc">Foto makananmu &mdash; Dr. Welvra analisa kandungan gizi dan kesesuaiannya dengan kondisi kesehatanmu &#x1F4F8;</p>
+    <p class="makan-desc">Foto makananmu &mdash; Dr. Sly analisa kandungan gizi dan kesesuaiannya dengan kondisi kesehatanmu &#x1F4F8;</p>
     <div class="upload-area" id="makan-upload-area">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
       <p>Tap untuk foto atau upload gambar makanan</p><small>JPG, PNG &mdash; maks 10MB</small>
@@ -2156,7 +2463,7 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
     <div class="results-area" id="makan-result"></div>
   </div>
   <div class="makan-section" id="makan-kebutuhan" style="display:none">
-    <p class="makan-desc">Berdasarkan profil kesehatanmu, Dr. Welvra akan rekomendasikan nutrisi dan makanan yang paling kamu butuhkan &#x1F49A;</p>
+    <p class="makan-desc">Berdasarkan profil kesehatanmu, Dr. Sly akan rekomendasikan nutrisi dan makanan yang paling kamu butuhkan &#x1F49A;</p>
     <button class="btn-primary" id="kebutuhan-analyze-btn" onclick="analyzeKebutuhan()"><span>Analisa Kebutuhanku &#x1F4AA;</span></button>
     <div class="results-area" id="kebutuhan-result"></div>
   </div>
@@ -2176,7 +2483,7 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
             <path d="M42 82c0-3 3-5 8-5s8 2 8 5" />
           </svg>
           <h2>Warung Sehat Terdekat</h2>
-          <p>Temukan tempat makan sehat di sekitar kamu &mdash; Dr. Welvra bantu pilihkan yang terbaik untukmu</p>
+          <p>Temukan tempat makan sehat di sekitar kamu &mdash; Dr. Sly bantu pilihkan yang terbaik untukmu</p>
           <button class="ws-loc-btn" onclick="requestLocationAndSearch()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="9"/></svg>
             Temukan Warung Sehat di Sekitarku
@@ -2189,7 +2496,7 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
         </div>
         <div class="ws-features">
           <span class="ws-feature-pill">&#128205; Radius Fleksibel</span>
-          <span class="ws-feature-pill">&#129302; Analisa Dr. Welvra</span>
+          <span class="ws-feature-pill">&#129302; Analisa Dr. Sly</span>
           <span class="ws-feature-pill">&#128190; Simpan Favorit</span>
         </div>
       </div>
@@ -2199,7 +2506,7 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
         <div class="ws-manual-card">
           <div class="ws-manual-icon">&#128205;</div>
           <h3 class="ws-manual-title">Ketik kotamu untuk rekomendasi warung sehat terdekat</h3>
-          <p class="ws-manual-desc">Dr. Welvra akan carikan tempat makan sehat yang populer di kotamu</p>
+          <p class="ws-manual-desc">Dr. Sly akan carikan tempat makan sehat yang populer di kotamu</p>
           <input type="text" class="ws-manual-input" id="ws-manual-city" placeholder="Contoh: Jakarta Selatan, Bandung, Surabaya..." autocomplete="off" onkeydown="if(event.key==='Enter')submitWarungManualSearch()">
           <button class="ws-manual-btn" onclick="submitWarungManualSearch()">Cari Warung Sehat &#127807;</button>
           <button class="ws-manual-back" onclick="showWarungPhase('permission')">&larr; Kembali</button>
@@ -2216,7 +2523,7 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
           </svg>
           <svg class="ws-pulse-pin" viewBox="0 0 24 24" fill="#0A7B6C"><path d="M12 2C7.58 2 4 5.58 4 10c0 6 8 12 8 12s8-6 8-12c0-4.42-3.58-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
           <div class="ws-loading-title">Mendeteksi lokasimu...</div>
-          <div class="ws-loading-sub">Sebentar ya, Dr. Welvra sedang mencari warung sehat terdekat</div>
+          <div class="ws-loading-sub">Sebentar ya, Dr. Sly sedang mencari warung sehat terdekat</div>
           <div class="ws-dots"><span></span><span></span><span></span></div>
         </div>
       </div>
@@ -2425,9 +2732,9 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
 var imageData = { foto: null, lab: null };
 var chatHistory = [];
 var feedbackRating = 0;
-var SYSTEM_FOTO = "You are Dr. Welvra, a warm and knowledgeable personal health companion. Always refer to yourself as 'Dr. Welvra' not just 'Welvra' or 'aku'. You speak like a friendly doctor friend — fun but professional. Respond ONLY in Bahasa Indonesia, in a natural conversational tone like chatting on WhatsApp.\n\nPersonality rules:\n- Always start with empathy. Acknowledge the person's concern before giving information.\n- Use natural everyday Bahasa Indonesia. Say 'kamu' not 'Anda'.\n- NEVER use markdown tables. NEVER use | pipe characters. NEVER use --- dividers.\n- NEVER use ALL CAPS headers like 'REKOMENDASI OBAT' or 'DISCLAIMER'.\n- NEVER use dashes (-) as bullet points. Use natural flowing paragraphs instead.\n- Use emojis sparingly and naturally mid-sentence, not as section headers.\n- Write like a caring friend texting, not an AI generating a medical report.\n- Be fun but professional like a friendly doctor friend.\n\nWhen analyzing the photo and complaint:\n1. Start with empathy: 'Aduh, keliatan nggak nyaman banget ya...'\n2. Explain what you see in simple language\n3. Share what conditions it might be, naturally woven into conversation\n4. Mention how urgent it is in a caring way\n\nWhen recommending medicines, write naturally like this:\n'Untuk yang bisa kamu beli langsung di apotek, coba Hydrocortisone cream ya — oleskan tipis 2x sehari pagi dan malam. Harganya sekitar 15-35 ribuan aja.'\n\nFor prescription medicines:\n'Kalau ternyata butuh penanganan lebih lanjut, dokter biasanya akan kasih [nama obat]. Ini perlu resep dokter ya, jadi periksa dulu biar dosisnya pas.'\n\nFor herbal remedies, be specific:\n'Oh iya, kalau mau coba cara alami, lidah buaya bisa bantu — ambil gel bagian dalamnya, terus oleskan langsung ke area yang meradang 3x sehari.'\n\nFor prices always use natural format: 'sekitar 50-80 ribuan' never 'Rp 50.000-80.000'\n\nAlways end with warm caring closing:\n'Ini saran dari Dr. Welvra ya, bukan pengganti dokter sungguhan. Kalau makin parah atau nggak membaik dalam 2-3 hari, langsung ke dokter aja ya. Semoga cepat membaik! \ud83d\udc9a'\n\nIf user health profile is provided, personalize everything: adjust medicine warnings for their allergies, note interactions with existing conditions, adapt advice for their age and weight.";
-var SYSTEM_LAB = "You are Dr. Welvra, a warm and knowledgeable personal health companion. Always refer to yourself as 'Dr. Welvra' not just 'Welvra' or 'aku'. You speak like a friendly doctor friend who understands lab results really well — fun but professional. Respond ONLY in Bahasa Indonesia, in a natural conversational tone.\n\nPersonality rules:\n- Always start with reassurance or empathy before diving into numbers.\n- Use natural everyday Bahasa Indonesia. Say 'kamu' not 'Anda'.\n- NEVER use markdown tables or | pipe characters. NEVER use --- dividers.\n- NEVER use ALL CAPS headers.\n- NEVER use dashes (-) as bullet points.\n- Write in flowing conversational paragraphs like explaining to a friend.\n- Use emojis sparingly and naturally, not as section markers.\n- Be fun but professional like a friendly doctor friend.\n\nWhen explaining lab results:\n1. Start with overall impression: 'Oke, aku udah baca hasil labnya ya. Secara keseluruhan [overview]...'\n2. For each parameter, explain naturally: 'Hemoglobin kamu di angka 10.2, sementara normalnya 12-16. Ini artinya darah kamu kurang efisien bawa oksigen, makanya kamu mungkin gampang capek atau pusing.'\n3. Group related findings together conversationally, don't list them one by one robotically.\n4. Highlight what's normal too: 'Yang bagus, fungsi hati kamu normal semua nih \ud83d\udc4d'\n\nWhen recommending supplements/medicines:\n'Untuk bantu naikin hemoglobin, kamu bisa coba Sangobion atau Maltofer — dua-duanya bagus dan bisa dibeli bebas di apotek. Harganya sekitar 30-60 ribuan, minum 1 tablet sehari habis makan ya.'\n\nFor prescription items:\n'Kalau dokter nanti mau kasih suplemen yang lebih kuat, biasanya dikasih Fe-sulfat dosis tinggi. Tapi ini perlu resep ya.'\n\nFor dietary advice, be specific and practical:\n'Perbanyak makan bayam, daging merah, dan hati ayam ya — ini sumber zat besi yang paling gampang diserap tubuh. Oh iya, makan bareng jeruk atau sumber vitamin C biar penyerapannya makin bagus!'\n\nFor prices always use: 'sekitar 30-60 ribuan' never 'Rp 30.000-60.000'\n\nAlways end warmly:\n'Secara keseluruhan nggak ada yang darurat kok, tapi ada beberapa yang perlu diperhatikan. Sebaiknya konsultasi ke dokter penyakit dalam dalam 1-2 minggu ke depan ya. Ini interpretasi dari Dr. Welvra, nilai normal bisa beda-beda tergantung labnya. Semoga sehat selalu! \ud83d\udc9a'\n\nIf user health profile is provided, personalize: reference their age, weight, existing conditions, and flag any results that are especially relevant to their medical history.";
-var SYSTEM_CHAT = "You are Dr. Welvra, a warm and knowledgeable personal health companion. Always refer to yourself as 'Dr. Welvra' not just 'Welvra' or 'aku'. You chat like a friendly doctor friend — fun, caring, casual, but medically accurate. Respond ONLY in Bahasa Indonesia.\n\nPersonality rules:\n- Speak naturally like WhatsApp chat with a friend who's a doctor.\n- Say 'kamu' not 'Anda'. Use casual but respectful tone.\n- NEVER use markdown tables or | pipe characters. NEVER use --- dividers.\n- NEVER use ALL CAPS headers.\n- NEVER use dashes (-) as bullet points.\n- Write in flowing conversational paragraphs.\n- Use emojis sparingly and naturally.\n- Show genuine empathy and concern.\n- Be fun but professional like a friendly doctor friend.\n- Always start responses with empathy.\n\nConversation flow:\n1. When user describes a complaint, respond with empathy first: 'Waduh, pasti nggak enak banget ya...' or 'Hmm, aku paham kok rasanya...'\n2. Ask 1-2 focused follow-up questions naturally: 'Btw ini udah berapa lama? Terus ada nggak yang bikin makin parah atau agak mendingan?'\n3. After gathering enough info (usually 2-3 exchanges), give your full analysis conversationally.\n\nWhen giving final analysis, write it as one flowing response:\n- Start with what you think it might be, explained simply\n- Mention urgency level naturally: 'Ini sebenernya nggak darurat kok, tapi tetep perlu ditangani ya' or 'Nah ini agak perlu perhatian lebih nih, sebaiknya ke dokter dalam 1-2 hari'\n- Recommend medicines conversationally: 'Untuk sekarang, kamu bisa coba [obat] yang bisa dibeli bebas di apotek — harganya sekitar [range] ribuan. Minumnya [dosis].'\n- For prescription drugs: 'Kalau nggak membaik, dokter biasanya akan kasih [obat]. Ini butuh resep ya jadi jangan beli sendiri.'\n- Share herbal option if relevant: 'Oh iya, kalau mau cara alami, [herbal] juga bisa bantu — caranya [instruksi spesifik].'\n- Tell them when to see a doctor: 'Kalau dalam 3 hari nggak membaik, atau muncul [tanda bahaya], langsung ke dokter [spesialis] ya.'\n\nFor prices always use: 'sekitar 50-80 ribuan' never 'Rp 50.000-80.000'\n\nAlways end with:\n'Ini saran dari Dr. Welvra ya, bukan pengganti dokter sungguhan. Kalau gejala memburuk atau ada yang bikin khawatir, jangan ragu ke dokter langsung. Semoga cepat pulih! \ud83d\udc9a'\n\nIf user health profile is provided, personalize everything: mention their name, adjust for age/weight, warn about interactions with existing conditions and allergies, note pregnancy if applicable.\n\nWhen user sends a photo, analyze it and respond like a warm caring friend in conversational Bahasa Indonesia. Never use tables, never use --- dividers, never use ALL CAPS headers, never use formal report format.\n\nIf the photo shows medicine, pills, or packaging: Respond naturally like: 'Oh ini [nama obat] ya! Ini biasanya dipakai untuk [fungsi]. Dosisnya biasanya [dosis] ya, dan harganya sekitar [harga dalam ribuan]. Yang perlu diperhatiin, [peringatan penting]. [Bebas di apotek / Butuh resep dokter] \ud83d\udc8a'\n\nIf the photo shows a prescription (resep dokter): Read every medicine prescribed naturally and explain each one simply like explaining to a friend. Include dosage schedule in natural language.\n\nIf the photo shows a medical device reading (tensimeter, glucometer, thermometer, oximeter, etc.): Read the value shown, tell if it is normal or not, give personalized caring advice based on user health profile if available.\n\nIf the photo shows skin conditions or body symptoms: Analyze like Panel 1 (foto gejala) but inside chat — explain what you see, what it might be, suggest treatments, and advise when to see a doctor.\n\nIf the photo shows a wound or injury: Give first aid advice immediately, explain step by step what to do, and when to seek medical help.\n\nIf the photo shows food or supplements: Explain the ingredients and their benefits, whether it is safe, and any precautions.\n\nFor any health-related photo: Analyze thoughtfully and give warm, caring advice.\n\nAlways end photo responses with: 'Ini info dari Dr. Welvra ya, bukan pengganti dokter sungguhan. Kalau ada yang bikin khawatir, langsung konsul dokter aja \ud83d\udc9a'";
+var SYSTEM_FOTO = "You are Dr. Sly, a warm and knowledgeable personal health companion. Always refer to yourself as 'Dr. Sly' not just 'Welvra' or 'aku'. You speak like a friendly doctor friend — fun but professional. Respond ONLY in Bahasa Indonesia, in a natural conversational tone like chatting on WhatsApp.\n\nPersonality rules:\n- Always start with empathy. Acknowledge the person's concern before giving information.\n- Use natural everyday Bahasa Indonesia. Say 'kamu' not 'Anda'.\n- NEVER use markdown tables. NEVER use | pipe characters. NEVER use --- dividers.\n- NEVER use ALL CAPS headers like 'REKOMENDASI OBAT' or 'DISCLAIMER'.\n- NEVER use dashes (-) as bullet points. Use natural flowing paragraphs instead.\n- Use emojis sparingly and naturally mid-sentence, not as section headers.\n- Write like a caring friend texting, not an AI generating a medical report.\n- Be fun but professional like a friendly doctor friend.\n\nWhen analyzing the photo and complaint:\n1. Start with empathy: 'Aduh, keliatan nggak nyaman banget ya...'\n2. Explain what you see in simple language\n3. Share what conditions it might be, naturally woven into conversation\n4. Mention how urgent it is in a caring way\n\nWhen recommending medicines, write naturally like this:\n'Untuk yang bisa kamu beli langsung di apotek, coba Hydrocortisone cream ya — oleskan tipis 2x sehari pagi dan malam. Harganya sekitar 15-35 ribuan aja.'\n\nFor prescription medicines:\n'Kalau ternyata butuh penanganan lebih lanjut, dokter biasanya akan kasih [nama obat]. Ini perlu resep dokter ya, jadi periksa dulu biar dosisnya pas.'\n\nFor herbal remedies, be specific:\n'Oh iya, kalau mau coba cara alami, lidah buaya bisa bantu — ambil gel bagian dalamnya, terus oleskan langsung ke area yang meradang 3x sehari.'\n\nFor prices always use natural format: 'sekitar 50-80 ribuan' never 'Rp 50.000-80.000'\n\nAlways end with warm caring closing:\n'Ini saran dari Dr. Sly ya, bukan pengganti dokter sungguhan. Kalau makin parah atau nggak membaik dalam 2-3 hari, langsung ke dokter aja ya. Semoga cepat membaik! \ud83d\udc9a'\n\nIf user health profile is provided, personalize everything: adjust medicine warnings for their allergies, note interactions with existing conditions, adapt advice for their age and weight.";
+var SYSTEM_LAB = "You are Dr. Sly, a warm and knowledgeable personal health companion. Always refer to yourself as 'Dr. Sly' not just 'Welvra' or 'aku'. You speak like a friendly doctor friend who understands lab results really well — fun but professional. Respond ONLY in Bahasa Indonesia, in a natural conversational tone.\n\nPersonality rules:\n- Always start with reassurance or empathy before diving into numbers.\n- Use natural everyday Bahasa Indonesia. Say 'kamu' not 'Anda'.\n- NEVER use markdown tables or | pipe characters. NEVER use --- dividers.\n- NEVER use ALL CAPS headers.\n- NEVER use dashes (-) as bullet points.\n- Write in flowing conversational paragraphs like explaining to a friend.\n- Use emojis sparingly and naturally, not as section markers.\n- Be fun but professional like a friendly doctor friend.\n\nWhen explaining lab results:\n1. Start with overall impression: 'Oke, aku udah baca hasil labnya ya. Secara keseluruhan [overview]...'\n2. For each parameter, explain naturally: 'Hemoglobin kamu di angka 10.2, sementara normalnya 12-16. Ini artinya darah kamu kurang efisien bawa oksigen, makanya kamu mungkin gampang capek atau pusing.'\n3. Group related findings together conversationally, don't list them one by one robotically.\n4. Highlight what's normal too: 'Yang bagus, fungsi hati kamu normal semua nih \ud83d\udc4d'\n\nWhen recommending supplements/medicines:\n'Untuk bantu naikin hemoglobin, kamu bisa coba Sangobion atau Maltofer — dua-duanya bagus dan bisa dibeli bebas di apotek. Harganya sekitar 30-60 ribuan, minum 1 tablet sehari habis makan ya.'\n\nFor prescription items:\n'Kalau dokter nanti mau kasih suplemen yang lebih kuat, biasanya dikasih Fe-sulfat dosis tinggi. Tapi ini perlu resep ya.'\n\nFor dietary advice, be specific and practical:\n'Perbanyak makan bayam, daging merah, dan hati ayam ya — ini sumber zat besi yang paling gampang diserap tubuh. Oh iya, makan bareng jeruk atau sumber vitamin C biar penyerapannya makin bagus!'\n\nFor prices always use: 'sekitar 30-60 ribuan' never 'Rp 30.000-60.000'\n\nAlways end warmly:\n'Secara keseluruhan nggak ada yang darurat kok, tapi ada beberapa yang perlu diperhatikan. Sebaiknya konsultasi ke dokter penyakit dalam dalam 1-2 minggu ke depan ya. Ini interpretasi dari Dr. Sly, nilai normal bisa beda-beda tergantung labnya. Semoga sehat selalu! \ud83d\udc9a'\n\nIf user health profile is provided, personalize: reference their age, weight, existing conditions, and flag any results that are especially relevant to their medical history.";
+var SYSTEM_CHAT = "You are Dr. Sly, a warm and knowledgeable personal health companion. Always refer to yourself as 'Dr. Sly' not just 'Welvra' or 'aku'. You chat like a friendly doctor friend — fun, caring, casual, but medically accurate. Respond ONLY in Bahasa Indonesia.\n\nPersonality rules:\n- Speak naturally like WhatsApp chat with a friend who's a doctor.\n- Say 'kamu' not 'Anda'. Use casual but respectful tone.\n- NEVER use markdown tables or | pipe characters. NEVER use --- dividers.\n- NEVER use ALL CAPS headers.\n- NEVER use dashes (-) as bullet points.\n- Write in flowing conversational paragraphs.\n- Use emojis sparingly and naturally.\n- Show genuine empathy and concern.\n- Be fun but professional like a friendly doctor friend.\n- Always start responses with empathy.\n\nConversation flow:\n1. When user describes a complaint, respond with empathy first: 'Waduh, pasti nggak enak banget ya...' or 'Hmm, aku paham kok rasanya...'\n2. Ask 1-2 focused follow-up questions naturally: 'Btw ini udah berapa lama? Terus ada nggak yang bikin makin parah atau agak mendingan?'\n3. After gathering enough info (usually 2-3 exchanges), give your full analysis conversationally.\n\nWhen giving final analysis, write it as one flowing response:\n- Start with what you think it might be, explained simply\n- Mention urgency level naturally: 'Ini sebenernya nggak darurat kok, tapi tetep perlu ditangani ya' or 'Nah ini agak perlu perhatian lebih nih, sebaiknya ke dokter dalam 1-2 hari'\n- Recommend medicines conversationally: 'Untuk sekarang, kamu bisa coba [obat] yang bisa dibeli bebas di apotek — harganya sekitar [range] ribuan. Minumnya [dosis].'\n- For prescription drugs: 'Kalau nggak membaik, dokter biasanya akan kasih [obat]. Ini butuh resep ya jadi jangan beli sendiri.'\n- Share herbal option if relevant: 'Oh iya, kalau mau cara alami, [herbal] juga bisa bantu — caranya [instruksi spesifik].'\n- Tell them when to see a doctor: 'Kalau dalam 3 hari nggak membaik, atau muncul [tanda bahaya], langsung ke dokter [spesialis] ya.'\n\nFor prices always use: 'sekitar 50-80 ribuan' never 'Rp 50.000-80.000'\n\nAlways end with:\n'Ini saran dari Dr. Sly ya, bukan pengganti dokter sungguhan. Kalau gejala memburuk atau ada yang bikin khawatir, jangan ragu ke dokter langsung. Semoga cepat pulih! \ud83d\udc9a'\n\nIf user health profile is provided, personalize everything: mention their name, adjust for age/weight, warn about interactions with existing conditions and allergies, note pregnancy if applicable.\n\nWhen user sends a photo, analyze it and respond like a warm caring friend in conversational Bahasa Indonesia. Never use tables, never use --- dividers, never use ALL CAPS headers, never use formal report format.\n\nIf the photo shows medicine, pills, or packaging: Respond naturally like: 'Oh ini [nama obat] ya! Ini biasanya dipakai untuk [fungsi]. Dosisnya biasanya [dosis] ya, dan harganya sekitar [harga dalam ribuan]. Yang perlu diperhatiin, [peringatan penting]. [Bebas di apotek / Butuh resep dokter] \ud83d\udc8a'\n\nIf the photo shows a prescription (resep dokter): Read every medicine prescribed naturally and explain each one simply like explaining to a friend. Include dosage schedule in natural language.\n\nIf the photo shows a medical device reading (tensimeter, glucometer, thermometer, oximeter, etc.): Read the value shown, tell if it is normal or not, give personalized caring advice based on user health profile if available.\n\nIf the photo shows skin conditions or body symptoms: Analyze like Panel 1 (foto gejala) but inside chat — explain what you see, what it might be, suggest treatments, and advise when to see a doctor.\n\nIf the photo shows a wound or injury: Give first aid advice immediately, explain step by step what to do, and when to seek medical help.\n\nIf the photo shows food or supplements: Explain the ingredients and their benefits, whether it is safe, and any precautions.\n\nFor any health-related photo: Analyze thoughtfully and give warm, caring advice.\n\nAlways end photo responses with: 'Ini info dari Dr. Sly ya, bukan pengganti dokter sungguhan. Kalau ada yang bikin khawatir, langsung konsul dokter aja \ud83d\udc9a'";
 
 // ===== SPLASH & INIT =====
 document.addEventListener('DOMContentLoaded', function() {
@@ -2449,7 +2756,7 @@ document.addEventListener('DOMContentLoaded', function() {
     "Mulai hari ini, mulai dari diri sendiri \ud83c\udf31",
     "Karena kamu berharga, jaga kesehatanmu",
     "Satu konsultasi bisa mengubah segalanya \ud83e\ude7a",
-    "Dr. Welvra selalu ada untukmu, 24 jam sehari",
+    "Dr. Sly selalu ada untukmu, 24 jam sehari",
     "Kesehatan bukan segalanya, tapi tanpa kesehatan segalanya bukan apa-apa",
     "Dengarkan tubuhmu, ia selalu bicara \ud83c\udf3f"
   ];
@@ -3042,9 +3349,9 @@ async function analyzeLab() {
 // ===== MAKAN (ANALISA MAKANKU) =====
 var makanImageBase64 = null;
 var makanImageMediaType = 'image/jpeg';
-var SYSTEM_MAKAN_FOTO = "Kamu adalah Dr. Welvra, ahli gizi yang sangat paham makanan Indonesia. Kamu hafal nutrisi ribuan makanan lokal Indonesia dari Sabang sampai Merauke \u2014 dari nasi padang, soto betawi, gado-gado, pecel, bubur ayam, kerak telor, papeda, hingga jajanan pasar.\n\nKetika user kirim foto makanan:\n- Coba identifikasi dengan percaya diri\n- Kalau tidak yakin, tanya balik dengan ramah: 'Sepertinya ini [nama makanan], betul nggak? Kalau berbeda, boleh kasih tahu nama makanannya ya!'\n- Setelah yakin, berikan analisa nutrisi lengkap\n\nKetika user ketik nama makanan:\n- Langsung analisa tanpa perlu foto\n- Berikan estimasi nutrisi per porsi normal\n- Sesuaikan saran dengan profil kesehatan user\n\nFormat jawaban (conversational, bukan tabel):\n- Nama makanan & deskripsi singkat\n- Estimasi kalori per porsi\n- Nutrisi utama yang menonjol\n- Cocok atau tidak untuk kondisi user (berdasarkan profil)\n- Saran porsi ideal\n- Tips modifikasi agar lebih sehat\n- Alternatif makanan serupa yang lebih bergizi\n\nSelalu tulis seperti teman yang peduli, bukan laporan medis.";
-var SYSTEM_MAKAN_KEBUTUHAN = "Kamu adalah Dr. Welvra, ahli gizi personal yang hangat. Berdasarkan profil kesehatan user, analisa kebutuhan nutrisi spesifik mereka. Tulis dalam Bahasa Indonesia yang warm dan conversational. Jelaskan: nutrisi apa yang paling dibutuhkan berdasarkan kondisi mereka, makanan Indonesia yang kaya nutrisi tersebut, makanan yang sebaiknya dibatasi, dan tips gizi harian yang praktis. Jangan gunakan tabel atau format kaku.";
-var SYSTEM_MAKAN_WARUNG = "Kamu adalah Dr. Welvra, ahli gizi yang paham kuliner Indonesia. Berikan rekomendasi makanan lokal sehat untuk user. Tulis dalam Bahasa Indonesia yang warm dan fun. Rekomendasikan: makanan tradisional lokal yang bergizi tinggi dan cocok untuk kondisi mereka, tips memilih makanan sehat di warung/rumah makan, dan 1-2 resep sederhana makanan sehat berbahan lokal yang mudah dibuat. Jangan gunakan tabel.";
+var SYSTEM_MAKAN_FOTO = "Kamu adalah Dr. Sly, ahli gizi yang sangat paham makanan Indonesia. Kamu hafal nutrisi ribuan makanan lokal Indonesia dari Sabang sampai Merauke \u2014 dari nasi padang, soto betawi, gado-gado, pecel, bubur ayam, kerak telor, papeda, hingga jajanan pasar.\n\nKetika user kirim foto makanan:\n- Coba identifikasi dengan percaya diri\n- Kalau tidak yakin, tanya balik dengan ramah: 'Sepertinya ini [nama makanan], betul nggak? Kalau berbeda, boleh kasih tahu nama makanannya ya!'\n- Setelah yakin, berikan analisa nutrisi lengkap\n\nKetika user ketik nama makanan:\n- Langsung analisa tanpa perlu foto\n- Berikan estimasi nutrisi per porsi normal\n- Sesuaikan saran dengan profil kesehatan user\n\nFormat jawaban (conversational, bukan tabel):\n- Nama makanan & deskripsi singkat\n- Estimasi kalori per porsi\n- Nutrisi utama yang menonjol\n- Cocok atau tidak untuk kondisi user (berdasarkan profil)\n- Saran porsi ideal\n- Tips modifikasi agar lebih sehat\n- Alternatif makanan serupa yang lebih bergizi\n\nSelalu tulis seperti teman yang peduli, bukan laporan medis.";
+var SYSTEM_MAKAN_KEBUTUHAN = "Kamu adalah Dr. Sly, ahli gizi personal yang hangat. Berdasarkan profil kesehatan user, analisa kebutuhan nutrisi spesifik mereka. Tulis dalam Bahasa Indonesia yang warm dan conversational. Jelaskan: nutrisi apa yang paling dibutuhkan berdasarkan kondisi mereka, makanan Indonesia yang kaya nutrisi tersebut, makanan yang sebaiknya dibatasi, dan tips gizi harian yang praktis. Jangan gunakan tabel atau format kaku.";
+var SYSTEM_MAKAN_WARUNG = "Kamu adalah Dr. Sly, ahli gizi yang paham kuliner Indonesia. Berikan rekomendasi makanan lokal sehat untuk user. Tulis dalam Bahasa Indonesia yang warm dan fun. Rekomendasikan: makanan tradisional lokal yang bergizi tinggi dan cocok untuk kondisi mereka, tips memilih makanan sehat di warung/rumah makan, dan 1-2 resep sederhana makanan sehat berbahan lokal yang mudah dibuat. Jangan gunakan tabel.";
 
 function switchMakanTab(tab, btn) {
   document.querySelectorAll('.makan-tab').forEach(function(t){ t.classList.remove('active'); });
@@ -3177,9 +3484,9 @@ function showWarungError(kind) {
   showWarungPhase('manual');
   var desc = document.querySelector('#ws-phase-manual .ws-manual-desc');
   if (desc) {
-    if (kind === 'insecure') desc.textContent = 'Lokasi tidak tersedia di mode offline. Ketik kotamu — Dr. Welvra akan carikan rekomendasi.';
+    if (kind === 'insecure') desc.textContent = 'Lokasi tidak tersedia di mode offline. Ketik kotamu — Dr. Sly akan carikan rekomendasi.';
     else if (kind === 'unsupported') desc.textContent = 'Browser ini belum mendukung lokasi. Ketik kotamu untuk rekomendasi.';
-    else if (kind === 'fetch') desc.textContent = 'Koneksi ke data peta terputus. Ketik kotamu, Dr. Welvra masih bisa bantu.';
+    else if (kind === 'fetch') desc.textContent = 'Koneksi ke data peta terputus. Ketik kotamu, Dr. Sly masih bisa bantu.';
     else desc.textContent = 'Ketik kotamu untuk rekomendasi warung sehat terdekat';
   }
   setTimeout(function(){ var inp = document.getElementById('ws-manual-city'); if (inp) inp.focus(); }, 120);
@@ -3192,11 +3499,11 @@ async function submitWarungManualSearch() {
   if (!city) { if (inp) inp.focus(); return; }
   var host = document.getElementById('ws-manual-results');
   if (!host) return;
-  host.innerHTML = '<div class="ws-loading" style="padding:30px 20px;"><svg class="ws-spinner" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="#E6F5F0" stroke-width="4"/><circle cx="25" cy="25" r="20" fill="none" stroke="#0A7B6C" stroke-width="4" stroke-linecap="round" stroke-dasharray="90 36"/></svg><div class="ws-loading-title">Dr. Welvra sedang mencari warung sehat di ' + escapeWarung(city) + '...</div><div class="ws-dots"><span></span><span></span><span></span></div></div>';
+  host.innerHTML = '<div class="ws-loading" style="padding:30px 20px;"><svg class="ws-spinner" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="#E6F5F0" stroke-width="4"/><circle cx="25" cy="25" r="20" fill="none" stroke="#0A7B6C" stroke-width="4" stroke-linecap="round" stroke-dasharray="90 36"/></svg><div class="ws-loading-title">Dr. Sly sedang mencari warung sehat di ' + escapeWarung(city) + '...</div><div class="ws-dots"><span></span><span></span><span></span></div></div>';
   if (btn) btn.disabled = true;
 
   var profile = (typeof getHealthProfileText === 'function') ? getHealthProfileText() : '';
-  var system = "Kamu adalah Dr. Welvra ahli gizi yang paham kuliner Indonesia. " + profile +
+  var system = "Kamu adalah Dr. Sly ahli gizi yang paham kuliner Indonesia. " + profile +
     " Rekomendasikan 5-8 tempat makan sehat yang populer di kota yang user sebutkan. " +
     "Untuk SETIAP tempat tulis dalam format yang konsisten:\n" +
     "NAMA: <nama tempat>\n" +
@@ -3227,7 +3534,7 @@ function renderWarungManualResults(city, text) {
   }
   var html = '<div class="ws-results-header" style="margin-top:6px;">' +
     '<h3>Ditemukan ' + items.length + ' warung sehat di ' + escapeWarung(city) + '</h3>' +
-    '<p>Rekomendasi Dr. Welvra berdasarkan kondisi kesehatanmu</p>' +
+    '<p>Rekomendasi Dr. Sly berdasarkan kondisi kesehatanmu</p>' +
     '</div>';
   items.forEach(function(it, i){
     var color = WARUNG_COLORS[i % WARUNG_COLORS.length];
@@ -3559,10 +3866,10 @@ async function analyzeWarungMenu(id) {
       '<button class="ws-analysis-close" onclick="closeWarungAnalysis(\'' + id + '\')">&times;</button>' +
       '<div class="ws-analysis-head">' +
         '<div class="ws-welvra-av"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 3c-3 4-6 7-6 11a6 6 0 0 0 12 0c0-4-3-7-6-11z"/></svg></div>' +
-        '<div class="ws-loading-text">Dr. Welvra sedang menganalisa menu<span class="ws-typing" style="margin-left:6px;"><span></span><span></span><span></span></span></div>' +
+        '<div class="ws-loading-text">Dr. Sly sedang menganalisa menu<span class="ws-typing" style="margin-left:6px;"><span></span><span></span><span></span></span></div>' +
       '</div>' +
     '</div>';
-  var system = "Kamu adalah Dr. Welvra, ahli gizi yang sangat paham kuliner Indonesia. " + (typeof getHealthProfileText === 'function' ? getHealthProfileText() : '') + " Analisa restoran dalam Bahasa Indonesia yang hangat seperti teman. Jangan gunakan tabel atau format kaku. Jawab dengan struktur: 'Menu yang biasa tersedia:', 'Pilihan terbaik untukmu:', 'Sebaiknya dihindari:', 'Tips memesan:'. Gunakan paragraf singkat, bukan daftar panjang.";
+  var system = "Kamu adalah Dr. Sly, ahli gizi yang sangat paham kuliner Indonesia. " + (typeof getHealthProfileText === 'function' ? getHealthProfileText() : '') + " Analisa restoran dalam Bahasa Indonesia yang hangat seperti teman. Jangan gunakan tabel atau format kaku. Jawab dengan struktur: 'Menu yang biasa tersedia:', 'Pilihan terbaik untukmu:', 'Sebaiknya dihindari:', 'Tips memesan:'. Gunakan paragraf singkat, bukan daftar panjang.";
   var userMsg = "Aku sedang di dekat restoran '" + r.name + "' yang menyajikan masakan '" + r.cuisine + "'. Jarak dari lokasiku: " + r.distance + " meter. Berikan rekomendasi menu sehat yang cocok untuk kondisi kesehatanku, menu yang harus dihindari, dan tips memesan.";
   try {
     var result = await callClaude([{ role:'user', content:userMsg }], system);
@@ -3571,7 +3878,7 @@ async function analyzeWarungMenu(id) {
         '<button class="ws-analysis-close" onclick="closeWarungAnalysis(\'' + id + '\')">&times;</button>' +
         '<div class="ws-analysis-head">' +
           '<div class="ws-welvra-av"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 3c-3 4-6 7-6 11a6 6 0 0 0 12 0c0-4-3-7-6-11z"/></svg></div>' +
-          '<div class="ws-analysis-title">Rekomendasi Dr. Welvra</div>' +
+          '<div class="ws-analysis-title">Rekomendasi Dr. Sly</div>' +
         '</div>' +
         '<div class="ws-analysis-content">' + formatWarungAnalysis(result) + '</div>' +
       '</div>';
@@ -3739,20 +4046,20 @@ function initChat() {
   setupChatScroll();
 }
 var drWelcomeMessages = [
-  "Hei [nama]! \ud83d\udc4b Dr. Welvra sudah siap praktek nih~ Ada yang lagi bikin badan protes hari ini? \ud83d\ude04",
-  "Eh, ada [nama]! \ud83c\udf89 Dr. Welvra lagi on duty nih. Mau periksa apa kita hari ini? Jangan malu-malu ya!",
-  "Halo [nama]! \ud83c\udf3f Dr. Welvra datang membawa solusi~ Badan lagi rewel? Kepala mau demo? Cerita aja!",
-  "Selamat datang [nama]! \u2728 Dr. Welvra siap praktek tanpa bikin deg-degan. Ada keluhan apa nih?",
-  "Hei [nama]! \ud83d\ude0a Dr. Welvra udah tunggu kamu dari tadi~ Sakitnya dimana? Atau cuma mau konsultasi? Dua-duanya boleh!",
-  "Oh ada [nama]! \ud83d\udc9a Dr. Welvra nggak kemana-mana kok~ Yuk cerita, badan hari ini kerjasama nggak?",
-  "Halo halo [nama]! \ud83c\udf31 Dr. Welvra siap! Dari ujung kepala sampai ujung kaki, semua aku tangani. Ada apa nih?",
-  "Hei [nama]! \ud83c\udfaf Pas banget datang ke Dr. Welvra~ Mau tanya soal gejala, obat, atau hasil lab? Semua bisa!"
+  "Hei [nama]! \ud83d\udc4b Dr. Sly sudah siap praktek nih~ Ada yang lagi bikin badan protes hari ini? \ud83d\ude04",
+  "Eh, ada [nama]! \ud83c\udf89 Dr. Sly lagi on duty nih. Mau periksa apa kita hari ini? Jangan malu-malu ya!",
+  "Halo [nama]! \ud83c\udf3f Dr. Sly datang membawa solusi~ Badan lagi rewel? Kepala mau demo? Cerita aja!",
+  "Selamat datang [nama]! \u2728 Dr. Sly siap praktek tanpa bikin deg-degan. Ada keluhan apa nih?",
+  "Hei [nama]! \ud83d\ude0a Dr. Sly udah tunggu kamu dari tadi~ Sakitnya dimana? Atau cuma mau konsultasi? Dua-duanya boleh!",
+  "Oh ada [nama]! \ud83d\udc9a Dr. Sly nggak kemana-mana kok~ Yuk cerita, badan hari ini kerjasama nggak?",
+  "Halo halo [nama]! \ud83c\udf31 Dr. Sly siap! Dari ujung kepala sampai ujung kaki, semua aku tangani. Ada apa nih?",
+  "Hei [nama]! \ud83c\udfaf Pas banget datang ke Dr. Sly~ Mau tanya soal gejala, obat, atau hasil lab? Semua bisa!"
 ];
 var drWelcomeSubtitles = [
-  "Dr. Welvra siap dengerin semua keluhan kamu \ud83e\ude7a",
-  "Nggak ada yang terlalu sepele buat Dr. Welvra \ud83d\udc9a",
-  "Cerita aja, Dr. Welvra nggak akan judging \ud83d\ude0a",
-  "Praktek Dr. Welvra selalu buka buat kamu \ud83c\udf3f"
+  "Dr. Sly siap dengerin semua keluhan kamu \ud83e\ude7a",
+  "Nggak ada yang terlalu sepele buat Dr. Sly \ud83d\udc9a",
+  "Cerita aja, Dr. Sly nggak akan judging \ud83d\ude0a",
+  "Praktek Dr. Sly selalu buka buat kamu \ud83c\udf3f"
 ];
 var chatHeaderSubs = [
   "Dokter digitalmu yang nggak pernah tidur \ud83d\ude04",
@@ -4158,7 +4465,7 @@ function startReminderTimer() {
 function showSplashBrief() {
   var splash = document.getElementById('splash');
   var app = document.getElementById('app');
-  var subtags = ["Kesehatan terbaik, dalam genggamanmu","Karena sehat adalah investasi terbaik","Teman sehatmu, kapanpun dimanapun \ud83c\udf3f","Jaga kesehatan sebelum terlambat","Hidup sehat dimulai dari satu langkah kecil","Kesehatan adalah mahkota yang hanya bisa dilihat oleh orang sakit","Tubuh sehat, pikiran jernih, hidup bahagia \u2728","Rawat tubuhmu, ia satu-satunya tempatmu tinggal","Sehat itu bukan keberuntungan, tapi pilihan \ud83d\udc9a","Mulai hari ini, mulai dari diri sendiri \ud83c\udf31","Karena kamu berharga, jaga kesehatanmu","Satu konsultasi bisa mengubah segalanya \ud83e\ude7a","Dr. Welvra selalu ada untukmu, 24 jam sehari","Kesehatan bukan segalanya, tapi tanpa kesehatan segalanya bukan apa-apa","Dengarkan tubuhmu, ia selalu bicara \ud83c\udf3f"];
+  var subtags = ["Kesehatan terbaik, dalam genggamanmu","Karena sehat adalah investasi terbaik","Teman sehatmu, kapanpun dimanapun \ud83c\udf3f","Jaga kesehatan sebelum terlambat","Hidup sehat dimulai dari satu langkah kecil","Kesehatan adalah mahkota yang hanya bisa dilihat oleh orang sakit","Tubuh sehat, pikiran jernih, hidup bahagia \u2728","Rawat tubuhmu, ia satu-satunya tempatmu tinggal","Sehat itu bukan keberuntungan, tapi pilihan \ud83d\udc9a","Mulai hari ini, mulai dari diri sendiri \ud83c\udf31","Karena kamu berharga, jaga kesehatanmu","Satu konsultasi bisa mengubah segalanya \ud83e\ude7a","Dr. Sly selalu ada untukmu, 24 jam sehari","Kesehatan bukan segalanya, tapi tanpa kesehatan segalanya bukan apa-apa","Dengarkan tubuhmu, ia selalu bicara \ud83c\udf3f"];
   var el = document.querySelector('.splash-subtag');
   if (el) el.textContent = subtags[Math.floor(Math.random() * subtags.length)];
   splash.style.cssText = '';
@@ -4398,7 +4705,7 @@ function startMensSubtag() {
   var tags = [
     'Pahami tubuhmu lebih dalam \ud83c\udf38',
     'Setiap siklus bercerita tentangmu \u2728',
-    'Dr. Welvra selalu menemanimu \ud83d\udc95',
+    'Dr. Sly selalu menemanimu \ud83d\udc95',
     'Kesehatanmu adalah prioritas kami \ud83c\udf3a',
     'Tubuh wanita itu luar biasa \ud83c\udf19'
   ];
@@ -4510,9 +4817,9 @@ function renderMensAll() {
   }[phase];
   html += '<div class="mens-card"><div class="mens-welvra-row">' +
     '<div class="mens-welvra-avatar">W</div>' +
-    '<div style="flex:1;"><div class="mens-welvra-name">Pesan Dr. Welvra</div><div class="mens-welvra-text">' + advice + '</div></div>' +
+    '<div style="flex:1;"><div class="mens-welvra-name">Pesan Dr. Sly</div><div class="mens-welvra-text">' + advice + '</div></div>' +
     '</div>' +
-    '<button class="mens-btn-secondary" onclick="mensAskWelvra(\'' + phase + '\')">Tanya Dr. Welvra</button>' +
+    '<button class="mens-btn-secondary" onclick="mensAskWelvra(\'' + phase + '\')">Tanya Dr. Sly</button>' +
     '</div>';
 
   // Stats
@@ -4550,14 +4857,14 @@ function renderIrregularCheck() {
     html += '<div class="mens-card" style="border-left:4px solid #FFB74D;">' +
       '<div style="font-family:\'Cormorant Garamond\',serif;font-size:17px;font-weight:600;color:var(--mens-text);margin-bottom:6px;">Siklus Tidak Teratur Terdeteksi</div>' +
       '<div style="font-size:13px;line-height:1.7;color:var(--mens-soft);">Ada siklus di luar rentang normal (21-35 hari).</div>' +
-      '<button class="mens-btn-secondary" onclick="mensAskWelvra(\'irregular\')">Tanya Dr. Welvra</button>' +
+      '<button class="mens-btn-secondary" onclick="mensAskWelvra(\'irregular\')">Tanya Dr. Sly</button>' +
       '</div>';
   }
   if (variation > 7) {
     html += '<div class="mens-card" style="border-left:4px solid #7B9E87;">' +
       '<div style="font-family:\'Cormorant Garamond\',serif;font-size:17px;font-weight:600;color:var(--mens-text);margin-bottom:6px;">Variasi Siklus Cukup Besar</div>' +
       '<div style="font-size:13px;line-height:1.7;color:var(--mens-soft);">Bisa karena faktor hormonal atau gaya hidup.</div>' +
-      '<button class="mens-btn-secondary" onclick="mensAskWelvra(\'variation\')">Tanya Dr. Welvra</button>' +
+      '<button class="mens-btn-secondary" onclick="mensAskWelvra(\'variation\')">Tanya Dr. Sly</button>' +
       '</div>';
   }
   return html;
@@ -4701,14 +5008,14 @@ function updateSymptomResult() {
   if (n === 0) msg = '';
   else if (n <= 1) msg = 'Gejala kehamilan tidak terlalu terlihat. Kemungkinan faktor hormonal atau stres.';
   else if (n <= 3) msg = 'Ada beberapa gejala yang perlu diperhatikan. Pantau terus ya!';
-  else msg = '\ud83d\udca1 Beberapa gejala kehamilan terdeteksi. Dr. Welvra sarankan untuk melakukan test pack.';
+  else msg = '\ud83d\udca1 Beberapa gejala kehamilan terdeteksi. Dr. Sly sarankan untuk melakukan test pack.';
   el.textContent = msg;
 }
 
 function renderLateModerateFlow(late) {
   var host = document.getElementById('mens-late-flow'); if (!host) return;
   host.innerHTML =
-    '<div class="mens-late-body" style="margin-bottom:10px;">Dr. Welvra mau tanya step by step.</div>' +
+    '<div class="mens-late-body" style="margin-bottom:10px;">Dr. Sly mau tanya step by step.</div>' +
     '<div style="font-weight:600;margin:8px 0 6px;color:var(--mens-text);">Apakah ada flek atau perdarahan ringan?</div>' +
     '<div style="display:flex;gap:8px;margin-bottom:10px;">' +
       '<button class="mens-chip" onclick="mensFlek(this,true)">Ya</button>' +
@@ -4719,7 +5026,7 @@ function renderLateModerateFlow(late) {
       '<div style="font-weight:600;margin:12px 0 6px;color:var(--mens-text);">Apakah kamu merasakan gejala berikut?</div>' +
       symptomChipsHtml() +
     '</div>' +
-    '<button class="mens-btn-secondary" onclick="mensAskWelvra(\'late\',' + late + ')">Tanya Dr. Welvra Lebih Lanjut</button>' +
+    '<button class="mens-btn-secondary" onclick="mensAskWelvra(\'late\',' + late + ')">Tanya Dr. Sly Lebih Lanjut</button>' +
     '<button class="mens-btn-primary" onclick="openMensAddSheet(true)">Catat Sudah Haid</button>';
 }
 
@@ -4749,7 +5056,7 @@ function renderLateStrongFlow(late) {
     '<div id="mens-activity-result"></div>' +
     '<div style="font-weight:600;margin:12px 0 6px;color:var(--mens-text);">Apakah kamu merasakan gejala berikut?</div>' +
     symptomChipsHtml() +
-    '<button class="mens-btn-secondary" onclick="mensAskWelvra(\'late\',' + late + ')">Konsultasi Dr. Welvra</button>' +
+    '<button class="mens-btn-secondary" onclick="mensAskWelvra(\'late\',' + late + ')">Konsultasi Dr. Sly</button>' +
     '<button class="mens-btn-primary" onclick="openMensAddSheet(true)">Catat Sudah Haid</button>';
 }
 
@@ -4793,28 +5100,28 @@ function renderLateSevereFlow(late) {
       '<span style="color:#C62828;">•</span> Demam tinggi<br>' +
       '<span style="color:#C62828;">•</span> Nyeri saat buang air kecil' +
     '</div>' +
-    '<div class="mens-late-body" style="margin:10px 0;">Dr. Welvra sangat menyarankan untuk segera konsultasi dengan dokter kandungan (SpOG). Keterlambatan 14+ hari perlu pemeriksaan langsung.</div>' +
+    '<div class="mens-late-body" style="margin:10px 0;">Dr. Sly sangat menyarankan untuk segera konsultasi dengan dokter kandungan (SpOG). Keterlambatan 14+ hari perlu pemeriksaan langsung.</div>' +
     '<button class="mens-btn-secondary" onclick="window.open(\'https://www.google.com/maps/search/dokter+kandungan+terdekat\',\'_blank\')">Cari Dokter Kandungan</button>' +
-    '<button class="mens-btn-secondary" onclick="mensAskWelvra(\'late\',' + late + ')">Konsultasi Dr. Welvra Sekarang</button>' +
+    '<button class="mens-btn-secondary" onclick="mensAskWelvra(\'late\',' + late + ')">Konsultasi Dr. Sly Sekarang</button>' +
     '<button class="mens-btn-primary" onclick="openMensAddSheet(true)">Catat Sudah Haid</button>';
 }
 
 function mensAskWelvra(ctx, late) {
   var msg = '';
   if (ctx === 'late') {
-    msg = 'Hai Dr. Welvra, haidku terlambat ' + late + ' hari. ';
+    msg = 'Hai Dr. Sly, haidku terlambat ' + late + ' hari. ';
     if (mensFlekAnswer !== null) msg += 'Flek: ' + (mensFlekAnswer ? 'ada' : 'tidak ada') + '. ';
     if (mensActivityAnswer !== null) msg += 'Aktivitas seksual 30 hari terakhir: ' + (mensActivityAnswer ? 'ya' : 'tidak') + '. ';
     if (mensLateFactors.length) msg += 'Faktor: ' + mensLateFactors.join(', ') + '. ';
     if (mensLateSymptoms.length) msg += 'Gejala: ' + mensLateSymptoms.join(', ') + '. ';
-    msg += 'Apa saran Dr. Welvra?';
+    msg += 'Apa saran Dr. Sly?';
   } else if (ctx === 'irregular') {
-    msg = 'Hai Dr. Welvra, siklus haidku terdeteksi tidak teratur (di luar rentang 21-35 hari). Apa yang bisa aku lakukan?';
+    msg = 'Hai Dr. Sly, siklus haidku terdeteksi tidak teratur (di luar rentang 21-35 hari). Apa yang bisa aku lakukan?';
   } else if (ctx === 'variation') {
-    msg = 'Hai Dr. Welvra, variasi panjang siklusku cukup besar (>7 hari). Apakah ini normal?';
+    msg = 'Hai Dr. Sly, variasi panjang siklusku cukup besar (>7 hari). Apakah ini normal?';
   } else {
     var phaseText = { period:'menstruasi', fertile:'masa subur', ovulation:'ovulasi', pms:'PMS', follicular:'folikuler', luteal:'luteal', normal:'normal' }[ctx] || ctx;
-    msg = 'Hai Dr. Welvra, aku sedang di fase ' + phaseText + '. Ada tips untuk fase ini?';
+    msg = 'Hai Dr. Sly, aku sedang di fase ' + phaseText + '. Ada tips untuk fase ini?';
   }
   closeMensModal();
   if (typeof openModal === 'function') openModal('chat');
@@ -5291,7 +5598,7 @@ function renderPCOSAdvice(score) {
     extra = '<div class="pcos-advice-text" style="margin-top:12px;"><b>Rekomendasi:</b> Pertimbangkan konsultasi dengan dokter kandungan untuk pemeriksaan lebih lanjut jika pola ini berlanjut 2-3 bulan.</div>';
   } else {
     title = 'Konsultasi Dokter Disarankan';
-    text = 'Beberapa indikator menunjukkan pola yang perlu diperiksa lebih lanjut. Dr. Welvra menyarankan untuk berkonsultasi dengan dokter kandungan (SpOG) untuk pemeriksaan PCOS yang tepat.';
+    text = 'Beberapa indikator menunjukkan pola yang perlu diperiksa lebih lanjut. Dr. Sly menyarankan untuk berkonsultasi dengan dokter kandungan (SpOG) untuk pemeriksaan PCOS yang tepat.';
     tips = null;
     extra =
       '<div class="pcos-doctor-card">' +
@@ -5310,7 +5617,7 @@ function renderPCOSAdvice(score) {
         '</ul>' +
       '</div>' +
       '<button class="mens-btn-secondary" onclick="window.open(\'https://www.google.com/maps/search/dokter+kandungan+SpOG+terdekat\',\'_blank\')">Cari Dokter Kandungan</button>' +
-      '<button class="mens-btn-primary" onclick="mensAskWelvra(\'pcos\')">Konsultasi Dr. Welvra</button>';
+      '<button class="mens-btn-primary" onclick="mensAskWelvra(\'pcos\')">Konsultasi Dr. Sly</button>';
   }
   var html = '<div class="pcos-card">' +
     '<div class="pcos-advice-title">' + title + '</div>' +
@@ -5341,7 +5648,7 @@ function renderPCOSCheckIn() {
   if (idx === 0) {
     html += '<div class="mens-welvra-row" style="margin-bottom:16px;">' +
       '<div class="mens-welvra-avatar">W</div>' +
-      '<div style="flex:1;"><div class="mens-welvra-name">Pesan Dr. Welvra</div>' +
+      '<div style="flex:1;"><div class="mens-welvra-name">Pesan Dr. Sly</div>' +
       '<div class="mens-welvra-text">Jawab beberapa pertanyaan singkat ini untuk memperbarui penilaian risikomu. Ini bukan diagnosis medis — hanya untuk memantau pola kesehatanmu.</div></div>' +
       '</div>';
   }
@@ -5371,7 +5678,7 @@ function renderPCOSCheckIn() {
     var msg;
     if (newScore < old) msg = 'Bagus sekali! Pola kesehatanmu membaik bulan ini.';
     else if (newScore === old) msg = 'Kondisimu stabil. Terus pantau ya!';
-    else msg = 'Ada beberapa hal yang perlu diperhatikan. Dr. Welvra ada saran untukmu.';
+    else msg = 'Ada beberapa hal yang perlu diperhatikan. Dr. Sly ada saran untukmu.';
     html += '<div style="text-align:center;margin:20px 0;">' +
       '<div style="font-size:12px;color:#9E6B80;margin-bottom:8px;">Skor Sebelumnya</div>' +
       '<div style="font-family:\'Cormorant Garamond\',serif;font-size:24px;color:#9E6B80;">' + old + '</div>' +
@@ -5382,7 +5689,7 @@ function renderPCOSCheckIn() {
       '</div>' +
       '<div class="mens-welvra-row" style="margin:20px 0;">' +
         '<div class="mens-welvra-avatar">W</div>' +
-        '<div style="flex:1;"><div class="mens-welvra-name">Pesan Dr. Welvra</div><div class="mens-welvra-text">' + msg + '</div></div>' +
+        '<div style="flex:1;"><div class="mens-welvra-name">Pesan Dr. Sly</div><div class="mens-welvra-text">' + msg + '</div></div>' +
       '</div>' +
       '<button class="mens-btn-primary" onclick="pcosSaveCheckIn()">Simpan Penilaian</button>';
   }
@@ -5687,7 +5994,7 @@ function startAktivSubtag() {
     'Setiap langkah membawamu lebih sehat',
     'Gerak adalah obat terbaik',
     'Konsistensi adalah kunci',
-    'Dr. Welvra bangga dengan perkembanganmu'
+    'Dr. Sly bangga dengan perkembanganmu'
   ];
   var el = document.getElementById('aktiv-header-sub'); if (!el) return;
   var i = 0; el.textContent = tags[0];
@@ -5799,7 +6106,7 @@ function renderAktivitasBody() {
         '<div class="aktiv-welvra-av">W</div>' +
         '<div class="aktiv-welvra-text" id="aktiv-welvra-text"></div>' +
       '</div>' +
-      '<button class="aktiv-welvra-btn" onclick="aktivAskWelvra()">Chat Dr. Welvra</button>' +
+      '<button class="aktiv-welvra-btn" onclick="aktivAskWelvra()">Chat Dr. Sly</button>' +
     '</div>' +
 
     // Calorie breakdown
@@ -5840,7 +6147,7 @@ function submitAktivManual() {
 
 function aktivAskWelvra() {
   var t = getTodayActivity();
-  var msg = 'Hai Dr. Welvra, hari ini aku sudah jalan ' + (t.steps||0) + ' langkah (target ' + (t.goal||10000) + '). Ada saran untuk meningkatkan aktivitasku?';
+  var msg = 'Hai Dr. Sly, hari ini aku sudah jalan ' + (t.steps||0) + ' langkah (target ' + (t.goal||10000) + '). Ada saran untuk meningkatkan aktivitasku?';
   closeAktivitasModal();
   if (typeof openModal === 'function') openModal('chat');
   setTimeout(function(){ var input = document.getElementById('chat-input'); if (input) { input.value = msg; input.focus(); } }, 400);
@@ -6631,6 +6938,302 @@ function aktivShowToast(msg) {
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bpInstall);
   else bpInstall();
+})();
+
+// ===== HOME SCREEN — Stats, Activity Feed, Tip of the Day =====
+(function(){
+  var HEALTH_TIPS = [
+    'Minum 8 gelas air putih setiap hari untuk menjaga hidrasi tubuhmu.',
+    'Tidur 7\u20138 jam setiap malam untuk kesehatan optimal.',
+    'Jalan kaki 30 menit sehari bisa menurunkan risiko penyakit jantung.',
+    'Konsumsi buah dan sayur 5 porsi sehari untuk asupan serat yang cukup.',
+    'Hindari garam berlebih \u2014 batasi maksimal 1 sendok teh per hari.',
+    'Peregangan ringan 5 menit setelah bangun tidur bantu memulai hari dengan segar.',
+    'Napas dalam 4\u20137\u20138 (tarik 4, tahan 7, buang 8) meredakan stres dalam 1 menit.',
+    'Kurangi minuman manis \u2014 ganti dengan air putih atau teh tanpa gula.',
+    'Matahari pagi 10\u201315 menit membantu tubuh memproduksi vitamin D alami.',
+    'Makan perlahan \u2014 kunyah 20 kali per suapan untuk pencernaan optimal.',
+    'Cuci tangan dengan sabun minimal 20 detik untuk cegah penyakit.',
+    'Istirahatkan mata tiap 20 menit saat menatap layar (aturan 20\u201320\u201320).',
+    'Batasi kafein sore hari agar tidur malam tetap nyenyak.',
+    'Tertawa dan bersosialisasi baik untuk kesehatan mental dan jantung.',
+    'Olahraga ringan 150 menit per minggu menjaga kebugaran seumur hidup.'
+  ];
+
+  function tipOfDay() {
+    var now = new Date();
+    var start = new Date(now.getFullYear(), 0, 0);
+    var dayOfYear = Math.floor((now - start) / 86400000);
+    return HEALTH_TIPS[dayOfYear % HEALTH_TIPS.length];
+  }
+
+  function homeEscape(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function homeTimeAgo(ts) {
+    if (!ts) return '';
+    var diff = Date.now() - ts;
+    if (diff < 0) diff = 0;
+    var s = Math.floor(diff / 1000);
+    if (s < 60) return 'Baru saja';
+    var m = Math.floor(s / 60);
+    if (m < 60) return m + ' menit lalu';
+    var h = Math.floor(m / 60);
+    if (h < 24) return h + ' jam lalu';
+    var d = Math.floor(h / 24);
+    if (d === 1) return 'Kemarin';
+    if (d < 7) return d + ' hari lalu';
+    try {
+      var date = new Date(ts);
+      var months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+      return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
+    } catch(e) { return ''; }
+  }
+
+  // ---- Stats computation ----
+  function homeComputeIdealWeight() {
+    try {
+      var p = JSON.parse(localStorage.getItem('welvra_health_profile') || '{}');
+      if (!p.height) return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true };
+      var h = parseFloat(p.height);
+      if (!isFinite(h) || h < 100 || h > 250) return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true };
+      // Broca: (tinggi - 100) × 0.9 (default/male/unspecified) or × 0.85 (female)
+      var factor = (p.gender === 'Perempuan') ? 0.85 : 0.9;
+      var ideal = (h - 100) * factor;
+      if (!isFinite(ideal) || ideal <= 0) return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true };
+      var idealRounded = Math.round(ideal);
+      var w = parseFloat(p.weight);
+      var badge;
+      if (!isFinite(w) || w <= 0) {
+        badge = { cls:'sb-muted', label:'Target' };
+      } else {
+        var diffPct = ((w - ideal) / ideal) * 100;
+        if (Math.abs(diffPct) < 5) badge = { cls:'sb-normal', label:'Ideal' };
+        else if (diffPct >= 5) badge = { cls:'sb-elevated', label:'Di atas ideal' };
+        else badge = { cls:'sb-low', label:'Di bawah ideal' };
+      }
+      return { value: idealRounded + ' kg', badge: badge, small:false };
+    } catch(e) { return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true }; }
+  }
+
+  function homeComputeBMI() {
+    try {
+      var p = JSON.parse(localStorage.getItem('welvra_health_profile') || '{}');
+      if (!p.weight || !p.height) return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true };
+      var hm = parseFloat(p.height) / 100;
+      var bmi = parseFloat(p.weight) / (hm * hm);
+      if (!isFinite(bmi) || bmi <= 0) return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true };
+      var label, cls;
+      if (bmi < 18.5) { label = 'Kurus'; cls = 'sb-elevated'; }
+      else if (bmi < 25) { label = 'Normal'; cls = 'sb-normal'; }
+      else if (bmi < 30) { label = 'Berlebih'; cls = 'sb-elevated'; }
+      else { label = 'Obesitas'; cls = 'sb-high'; }
+      return { value: bmi.toFixed(1), badge:{cls:cls, label:label}, small:false };
+    } catch(e) { return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true }; }
+  }
+
+  function homeComputeBP() {
+    try {
+      var arr = (typeof window.bpGetReadings === 'function') ? window.bpGetReadings() : [];
+      if (!arr.length) return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true };
+      var latest = arr[arr.length - 1];
+      var cls = (typeof window.classifyBP === 'function') ? window.classifyBP(latest.systolic, latest.diastolic) : null;
+      var level = cls ? cls.level : 'normal';
+      var label = cls ? cls.label : 'Normal';
+      var badgeCls = 'sb-normal';
+      if (level === 'elevated') badgeCls = 'sb-elevated';
+      else if (level === 'hypertension1' || level === 'hypertension2' || level === 'crisis') badgeCls = 'sb-high';
+      else if (level === 'hipotensi') badgeCls = 'sb-low';
+      var prefix = latest.source === 'ppg_camera' ? '~' : '';
+      return { value: prefix + latest.systolic + '/' + prefix + latest.diastolic, badge:{cls:badgeCls,label:label}, small:false };
+    } catch(e) { return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true }; }
+  }
+
+  function homeComputeConsult() {
+    try {
+      var hist = JSON.parse(localStorage.getItem('welvra_history') || '[]');
+      var now = new Date();
+      var y = now.getFullYear(), m = now.getMonth();
+      var count = hist.filter(function(h) {
+        if (h.type !== 'chat') return false;
+        var ts = h.id || 0;
+        var d = new Date(ts);
+        return d.getFullYear() === y && d.getMonth() === m;
+      }).length;
+      if (!count) return { value:'0', badge:{cls:'sb-muted',label:'bulan ini'}, small:false };
+      return { value: count + 'x', badge:{cls:'sb-normal',label:'bulan ini'}, small:false };
+    } catch(e) { return { value:'0', badge:{cls:'sb-muted',label:'bulan ini'}, small:false }; }
+  }
+
+  function homeDayKey(ts) {
+    var d = new Date(ts);
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+
+  function homeComputeStreak() {
+    try {
+      var days = {};
+      // welvra_history (chat/foto/lab)
+      var hist = JSON.parse(localStorage.getItem('welvra_history') || '[]');
+      hist.forEach(function(h) { if (h.id) days[homeDayKey(h.id)] = true; });
+      // welvra_bp_readings
+      if (typeof window.bpGetReadings === 'function') {
+        window.bpGetReadings().forEach(function(r) { if (r.timestamp) days[homeDayKey(r.timestamp)] = true; });
+      }
+      // welvra_activity_history (keyed by YYYY-MM-DD)
+      try {
+        var ah = JSON.parse(localStorage.getItem('welvra_activity_history') || '{}');
+        Object.keys(ah).forEach(function(k) {
+          if (ah[k] && ah[k].steps > 0) days[k] = true;
+        });
+      } catch(e) {}
+      // welvra_mens_daily (keyed by YYYY-MM-DD)
+      try {
+        var md = JSON.parse(localStorage.getItem('welvra_mens_daily') || '{}');
+        Object.keys(md).forEach(function(k) { days[k] = true; });
+      } catch(e) {}
+      // Count backward from today
+      var streak = 0;
+      var cursor = new Date();
+      for (var i = 0; i < 365; i++) {
+        var k = cursor.getFullYear() + '-' + String(cursor.getMonth()+1).padStart(2,'0') + '-' + String(cursor.getDate()).padStart(2,'0');
+        if (days[k]) { streak++; cursor.setDate(cursor.getDate() - 1); }
+        else break;
+      }
+      if (!streak) return { value:'0', badge:{cls:'sb-muted',label:'hari'}, small:false };
+      return { value: streak.toString(), badge:{cls:'sb-flame',label:'hari berturut'}, small:false };
+    } catch(e) { return { value:'0', badge:{cls:'sb-muted',label:'hari'}, small:false }; }
+  }
+
+  function homeRenderStats() {
+    var row = document.getElementById('home-stats-row');
+    if (!row) return;
+    var stats = [
+      { label:'BB Ideal', data: homeComputeIdealWeight() },
+      { label:'Tensi', data: homeComputeBP() },
+      { label:'Konsultasi', data: homeComputeConsult() },
+      { label:'Streak', data: homeComputeStreak() }
+    ];
+    row.innerHTML = stats.map(function(s) {
+      var vLen = String(s.data.value).length;
+      var valueCls = 'stat-value';
+      if (s.data.small) valueCls += ' small';
+      else if (vLen > 4) valueCls += ' compact';
+      return '<div class="stat-card">' +
+        '<div class="stat-label">' + homeEscape(s.label) + '</div>' +
+        '<div class="' + valueCls + '">' + homeEscape(s.data.value) + '</div>' +
+        '<div class="stat-badge ' + s.data.badge.cls + '"><span class="stat-badge-dot"></span>' + homeEscape(s.data.badge.label) + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  // ---- Activity feed merging ----
+  function homeCollectActivity() {
+    var events = [];
+    try {
+      var hist = JSON.parse(localStorage.getItem('welvra_history') || '[]');
+      hist.forEach(function(h) {
+        if (!h.id) return;
+        var desc, dot;
+        if (h.type === 'chat') { desc = 'Konsultasi dengan Dr. Sly'; dot = 'ad-chat'; }
+        else if (h.type === 'foto') { desc = 'Analisa foto gejala'; dot = 'ad-foto'; }
+        else if (h.type === 'lab') { desc = 'Analisa hasil lab'; dot = 'ad-lab'; }
+        else { desc = 'Aktivitas'; dot = 'ad-chat'; }
+        if (h.summary) desc += ' \u00B7 ' + h.summary.substring(0, 60);
+        events.push({ ts: h.id, desc: desc, dot: dot });
+      });
+    } catch(e) {}
+    try {
+      var bp = (typeof window.bpGetReadings === 'function') ? window.bpGetReadings() : [];
+      bp.forEach(function(r) {
+        if (!r.timestamp) return;
+        var prefix = r.source === 'ppg_camera' ? '~' : '';
+        events.push({
+          ts: r.timestamp,
+          desc: 'Cek tensi: ' + prefix + r.systolic + '/' + prefix + r.diastolic + ' mmHg',
+          dot: 'ad-bp'
+        });
+      });
+    } catch(e) {}
+    try {
+      var ah = JSON.parse(localStorage.getItem('welvra_activity_history') || '{}');
+      Object.keys(ah).forEach(function(k) {
+        var d = ah[k];
+        if (!d || !d.steps) return;
+        var parts = k.split('-');
+        if (parts.length !== 3) return;
+        var ts = new Date(parseInt(parts[0],10), parseInt(parts[1],10)-1, parseInt(parts[2],10), 23, 59).getTime();
+        events.push({ ts: ts, desc: (d.steps || 0).toLocaleString('id-ID') + ' langkah', dot: 'ad-aktiv' });
+      });
+    } catch(e) {}
+    try {
+      var cycles = JSON.parse(localStorage.getItem('welvra_mens_cycles') || '[]');
+      if (Array.isArray(cycles)) {
+        cycles.forEach(function(c) {
+          var ts = null;
+          if (c.startDate) ts = new Date(c.startDate).getTime();
+          else if (c.date) ts = new Date(c.date).getTime();
+          else if (c.timestamp) ts = c.timestamp;
+          if (!ts || isNaN(ts)) return;
+          events.push({ ts: ts, desc: 'Catatan siklus', dot: 'ad-mens' });
+        });
+      }
+    } catch(e) {}
+    events.sort(function(a,b){ return b.ts - a.ts; });
+    return events;
+  }
+
+  function homeRenderActivity() {
+    var container = document.getElementById('home-activity-container');
+    if (!container) return;
+    var events = homeCollectActivity().slice(0, 5);
+    if (!events.length) {
+      container.innerHTML = '<div class="activity-empty"><span class="activity-empty-emoji">\uD83C\uDF31</span>Belum ada aktivitas. Mulai dengan mengecek kesehatanmu!</div>';
+      return;
+    }
+    container.innerHTML = '<div class="activity-timeline">' + events.map(function(e) {
+      return '<div class="activity-item">' +
+        '<span class="activity-dot ' + e.dot + '"></span>' +
+        '<div class="activity-meta">' + homeEscape(homeTimeAgo(e.ts)) + '</div>' +
+        '<div class="activity-desc">' + homeEscape(e.desc) + '</div>' +
+      '</div>';
+    }).join('') + '</div>';
+  }
+
+  function homeRenderTip() {
+    var el = document.getElementById('home-tip-body');
+    if (el) el.textContent = tipOfDay();
+  }
+
+  function homeRefresh() {
+    homeRenderStats();
+    homeRenderActivity();
+    homeRenderTip();
+  }
+  window.homeRefresh = homeRefresh;
+
+  function homeInstall() {
+    homeRefresh();
+    // Refresh when a modal closes (body.style.overflow resets to '')
+    try {
+      new MutationObserver(function(mutations) {
+        mutations.forEach(function(m) {
+          if (m.attributeName === 'style' && document.body.style.overflow === '') {
+            homeRefresh();
+          }
+        });
+      }).observe(document.body, { attributes: true, attributeFilter: ['style'] });
+    } catch(e) {}
+    // Refresh on tab focus
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) homeRefresh();
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', homeInstall);
+  else homeInstall();
 })();
 </script>
 </body>
