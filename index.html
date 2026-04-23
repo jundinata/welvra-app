@@ -27,9 +27,20 @@ setTimeout(function(){
 --bg:#FAFAF7;--white:#FFFFFF;--card:#FFFFFF;
 --text:#2D2A26;--text-light:#6B7A8D;--text-muted:#A8A29E;
 --border:#E8E4DF;--border-light:#F3F0EC;
---shadow:0 2px 8px rgba(0,0,0,.04),0 8px 32px rgba(10,123,108,0.06);
---shadow-md:0 4px 12px rgba(0,0,0,.04),0 16px 48px rgba(10,123,108,0.08);
---shadow-lg:0 8px 16px rgba(0,0,0,.04),0 24px 64px rgba(10,123,108,0.12);
+--shadow:0 2px 4px rgba(0,0,0,.04),0 8px 16px rgba(0,0,0,.06),0 16px 32px rgba(10,123,108,.05),inset 0 1px 0 rgba(255,255,255,.8);
+--shadow-md:0 4px 8px rgba(0,0,0,.05),0 12px 24px rgba(0,0,0,.08),0 24px 48px rgba(10,123,108,.08),inset 0 1px 0 rgba(255,255,255,.85);
+--shadow-lg:0 8px 16px rgba(0,0,0,.06),0 20px 40px rgba(0,0,0,.09),0 32px 64px rgba(10,123,108,.12),inset 0 1px 0 rgba(255,255,255,.9);
+--shadow-hover:0 4px 10px rgba(0,0,0,.06),0 16px 32px rgba(0,0,0,.1),0 24px 48px rgba(10,123,108,.1),inset 0 1px 0 rgba(255,255,255,.9);
+--shadow-pressed:inset 0 2px 6px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
+--gradient-card:linear-gradient(145deg,#FFFFFF 0%,#F5F1EA 100%);
+--gradient-input:linear-gradient(180deg,#F5F2EB 0%,#FAFAF7 100%);
+--gradient-btn-teal:linear-gradient(180deg,#0D8F7D 0%,#064540 100%);
+--gradient-btn-teal-press:linear-gradient(180deg,#064540 0%,#053B36 100%);
+--gradient-btn-gold:linear-gradient(180deg,#D4960B 0%,#8B5E06 100%);
+--gradient-btn-gold-press:linear-gradient(180deg,#8B5E06 0%,#6A4704 100%);
+--gradient-btn-neutral:linear-gradient(180deg,#FFFFFF 0%,#EDE8E0 100%);
+--glass-bg:rgba(255,255,255,.78);
+--glass-border:rgba(255,255,255,.5);
 --radius:24px;--max-w:480px;
 }
 html.dark{
@@ -37,9 +48,20 @@ html.dark{
 --text:#F0EDE8;--text-light:#8B9BB4;--text-muted:#5E6A80;
 --border:#2A2F40;--border-light:#232838;
 --blush:#251E2A;
---shadow:0 2px 8px rgba(0,0,0,.2),0 8px 32px rgba(0,0,0,0.15);
---shadow-md:0 4px 12px rgba(0,0,0,.2),0 16px 48px rgba(0,0,0,0.2);
---shadow-lg:0 8px 16px rgba(0,0,0,.2),0 24px 64px rgba(0,0,0,0.25);
+--shadow:0 2px 4px rgba(0,0,0,.3),0 8px 16px rgba(0,0,0,.25),0 16px 32px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.06);
+--shadow-md:0 4px 8px rgba(0,0,0,.35),0 12px 24px rgba(0,0,0,.3),0 24px 48px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.07);
+--shadow-lg:0 8px 16px rgba(0,0,0,.4),0 20px 40px rgba(0,0,0,.35),0 32px 64px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.08);
+--shadow-hover:0 4px 10px rgba(0,0,0,.4),0 16px 32px rgba(0,0,0,.35),0 24px 48px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.08);
+--shadow-pressed:inset 0 2px 6px rgba(0,0,0,.3),0 1px 2px rgba(0,0,0,.2);
+--gradient-card:linear-gradient(145deg,#1E293B 0%,#141820 100%);
+--gradient-input:linear-gradient(180deg,#1A2030 0%,#0F1420 100%);
+--gradient-btn-teal:linear-gradient(180deg,#0F9B88 0%,#053B36 100%);
+--gradient-btn-teal-press:linear-gradient(180deg,#053B36 0%,#032723 100%);
+--gradient-btn-gold:linear-gradient(180deg,#E0A018 0%,#6A4704 100%);
+--gradient-btn-gold-press:linear-gradient(180deg,#6A4704 0%,#4A3200 100%);
+--gradient-btn-neutral:linear-gradient(180deg,#2A3145 0%,#1A2030 100%);
+--glass-bg:rgba(30,41,59,.78);
+--glass-border:rgba(255,255,255,.08);
 }
 html{font-size:16px;-webkit-text-size-adjust:100%}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;min-height:100vh;min-height:100dvh;transition:background .4s,color .4s;position:relative}
@@ -216,71 +238,144 @@ color:var(--primary);font-size:.72rem;font-weight:500;cursor:pointer;transition:
 background:var(--white);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;transition:border-color .2s}
 .profile-row input:focus,.profile-row select:focus{border-color:var(--primary);outline:none}
 
-/* ===== HERO ===== */
-.hero{margin:12px 16px 0;border-radius:28px;min-height:240px;
-background:
-  linear-gradient(180deg,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0.18) 100%),
-  radial-gradient(ellipse 80% 60% at 15% 18%,rgba(200,134,10,0.12) 0%,transparent 55%),
-  radial-gradient(ellipse 100% 85% at 85% 92%,rgba(0,0,0,0.28) 0%,transparent 60%),
-  linear-gradient(145deg,#053B36 0%,#0A5C52 48%,#1A4A3A 100%);
-padding:32px 26px 52px;position:relative;overflow:hidden;color:#fff;display:flex;flex-direction:column;justify-content:space-between;
-box-shadow:0 8px 32px rgba(0,0,0,.32),0 2px 10px rgba(5,59,54,.3),inset 0 1px 0 rgba(255,255,255,.06),inset 0 -40px 80px rgba(0,0,0,.15)}
-html.dark .hero{box-shadow:0 8px 32px rgba(0,0,0,.5),0 2px 10px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.05),inset 0 -40px 80px rgba(0,0,0,.2)}
-.hero-orbs{position:absolute;inset:0;pointer-events:none}
+/* ===== HERO — Premium Multi-Layer Redesign ===== */
+.hero{margin:14px 14px 0;border-radius:32px 32px 0 0;min-height:264px;
+  padding:36px 26px 68px;position:relative;overflow:hidden;color:#FAFAF7;
+  display:flex;flex-direction:column;justify-content:space-between;isolation:isolate;
+  background:linear-gradient(135deg,#0A1E2E 0%,#0C2B3A 25%,#0A3D35 50%,#122A20 75%,#0D1F1A 100%);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.08),
+    0 8px 16px rgba(0,0,0,.12),
+    0 20px 40px rgba(0,0,0,.10),
+    0 40px 80px rgba(0,0,0,.06),
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 0 80px rgba(255,255,255,.03);
+  animation:heroFadeIn .4s ease-out both}
+/* Layer 0 — ambient radial lighting */
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 30%,rgba(200,134,10,.12) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 60% at 80% 70%,rgba(15,222,210,.06) 0%,transparent 60%),
+    radial-gradient(ellipse 80% 40% at 50% 0%,rgba(255,255,255,.05) 0%,transparent 50%)}
+/* Layer 2 — fractal noise surface texture */
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;
+  opacity:.04;mix-blend-mode:overlay;background-size:128px 128px;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+html.dark .hero{
+  background:linear-gradient(135deg,#050D14 0%,#081A22 25%,#07261F 50%,#0A1A12 75%,#050C0A 100%);
+  box-shadow:
+    0 2px 6px rgba(0,0,0,.25),
+    0 10px 24px rgba(0,0,0,.4),
+    0 24px 48px rgba(0,0,0,.35),
+    0 48px 96px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 0 100px rgba(255,255,255,.02)}
+html.dark .hero::before{
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 30%,rgba(200,134,10,.14) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 60% at 80% 70%,rgba(15,222,210,.08) 0%,transparent 60%),
+    radial-gradient(ellipse 80% 40% at 50% 0%,rgba(255,255,255,.06) 0%,transparent 50%)}
+/* Decorative floaters — Layer 3 accents */
+.hero-orbs{position:absolute;inset:0;pointer-events:none;z-index:3}
 .hero-orb{position:absolute;border-radius:50%}
 .hero-orb:nth-child(1){width:180px;height:180px;bottom:-50px;right:-30px;
-border:1.5px solid rgba(255,255,255,.06);background:transparent;animation:orbFloat 14s ease-in-out infinite}
+  border:1.5px solid rgba(200,134,10,.10);background:transparent;animation:orbFloat 14s ease-in-out infinite}
 .hero-orb:nth-child(2){width:100px;height:100px;top:-20px;left:-20px;
-border:1px solid rgba(255,255,255,.04);background:transparent;animation:orbFloat 18s ease-in-out infinite reverse}
+  border:1px solid rgba(255,255,255,.05);background:transparent;animation:orbFloat 18s ease-in-out infinite reverse}
 .hero-orb:nth-child(3){width:60px;height:60px;top:30%;right:12%;
-background:radial-gradient(circle,rgba(255,255,255,.05) 0%,transparent 70%);animation:orbFloat 12s ease-in-out infinite}
+  background:radial-gradient(circle,rgba(232,181,74,.10) 0%,transparent 70%);animation:orbFloat 12s ease-in-out infinite}
 @keyframes orbFloat{0%,100%{transform:translate(0,0)}33%{transform:translate(6px,-5px)}66%{transform:translate(-4px,6px)}}
-.hero-particles{position:absolute;inset:0;pointer-events:none}
+.hero-particles{position:absolute;inset:0;pointer-events:none;z-index:3}
 .hero-particle{position:absolute;border-radius:50%;animation:heroFloat 12s ease-in-out infinite}
-.hero-particle:nth-child(1){width:3px;height:3px;top:12%;left:8%;background:rgba(255,255,255,.25);animation-delay:0s}
-.hero-particle:nth-child(2){width:4px;height:4px;top:50%;left:80%;background:rgba(255,255,255,.12);animation-delay:2s}
-.hero-particle:nth-child(3){width:2px;height:2px;top:22%;left:65%;background:rgba(255,255,255,.2);animation-delay:4s}
-.hero-particle:nth-child(4){width:5px;height:5px;top:68%;left:22%;background:rgba(255,255,255,.06);animation-delay:6s}
-.hero-particle:nth-child(5){width:2px;height:2px;top:38%;left:92%;background:rgba(255,255,255,.15);animation-delay:3s}
-@keyframes heroFloat{0%,100%{transform:translateY(0) scale(1);opacity:.15}30%{transform:translateY(-14px) scale(1.3);opacity:.4}70%{transform:translateY(6px) scale(.8);opacity:.1}}
-.hero-leaf{position:absolute;right:16px;bottom:44px;width:90px;height:90px;opacity:1;pointer-events:none}
-.hero-shimmer{position:absolute;inset:0;
-background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.06) 48%,rgba(255,255,255,.02) 52%,transparent 65%);
-animation:shimmer 6s ease-in-out infinite;pointer-events:none}
+.hero-particle:nth-child(1){width:3px;height:3px;top:12%;left:8%;background:rgba(232,181,74,.35);animation-delay:0s}
+.hero-particle:nth-child(2){width:4px;height:4px;top:50%;left:80%;background:rgba(15,222,210,.22);animation-delay:2s}
+.hero-particle:nth-child(3){width:2px;height:2px;top:22%;left:65%;background:rgba(255,255,255,.25);animation-delay:4s}
+.hero-particle:nth-child(4){width:5px;height:5px;top:68%;left:22%;background:rgba(255,255,255,.08);animation-delay:6s}
+.hero-particle:nth-child(5){width:2px;height:2px;top:38%;left:92%;background:rgba(232,181,74,.22);animation-delay:3s}
+@keyframes heroFloat{0%,100%{transform:translateY(0) scale(1);opacity:.15}30%{transform:translateY(-14px) scale(1.3);opacity:.45}70%{transform:translateY(6px) scale(.8);opacity:.1}}
+.hero-leaf{position:absolute;right:16px;bottom:56px;width:94px;height:94px;opacity:.9;pointer-events:none;z-index:3;
+  filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))}
+.hero-shimmer{position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:linear-gradient(105deg,transparent 35%,rgba(232,181,74,.07) 48%,rgba(255,255,255,.03) 52%,transparent 65%);
+  animation:shimmer 6s ease-in-out infinite}
 @keyframes shimmer{0%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
-.hero-top{position:relative;z-index:3;margin-bottom:auto}
-.hero h2{font-size:2.25rem;margin-bottom:6px;font-weight:700;color:#fff;
-text-shadow:0 2px 16px rgba(0,0,0,.1);line-height:1.2;letter-spacing:-.2px;
-position:relative;z-index:3}
-.hero p{font-size:.875rem;opacity:.75;font-weight:400;line-height:1.6;position:relative;z-index:3}
-.hero-weather{position:relative;z-index:3;display:inline-flex;align-items:center;gap:12px;margin-top:16px;
-background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.06));backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);
-border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:10px 14px;
-font-family:'DM Sans','Plus Jakarta Sans',sans-serif;color:rgba(255,255,255,0.95);max-width:100%;
-box-shadow:0 4px 20px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.08)}
-.hero-weather-icon{flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.hero-weather-icon svg{width:28px;height:28px;display:block}
-.hero-weather-main{display:flex;flex-direction:column;gap:2px;min-width:0}
-.hero-weather-top{font-size:18px;font-weight:600;line-height:1.2;letter-spacing:0.2px}
-.hero-weather-top .hw-desc{font-weight:400;opacity:0.9;margin-left:6px}
-.hero-weather-meta{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;opacity:0.85;line-height:1.2;align-items:center}
+
+/* Typography — Layer 4 content */
+.hero-top{position:relative;z-index:4;margin-bottom:auto}
+.hero h2{font-family:'Cormorant Garamond',serif;font-size:2.125rem;margin-bottom:8px;font-weight:600;
+  color:#FAFAF7;line-height:1.15;letter-spacing:.5px;position:relative;z-index:4;
+  text-shadow:
+    0 1px 2px rgba(0,0,0,.3),
+    0 4px 8px rgba(0,0,0,.15),
+    0 0 40px rgba(200,134,10,.12);
+  animation:heroSlideUp .5s ease-out .2s both}
+.hero p{font-family:'Plus Jakarta Sans',sans-serif;font-size:.875rem;font-weight:400;line-height:1.6;
+  color:rgba(250,250,247,.65);letter-spacing:.3px;position:relative;z-index:4;
+  animation:heroSlideUp .5s ease-out .3s both}
+
+/* Weather module — floating 3D glass element */
+.hero-weather{position:relative;z-index:4;display:inline-flex;align-items:center;gap:14px;margin-top:20px;
+  padding:14px 20px;border-radius:20px;overflow:hidden;max-width:100%;
+  background:linear-gradient(135deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 100%);
+  backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);
+  border:.5px solid rgba(255,255,255,.14);
+  font-family:'DM Sans','Plus Jakarta Sans',sans-serif;color:rgba(250,250,247,.95);
+  box-shadow:
+    0 4px 12px rgba(0,0,0,.22),
+    0 12px 28px rgba(0,0,0,.14),
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 0 20px rgba(255,255,255,.02);
+  animation:heroSlideUp .4s ease-out .45s both}
+.hero-weather::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;pointer-events:none;
+  background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.04) 45%,rgba(255,255,255,.08) 50%,rgba(255,255,255,.04) 55%,transparent 58%)}
+.hero-weather-icon{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+  border-radius:50%;position:relative;z-index:1;
+  background:radial-gradient(circle at 50% 50%,rgba(200,134,10,.28) 0%,transparent 72%)}
+.hero-weather-icon svg{width:28px;height:28px;display:block;filter:drop-shadow(0 0 8px rgba(200,134,10,.35))}
+.hero-weather-main{display:flex;flex-direction:column;gap:3px;min-width:0;position:relative;z-index:1}
+.hero-weather-top{font-size:22px;font-weight:600;line-height:1.2;letter-spacing:.2px;
+  text-shadow:0 0 20px rgba(200,134,10,.22)}
+.hero-weather-top .hw-desc{font-weight:400;opacity:.85;margin-left:6px;font-size:14px}
+.hero-weather-meta{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;opacity:.82;line-height:1.2;align-items:center}
 .hero-weather-meta span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
-.hero-weather-meta svg{width:12px;height:12px;opacity:0.9}
-.hero-weather-skeleton{display:flex;align-items:center;gap:12px;width:100%}
-.hw-skel-icon{width:28px;height:28px;border-radius:50%;background:linear-gradient(90deg,rgba(255,255,255,0.12),rgba(255,255,255,0.22),rgba(255,255,255,0.12));background-size:200% 100%;animation:hwShimmer 1.4s ease-in-out infinite}
+.hero-weather-meta svg{width:12px;height:12px;opacity:.9}
+.hero-weather-skeleton{display:flex;align-items:center;gap:12px;width:100%;position:relative;z-index:1}
+.hw-skel-icon{width:28px;height:28px;border-radius:50%;background:linear-gradient(90deg,rgba(255,255,255,.12),rgba(255,255,255,.22),rgba(255,255,255,.12));background-size:200% 100%;animation:hwShimmer 1.4s ease-in-out infinite}
 .hw-skel-lines{display:flex;flex-direction:column;gap:6px;flex:1}
-.hw-skel-line{height:10px;border-radius:5px;background:linear-gradient(90deg,rgba(255,255,255,0.12),rgba(255,255,255,0.22),rgba(255,255,255,0.12));background-size:200% 100%;animation:hwShimmer 1.4s ease-in-out infinite}
+.hw-skel-line{height:10px;border-radius:5px;background:linear-gradient(90deg,rgba(255,255,255,.12),rgba(255,255,255,.22),rgba(255,255,255,.12));background-size:200% 100%;animation:hwShimmer 1.4s ease-in-out infinite}
 .hw-skel-line.w60{width:60%}.hw-skel-line.w40{width:40%}
 @keyframes hwShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.hero-indicators{position:relative;z-index:3;display:inline-flex;align-items:center;gap:0;margin-top:16px;
-background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.04));backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);
-border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px 16px;flex-wrap:wrap;
-box-shadow:0 4px 20px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.06)}
-.hero-ind{font-size:.685rem;color:rgba(255,255,255,.85);font-weight:400;white-space:nowrap;padding:2px 0}
-.hero-ind-sep{width:1px;height:14px;background:rgba(255,255,255,.18);margin:0 12px;flex-shrink:0}
-@media(max-width:400px){.hero-indicators{flex-direction:column;gap:4px;align-items:flex-start}.hero-ind-sep{display:none}}
-.hero-wave{position:absolute;bottom:-2px;left:0;right:0;z-index:4;pointer-events:none}
-.hero-wave svg{display:block;width:100%;height:auto}
+
+/* Health tip chips — individually floating glass elements */
+.hero-indicators{position:relative;z-index:4;display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  margin-top:18px;padding:0;background:transparent;border:0;
+  box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.hero-ind-sep{display:none}
+.hero-ind{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:500;
+  color:rgba(250,250,247,.82);letter-spacing:.2px;white-space:nowrap;
+  background:linear-gradient(135deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.04) 100%);
+  border:.5px solid rgba(255,255,255,.10);border-radius:12px;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:
+    0 2px 6px rgba(0,0,0,.15),
+    0 8px 16px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.12);
+  transition:transform .3s cubic-bezier(.25,.46,.45,.94);
+  animation:chipEnter .45s cubic-bezier(.25,.46,.45,.94) both}
+.hero-indicators .hero-ind:nth-child(1){animation-delay:.6s}
+.hero-indicators .hero-ind:nth-child(3){animation-delay:.7s}
+.hero-indicators .hero-ind:nth-child(5){animation-delay:.8s}
+.hero-ind:hover{transform:translateY(-2px)}
+
+/* Load sequence keyframes */
+@keyframes heroFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes heroSlideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes chipEnter{from{opacity:0;transform:translateY(12px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+@media(max-width:400px){.hero-indicators{gap:6px}}
+.hero-wave{position:absolute;bottom:-2px;left:0;right:0;z-index:5;pointer-events:none}
+.hero-wave svg{display:block;width:100%;height:auto;filter:drop-shadow(0 -2px 4px rgba(0,0,0,.12))}
 
 /* ===== SECTION LABEL ===== */
 .section-label{font-size:.685rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--primary);
@@ -768,7 +863,7 @@ html.dark .lab-pdf-status.lab-pdf-status-error{color:#E86B6B;background:rgba(214
   display:flex;align-items:center;gap:14px;
   cursor:pointer;overflow:hidden;
   transition:transform .2s cubic-bezier(.25,.8,.25,1),box-shadow .25s,border-color .25s,background .3s;
-  box-shadow:0 2px 8px rgba(10,123,108,0.04);
+  box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 16px rgba(10,123,108,.07),0 16px 32px rgba(10,123,108,.05),inset 0 1px 0 rgba(255,255,255,.8);
   animation:cardReveal .5s cubic-bezier(.25,.8,.25,1) both;
   min-height:72px;
   -webkit-tap-highlight-color:transparent;
@@ -777,16 +872,16 @@ html.dark .lab-pdf-status.lab-pdf-status-error{color:#E86B6B;background:rgba(214
 .lab-option-card:nth-child(2){animation-delay:.12s}
 .lab-option-card:nth-child(3){animation-delay:.19s}
 html.dark .lab-option-card{
-  background:#1e293b;
+  background:linear-gradient(145deg,#1E293B 0%,#141820 100%);
   border-color:rgba(10,123,108,0.22);
-  box-shadow:0 2px 8px rgba(0,0,0,0.22);
+  box-shadow:0 2px 4px rgba(0,0,0,.3),0 8px 16px rgba(0,0,0,.26),0 16px 32px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06);
 }
 .lab-option-card:hover{
-  transform:translateY(-2px);
-  box-shadow:0 6px 18px rgba(10,123,108,0.1);
+  transform:translateY(-3px) scale(1.01);
+  box-shadow:0 4px 10px rgba(10,123,108,.08),0 14px 28px rgba(10,123,108,.14),0 22px 44px rgba(10,123,108,.08),inset 0 1px 0 rgba(255,255,255,.9);
   border-color:rgba(10,123,108,0.28);
 }
-html.dark .lab-option-card:hover{box-shadow:0 6px 18px rgba(0,0,0,0.3);border-color:rgba(10,123,108,0.38)}
+html.dark .lab-option-card:hover{box-shadow:0 4px 10px rgba(0,0,0,.4),0 14px 28px rgba(0,0,0,.4),0 22px 44px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.08);border-color:rgba(10,123,108,0.38)}
 .lab-option-card:active{transform:scale(.98);transition-duration:.08s}
 
 .lab-option-icon{
@@ -1270,7 +1365,7 @@ html.dark .toast{background:#F0EDE8;color:#1A1F2E}
 
 .mens-body { position:relative; z-index:2; flex:1; overflow-y:auto; padding:20px 20px 120px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
 .mens-body::-webkit-scrollbar { display:none; }
-.mens-card { background:rgba(255,255,255,0.85); border:1px solid var(--mens-border); border-radius:24px; padding:20px; margin-bottom:16px; box-shadow:0 4px 20px rgba(194,24,91,0.06); backdrop-filter:blur(10px); }
+.mens-card { background:linear-gradient(145deg,rgba(255,255,255,0.95) 0%,rgba(253,243,247,0.88) 100%); border:1px solid var(--mens-border); border-radius:24px; padding:20px; margin-bottom:16px; box-shadow:0 2px 4px rgba(194,24,91,.06),0 8px 16px rgba(194,24,91,.08),0 16px 32px rgba(194,24,91,.06),inset 0 1px 0 rgba(255,255,255,.9); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
 .mens-section-title { font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--mens-text); margin:22px 0 12px; font-weight:600; letter-spacing:0.3px; }
 .mens-greeting { font-family:'Cormorant Garamond',serif; font-size:24px; color:var(--mens-text); margin-bottom:10px; font-weight:600; letter-spacing:0.3px; }
 .mens-phase-pill { display:inline-block; padding:7px 16px; background:#FFF0F5; color:var(--mens-pink); border:1px solid var(--mens-blush); border-radius:20px; font-size:12px; font-weight:600; letter-spacing:0.3px; }
@@ -1281,7 +1376,7 @@ html.dark .toast{background:#F0EDE8;color:#1A1F2E}
 .mens-phase-pill.phase-normal, .mens-phase-pill.phase-follicular, .mens-phase-pill.phase-luteal { background:#FFF0F5; color:#C2185B; border-color:#F48FB1; }
 
 .mens-status-row { display:flex; gap:10px; margin:18px 0; }
-.mens-stat-card { background:#ffffff; border:1px solid var(--mens-border); border-radius:20px; padding:18px 12px; flex:1; text-align:center; box-shadow:0 4px 16px rgba(194,24,91,0.06); }
+.mens-stat-card { background:linear-gradient(145deg,#FFFFFF 0%,#FDF0F4 100%); border:1px solid var(--mens-border); border-radius:20px; padding:18px 12px; flex:1; text-align:center; box-shadow:0 2px 4px rgba(194,24,91,.06),0 8px 16px rgba(194,24,91,.08),0 16px 32px rgba(194,24,91,.06),inset 0 1px 0 rgba(255,255,255,.9); }
 .mens-stat-label { font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; color:var(--mens-muted); margin-bottom:6px; font-weight:500; }
 .mens-stat-value { font-family:'Cormorant Garamond',serif; font-size:26px; color:var(--mens-text); font-weight:700; letter-spacing:0.3px; }
 .mens-stat-value.small { font-size:15px; font-weight:600; }
@@ -1380,8 +1475,8 @@ html.dark .toast{background:#F0EDE8;color:#1A1F2E}
 
 /* ===== CEK TENSI ANDA — Blood Pressure Monitor ===== */
 /* Home card (rose accent, matches aktiv/mens inline-style pattern) */
-.bp-rose-card{background:linear-gradient(135deg,#ffffff 0%,#FDECEC 50%,#F8D5D5 100%);border-left:4px solid #D63031;box-shadow:0 4px 20px rgba(214,48,49,0.12)}
-html.dark .bp-rose-card{background:linear-gradient(135deg,var(--card) 0%,rgba(214,48,49,0.14) 100%);box-shadow:0 4px 20px rgba(214,48,49,0.18)}
+.bp-rose-card{background:linear-gradient(135deg,#ffffff 0%,#FDECEC 50%,#F8D5D5 100%);border-left:4px solid #D63031;box-shadow:0 2px 4px rgba(214,48,49,.08),0 8px 16px rgba(214,48,49,.12),0 16px 32px rgba(214,48,49,.1),inset 0 1px 0 rgba(255,255,255,.9)}
+html.dark .bp-rose-card{background:linear-gradient(135deg,var(--card) 0%,rgba(214,48,49,0.14) 100%);box-shadow:0 2px 4px rgba(0,0,0,.3),0 8px 16px rgba(214,48,49,.2),0 16px 32px rgba(214,48,49,.15),inset 0 1px 0 rgba(255,255,255,.06)}
 .bp-rose-card .feat-icon{background:rgba(214,48,49,0.15)!important;color:#D63031}
 .bp-rose-card .feat-icon svg{color:#D63031}
 .bp-rose-card .feat-badge{background:rgba(214,48,49,0.14);color:#D63031}
@@ -1715,7 +1810,7 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
 }
 
 /* ===== PCOS TRACKER ===== */
-.pcos-card { background:#ffffff; border:1px solid rgba(194,24,91,0.12); border-radius:24px; padding:24px; margin-bottom:16px; box-shadow:0 8px 32px rgba(194,24,91,0.08); }
+.pcos-card { background:linear-gradient(145deg,#FFFFFF 0%,#FDF0F4 100%); border:1px solid rgba(194,24,91,0.12); border-radius:24px; padding:24px; margin-bottom:16px; box-shadow:0 2px 4px rgba(194,24,91,.06),0 8px 16px rgba(194,24,91,.1),0 16px 32px rgba(194,24,91,.08),inset 0 1px 0 rgba(255,255,255,.9); }
 .pcos-header-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
 .pcos-header-title { font-family:'Cormorant Garamond',serif; font-size:18px; color:#3D1C2E; font-weight:600; letter-spacing:0.3px; }
 .pcos-info-btn { width:26px; height:26px; border-radius:50%; border:1px solid rgba(194,24,91,0.25); background:#FFF0F5; color:#C2185B; font-weight:700; cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; position:relative; }
@@ -2053,6 +2148,722 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
 /* Toast */
 .aktiv-toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(100px); background:linear-gradient(135deg,#3B82F6,#6366F1); color:#fff; padding:12px 20px; border-radius:30px; font-size:13px; font-weight:600; box-shadow:0 8px 28px rgba(59,130,246,0.5); z-index:600; opacity:0; transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1); }
 .aktiv-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ============================================================ */
+/* ====== 3D / 4D UPGRADE LAYER — applied last for cascade ==== */
+/* ============================================================ */
+
+/* ---- A. Generic cards / surfaces ---- */
+.tip-card{box-shadow:0 4px 10px rgba(10,123,108,.18),0 12px 28px rgba(10,123,108,.22),0 20px 40px rgba(10,123,108,.18),inset 0 1px 0 rgba(255,255,255,.15)}
+.result-card{background:linear-gradient(145deg,#FFFFFF 0%,#F5F1EA 100%);border:none}
+html.dark .result-card{background:linear-gradient(145deg,#1E293B 0%,#141820 100%)}
+.bp-manual-card{background:linear-gradient(145deg,#FFFFFF 0%,#F5F1EA 100%);border:none}
+html.dark .bp-manual-card{background:linear-gradient(145deg,#1E293B 0%,#141820 100%)}
+.bp-result-card{background:linear-gradient(145deg,#FFFFFF 0%,#F5F1EA 100%);border:none}
+html.dark .bp-result-card{background:linear-gradient(145deg,#1E293B 0%,#141820 100%)}
+
+/* A2. Feature tiles — 4-layer shadow with inset highlight (preserves glass bg + ::before blob) */
+.feat-tile{box-shadow:0 2px 4px rgba(10,123,108,.06),0 8px 16px rgba(10,123,108,.08),0 16px 32px rgba(10,123,108,.1),inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(10,123,108,.04)}
+html.dark .feat-tile{box-shadow:0 2px 4px rgba(0,0,0,.3),0 8px 16px rgba(0,0,0,.28),0 16px 32px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.08)}
+.feat-tile:hover{box-shadow:0 4px 10px rgba(10,123,108,.1),0 16px 32px rgba(10,123,108,.18),0 24px 48px rgba(10,123,108,.12),inset 0 1px 0 rgba(255,255,255,.85)}
+html.dark .feat-tile:hover{box-shadow:0 4px 10px rgba(0,0,0,.4),0 16px 32px rgba(0,0,0,.45),0 24px 48px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.1)}
+
+/* A3. Large feature cards (4 primary colored) — layered shadow */
+.feat-card.primary{box-shadow:0 2px 4px rgba(10,123,108,.06),0 8px 16px rgba(10,123,108,.1),0 16px 32px rgba(10,123,108,.08),inset 0 1px 0 rgba(255,255,255,.9)}
+.feat-card.gold{box-shadow:0 2px 4px rgba(200,134,10,.06),0 8px 16px rgba(200,134,10,.1),0 16px 32px rgba(200,134,10,.08),inset 0 1px 0 rgba(255,255,255,.9)}
+.feat-card.sage{box-shadow:0 2px 4px rgba(107,158,120,.06),0 8px 16px rgba(107,158,120,.1),0 16px 32px rgba(107,158,120,.08),inset 0 1px 0 rgba(255,255,255,.9)}
+.feat-card.emerald{box-shadow:0 2px 4px rgba(45,134,83,.06),0 8px 16px rgba(45,134,83,.1),0 16px 32px rgba(45,134,83,.08),inset 0 1px 0 rgba(255,255,255,.9)}
+.feat-card.primary:hover{box-shadow:0 4px 8px rgba(10,123,108,.08),0 16px 32px rgba(10,123,108,.16),0 24px 48px rgba(10,123,108,.12),inset 0 1px 0 rgba(255,255,255,.95)}
+.feat-card.gold:hover{box-shadow:0 4px 8px rgba(200,134,10,.08),0 16px 32px rgba(200,134,10,.16),0 24px 48px rgba(200,134,10,.12),inset 0 1px 0 rgba(255,255,255,.95)}
+.feat-card.sage:hover{box-shadow:0 4px 8px rgba(107,158,120,.08),0 16px 32px rgba(107,158,120,.16),0 24px 48px rgba(107,158,120,.12),inset 0 1px 0 rgba(255,255,255,.95)}
+.feat-card.emerald:hover{box-shadow:0 4px 8px rgba(45,134,83,.08),0 16px 32px rgba(45,134,83,.16),0 24px 48px rgba(45,134,83,.12),inset 0 1px 0 rgba(255,255,255,.95)}
+
+/* A4. Stat cards */
+.stat-card{background:linear-gradient(145deg,#FFFFFF 0%,#F1ECE2 100%);border:none;box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 16px rgba(10,123,108,.08),0 16px 32px rgba(10,123,108,.06),inset 0 1px 0 rgba(255,255,255,.85)}
+html.dark .stat-card{background:linear-gradient(145deg,#1E293B 0%,#141820 100%);box-shadow:0 2px 4px rgba(0,0,0,.3),0 8px 16px rgba(0,0,0,.28),0 16px 32px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.06)}
+.stat-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 4px 10px rgba(0,0,0,.06),0 16px 32px rgba(10,123,108,.14),0 24px 48px rgba(10,123,108,.1),inset 0 1px 0 rgba(255,255,255,.9)}
+html.dark .stat-card:hover{box-shadow:0 4px 10px rgba(0,0,0,.4),0 16px 32px rgba(0,0,0,.45),0 24px 48px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.08)}
+.stat-card:active{transform:translateY(0) scale(.99);box-shadow:inset 0 2px 6px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04)}
+
+/* A5. Lab option cards */
+.lab-option-card{background:linear-gradient(145deg,#FFFFFF 0%,#F5F1EA 100%);box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 16px rgba(10,123,108,.07),0 16px 32px rgba(10,123,108,.05),inset 0 1px 0 rgba(255,255,255,.8)}
+html.dark .lab-option-card{background:linear-gradient(145deg,#1E293B 0%,#141820 100%);box-shadow:0 2px 4px rgba(0,0,0,.3),0 8px 16px rgba(0,0,0,.26),0 16px 32px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06)}
+.lab-option-card:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 4px 10px rgba(10,123,108,.08),0 14px 28px rgba(10,123,108,.14),0 22px 44px rgba(10,123,108,.08),inset 0 1px 0 rgba(255,255,255,.9)}
+html.dark .lab-option-card:hover{box-shadow:0 4px 10px rgba(0,0,0,.4),0 14px 28px rgba(0,0,0,.4),0 22px 44px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.08)}
+
+/* A6. BP rose + manual + result cards */
+.bp-rose-card{box-shadow:0 2px 4px rgba(214,48,49,.08),0 8px 16px rgba(214,48,49,.12),0 16px 32px rgba(214,48,49,.1),inset 0 1px 0 rgba(255,255,255,.9)}
+html.dark .bp-rose-card{box-shadow:0 2px 4px rgba(0,0,0,.3),0 8px 16px rgba(214,48,49,.2),0 16px 32px rgba(214,48,49,.15),inset 0 1px 0 rgba(255,255,255,.06)}
+
+/* A7. Menstrual + PCOS cards */
+.mens-card{background:linear-gradient(145deg,rgba(255,255,255,0.95) 0%,rgba(253,243,247,0.88) 100%);box-shadow:0 2px 4px rgba(194,24,91,.06),0 8px 16px rgba(194,24,91,.08),0 16px 32px rgba(194,24,91,.06),inset 0 1px 0 rgba(255,255,255,.9)}
+.mens-stat-card{background:linear-gradient(145deg,#FFFFFF 0%,#FDF0F4 100%);box-shadow:0 2px 4px rgba(194,24,91,.06),0 8px 16px rgba(194,24,91,.08),0 16px 32px rgba(194,24,91,.06),inset 0 1px 0 rgba(255,255,255,.9)}
+.pcos-card{background:linear-gradient(145deg,#FFFFFF 0%,#FDF0F4 100%);box-shadow:0 2px 4px rgba(194,24,91,.06),0 8px 16px rgba(194,24,91,.1),0 16px 32px rgba(194,24,91,.08),inset 0 1px 0 rgba(255,255,255,.9)}
+
+/* ---- B. Buttons — raised gradient + pressed state ---- */
+.btn-primary,.bp-save-btn,.ws-pop-btn.primary{background:var(--gradient-btn-teal);box-shadow:0 4px 12px rgba(10,123,108,.3),inset 0 1px 0 rgba(255,255,255,.3),inset 0 -1px 0 rgba(0,0,0,.1);text-shadow:0 1px 1px rgba(0,0,0,.2);border:none;transition:transform .15s ease,box-shadow .2s ease,background .2s ease}
+.btn-primary.gold{background:var(--gradient-btn-gold);box-shadow:0 4px 12px rgba(200,134,10,.3),inset 0 1px 0 rgba(255,255,255,.3),inset 0 -1px 0 rgba(0,0,0,.1)}
+.btn-primary:active,.btn-primary.gold:active,.bp-save-btn:active,.ws-pop-btn.primary:active{background:var(--gradient-btn-teal-press);box-shadow:inset 0 2px 6px rgba(0,0,0,.25),0 1px 2px rgba(0,0,0,.08);transform:translateY(1px)}
+.btn-primary.gold:active{background:var(--gradient-btn-gold-press)}
+.btn-secondary{background:var(--gradient-btn-neutral);box-shadow:0 2px 6px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.6);text-shadow:0 1px 0 rgba(255,255,255,.5);border:1px solid rgba(0,0,0,.05);transition:transform .15s ease,box-shadow .2s ease,background .2s ease}
+.btn-secondary:active{box-shadow:inset 0 2px 6px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.04);transform:translateY(1px)}
+html.dark .btn-secondary{border-color:rgba(255,255,255,.06);text-shadow:0 1px 1px rgba(0,0,0,.4)}
+.btn-danger{background:linear-gradient(180deg,#E55555 0%,#B82828 100%);color:#fff !important;box-shadow:0 4px 12px rgba(220,60,60,.3),inset 0 1px 0 rgba(255,255,255,.3);text-shadow:0 1px 1px rgba(0,0,0,.2);border:none}
+.btn-danger:active{background:linear-gradient(180deg,#B82828 0%,#8E1E1E 100%);box-shadow:inset 0 2px 6px rgba(0,0,0,.25);transform:translateY(1px)}
+.bp-ppg-help-btn{background:var(--gradient-btn-neutral);box-shadow:0 2px 6px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.6);text-shadow:0 1px 0 rgba(255,255,255,.5)}
+.bp-ppg-help-btn:active{box-shadow:inset 0 2px 6px rgba(0,0,0,.1);transform:translateY(1px)}
+.modal-close{background:linear-gradient(145deg,rgba(45,42,38,.05),rgba(45,42,38,.1));box-shadow:0 2px 4px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .15s ease,box-shadow .15s ease}
+.modal-close:hover{box-shadow:0 3px 8px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.6)}
+.modal-close:active{box-shadow:inset 0 2px 4px rgba(0,0,0,.12);transform:scale(.94)}
+html.dark .modal-close{background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.03));box-shadow:0 2px 4px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.06)}
+.mens-btn-primary{background:linear-gradient(180deg,#EC407A 0%,#AD1457 100%) !important;box-shadow:0 4px 12px rgba(194,24,91,.32),inset 0 1px 0 rgba(255,255,255,.3) !important;text-shadow:0 1px 1px rgba(0,0,0,.18);border:none !important}
+.mens-btn-primary:active{background:linear-gradient(180deg,#AD1457 0%,#880E4F 100%) !important;box-shadow:inset 0 2px 6px rgba(0,0,0,.2) !important;transform:translateY(1px)}
+.mens-btn-secondary{background:linear-gradient(180deg,#FFFFFF 0%,#FDF0F4 100%);box-shadow:0 2px 6px rgba(194,24,91,.12),inset 0 1px 0 rgba(255,255,255,.7);border:1px solid rgba(194,24,91,.15)}
+.mens-btn-secondary:active{box-shadow:inset 0 2px 6px rgba(194,24,91,.1);transform:translateY(1px)}
+
+/* ---- C. Inputs — carved wells ---- */
+.form-group input,.form-group textarea,.form-group select,.bp-field input,.bp-field textarea,.mens-field input,.mens-field textarea,.profile-row input,.profile-row select{background:var(--gradient-input);border:1px solid rgba(0,0,0,.06);box-shadow:inset 0 2px 4px rgba(0,0,0,.06),inset 0 0 0 1px rgba(255,255,255,.3);transition:box-shadow .2s ease,border-color .2s ease,background .2s ease}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus,.bp-field input:focus,.bp-field textarea:focus,.mens-field input:focus,.mens-field textarea:focus,.profile-row input:focus,.profile-row select:focus{border-color:rgba(10,123,108,.5);box-shadow:inset 0 2px 4px rgba(0,0,0,.04),0 0 0 3px rgba(10,123,108,.15),0 0 0 1px rgba(10,123,108,.35)}
+html.dark .form-group input,html.dark .form-group textarea,html.dark .form-group select,html.dark .bp-field input,html.dark .bp-field textarea,html.dark .mens-field input,html.dark .mens-field textarea,html.dark .profile-row input,html.dark .profile-row select{border-color:rgba(255,255,255,.06);box-shadow:inset 0 2px 4px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.03)}
+html.dark .form-group input:focus,html.dark .form-group textarea:focus,html.dark .form-group select:focus,html.dark .bp-field input:focus,html.dark .bp-field textarea:focus,html.dark .mens-field input:focus,html.dark .mens-field textarea:focus,html.dark .profile-row input:focus,html.dark .profile-row select:focus{border-color:rgba(13,148,136,.6);box-shadow:inset 0 2px 4px rgba(0,0,0,.3),0 0 0 3px rgba(13,148,136,.2)}
+.chat-input-bar input[type=text]{background:var(--gradient-input);border:1px solid rgba(0,0,0,.06);box-shadow:inset 0 2px 4px rgba(0,0,0,.05),inset 0 0 0 1px rgba(255,255,255,.3)}
+html.dark .chat-input-bar input[type=text]{border-color:rgba(255,255,255,.06);box-shadow:inset 0 2px 4px rgba(0,0,0,.3)}
+
+/* ---- D. Modal body depth (keeps existing backdrop-filter intact) ---- */
+.modal-panel{background:linear-gradient(180deg,var(--glass-bg) 0%,rgba(250,250,247,.88) 100%);box-shadow:0 -8px 32px rgba(0,0,0,.12),0 -2px 8px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.8)}
+html.dark .modal-panel{background:linear-gradient(180deg,var(--glass-bg) 0%,rgba(20,24,32,.92) 100%);box-shadow:0 -8px 32px rgba(0,0,0,.4),0 -2px 8px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.08)}
+.modal-header{box-shadow:0 1px 0 rgba(0,0,0,.04),inset 0 1px 0 rgba(255,255,255,.6)}
+html.dark .modal-header{box-shadow:0 1px 0 rgba(255,255,255,.04),inset 0 1px 0 rgba(255,255,255,.04)}
+
+/* ---- E. Chat bubbles + typing dots (NO backdrop-filter — scroll perf) ---- */
+.chat-bubble{box-shadow:0 2px 4px rgba(0,0,0,.04),0 8px 16px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.5);border:none}
+.chat-msg-row.bot .chat-bubble{background:linear-gradient(180deg,#FFFFFF 0%,#F5F1EA 100%)}
+.chat-msg-row.user .chat-bubble{background:linear-gradient(180deg,#0F9B88 0%,#064540 100%) !important;box-shadow:0 2px 6px rgba(10,123,108,.25),0 8px 16px rgba(10,123,108,.18),inset 0 1px 0 rgba(255,255,255,.25);text-shadow:0 1px 1px rgba(0,0,0,.15)}
+html.dark .chat-msg-row.bot .chat-bubble{background:linear-gradient(180deg,#252C3F 0%,#1A1F2E 100%);box-shadow:0 2px 4px rgba(0,0,0,.3),0 8px 16px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.05)}
+.typing-dot{background:radial-gradient(circle at 30% 30%,#FFFFFF 0%,#B0B0B0 55%,#7A7A7A 100%);box-shadow:0 1px 2px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.6)}
+html.dark .typing-dot{background:radial-gradient(circle at 30% 30%,#A0A8B8 0%,#4A5268 60%,#2A3040 100%);box-shadow:0 1px 2px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.15)}
+.chat-avatar{box-shadow:0 2px 4px rgba(10,123,108,.25),inset 0 1px 0 rgba(255,255,255,.3);background:radial-gradient(circle at 30% 25%,#14A590 0%,#064540 100%) !important}
+
+/* ---- F. Tabs — carved channels + raised active pills ---- */
+.makan-tabs,.bp-tabs,.bp-range-tabs,.aktiv-tab-row{background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.02) 100%);box-shadow:inset 0 2px 4px rgba(0,0,0,.06),inset 0 -1px 0 rgba(255,255,255,.5);border-radius:16px;padding:4px;position:relative}
+html.dark .makan-tabs,html.dark .bp-tabs,html.dark .bp-range-tabs,html.dark .aktiv-tab-row{background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,.1) 100%);box-shadow:inset 0 2px 4px rgba(0,0,0,.3),inset 0 -1px 0 rgba(255,255,255,.04)}
+.makan-tab,.bp-tab,.bp-range-tab,.aktiv-tab{background:transparent;transition:background .25s ease,box-shadow .25s ease,color .2s ease,transform .15s ease;border:none}
+.makan-tab.active,.bp-tab.active,.bp-range-tab.active,.aktiv-tab.active{background:linear-gradient(180deg,#FFFFFF 0%,#F0EDE6 100%) !important;box-shadow:0 2px 4px rgba(0,0,0,.08),0 4px 8px rgba(10,123,108,.12),inset 0 1px 0 rgba(255,255,255,.9) !important;color:var(--primary) !important;text-shadow:0 1px 0 rgba(255,255,255,.5)}
+html.dark .makan-tab.active,html.dark .bp-tab.active,html.dark .bp-range-tab.active,html.dark .aktiv-tab.active{background:linear-gradient(180deg,#2A3145 0%,#1A2030 100%) !important;box-shadow:0 2px 4px rgba(0,0,0,.4),0 4px 8px rgba(10,123,108,.2),inset 0 1px 0 rgba(255,255,255,.1) !important;color:#14A590 !important;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+
+/* ---- G. Toggle switches — 3D track + sphere thumb ---- */
+.toggle,.mens-toggle-sw{background:linear-gradient(180deg,#D5D0C5 0%,#EDE8DE 100%);box-shadow:inset 0 2px 4px rgba(0,0,0,.15),inset 0 -1px 0 rgba(255,255,255,.4);transition:background .3s ease,box-shadow .3s ease}
+.toggle.on,.mens-toggle-sw.on{background:linear-gradient(180deg,#0D8F7D 0%,#064540 100%);box-shadow:inset 0 2px 4px rgba(0,0,0,.2),inset 0 -1px 0 rgba(255,255,255,.15),0 0 0 1px rgba(10,123,108,.3)}
+.toggle::after,.mens-toggle-sw::after{background:radial-gradient(circle at 30% 30%,#FFFFFF 0%,#EDE8DE 70%,#C5BFB5 100%);box-shadow:0 2px 4px rgba(0,0,0,.2),0 1px 2px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.8)}
+html.dark .toggle,html.dark .mens-toggle-sw{background:linear-gradient(180deg,#1A2030 0%,#252C3F 100%);box-shadow:inset 0 2px 4px rgba(0,0,0,.5),inset 0 -1px 0 rgba(255,255,255,.04)}
+html.dark .toggle::after,html.dark .mens-toggle-sw::after{background:radial-gradient(circle at 30% 30%,#F0EDE8 0%,#B5B0A5 70%,#8A857A 100%)}
+
+/* ---- H. Progress bars — tube shape + highlight stripe ---- */
+.mens-bar-chart,.aktiv-bar-track,.pcos-progress-bar,.bp-ppg-progress{background:linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,.04) 100%);box-shadow:inset 0 1px 3px rgba(0,0,0,.15),inset 0 -1px 0 rgba(255,255,255,.5);overflow:hidden}
+html.dark .mens-bar-chart,html.dark .aktiv-bar-track,html.dark .pcos-progress-bar,html.dark .bp-ppg-progress{background:linear-gradient(180deg,rgba(0,0,0,.4) 0%,rgba(0,0,0,.2) 100%);box-shadow:inset 0 1px 3px rgba(0,0,0,.4),inset 0 -1px 0 rgba(255,255,255,.04)}
+.mens-bar,.aktiv-bar-fill,.bp-ppg-progress-fill,.pcos-progress-fill{position:relative;overflow:hidden}
+.mens-bar::after,.aktiv-bar-fill::after,.bp-ppg-progress-fill::after,.pcos-progress-fill::after{content:'';position:absolute;top:0;left:0;right:0;height:40%;background:linear-gradient(180deg,rgba(255,255,255,.4) 0%,rgba(255,255,255,0) 100%);pointer-events:none;border-radius:inherit}
+.mens-bar{box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.1)}
+.aktiv-bar-fill,.bp-ppg-progress-fill,.pcos-progress-fill{box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.1)}
+
+/* ---- I. Badges / pills — 3D capsules ---- */
+.pill,.badge-obat,.stat-badge,.chat-context-chip,.mens-phase-pill{box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.05);text-shadow:0 1px 0 rgba(255,255,255,.3)}
+html.dark .pill,html.dark .badge-obat,html.dark .stat-badge,html.dark .chat-context-chip,html.dark .mens-phase-pill{box-shadow:inset 0 1px 0 rgba(255,255,255,.06),inset 0 -1px 0 rgba(0,0,0,.3),0 1px 2px rgba(0,0,0,.25);text-shadow:0 1px 1px rgba(0,0,0,.3)}
+.chat-suggestion{background:linear-gradient(180deg,#FFFFFF 0%,#F0EDE6 100%);box-shadow:0 2px 6px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.7);text-shadow:0 1px 0 rgba(255,255,255,.4);transition:transform .15s ease,box-shadow .2s ease,background .2s ease}
+.chat-suggestion:active{background:linear-gradient(180deg,#F0EDE6 0%,#E5E0D6 100%);box-shadow:inset 0 2px 4px rgba(0,0,0,.08);transform:translateY(1px)}
+html.dark .chat-suggestion{background:linear-gradient(180deg,#2A3145 0%,#1A2030 100%);box-shadow:0 2px 6px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.06);text-shadow:0 1px 1px rgba(0,0,0,.4)}
+
+/* ---- J. Avatar — 3D sphere ---- */
+.profile-avatar-btn{background:radial-gradient(circle at 30% 25%,#2DBDA8 0%,#0A7B6C 55%,#042E28 100%) !important;box-shadow:0 2px 4px rgba(10,123,108,.3),0 4px 12px rgba(10,123,108,.25),inset 0 1px 0 rgba(255,255,255,.4),inset 0 -2px 4px rgba(0,0,0,.15);border:2px solid rgba(255,255,255,.85) !important;position:relative}
+.profile-avatar-btn::before{content:'';position:absolute;top:3px;left:5px;width:12px;height:8px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 70%);pointer-events:none;z-index:2}
+.profile-avatar-letter{text-shadow:0 1px 2px rgba(0,0,0,.3),0 0 1px rgba(255,255,255,.2)}
+.profile-avatar-dot{background:radial-gradient(circle at 30% 30%,#86EFAC 0%,#4ADE80 55%,#16A34A 100%) !important;box-shadow:0 1px 2px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.5)}
+
+/* ---- K. Section titles — embossed text + dimensional accent ---- */
+.section-label,.home-section-title,.stats-title{text-shadow:0 1px 2px rgba(0,0,0,.04)}
+html.dark .section-label,html.dark .home-section-title,html.dark .stats-title{text-shadow:0 1px 2px rgba(0,0,0,.4)}
+
+/* ---- L. Toasts — 3D raised pill (no backdrop-filter) ---- */
+.toast{background:linear-gradient(180deg,#1A2030 0%,#0A0E18 100%) !important;box-shadow:0 4px 8px rgba(0,0,0,.15),0 8px 24px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.12) !important;text-shadow:0 1px 1px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06)}
+.mens-toast{background:linear-gradient(180deg,#EC407A 0%,#AD1457 100%) !important;box-shadow:0 4px 8px rgba(194,24,91,.2),0 8px 24px rgba(194,24,91,.28),inset 0 1px 0 rgba(255,255,255,.25) !important;text-shadow:0 1px 1px rgba(0,0,0,.2)}
+.aktiv-toast{box-shadow:0 4px 8px rgba(59,130,246,.2),0 8px 24px rgba(59,130,246,.28),inset 0 1px 0 rgba(255,255,255,.25) !important;text-shadow:0 1px 1px rgba(0,0,0,.2)}
+
+/* ---- M. Hero weather widget + indicator frame polish — superseded by HERO redesign ---- */
+
+/* ---- O. Motion guards ---- */
+@media (hover:none) and (pointer:coarse){
+  .stat-card:hover,.lab-option-card:hover{transform:none}
+  .feat-tile:hover{transform:none}
+  .feat-card:hover{transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .feat-tile,.feat-card,.stat-card,.lab-option-card,.btn-primary,.btn-secondary,.modal-close,.chat-suggestion,.toggle,.mens-toggle-sw{transition:none !important}
+  .feat-tile:hover,.feat-card:hover,.stat-card:hover,.lab-option-card:hover,.btn-primary:active,.btn-secondary:active,.modal-close:active,.chat-suggestion:active{transform:none !important}
+}
+/* ============================================================ */
+/* ====== END 3D / 4D UPGRADE LAYER =========================== */
+/* ============================================================ */
+
+
+/* ======================================================================= */
+/* ============== EXTREME 5D LUXURY HEALTH TECH OVERRIDE ================ */
+/* ======================================================================= */
+/* Overrides the 3D/4D layer above. Extreme depth, dramatic CSS pads,     */
+/* unified grid, 5-layer shadows, carved-to-raised hover, dark-mode ready. */
+/* ======================================================================= */
+
+/* ---------- 1. UNIFIED HOME GRID (all 7 tiles same size) ---------- */
+.feat-grid,.feat-grid-sec{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 18px;
+}
+.feat-grid-sec{margin-bottom:8px}
+.feat-tile-sm{padding:22px 16px 20px !important;gap:10px !important;border-radius:28px !important}
+.feat-tile-sm .feat-tile-name{font-size:15px !important;margin-top:4px !important;font-weight:700 !important}
+.feat-tile-sm .feat-tile-sub{font-size:11px !important}
+
+/* ---------- 2. FEATURE TILES — dramatic 5D floating cards ---------- */
+.feat-tile{
+  background:linear-gradient(145deg,rgba(255,255,255,.96) 0%,rgba(248,245,240,.85) 100%) !important;
+  border:0.5px solid rgba(255,255,255,.65) !important;
+  border-radius:28px !important;
+  aspect-ratio:1;
+  padding:22px 16px 20px !important;gap:10px !important;
+  backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.04),
+    0 4px 8px rgba(0,0,0,.06),
+    0 12px 24px rgba(0,0,0,.08),
+    0 24px 48px rgba(0,0,0,.06),
+    0 48px 80px rgba(0,0,0,.04),
+    inset 0 1px 2px rgba(255,255,255,.95),
+    inset 0 -1px 2px rgba(0,0,0,.03) !important;
+  transition:transform .45s cubic-bezier(.25,.46,.45,.94),box-shadow .45s cubic-bezier(.25,.46,.45,.94),background .3s;
+  overflow:visible;
+  position:relative;
+}
+/* Feature-color tint overlay — fake glass without backdrop-filter */
+.feat-tile::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+  background:linear-gradient(145deg,var(--tile-tint-a,transparent) 0%,var(--tile-tint-b,transparent) 100%);
+}
+.feat-tile.tt-foto{--tile-tint-a:rgba(10,123,108,.08);--tile-tint-b:rgba(10,123,108,.02)}
+.feat-tile.tt-lab{--tile-tint-a:rgba(200,134,10,.09);--tile-tint-b:rgba(200,134,10,.02)}
+.feat-tile.tt-chat{--tile-tint-a:rgba(107,158,120,.09);--tile-tint-b:rgba(107,158,120,.02)}
+.feat-tile.tt-tensi{--tile-tint-a:rgba(225,112,85,.09);--tile-tint-b:rgba(225,112,85,.02)}
+.feat-tile.tt-makan{--tile-tint-a:rgba(45,134,83,.09);--tile-tint-b:rgba(45,134,83,.02)}
+.feat-tile.tt-aktiv{--tile-tint-a:rgba(59,130,246,.09);--tile-tint-b:rgba(59,130,246,.02)}
+.feat-tile.tt-mens{--tile-tint-a:rgba(233,30,140,.09);--tile-tint-b:rgba(233,30,140,.02)}
+/* Put content above the tint */
+.feat-tile > *{position:relative;z-index:1}
+/* Preserve existing ::before glow blob */
+.feat-tile::before{z-index:0 !important;filter:blur(22px) !important;opacity:.28 !important;width:110px !important;height:110px !important;top:-32px !important;right:-32px !important}
+/* DRAMATIC hover — lift with colored under-glow */
+.feat-tile:hover{
+  transform:translateY(-8px) scale(1.03) !important;
+}
+.feat-tile.tt-foto:hover{box-shadow:0 2px 4px rgba(10,123,108,.1),0 8px 16px rgba(10,123,108,.2),0 20px 40px rgba(10,123,108,.25),0 40px 80px rgba(10,123,108,.18),0 60px 100px rgba(10,123,108,.1),inset 0 1px 2px rgba(255,255,255,1),inset 0 -1px 2px rgba(0,0,0,.04) !important}
+.feat-tile.tt-lab:hover{box-shadow:0 2px 4px rgba(200,134,10,.1),0 8px 16px rgba(200,134,10,.2),0 20px 40px rgba(200,134,10,.25),0 40px 80px rgba(200,134,10,.18),0 60px 100px rgba(200,134,10,.1),inset 0 1px 2px rgba(255,255,255,1),inset 0 -1px 2px rgba(0,0,0,.04) !important}
+.feat-tile.tt-chat:hover{box-shadow:0 2px 4px rgba(107,158,120,.1),0 8px 16px rgba(107,158,120,.2),0 20px 40px rgba(107,158,120,.25),0 40px 80px rgba(107,158,120,.18),0 60px 100px rgba(107,158,120,.1),inset 0 1px 2px rgba(255,255,255,1),inset 0 -1px 2px rgba(0,0,0,.04) !important}
+.feat-tile.tt-tensi:hover{box-shadow:0 2px 4px rgba(225,112,85,.1),0 8px 16px rgba(225,112,85,.2),0 20px 40px rgba(225,112,85,.25),0 40px 80px rgba(225,112,85,.18),0 60px 100px rgba(225,112,85,.1),inset 0 1px 2px rgba(255,255,255,1),inset 0 -1px 2px rgba(0,0,0,.04) !important}
+.feat-tile.tt-makan:hover{box-shadow:0 2px 4px rgba(45,134,83,.1),0 8px 16px rgba(45,134,83,.2),0 20px 40px rgba(45,134,83,.25),0 40px 80px rgba(45,134,83,.18),0 60px 100px rgba(45,134,83,.1),inset 0 1px 2px rgba(255,255,255,1),inset 0 -1px 2px rgba(0,0,0,.04) !important}
+.feat-tile.tt-aktiv:hover{box-shadow:0 2px 4px rgba(59,130,246,.1),0 8px 16px rgba(59,130,246,.2),0 20px 40px rgba(59,130,246,.25),0 40px 80px rgba(59,130,246,.18),0 60px 100px rgba(59,130,246,.1),inset 0 1px 2px rgba(255,255,255,1),inset 0 -1px 2px rgba(0,0,0,.04) !important}
+.feat-tile.tt-mens:hover{box-shadow:0 2px 4px rgba(233,30,140,.1),0 8px 16px rgba(233,30,140,.2),0 20px 40px rgba(233,30,140,.25),0 40px 80px rgba(233,30,140,.18),0 60px 100px rgba(233,30,140,.1),inset 0 1px 2px rgba(255,255,255,1),inset 0 -1px 2px rgba(0,0,0,.04) !important}
+/* PRESSED — pushed into surface */
+.feat-tile:active{transform:translateY(0) scale(.98) !important;box-shadow:inset 0 4px 12px rgba(0,0,0,.1),inset 0 2px 4px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.02) !important;transition-duration:.1s !important}
+/* Dark mode tiles */
+html.dark .feat-tile{
+  background:linear-gradient(145deg,rgba(30,41,59,.95) 0%,rgba(20,27,42,.88) 100%) !important;
+  border-color:rgba(255,255,255,.08) !important;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.3),
+    0 4px 8px rgba(0,0,0,.35),
+    0 12px 24px rgba(0,0,0,.4),
+    0 24px 48px rgba(0,0,0,.35),
+    0 48px 80px rgba(0,0,0,.3),
+    inset 0 1px 2px rgba(255,255,255,.08),
+    inset 0 -1px 2px rgba(0,0,0,.15) !important;
+}
+html.dark .feat-tile.tt-foto{--tile-tint-a:rgba(20,165,144,.15);--tile-tint-b:rgba(20,165,144,.03)}
+html.dark .feat-tile.tt-lab{--tile-tint-a:rgba(230,167,33,.15);--tile-tint-b:rgba(230,167,33,.03)}
+html.dark .feat-tile.tt-chat{--tile-tint-a:rgba(158,196,167,.15);--tile-tint-b:rgba(158,196,167,.03)}
+html.dark .feat-tile.tt-tensi{--tile-tint-a:rgba(225,112,85,.18);--tile-tint-b:rgba(225,112,85,.04)}
+html.dark .feat-tile.tt-makan{--tile-tint-a:rgba(31,201,168,.15);--tile-tint-b:rgba(31,201,168,.03)}
+html.dark .feat-tile.tt-aktiv{--tile-tint-a:rgba(96,165,250,.18);--tile-tint-b:rgba(96,165,250,.04)}
+html.dark .feat-tile.tt-mens{--tile-tint-a:rgba(244,114,182,.18);--tile-tint-b:rgba(244,114,182,.04)}
+
+/* ---------- 3. CSS PAD — 80px feature-colored platform ---------- */
+.feat-tile-icon,.feat-tile-sm .feat-tile-icon{
+  width:80px !important;height:80px !important;
+  border-radius:24px !important;
+  position:relative !important;z-index:2;
+  display:flex !important;align-items:center;justify-content:center;
+  transition:transform .4s cubic-bezier(.25,.46,.45,.94);
+}
+.feat-tile-icon::before{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(ellipse at 30% 25%,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 55%);
+  z-index:2;
+}
+.feat-tile-icon svg,.feat-tile-sm .feat-tile-icon svg{width:66px !important;height:66px !important;stroke-width:1.6;position:relative;z-index:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.18)) drop-shadow(0 4px 8px rgba(0,0,0,.12))}
+/* Per-feature CSS pad — radial gradient + colored glow */
+.feat-tile.tt-foto .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#2DBDA8 0%,#0A7B6C 55%,#054740 100%);box-shadow:0 2px 4px rgba(10,123,108,.35),0 6px 14px rgba(10,123,108,.4),0 12px 28px rgba(10,123,108,.28),inset 0 2px 3px rgba(255,255,255,.45),inset 0 -3px 6px rgba(0,0,0,.18)}
+.feat-tile.tt-lab .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#F5C040 0%,#C8860A 55%,#8B5E06 100%);box-shadow:0 2px 4px rgba(200,134,10,.35),0 6px 14px rgba(200,134,10,.4),0 12px 28px rgba(200,134,10,.28),inset 0 2px 3px rgba(255,255,255,.45),inset 0 -3px 6px rgba(0,0,0,.18)}
+.feat-tile.tt-chat .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#B8D7BF 0%,#6B9E78 55%,#3D6B48 100%);box-shadow:0 2px 4px rgba(107,158,120,.35),0 6px 14px rgba(107,158,120,.4),0 12px 28px rgba(107,158,120,.28),inset 0 2px 3px rgba(255,255,255,.45),inset 0 -3px 6px rgba(0,0,0,.18)}
+.feat-tile.tt-tensi .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#FFB5A3 0%,#E17055 50%,#C0392B 100%);box-shadow:0 2px 4px rgba(225,112,85,.35),0 6px 14px rgba(225,112,85,.4),0 12px 28px rgba(225,112,85,.28),inset 0 2px 3px rgba(255,255,255,.45),inset 0 -3px 6px rgba(0,0,0,.18)}
+.feat-tile.tt-makan .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#5FDBAD 0%,#2D8653 55%,#195E34 100%);box-shadow:0 2px 4px rgba(45,134,83,.35),0 6px 14px rgba(45,134,83,.4),0 12px 28px rgba(45,134,83,.28),inset 0 2px 3px rgba(255,255,255,.45),inset 0 -3px 6px rgba(0,0,0,.18)}
+.feat-tile.tt-aktiv .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#7FB3FF 0%,#3B82F6 55%,#1E4FB8 100%);box-shadow:0 2px 4px rgba(59,130,246,.35),0 6px 14px rgba(59,130,246,.4),0 12px 28px rgba(59,130,246,.28),inset 0 2px 3px rgba(255,255,255,.45),inset 0 -3px 6px rgba(0,0,0,.18)}
+.feat-tile.tt-mens .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#FFA0C8 0%,#E91E8C 55%,#9E1262 100%);box-shadow:0 2px 4px rgba(233,30,140,.35),0 6px 14px rgba(233,30,140,.4),0 12px 28px rgba(233,30,140,.28),inset 0 2px 3px rgba(255,255,255,.45),inset 0 -3px 6px rgba(0,0,0,.18)}
+/* Icon lift on tile hover */
+.feat-tile:hover .feat-tile-icon{transform:translateY(-4px) scale(1.05)}
+/* Dark-mode pad tweaks — deeper color */
+html.dark .feat-tile.tt-foto .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#14A590 0%,#0A7B6C 55%,#042E28 100%)}
+html.dark .feat-tile.tt-lab .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#E6A721 0%,#A07008 55%,#6A4704 100%)}
+html.dark .feat-tile.tt-chat .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#8EB096 0%,#4D7D5A 55%,#2A4E33 100%)}
+html.dark .feat-tile.tt-tensi .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#E17055 0%,#B03820 55%,#6F1F12 100%)}
+html.dark .feat-tile.tt-makan .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#2DB985 0%,#1E6B3F 55%,#0F3B22 100%)}
+html.dark .feat-tile.tt-aktiv .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#5490E8 0%,#2960D4 55%,#0F3C8A 100%)}
+html.dark .feat-tile.tt-mens .feat-tile-icon{background:radial-gradient(circle at 30% 25%,#D82F80 0%,#9E1262 55%,#5E0838 100%)}
+/* Tile text polish */
+.feat-tile-name{font-size:15px !important;font-weight:700 !important;letter-spacing:.3px;margin-top:2px}
+.feat-tile-sub{font-size:11px !important;opacity:.7}
+
+/* ---------- 4. RINGKASAN KESEHATAN — carved stat cards ---------- */
+.stat-card{
+  background:linear-gradient(145deg,rgba(255,255,255,.95) 0%,rgba(245,241,234,.85) 100%) !important;
+  border:0.5px solid rgba(255,255,255,.6) !important;
+  border-radius:22px !important;padding:18px 14px !important;
+  box-shadow:
+    inset 0 3px 8px rgba(10,123,108,.06),
+    inset 0 1px 2px rgba(0,0,0,.03),
+    0 1px 2px rgba(0,0,0,.03),
+    0 6px 14px rgba(10,123,108,.06),
+    0 16px 32px rgba(10,123,108,.05) !important;
+  transition:transform .45s cubic-bezier(.25,.46,.45,.94),box-shadow .45s cubic-bezier(.25,.46,.45,.94) !important;
+}
+.stat-card:hover{
+  transform:translateY(-6px) scale(1.02) !important;
+  box-shadow:
+    0 2px 4px rgba(10,123,108,.08),
+    0 10px 20px rgba(10,123,108,.15),
+    0 24px 48px rgba(10,123,108,.14),
+    0 40px 72px rgba(10,123,108,.08),
+    inset 0 1px 2px rgba(255,255,255,.95) !important;
+}
+.stat-card:active{transform:translateY(0) scale(.99) !important;box-shadow:inset 0 4px 12px rgba(0,0,0,.08),inset 0 2px 4px rgba(0,0,0,.04) !important}
+html.dark .stat-card{
+  background:linear-gradient(145deg,rgba(30,41,59,.95) 0%,rgba(21,29,43,.88) 100%) !important;
+  border-color:rgba(255,255,255,.06) !important;
+  box-shadow:
+    inset 0 3px 8px rgba(0,0,0,.3),
+    inset 0 1px 2px rgba(0,0,0,.2),
+    0 1px 2px rgba(0,0,0,.2),
+    0 6px 14px rgba(0,0,0,.3),
+    0 16px 32px rgba(0,0,0,.25) !important;
+}
+html.dark .stat-card:hover{box-shadow:0 2px 4px rgba(0,0,0,.4),0 10px 20px rgba(0,0,0,.45),0 24px 48px rgba(0,0,0,.4),0 40px 72px rgba(0,0,0,.3),inset 0 1px 2px rgba(255,255,255,.08) !important}
+.stat-value{font-size:28px !important;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.06)}
+html.dark .stat-value{text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.stat-badge-dot{background:radial-gradient(circle at 30% 30%,#FFFFFF 0%,currentColor 60%) !important;box-shadow:0 1px 2px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.4) !important}
+
+/* ---------- 5. MODALS & PANELS — heavy frosted glass ---------- */
+.modal-panel{
+  background:linear-gradient(180deg,rgba(255,255,255,.75) 0%,rgba(250,247,241,.85) 100%) !important;
+  backdrop-filter:blur(40px) saturate(1.6) !important;-webkit-backdrop-filter:blur(40px) saturate(1.6) !important;
+  border-top:0.5px solid rgba(255,255,255,.8) !important;
+  box-shadow:
+    0 -2px 4px rgba(0,0,0,.04),
+    0 -8px 16px rgba(0,0,0,.08),
+    0 -20px 40px rgba(0,0,0,.12),
+    0 -40px 80px rgba(0,0,0,.1),
+    inset 0 1px 2px rgba(255,255,255,.95) !important;
+}
+html.dark .modal-panel{
+  background:linear-gradient(180deg,rgba(15,23,42,.85) 0%,rgba(10,15,28,.92) 100%) !important;
+  border-top-color:rgba(255,255,255,.1) !important;
+  box-shadow:
+    0 -2px 4px rgba(0,0,0,.4),
+    0 -8px 16px rgba(0,0,0,.5),
+    0 -20px 40px rgba(0,0,0,.5),
+    0 -40px 80px rgba(0,0,0,.4),
+    inset 0 1px 2px rgba(255,255,255,.1) !important;
+}
+/* Modal handle pill — 3D capsule */
+.modal-panel::before{
+  content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  width:44px;height:5px;border-radius:3px;
+  background:linear-gradient(180deg,#D5CFC4 0%,#9A9288 100%);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.6),inset 0 -1px 1px rgba(0,0,0,.15),0 1px 2px rgba(0,0,0,.1);
+  pointer-events:none;z-index:10;
+}
+html.dark .modal-panel::before{background:linear-gradient(180deg,#4A5268 0%,#252C3F 100%);box-shadow:inset 0 1px 1px rgba(255,255,255,.1),inset 0 -1px 1px rgba(0,0,0,.4)}
+/* Section dividers — carved groove */
+.modal-panel hr,.modal-body hr,.bp-divider,.aktiv-divider{border:none !important;height:1px !important;background:linear-gradient(90deg,transparent,rgba(0,0,0,.08) 20%,rgba(0,0,0,.08) 80%,transparent) !important;box-shadow:0 1px 0 rgba(255,255,255,.7) !important}
+html.dark .modal-panel hr,html.dark .modal-body hr,html.dark .bp-divider,html.dark .aktiv-divider{background:linear-gradient(90deg,transparent,rgba(255,255,255,.08) 20%,rgba(255,255,255,.08) 80%,transparent) !important;box-shadow:0 1px 0 rgba(0,0,0,.4) !important}
+
+/* ---------- 6. CHAT BUBBLES — pillow 3D ---------- */
+.chat-msg-row.user .chat-bubble{
+  background:linear-gradient(145deg,#14A590 0%,#0A7B6C 50%,#054740 100%) !important;
+  border-radius:22px 22px 6px 22px !important;
+  box-shadow:
+    0 1px 2px rgba(10,123,108,.15),
+    0 4px 8px rgba(10,123,108,.2),
+    0 10px 20px rgba(10,123,108,.15),
+    0 20px 36px rgba(10,123,108,.1),
+    inset 0 2px 3px rgba(255,255,255,.28),
+    inset 0 -2px 3px rgba(0,0,0,.15) !important;
+  text-shadow:0 1px 2px rgba(0,0,0,.2) !important;
+}
+.chat-msg-row.bot .chat-bubble{
+  background:linear-gradient(145deg,#FFFFFF 0%,#F5F1EA 100%) !important;
+  border-radius:22px 22px 22px 6px !important;
+  border-left:3px solid #C8860A !important;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.04),
+    0 4px 8px rgba(0,0,0,.06),
+    0 10px 20px rgba(0,0,0,.08),
+    0 20px 36px rgba(0,0,0,.05),
+    inset 0 1px 2px rgba(255,255,255,.95),
+    inset 0 -1px 2px rgba(0,0,0,.03) !important;
+}
+html.dark .chat-msg-row.bot .chat-bubble{
+  background:linear-gradient(145deg,#252C3F 0%,#151D2B 100%) !important;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.3),
+    0 4px 8px rgba(0,0,0,.35),
+    0 10px 20px rgba(0,0,0,.4),
+    0 20px 36px rgba(0,0,0,.3),
+    inset 0 1px 2px rgba(255,255,255,.08),
+    inset 0 -1px 2px rgba(0,0,0,.15) !important;
+}
+.chat-msg-time,.chat-time{text-shadow:0 1px 0 rgba(255,255,255,.6) !important;opacity:.55}
+html.dark .chat-msg-time,html.dark .chat-time{text-shadow:0 1px 1px rgba(0,0,0,.5) !important}
+
+/* ---------- 7. BUTTONS — 3-stop gradient, embossed text ---------- */
+.btn-primary,.bp-save-btn,.ws-pop-btn.primary{
+  background:linear-gradient(180deg,#0D8F7D 0%,#0A7B6C 50%,#054540 100%) !important;
+  box-shadow:
+    0 1px 2px rgba(10,123,108,.2),
+    0 4px 12px rgba(10,123,108,.4),
+    0 8px 24px rgba(10,123,108,.25),
+    inset 0 1px 0 rgba(255,255,255,.3),
+    inset 0 -1px 0 rgba(0,0,0,.15) !important;
+  text-shadow:0 1px 2px rgba(0,0,0,.3) !important;
+  border-radius:16px !important;
+  transition:transform .2s cubic-bezier(.25,.46,.45,.94),box-shadow .25s cubic-bezier(.25,.46,.45,.94),background .2s !important;
+}
+.btn-primary.gold{
+  background:linear-gradient(180deg,#D4960B 0%,#A06E08 50%,#8B5E06 100%) !important;
+  box-shadow:
+    0 1px 2px rgba(200,134,10,.2),
+    0 4px 12px rgba(200,134,10,.4),
+    0 8px 24px rgba(200,134,10,.25),
+    inset 0 1px 0 rgba(255,255,255,.3),
+    inset 0 -1px 0 rgba(0,0,0,.15) !important;
+}
+.btn-primary:active,.btn-primary.gold:active,.bp-save-btn:active,.ws-pop-btn.primary:active{
+  transform:translateY(2px) !important;
+  box-shadow:inset 0 3px 8px rgba(0,0,0,.3),inset 0 1px 2px rgba(0,0,0,.2),0 1px 2px rgba(0,0,0,.04) !important;
+}
+.btn-secondary{
+  background:linear-gradient(180deg,#FFFFFF 0%,#F0EBDF 50%,#E0D9CB 100%) !important;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.05),
+    0 4px 8px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.8),
+    inset 0 -1px 0 rgba(0,0,0,.05) !important;
+  border:0.5px solid rgba(0,0,0,.04) !important;
+  text-shadow:0 1px 0 rgba(255,255,255,.6) !important;
+  border-radius:16px !important;
+  transition:transform .2s cubic-bezier(.25,.46,.45,.94),box-shadow .25s cubic-bezier(.25,.46,.45,.94) !important;
+}
+.btn-secondary:active{transform:translateY(2px) !important;box-shadow:inset 0 3px 8px rgba(0,0,0,.1),inset 0 1px 2px rgba(0,0,0,.05) !important}
+html.dark .btn-secondary{background:linear-gradient(180deg,#2A3145 0%,#1E2538 50%,#141820 100%) !important;border-color:rgba(255,255,255,.06) !important;text-shadow:0 1px 2px rgba(0,0,0,.4) !important}
+
+/* ---------- 8. INPUTS — carved into surface ---------- */
+.form-group input,.form-group textarea,.form-group select,.bp-field input,.bp-field textarea,.mens-field input,.mens-field textarea,.profile-row input,.profile-row select,.chat-input-bar input[type=text]{
+  background:linear-gradient(180deg,#EDE9E0 0%,#F5F2EB 50%,#FAFAF7 100%) !important;
+  border:none !important;
+  border-radius:16px !important;
+  box-shadow:
+    inset 0 3px 8px rgba(0,0,0,.08),
+    inset 0 1px 2px rgba(0,0,0,.04),
+    inset 0 -1px 0 rgba(255,255,255,.7) !important;
+  transition:box-shadow .25s cubic-bezier(.25,.46,.45,.94) !important;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus,.bp-field input:focus,.bp-field textarea:focus,.mens-field input:focus,.mens-field textarea:focus,.profile-row input:focus,.profile-row select:focus,.chat-input-bar input[type=text]:focus{
+  box-shadow:
+    inset 0 3px 8px rgba(10,123,108,.1),
+    inset 0 1px 2px rgba(10,123,108,.08),
+    inset 0 0 0 1.5px rgba(10,123,108,.5),
+    0 0 0 4px rgba(10,123,108,.12) !important;
+}
+html.dark .form-group input,html.dark .form-group textarea,html.dark .form-group select,html.dark .bp-field input,html.dark .bp-field textarea,html.dark .mens-field input,html.dark .mens-field textarea,html.dark .profile-row input,html.dark .profile-row select,html.dark .chat-input-bar input[type=text]{
+  background:linear-gradient(180deg,#0F1420 0%,#1A2030 50%,#252C3F 100%) !important;
+  box-shadow:inset 0 3px 8px rgba(0,0,0,.5),inset 0 1px 2px rgba(0,0,0,.3),inset 0 -1px 0 rgba(255,255,255,.04) !important;
+  color:var(--text) !important;
+}
+html.dark .form-group input:focus,html.dark .form-group textarea:focus,html.dark .form-group select:focus,html.dark .bp-field input:focus,html.dark .bp-field textarea:focus,html.dark .mens-field input:focus,html.dark .mens-field textarea:focus,html.dark .profile-row input:focus,html.dark .profile-row select:focus,html.dark .chat-input-bar input[type=text]:focus{box-shadow:inset 0 3px 8px rgba(0,0,0,.5),inset 0 0 0 1.5px rgba(13,148,136,.6),0 0 0 4px rgba(13,148,136,.2) !important}
+
+/* ---------- 9. HEADER — glassmorphism floating shelf ---------- */
+.header{
+  background:linear-gradient(180deg,rgba(250,250,247,.85) 0%,rgba(245,241,234,.75) 100%) !important;
+  backdrop-filter:blur(32px) saturate(1.5) !important;-webkit-backdrop-filter:blur(32px) saturate(1.5) !important;
+  box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 1px 0 rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.04) !important;
+  border-bottom:0.5px solid rgba(255,255,255,.5) !important;
+}
+html.dark .header{background:linear-gradient(180deg,rgba(20,24,32,.85) 0%,rgba(15,20,28,.75) 100%) !important;box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 1px 0 rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3) !important;border-bottom-color:rgba(255,255,255,.06) !important}
+/* Avatar 3D sphere — already styled, boost further */
+.profile-avatar-btn{
+  background:radial-gradient(circle at 30% 22%,#2DBDA8 0%,#0A7B6C 45%,#054740 85%,#021E1A 100%) !important;
+  box-shadow:
+    0 1px 2px rgba(10,123,108,.3),
+    0 4px 10px rgba(10,123,108,.4),
+    0 8px 20px rgba(10,123,108,.3),
+    inset 0 2px 3px rgba(255,255,255,.5),
+    inset 0 -3px 6px rgba(0,0,0,.25),
+    0 0 0 2px rgba(255,255,255,.7),
+    0 0 0 3px rgba(10,123,108,.15) !important;
+}
+html.dark .profile-avatar-btn{box-shadow:0 1px 2px rgba(0,0,0,.4),0 4px 10px rgba(10,123,108,.5),0 8px 20px rgba(10,123,108,.35),inset 0 2px 3px rgba(255,255,255,.35),inset 0 -3px 6px rgba(0,0,0,.35),0 0 0 2px rgba(255,255,255,.1),0 0 0 3px rgba(10,123,108,.25) !important}
+
+/* ---------- 10. ACTIVITY TIMELINE — grooved rail, 3D dots ---------- */
+.activity-item,.ad-item{position:relative}
+.activity-timeline,.ad-timeline{position:relative}
+.activity-timeline::before,.ad-timeline::before{content:'';position:absolute;left:14px;top:4px;bottom:4px;width:3px;border-radius:2px;background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.02));box-shadow:inset 0 1px 1px rgba(0,0,0,.08),0 1px 0 rgba(255,255,255,.6);pointer-events:none}
+html.dark .activity-timeline::before,html.dark .ad-timeline::before{background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.2));box-shadow:inset 0 1px 1px rgba(0,0,0,.4),0 1px 0 rgba(255,255,255,.06)}
+.activity-dot,.ad-dot{background:radial-gradient(circle at 30% 30%,#FFFFFF 0%,currentColor 60%,rgba(0,0,0,.3) 100%) !important;box-shadow:0 1px 3px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.5) !important}
+.activity-time,.ad-time{text-shadow:0 1px 0 rgba(255,255,255,.5)}
+html.dark .activity-time,html.dark .ad-time{text-shadow:0 1px 1px rgba(0,0,0,.4)}
+
+/* ---------- 11. TIP CARD at bottom — 5D raised ---------- */
+.tip-card{
+  box-shadow:
+    0 2px 4px rgba(10,123,108,.2),
+    0 8px 16px rgba(10,123,108,.25),
+    0 20px 40px rgba(10,123,108,.2),
+    0 40px 64px rgba(10,123,108,.1),
+    inset 0 2px 3px rgba(255,255,255,.22),
+    inset 0 -2px 3px rgba(0,0,0,.15) !important;
+  border-radius:26px !important;
+}
+
+/* ---------- 12. CUSTOM SCROLLBAR ---------- */
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-track{background:linear-gradient(90deg,rgba(0,0,0,.03),rgba(0,0,0,.06));box-shadow:inset 0 0 4px rgba(0,0,0,.08);border-radius:8px}
+*::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(10,123,108,.5) 0%,rgba(6,69,64,.7) 100%);border-radius:8px;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 1px 2px rgba(0,0,0,.2)}
+*::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,rgba(13,143,125,.6) 0%,rgba(10,123,108,.8) 100%)}
+html.dark *::-webkit-scrollbar-track{background:linear-gradient(90deg,rgba(255,255,255,.02),rgba(255,255,255,.04));box-shadow:inset 0 0 4px rgba(0,0,0,.4)}
+html.dark *::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(13,148,136,.5) 0%,rgba(6,69,64,.8) 100%)}
+
+/* ---------- 13. SECTION LABELS — embossed ---------- */
+.section-label,.home-section-title,.stats-title{text-shadow:0 1px 2px rgba(0,0,0,.06),0 1px 0 rgba(255,255,255,.5) !important;font-weight:700 !important}
+html.dark .section-label,html.dark .home-section-title,html.dark .stats-title{text-shadow:0 1px 2px rgba(0,0,0,.5),0 -1px 0 rgba(255,255,255,.04) !important}
+.section-label::after{background:linear-gradient(90deg,var(--primary) 0%,var(--border) 40%,transparent) !important;height:1.5px !important;box-shadow:0 1px 0 rgba(255,255,255,.5) !important}
+html.dark .section-label::after{box-shadow:0 1px 0 rgba(0,0,0,.4) !important}
+
+/* ---------- 14. HERO TWEAKS — superseded by HERO redesign in §HERO above ---------- */
+
+/* ---------- 15. MOTION + PERF GUARDS ---------- */
+@media (hover:none) and (pointer:coarse){
+  .feat-tile:hover{transform:none !important}
+  .stat-card:hover{transform:none !important}
+  .feat-tile:hover .feat-tile-icon{transform:none !important}
+}
+@media (prefers-reduced-motion:reduce){
+  .feat-tile,.stat-card,.feat-tile-icon,.btn-primary,.btn-secondary{transition:none !important}
+  .feat-tile:hover,.stat-card:hover,.feat-tile:hover .feat-tile-icon,.btn-primary:active,.btn-secondary:active{transform:none !important}
+}
+
+/* ======================================================================= */
+/* ============== END EXTREME 5D LUXURY OVERRIDE ======================== */
+/* ======================================================================= */
+
+/* ======================================================================= */
+/* =================== MEDITASI FEATURE — PS5 QUALITY ==================== */
+/* ======================================================================= */
+
+/* Home-tile accent (indigo->purple) */
+.tt-medit .feat-tile-icon{
+  background:linear-gradient(145deg,#1B0A3A 0%,#3D1F6E 50%,#6B46C1 100%) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 4px 12px rgba(59,33,106,.35),0 12px 28px rgba(27,10,58,.35) !important;
+}
+html.dark .tt-medit .feat-tile-icon{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 4px 12px rgba(107,70,193,.4),0 14px 32px rgba(0,0,0,.5) !important;
+}
+
+/* ==== Meditasi modal skin (dark-navy PS5 panel — preserved) ==== */
+#modal-medit{
+  padding:0 !important;background:linear-gradient(180deg,#0A1628 0%,#1A0A2E 60%,#12081F 100%) !important;
+  color:#FAFAF7 !important;max-height:calc(100vh - 40px) !important;max-height:calc(100dvh - 40px) !important;
+}
+html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,#0A0416 100%) !important}
+#modal-medit::before{background:linear-gradient(180deg,#2A2142 0%,#0E0823 100%) !important}
+#modal-medit .medit-header{
+  position:sticky;top:0;z-index:10;padding:22px 20px 14px;
+  background:linear-gradient(180deg,rgba(10,22,40,.92) 0%,rgba(26,10,46,.88) 100%);
+  backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);
+  border-bottom:1px solid rgba(200,134,10,.15);
+}
+.medit-header-row{display:flex;align-items:center;justify-content:space-between}
+.medit-header h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#E3B55C;
+  text-shadow:0 2px 12px rgba(200,134,10,.25),0 1px 0 rgba(0,0,0,.4);letter-spacing:.5px;margin:0}
+.medit-header .modal-close{background:rgba(255,255,255,.06);color:#fff}
+.medit-header .modal-close svg{color:rgba(255,255,255,.8)}
+.medit-header .modal-close:hover{background:rgba(255,255,255,.12)}
+.medit-subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;
+  color:rgba(255,255,255,.68);margin-top:4px;letter-spacing:.3px}
+
+/* ==== NEW: 2-column grid of photoreal avatar cards ==== */
+.medit-gallery{padding:16px 14px 32px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.medit-card{position:relative;border-radius:22px;padding:14px 10px 14px;cursor:pointer;overflow:hidden;
+  border:.5px solid rgba(255,255,255,.12);
+  background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,rgba(255,255,255,.02) 100%);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 2px 4px rgba(0,0,0,.2),0 8px 16px rgba(0,0,0,.22),0 16px 32px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.1);
+  text-align:center;opacity:0;transform:translateY(20px);
+  transition:transform .35s cubic-bezier(.25,.46,.45,.94),box-shadow .35s ease-out;
+  animation:meditCardIn .55s cubic-bezier(.25,.8,.25,1) both;
+}
+@keyframes meditCardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.medit-card:hover{transform:translateY(-4px);box-shadow:0 4px 8px rgba(0,0,0,.25),0 12px 24px rgba(200,134,10,.15),inset 0 1px 0 rgba(255,255,255,.14)}
+.medit-card:active{transform:translateY(-2px) scale(.98)}
+.medit-card::before{content:'';position:absolute;inset:-2px;border-radius:24px;padding:1px;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.18) 0%,transparent 45%,transparent 55%,rgba(255,255,255,.06) 100%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.75}
+.medit-card-duration{position:absolute;top:10px;right:10px;z-index:2;
+  padding:3px 9px;border-radius:10px;font-size:10px;font-weight:600;letter-spacing:.3px;
+  background:linear-gradient(145deg,rgba(200,134,10,.35) 0%,rgba(139,94,6,.2) 100%);
+  color:#F2CE70;border:.5px solid rgba(200,134,10,.35);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15)}
+.medit-card-avatar{width:100%;max-width:140px;height:140px;margin:4px auto 6px;display:flex;align-items:center;justify-content:center}
+.medit-card-avatar img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;
+  filter:drop-shadow(0 6px 16px rgba(0,0,0,.35)) drop-shadow(0 2px 6px rgba(200,134,10,.08))}
+.medit-card-nama{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#FAFAF7;
+  line-height:1.2;letter-spacing:.2px;margin:6px 4px 3px;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.medit-card-deskripsi{font-size:11px;line-height:1.45;color:rgba(255,255,255,.6);margin:0 4px;padding:0 2px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:32px}
+
+/* ==== NEW: Detail view — single PNG hero + slider + countdown + play ==== */
+.medit-detail-view{display:none;padding:0 0 32px}
+.medit-detail-view.open{display:block}
+.medit-hero{position:relative;padding:20px 20px 12px;text-align:center;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 40%,rgba(200,134,10,.08) 0%,transparent 60%)}
+.medit-hero-avatar-wrap{position:relative;width:min(70vw,280px);height:min(70vw,280px);margin:12px auto 4px;
+  display:flex;align-items:center;justify-content:center;z-index:2}
+.medit-hero-avatar-wrap img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;
+  filter:drop-shadow(0 12px 32px rgba(0,0,0,.5)) drop-shadow(0 4px 12px rgba(200,134,10,.12));
+  transition:transform 4s ease-in-out}
+.medit-hero-avatar-wrap.playing img{animation:meditBreathe 4s ease-in-out infinite}
+@keyframes meditBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.medit-hero-aura{position:absolute;top:50%;left:50%;width:80%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(200,134,10,.22) 0%,transparent 62%);
+  opacity:.5;animation:meditAuraPulse 5s ease-in-out infinite;pointer-events:none;z-index:1}
+@keyframes meditAuraPulse{0%,100%{opacity:.35;transform:translate(-50%,-50%) scale(1)}50%{opacity:.6;transform:translate(-50%,-50%) scale(1.08)}}
+
+.medit-detail-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:#FAFAF7;
+  text-shadow:0 2px 10px rgba(0,0,0,.35);margin-top:14px;letter-spacing:.3px}
+.medit-detail-deskripsi{font-size:14px;line-height:1.6;color:rgba(250,250,247,.72);
+  max-width:320px;margin:10px auto 0;padding:0 12px;text-align:center}
+
+/* ==== Rich content collapsibles (7 sections per meditation) ==== */
+.medit-konten-divider{height:1px;margin:22px 20px 8px;
+  background:linear-gradient(90deg,transparent 0%,rgba(200,134,10,.22) 50%,transparent 100%)}
+.medit-konten-wrap{padding:4px 16px 8px;display:flex;flex-direction:column;gap:8px}
+.medit-konten-section{border-radius:14px;overflow:hidden;position:relative;
+  background:linear-gradient(135deg,rgba(255,255,255,.04) 0%,rgba(255,255,255,.015) 100%);
+  border:.5px solid rgba(255,255,255,.08);
+  transition:border-color .25s ease,background .25s ease}
+.medit-konten-section::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,#F2CE70 0%,#C8860A 60%,transparent 100%);
+  opacity:0;transition:opacity .3s ease}
+.medit-konten-section.open::before{opacity:.7}
+.medit-konten-section.open{background:linear-gradient(135deg,rgba(200,134,10,.06) 0%,rgba(255,255,255,.02) 100%);
+  border-color:rgba(200,134,10,.18)}
+.medit-konten-header{display:flex;align-items:center;gap:12px;min-height:52px;padding:10px 14px;
+  cursor:pointer;user-select:none;background:transparent;border:none;width:100%;text-align:left;color:inherit}
+.medit-konten-header:hover{background:rgba(255,255,255,.03)}
+.medit-konten-icon{font-size:18px;line-height:1;flex-shrink:0;width:22px;text-align:center}
+.medit-konten-label{flex:1;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:#FAFAF7;letter-spacing:.2px}
+.medit-konten-section.open .medit-konten-label{color:#F2CE70}
+.medit-konten-chevron{flex-shrink:0;width:16px;height:16px;color:rgba(255,255,255,.5);
+  transition:transform .3s cubic-bezier(.25,.8,.25,1)}
+.medit-konten-section.open .medit-konten-chevron{transform:rotate(180deg);color:#E3B55C}
+.medit-konten-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1)}
+.medit-konten-section.open .medit-konten-body{max-height:2400px}
+.medit-konten-inner{padding:4px 18px 16px 48px;font-size:13.5px;line-height:1.7;color:rgba(250,250,247,.78)}
+.medit-konten-manfaat{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
+.medit-konten-manfaat li{position:relative;padding-left:18px;font-size:13.5px;line-height:1.55;color:rgba(250,250,247,.8)}
+.medit-konten-manfaat li::before{content:'';position:absolute;left:2px;top:8px;width:6px;height:6px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,#F2CE70 0%,#C8860A 65%,#6A4704 100%);
+  box-shadow:0 0 4px rgba(200,134,10,.5)}
+
+/* Duration slider (visible only pre-session) */
+.medit-duration-block{margin:22px 24px 6px;padding:14px 16px;border-radius:18px;
+  background:linear-gradient(135deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,.02) 100%);
+  border:.5px solid rgba(255,255,255,.1);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.medit-duration-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.medit-duration-label-text{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:rgba(255,255,255,.68);letter-spacing:.3px}
+.medit-duration-label-value{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#E3B55C;letter-spacing:.3px}
+.medit-duration-slider{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;outline:none;cursor:pointer;
+  background:linear-gradient(90deg,#C8860A 0%,#C8860A var(--medit-slider-pct,40%),rgba(255,255,255,.1) var(--medit-slider-pct,40%),rgba(255,255,255,.1) 100%);
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.3)}
+.medit-duration-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;cursor:pointer;border:none;
+  background:radial-gradient(circle at 32% 28%,#F2CE70 0%,#C8860A 70%,#6A4704 100%);
+  box-shadow:0 2px 6px rgba(200,134,10,.5),inset 0 1px 0 rgba(255,255,255,.45)}
+.medit-duration-slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;cursor:pointer;border:none;
+  background:radial-gradient(circle at 32% 28%,#F2CE70 0%,#C8860A 70%,#6A4704 100%);
+  box-shadow:0 2px 6px rgba(200,134,10,.5),inset 0 1px 0 rgba(255,255,255,.45)}
+.medit-duration-block.hidden{display:none}
+
+/* Big countdown timer */
+.medit-timer{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:500;color:#F2CE70;
+  text-align:center;margin:18px auto 0;letter-spacing:2px;line-height:1;
+  text-shadow:0 2px 16px rgba(200,134,10,.35),0 1px 0 rgba(0,0,0,.5);
+  font-variant-numeric:tabular-nums}
+
+/* Circular play button — centered below timer */
+.medit-play-row{display:flex;flex-direction:column;align-items:center;gap:14px;margin:22px auto 6px}
+.medit-play-btn{flex-shrink:0;width:72px;height:72px;border-radius:50%;position:relative;cursor:pointer;border:none;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 32% 28%,#F2CE70 0%,#C8860A 55%,#6A4704 100%);
+  box-shadow:0 4px 12px rgba(200,134,10,.45),0 10px 26px rgba(139,94,6,.35),inset 0 1px 0 rgba(255,255,255,.5),inset 0 -2px 4px rgba(0,0,0,.22);
+  transition:transform .2s ease-out}
+.medit-play-btn:active{transform:scale(.94)}
+.medit-play-btn svg{width:28px;height:28px;color:#12081F;margin-left:3px;filter:drop-shadow(0 1px 1px rgba(255,255,255,.4))}
+.medit-play-btn.playing svg{margin-left:0}
+.medit-play-btn.playing::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(200,134,10,.6);animation:meditPulseRing 2s ease-out infinite}
+.medit-play-btn.playing::after{content:'';position:absolute;inset:-16px;border-radius:50%;border:1px solid rgba(200,134,10,.3);animation:meditPulseRing 2s ease-out .4s infinite}
+@keyframes meditPulseRing{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.35)}}
+
+/* Soundscape pill label below play button */
+.medit-sound-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:14px;
+  font-size:11.5px;color:rgba(255,255,255,.75);letter-spacing:.3px;
+  background:rgba(255,255,255,.05);border:.5px solid rgba(255,255,255,.1)}
+.medit-sound-pill svg{width:11px;height:11px;opacity:.75}
+
+/* Selesai close text link */
+.medit-detail-close-link{display:block;margin:24px auto 0;padding:10px 18px;background:none;border:none;cursor:pointer;
+  font-size:12.5px;color:rgba(255,255,255,.5);text-decoration:underline;letter-spacing:.3px;text-align:center}
+.medit-detail-close-link:hover{color:rgba(255,255,255,.75)}
+
+/* Back arrow + detail header */
+.medit-detail-header{position:sticky;top:0;z-index:10;padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(180deg,rgba(10,22,40,.92) 0%,rgba(26,10,46,.82) 100%);
+  backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);
+  border-bottom:1px solid rgba(255,255,255,.06)}
+.medit-back-btn{width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.06);
+  display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;color:#fff}
+.medit-back-btn:hover{background:rgba(255,255,255,.12)}
+.medit-back-btn svg{width:18px;height:18px}
+.medit-detail-header-title{font-family:'Cormorant Garamond',serif;font-size:17px;color:#FAFAF7;font-weight:500;flex:1;text-align:center;margin:0 10px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+@media (prefers-reduced-motion:reduce){
+  .medit-card,.medit-hero-avatar-wrap.playing img,.medit-hero-aura,.medit-play-btn.playing::before,.medit-play-btn.playing::after{animation:none !important}
+  .medit-card{opacity:1;transform:none}
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -2150,22 +2961,22 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
       <!-- PRIMARY 2x2 GRID -->
       <div class="feat-grid">
         <div class="feat-tile tt-foto" onclick="openModal('foto')" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="13" width="38" height="27" rx="4"/><circle cx="24" cy="27" r="8"/><path d="M17 13 l2-4 h10 l2 4"/><path d="M24 23 v8 M20 27 h8"/></svg></div>
+          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-foto-body" x1="0.2" y1="0" x2="0.6" y2="1"><stop offset="0%" stop-color="#14A590"/><stop offset="55%" stop-color="#0A7B6C"/><stop offset="100%" stop-color="#064540"/></linearGradient><radialGradient id="g-foto-lens" cx="35%" cy="30%" r="80%"><stop offset="0%" stop-color="#2DBDA8"/><stop offset="55%" stop-color="#0A5D52"/><stop offset="100%" stop-color="#021C18"/></radialGradient></defs><rect x="6" y="19" width="36" height="23" rx="5.5" fill="#032924" opacity="0.28"/><rect x="6" y="17" width="36" height="23" rx="5.5" fill="url(#g-foto-body)"/><rect x="16.5" y="12.5" width="15" height="6" rx="1.8" fill="url(#g-foto-body)"/><circle cx="24" cy="28" r="9" fill="#021F1B"/><circle cx="24" cy="28" r="7.6" fill="url(#g-foto-lens)"/><circle cx="24" cy="28" r="3.8" fill="#021310"/><ellipse cx="21.5" cy="25.5" rx="2.2" ry="1.5" fill="#fff" opacity="0.55"/><path d="M9 18 Q24 14 39 18 L39 21 Q24 17 9 21 Z" fill="#fff" opacity="0.16"/><circle cx="39" cy="13" r="7" fill="#042E28" opacity="0.28"/><circle cx="38.5" cy="11.5" r="6.2" fill="url(#g-foto-body)"/><ellipse cx="37" cy="9.5" rx="2.2" ry="1.2" fill="#fff" opacity="0.35"/><rect x="37.3" y="8.2" width="2.4" height="6.6" rx="0.6" fill="#fff"/><rect x="35.2" y="10.3" width="6.6" height="2.4" rx="0.6" fill="#fff"/></svg></div>
           <div class="feat-tile-name">Periksa Gejala</div>
           <div class="feat-tile-sub">Foto &amp; cerita</div>
         </div>
         <div class="feat-tile tt-lab" onclick="openModal('lab')" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4 H28 L38 14 V42 A2 2 0 0 1 36 44 H10 A2 2 0 0 1 8 42 V6 A2 2 0 0 1 10 4 Z"/><path d="M28 4 V14 H38"/><path d="M14 32 L19 26 L24 30 L29 22 L34 27"/></svg></div>
+          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-lab-doc" x1="0.2" y1="0" x2="0.6" y2="1"><stop offset="0%" stop-color="#E6A721"/><stop offset="50%" stop-color="#C8860A"/><stop offset="100%" stop-color="#8B5E06"/></linearGradient><linearGradient id="g-lab-inner" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFF7E0"/><stop offset="100%" stop-color="#FFE9B0"/></linearGradient><linearGradient id="g-lab-fold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B5E06"/><stop offset="100%" stop-color="#5C3D04"/></linearGradient></defs><path d="M10 7 H28 L40 19 V43 Q40 45 38 45 H10 Q8 45 8 43 V9 Q8 7 10 7 Z" fill="#6E4804" opacity="0.28"/><path d="M10 5 H28 L40 17 V41 Q40 43 38 43 H10 Q8 43 8 41 V7 Q8 5 10 5 Z" fill="url(#g-lab-doc)"/><path d="M12 9 H26 V16 Q26 18 28 18 H38 V40 Q38 41 37 41 H12 Q11 41 11 40 V10 Q11 9 12 9 Z" fill="url(#g-lab-inner)"/><path d="M28 5 L40 17 H30 Q28 17 28 15 Z" fill="url(#g-lab-fold)"/><path d="M28 5 L40 17 H30 Q28 17 28 15 Z" fill="#fff" opacity="0.18"/><path d="M15 31 L20 25 L24 29 L29 22 L34 27" stroke="#C8860A" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="31" r="1.3" fill="#C8860A"/><circle cx="20" cy="25" r="1.3" fill="#C8860A"/><circle cx="24" cy="29" r="1.3" fill="#C8860A"/><circle cx="29" cy="22" r="1.3" fill="#C8860A"/><circle cx="34" cy="27" r="1.3" fill="#C8860A"/><rect x="13" y="35" width="22" height="1.4" rx="0.7" fill="#C8860A" opacity="0.35"/><rect x="13" y="38" width="16" height="1.4" rx="0.7" fill="#C8860A" opacity="0.35"/><path d="M10 6 Q14 5 25 5.5 V7 Q14 6.5 10 7.5 Z" fill="#fff" opacity="0.35"/></svg></div>
           <div class="feat-tile-name">Baca Hasil Lab</div>
           <div class="feat-tile-sub">Dr. Sly jelasin</div>
         </div>
         <div class="feat-tile tt-chat" onclick="openModal('chat')" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M42 28 a2 2 0 0 1 -2 2 H18 l-8 8 V8 a2 2 0 0 1 2 -2 h28 a2 2 0 0 1 2 2 Z"/><path d="M25 26 C21.5 23 17 23.5 17 17.5 C17 13.5 21 12.5 25 16 C29 12.5 33 13.5 33 17.5 C33 23.5 28.5 23 25 26 Z" fill="currentColor" fill-opacity=".12"/></svg></div>
+          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g-chat-bubble" cx="30%" cy="25%" r="90%"><stop offset="0%" stop-color="#B8D7BF"/><stop offset="50%" stop-color="#6B9E78"/><stop offset="100%" stop-color="#3D6B48"/></radialGradient><linearGradient id="g-chat-heart" x1="0.3" y1="0" x2="0.7" y2="1"><stop offset="0%" stop-color="#FFB5C5"/><stop offset="60%" stop-color="#E67089"/><stop offset="100%" stop-color="#B23A56"/></linearGradient></defs><path d="M8 25 Q8 10 24 10 Q40 10 40 25 Q40 34 32 37 L19 43 L21 36 Q8 33 8 25 Z" fill="#1F3E28" opacity="0.3"/><path d="M8 23 Q8 8 24 8 Q40 8 40 23 Q40 32 32 35 L19 41 L21 34 Q8 31 8 23 Z" fill="url(#g-chat-bubble)"/><path d="M13 14 Q20 10 30 11 Q32 11 32 13 Q28 12 20 14 Q14 15 13 14 Z" fill="#fff" opacity="0.4"/><ellipse cx="14" cy="20" rx="3.5" ry="5.5" fill="#fff" opacity="0.2" transform="rotate(-20 14 20)"/><path d="M24 31 C20 28.5 16 25.5 16 21 C16 18 18 16 20.5 16 C22 16 23.2 16.8 24 17.8 C24.8 16.8 26 16 27.5 16 C30 16 32 18 32 21 C32 25.5 28 28.5 24 31 Z" fill="#71213A" opacity="0.4"/><path d="M24 30 C20 27.5 16 24.5 16 20 C16 17 18 15 20.5 15 C22 15 23.2 15.8 24 16.8 C24.8 15.8 26 15 27.5 15 C30 15 32 17 32 20 C32 24.5 28 27.5 24 30 Z" fill="url(#g-chat-heart)"/><ellipse cx="20.5" cy="19" rx="2.2" ry="1.3" fill="#fff" opacity="0.55" transform="rotate(-30 20.5 19)"/></svg></div>
           <div class="feat-tile-name">Tanya Dr. Sly</div>
           <div class="feat-tile-sub">Konsultasi langsung</div>
         </div>
         <div class="feat-tile tt-tensi" onclick="openModal('tensi')" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M24 41 C24 41 7 30 7 18 C7 11 13 7 19 11 C21.5 12.6 24 16 24 16 C24 16 26.5 12.6 29 11 C35 7 41 11 41 18 C41 30 24 41 24 41 Z"/><path d="M4 25 H12 L16 19 L20 30 L24 22 L28 27 H44"/></svg></div>
+          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g-tensi-heart" cx="30%" cy="20%" r="95%"><stop offset="0%" stop-color="#FFC2AD"/><stop offset="35%" stop-color="#E17055"/><stop offset="75%" stop-color="#C0392B"/><stop offset="100%" stop-color="#7A1F17"/></radialGradient><linearGradient id="g-tensi-gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0.75"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><path d="M24 43 C24 43 6 32 6 19 C6 12 12 7.5 18 11.5 C20.5 13.2 24 17 24 17 C24 17 27.5 13.2 30 11.5 C36 7.5 42 12 42 19 C42 32 24 43 24 43 Z" fill="#5C1710" opacity="0.32"/><path d="M24 41 C24 41 6 30 6 17 C6 10 12 5.5 18 9.5 C20.5 11.2 24 15 24 15 C24 15 27.5 11.2 30 9.5 C36 5.5 42 10 42 17 C42 30 24 41 24 41 Z" fill="url(#g-tensi-heart)"/><path d="M10 14 C12 9 18 7 22 10 C23 10.7 23.6 11.4 24 12 C20 10 14 10 10 14 Z" fill="url(#g-tensi-gloss)"/><ellipse cx="15" cy="17" rx="4.5" ry="7.5" fill="#fff" opacity="0.2" transform="rotate(-25 15 17)"/><path d="M5 27 H13 L16 21 L20 32 L24 23 L28 28 H43" stroke="#5C1710" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/><path d="M5 26 H13 L16 20 L20 31 L24 22 L28 27 H43" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="feat-tile-name">Cek Tensi Anda</div>
           <div class="feat-tile-sub">Pantau tekanan darah</div>
         </div>
@@ -2173,17 +2984,22 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
       <!-- SECONDARY 3-COLUMN GRID -->
       <div class="feat-grid-sec">
         <div class="feat-tile feat-tile-sm tt-makan" onclick="openModal('makan')" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M16 9 C10.5 9 7 12.5 7 18 C7 23.5 11 28 16 28 C21 28 25 23.5 25 18 C25 12.5 21.5 9 16 9 Z"/><path d="M16 9 C17 5.5 19.5 3.5 22.5 3.5"/><path d="M13 15 C14 15 15 16 15 17"/></svg></div>
+          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g-makan-plate" cx="35%" cy="30%" r="80%"><stop offset="0%" stop-color="#1FC9A8"/><stop offset="55%" stop-color="#0A7B6C"/><stop offset="100%" stop-color="#064540"/></radialGradient><radialGradient id="g-makan-inner" cx="40%" cy="35%" r="70%"><stop offset="0%" stop-color="#0F5A4F"/><stop offset="100%" stop-color="#03251F"/></radialGradient><linearGradient id="g-makan-util" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F2CE70"/><stop offset="50%" stop-color="#C8860A"/><stop offset="100%" stop-color="#8B5E06"/></linearGradient></defs><ellipse cx="16" cy="19" rx="13" ry="10.5" fill="#032924" opacity="0.3"/><ellipse cx="16" cy="17" rx="13" ry="10.5" fill="url(#g-makan-plate)"/><ellipse cx="16" cy="17" rx="9.5" ry="7.2" fill="url(#g-makan-inner)"/><ellipse cx="13" cy="12" rx="5.5" ry="1.8" fill="#fff" opacity="0.35"/><path d="M7.5 8 V13.5 M9.2 8 V13.5 M10.9 8 V13.5 M12.6 8 V13.5" stroke="url(#g-makan-util)" stroke-width="0.9" stroke-linecap="round"/><rect x="7.2" y="13" width="5.7" height="2" rx="0.7" fill="url(#g-makan-util)"/><rect x="9.2" y="14.5" width="1.7" height="7" rx="0.8" fill="url(#g-makan-util)"/><circle cx="19.5" cy="18" r="5" fill="#032924" opacity="0.4"/><circle cx="19.5" cy="17.5" r="4.4" fill="#0F5A4F"/><circle cx="19.5" cy="17.5" r="4.4" fill="none" stroke="url(#g-makan-util)" stroke-width="1.3"/><ellipse cx="17.9" cy="16" rx="1.5" ry="0.9" fill="#fff" opacity="0.55"/><path d="M22.8 20.8 L25.8 23.8" stroke="#8B5E06" stroke-width="2.2" stroke-linecap="round"/><path d="M22.8 20.8 L25.8 23.8" stroke="url(#g-makan-util)" stroke-width="1.6" stroke-linecap="round"/></svg></div>
           <div class="feat-tile-name">Analisa Makanku</div>
           <div class="feat-tile-sub">Cek gizimu</div>
         </div>
         <div class="feat-tile feat-tile-sm tt-aktiv" id="aktiv-feat-card" onclick="openAktivitasModal()" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="6" r="2.5"/><path d="M12 29 L15 22 L11 18 L16 13 L22 15 L26 21"/><path d="M18 23 L14 28"/></svg></div>
+          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-aktiv-shoe" x1="0.2" y1="0" x2="0.5" y2="1"><stop offset="0%" stop-color="#1FC9A8"/><stop offset="55%" stop-color="#0A7B6C"/><stop offset="100%" stop-color="#064540"/></linearGradient><linearGradient id="g-aktiv-sole" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#B8D7BF"/><stop offset="100%" stop-color="#3D6B48"/></linearGradient></defs><path d="M2.5 11 H8.5" stroke="#6B9E78" stroke-width="1.5" stroke-linecap="round" opacity="0.75"/><path d="M1.5 15 H6.5" stroke="#6B9E78" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/><path d="M2.5 19 H7.5" stroke="#6B9E78" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/><path d="M8 22 Q7 18 10 16 Q13 14 16 14 Q20 14 23 16 L29 18 Q31 19 30 21 L29 23 Q28 24 27 24 H10 Q8 24 8 22 Z" fill="#032924" opacity="0.3"/><path d="M7 21 Q6 17 9 15 Q12 13 15 13 Q19 13 22 15 L28 17 Q30 18 29 20 L28 22 Q27 23 26 23 H9 Q7 23 7 21 Z" fill="url(#g-aktiv-shoe)"/><path d="M6.6 21 Q7 23 9 23 H26 Q27.2 23 28 22.2 L28.4 24 Q27.5 25 26 25 H9 Q6.2 25 6.2 22.6 Q6.2 21.6 6.6 21 Z" fill="url(#g-aktiv-sole)"/><path d="M13 15 L16 17 M14 13.5 L17 15.5 M15 12.5 L18 14" stroke="#fff" stroke-width="0.9" stroke-linecap="round" opacity="0.75"/><path d="M10 15 Q14 13 20 14 Q22 14.3 22 14.8 Q17 14 10 16 Z" fill="#fff" opacity="0.35"/><path d="M15 19 Q20 17.8 26 19" stroke="#fff" stroke-width="0.8" stroke-linecap="round" opacity="0.55" fill="none"/></svg></div>
           <div class="feat-tile-name">TrackFit</div>
           <div class="feat-tile-sub">Langkah &amp; kalori</div>
         </div>
+        <div class="feat-tile feat-tile-sm tt-medit" onclick="openMeditasiModal()" role="button" tabindex="0">
+          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g-medit-pad" cx="35%" cy="30%" r="85%"><stop offset="0%" stop-color="#8B5EC9"/><stop offset="50%" stop-color="#3D1F6E"/><stop offset="100%" stop-color="#1B0A3A"/></radialGradient><linearGradient id="g-medit-body" x1="0.25" y1="0" x2="0.7" y2="1"><stop offset="0%" stop-color="#F2CE70"/><stop offset="55%" stop-color="#C8860A"/><stop offset="100%" stop-color="#6A4704"/></linearGradient><radialGradient id="g-medit-aura" cx="50%" cy="55%" r="55%"><stop offset="0%" stop-color="rgba(200,134,10,0.5)"/><stop offset="60%" stop-color="rgba(200,134,10,0.12)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><ellipse cx="16" cy="24" rx="13" ry="4" fill="#0A0418" opacity="0.35"/><ellipse cx="16" cy="18" rx="14" ry="9" fill="url(#g-medit-aura)"/><path d="M4 22 Q7 14 16 14 Q25 14 28 22 Q28 26 24 27 H8 Q4 26 4 22 Z" fill="#0A0418" opacity="0.45"/><path d="M4 22 Q7 13 16 13 Q25 13 28 22 Q28 26 24 26 H8 Q4 26 4 22 Z" fill="url(#g-medit-pad)"/><path d="M6 16 Q14 12 26 14 Q27 14.5 26.5 15.5 Q14 13 6.8 17 Z" fill="#fff" opacity="0.14"/><path d="M10 20 Q13 15 16 15 Q19 15 22 20 Q23 22 22 23 L10 23 Q9 22 10 20 Z" fill="#08021A" opacity="0.35"/><circle cx="16" cy="6.5" r="2.8" fill="#08021A" opacity="0.3"/><circle cx="16" cy="6" r="2.8" fill="url(#g-medit-body)"/><ellipse cx="15.2" cy="5.2" rx="1" ry="0.7" fill="#fff" opacity="0.6"/><path d="M13.6 8.8 Q14.4 9.8 16 9.8 Q17.6 9.8 18.4 8.8 L18.2 11 Q17.2 11.5 16 11.5 Q14.8 11.5 13.8 11 Z" fill="url(#g-medit-body)"/><path d="M11 19 Q9 12 14 11 Q16 10.6 18 11 Q23 12 21 19 Q19 21 16 21 Q13 21 11 19 Z" fill="url(#g-medit-body)"/><path d="M11.5 17 Q9 18 7.5 20 Q6.5 21 8 21 L11 21 Q12 20 12 19 Z" fill="url(#g-medit-body)"/><path d="M20.5 17 Q23 18 24.5 20 Q25.5 21 24 21 L21 21 Q20 20 20 19 Z" fill="url(#g-medit-body)"/><circle cx="8" cy="21" r="1.3" fill="url(#g-medit-body)"/><circle cx="24" cy="21" r="1.3" fill="url(#g-medit-body)"/><path d="M11.5 13 Q14 12 19 12 Q21 12.2 20.5 13 Q16 12.3 12 14 Z" fill="#fff" opacity="0.22"/></svg></div>
+          <div class="feat-tile-name">Meditasi</div>
+          <div class="feat-tile-sub">Ketenangan jiwa &amp; raga</div>
+        </div>
         <div class="feat-tile feat-tile-sm tt-mens" id="mens-feat-card" onclick="openMensModal()" role="button" tabindex="0" style="display:none">
-          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="22" height="22" rx="3"/><path d="M5 13 H27"/><path d="M10 4 V8"/><path d="M22 4 V8"/><path d="M16 18.5 C15 17.5 13 18 13 20 C13 22 16 24 16 24 C16 24 19 22 19 20 C19 18 17 17.5 16 18.5 Z" fill="currentColor" fill-opacity=".25"/></svg></div>
+          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-mens-cal" x1="0.2" y1="0" x2="0.6" y2="1"><stop offset="0%" stop-color="#F590A8"/><stop offset="50%" stop-color="#E17090"/><stop offset="100%" stop-color="#A0385A"/></linearGradient><linearGradient id="g-mens-page" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFF0F4"/><stop offset="100%" stop-color="#FBD0DD"/></linearGradient><linearGradient id="g-mens-fold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FBD0DD"/><stop offset="100%" stop-color="#C0506B"/></linearGradient></defs><rect x="4" y="7" width="24" height="23" rx="3.5" fill="#6B1F38" opacity="0.3"/><rect x="4" y="5" width="24" height="23" rx="3.5" fill="url(#g-mens-cal)"/><path d="M4 8.5 Q4 5 7.5 5 H24.5 Q28 5 28 8.5 V11 H4 Z" fill="#A0385A"/><path d="M5 6.5 Q14 5.5 27 6.5 V7.5 Q14 6.5 5 7.8 Z" fill="#fff" opacity="0.4"/><rect x="8.7" y="2.5" width="1.9" height="5.3" rx="0.9" fill="#6B1F38"/><rect x="8.95" y="2.8" width="1.4" height="4.7" rx="0.6" fill="#E17090"/><rect x="21.1" y="2.5" width="1.9" height="5.3" rx="0.9" fill="#6B1F38"/><rect x="21.35" y="2.8" width="1.4" height="4.7" rx="0.6" fill="#E17090"/><rect x="6" y="12.5" width="20" height="13.5" rx="1.2" fill="url(#g-mens-page)"/><path d="M26 26 L21.5 26 L26 21.5 Z" fill="url(#g-mens-fold)"/><path d="M26 26 L21.5 26 L26 21.5 Z" fill="#fff" opacity="0.18"/><g transform="translate(16 19)"><circle cx="0" cy="-3.2" r="2" fill="#E17090"/><circle cx="2.9" cy="-1" r="2" fill="#E67396"/><circle cx="1.8" cy="2.6" r="2" fill="#E17090"/><circle cx="-1.8" cy="2.6" r="2" fill="#E67396"/><circle cx="-2.9" cy="-1" r="2" fill="#E17090"/><circle cx="0" cy="0" r="1.5" fill="#FFD166"/><circle cx="-0.5" cy="-0.5" r="0.55" fill="#fff" opacity="0.75"/></g></svg></div>
           <div class="feat-tile-name">Siklus &#127800;</div>
           <div class="feat-tile-sub">Lacak siklus</div>
         </div>
@@ -2822,6 +3638,33 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
   </div>
   <div id="reminder-perm-msg" style="display:none;text-align:center;padding:16px;margin-top:14px;background:var(--gold-light);border-radius:14px;font-size:.82rem;color:#8B6914">
     Aktifkan notifikasi di browser kamu ya! &#x1F33F;
+  </div>
+</div>
+
+<!-- MODAL: MEDITASI -->
+<div class="modal-overlay" id="overlay-medit" onclick="closeMeditasiModal()"></div>
+<div class="modal-panel" id="modal-medit">
+  <!-- Gallery view -->
+  <div id="medit-gallery-view">
+    <div class="medit-header">
+      <div class="medit-header-row">
+        <div>
+          <h2>Meditasi</h2>
+          <div class="medit-subtitle">Temukan ketenangan dalam setiap napasmu</div>
+        </div>
+        <button class="modal-close" onclick="closeMeditasiModal()" aria-label="Tutup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+    </div>
+    <div class="medit-gallery" id="medit-gallery"></div>
+  </div>
+  <!-- Detail view -->
+  <div class="medit-detail-view" id="medit-detail-view">
+    <div class="medit-detail-header">
+      <button class="medit-back-btn" onclick="meditBack()" aria-label="Kembali"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+      <div class="medit-detail-header-title" id="medit-detail-header-title"></div>
+      <button class="modal-close" onclick="closeMeditasiModal()" aria-label="Tutup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div id="medit-detail-body"></div>
   </div>
 </div>
 
@@ -7529,6 +8372,1202 @@ function aktivShowToast(msg) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', homeInstall);
   else homeInstall();
 })();
+
+/* ======================================================================= */
+/* ==================== MEDITASI FEATURE — JAVASCRIPT ==================== */
+/* ======================================================================= */
+(function(){
+'use strict';
+
+// ===== MEDITATION DATA (new photoreal avatar list — 2026-04-23) =====
+// Legacy per-meditation rich content (shortDesc, fullDesc, benefits, history,
+// steps, poses, pose SVG generators, meditGetAvatars/meditGetHeroAvatar) was
+// removed 2026-04-23 during photoreal avatar refactor. Pre-refactor version
+// preserved in git history. Do NOT re-add without updating MEDITASI_LIST.
+var MEDITASI_LIST = [
+  { id:'nafas',         nama:'Meditasi Nafas',    deskripsi:'Tenangkan pikiran dengan fokus pada nafas',       durasi:10, avatar:'avatars/nafas.png',         icon:'🌬️', audio:{ type:'breathing',             label:'Pola nafas lembut & angin' } },
+  { id:'cinta_kasih',   nama:'Cinta Kasih',       deskripsi:'Metta meditation untuk hati yang hangat',         durasi:15, avatar:'avatars/cinta_kasih.png',   icon:'💗',       audio:{ type:'bowl', freq:528,        label:'Singing bowl hangat 528 Hz' } },
+  { id:'fokus',         nama:'Fokus',             deskripsi:'Pertajam konsentrasi dan kejernihan mental',      durasi:10, avatar:'avatars/fokus.png',         icon:'🎯',       audio:{ type:'silence',              label:'Keheningan & kicau burung' } },
+  { id:'mantra',        nama:'Mantra',            deskripsi:'Repetisi suci untuk ketenangan jiwa',             durasi:20, avatar:'avatars/mantra.png',        icon:'📿',       audio:{ type:'mantra', freq:432,      label:'Chant mantra 432 Hz' } },
+  { id:'syukur',        nama:'Syukur',            deskripsi:'Ungkap rasa terima kasih dari dalam hati',        durasi:10, avatar:'avatars/syukur.png',        icon:'🙏',       audio:{ type:'choir',                label:'Pad choir hangat' } },
+  { id:'visualisasi',   nama:'Visualisasi',       deskripsi:'Bayangkan ketenangan di pikiran kamu',            durasi:15, avatar:'avatars/visualisasi.png',   icon:'✨',             audio:{ type:'crystal',              label:'Drone 528 Hz & kristal shimmer' } },
+  { id:'pereda_stres',  nama:'Pereda Stres',      deskripsi:'Lepaskan tekanan, temukan ketenangan',            durasi:12, avatar:'avatars/pereda_stres.png',  icon:'🌊',       audio:{ type:'ocean',                label:'Ombak laut dalam' } },
+  { id:'body_scan',     nama:'Body Scan',         deskripsi:'Pemindaian tubuh dari kepala sampai kaki',        durasi:20, avatar:'avatars/body_scan.png',     icon:'🧘',       audio:{ type:'chakra',               label:'Tone chakra dalam' } },
+  { id:'berjalan',      nama:'Meditasi Berjalan', deskripsi:'Mindful walking, satu langkah di setiap nafas',   durasi:15, avatar:'avatars/berjalan.png',      icon:'🚶',       audio:{ type:'stream',               label:'Sungai mengalir & seruling bambu' } },
+  { id:'tidur_nyenyak', nama:'Tidur Nyenyak',     deskripsi:'Yoga nidra untuk istirahat yang dalam',           durasi:25, avatar:'avatars/tidur_nyenyak.png', icon:'🌙',       audio:{ type:'rain',                 label:'Hujan lembut & guntur jauh' } }
+];
+
+// ===== RICH CONTENT (educational per-meditation detail — 2026-04-23) =====
+var KONTEN_MEDITASI = {
+  nafas: {
+    arti: "Meditasi Nafas, atau yang dikenal sebagai Pranayama dalam tradisi yoga, adalah praktik meditasi paling fundamental dan universal. Intinya adalah menjadikan nafas sebagai jangkar perhatian — bukan mengubah nafas, tapi mengamatinya dengan sadar. Setiap hembusan nafas masuk dan keluar menjadi objek meditasi. Praktik ini tampak sederhana, tapi sebenarnya adalah fondasi dari hampir semua tradisi meditasi di dunia, karena nafas adalah satu-satunya fungsi tubuh yang bisa dikendalikan secara sadar maupun berjalan otomatis — membuatnya jembatan sempurna antara pikiran sadar dan sistem saraf otonom.",
+    sejarah: "Pranayama berakar dari tradisi yoga India kuno, dengan bukti tertulis pertama di Upanishad (800-500 SM) dan kemudian secara sistematis dijelaskan oleh Patanjali dalam Yoga Sutra (sekitar 400 SM). Kata 'Pranayama' berasal dari bahasa Sanskrit: 'prana' yang berarti energi vital atau nafas kehidupan, dan 'ayama' yang berarti ekspansi atau pengendalian. Di Tiongkok kuno, praktik serupa dikenal sebagai Qi Gong, fokus pada 'chi' atau energi vital. Tradisi Sufi Islam menyebutnya 'Dhikr-e-Nafs' — mengingat Tuhan melalui nafas. Buddha sendiri menjadikan Anapanasati (mindfulness of breathing) sebagai meditasi utama yang membawanya mencapai pencerahan. Dalam 50 tahun terakhir, sains Barat mulai mempelajari serius dampak fisiologisnya, dengan pionir seperti Dr. Herbert Benson di Harvard Medical School yang menciptakan istilah 'Relaxation Response' pada 1970-an.",
+    cara_kerja: "Ketika kita fokus pada nafas, kita mengaktifkan Nervus Vagus — saraf terpanjang di tubuh yang menghubungkan otak dengan organ-organ vital. Nafas yang lambat dan dalam (khususnya menghembus lebih lama dari menghirup) merangsang sistem saraf parasimpatik, yang memberitahu tubuh: 'Sekarang aman, tenangkan diri.' Secara bersamaan, fokus berulang pada sensasi nafas melatih korteks prefrontal (area otak untuk perhatian) dan melemahkan aktivitas amigdala (pusat ketakutan). Dalam hitungan 5-10 menit, detak jantung turun, tekanan darah menurun, kadar kortisol berkurang, dan gelombang otak beralih dari beta (stres) ke alpha (tenang waspada). Jangka panjang, praktik rutin secara fisik mengubah struktur otak — densitas materi abu-abu di area kesadaran meningkat, sementara di amigdala menurun.",
+    fungsi: "Menenangkan sistem saraf otonom, mengaktifkan respons relaksasi, membawa kesadaran kembali ke momen sekarang, dan melatih otak untuk tidak terseret ke dalam arus pikiran otomatis. Dalam situasi stres akut, nafas sadar adalah 'rem darurat' tubuh yang bisa diaktifkan dalam hitungan detik.",
+    manfaat: [
+      "Menurunkan tekanan darah sistolik 5-10 mmHg setelah praktik rutin 8 minggu",
+      "Mengurangi detak jantung istirahat dan variabilitas detak jantung (HRV) yang lebih sehat",
+      "Meningkatkan kapasitas paru-paru dan efisiensi pertukaran oksigen",
+      "Menurunkan kecemasan dan serangan panik secara signifikan",
+      "Memperbaiki kualitas tidur dan mempercepat waktu tertidur",
+      "Meningkatkan fokus, konsentrasi, dan memori kerja",
+      "Menurunkan kadar kortisol (hormon stres) hingga 25%",
+      "Memperkuat sistem imun melalui aktivasi saraf vagus",
+      "Memperbaiki regulasi emosi dan respons terhadap frustrasi",
+      "Mengurangi gejala IBS dan gangguan pencernaan terkait stres"
+    ],
+    variasi: "Ada banyak teknik Pranayama: (1) Nafas Diafragma — bernafas dalam dari perut, bukan dada dangkal. (2) 4-7-8 — menghirup 4 detik, tahan 7 detik, hembus 8 detik, sangat efektif untuk tidur. (3) Box Breathing — 4-4-4-4, dipakai Navy SEAL untuk tetap tenang dalam tekanan. (4) Nadi Shodhana — pernafasan lubang hidung bergantian, menyeimbangkan kedua belahan otak. (5) Bhramari — 'nafas lebah', menghembus dengan dengung lembut, menenangkan sistem saraf dalam hitungan menit.",
+    cocok_untuk: "Semua level, sangat ideal untuk pemula yang baru mulai meditasi. Sangat direkomendasikan saat mengalami stres akut, serangan panik, sebelum presentasi atau ujian, sulit tidur, atau kapan pun butuh 'mini reset' di tengah hari sibuk. Aman untuk semua usia — dari anak-anak hingga lansia."
+  },
+  cinta_kasih: {
+    arti: "Meditasi Cinta Kasih, atau Metta Bhavana dalam bahasa Pali, adalah praktik sistematis untuk menumbuhkan perasaan cinta kasih, kehangatan, dan welas asih tanpa syarat. Berbeda dengan meditasi fokus yang mengarahkan perhatian pada satu objek, Metta secara aktif 'menanam benih' emosi positif melalui visualisasi dan pengulangan frasa niat baik. Praktiknya biasanya mengalir dalam lingkaran yang membesar: dimulai dari diri sendiri, lalu orang yang kita cintai, orang netral, orang yang sulit (bahkan yang kita benci), dan akhirnya semua makhluk di alam semesta. Ini adalah 'meditasi hati' yang paling dicintai dalam tradisi Buddhis.",
+    sejarah: "Metta adalah salah satu dari 'Empat Kediaman Luhur' (Brahmavihara) yang diajarkan Buddha Gautama sekitar 2500 tahun lalu di India. Tiga lainnya adalah Karuna (welas asih), Mudita (sukacita simpatik), dan Upekkha (keseimbangan batin). Ajaran utamanya tertulis dalam Metta Sutta, sebuah khutbah Buddha yang bisa ditemukan di Khuddaka Nikaya. Di Asia Tenggara, praktik ini dipertahankan hidup oleh tradisi Theravada di Sri Lanka, Myanmar, Thailand. Di abad ke-20, guru Buddhis seperti Sharon Salzberg di Amerika membawa Metta ke Barat melalui bukunya 'Lovingkindness' (1995). Penelitian modern oleh Dr. Barbara Fredrickson di University of North Carolina membuktikan bahwa Metta bisa secara terukur meningkatkan emosi positif dan kesehatan fisik dalam 7 minggu praktik.",
+    cara_kerja: "Saat kita secara berulang mengulang frasa niat baik ('Semoga aku berbahagia, semoga aku sehat, semoga aku aman'), otak mulai memprogram ulang pola respons otomatisnya. Amigdala yang biasanya hiper-reaktif terhadap ancaman sosial menjadi lebih tenang. Insula anterior (area otak untuk empati) menguat. Yang paling penting, sistem saraf vagal — yang mengatur respons sosial — menjadi lebih fleksibel (Polyvagal Theory, Dr. Stephen Porges). Ini menghasilkan 'broadening effect': kita menjadi lebih terbuka, kurang defensif, lebih terhubung dengan orang lain. Studi brain scan menunjukkan praktisi Metta jangka panjang memiliki peningkatan aktivitas di area otak terkait empati dan kasih sayang.",
+    fungsi: "Mengaktifkan sistem saraf sosial (vagus nerve), menumbuhkan kapasitas empati dan kehangatan, menetralkan pikiran-pikiran negatif tentang diri dan orang lain, memperkuat rasa keterhubungan antar sesama, dan membangun ketahanan emosional jangka panjang.",
+    manfaat: [
+      "Meningkatkan emosi positif harian secara signifikan (studi Fredrickson 2008)",
+      "Mengurangi kritik diri dan self-hatred",
+      "Mengurangi perasaan marah, dendam, dan kebencian",
+      "Memperkuat hubungan sosial dan romantis",
+      "Meningkatkan empati dan pemahaman terhadap orang lain",
+      "Meningkatkan aktivitas nervus vagus — indikator kesehatan jantung",
+      "Mengurangi gejala depresi dan PTSD",
+      "Meningkatkan sistem imun melalui reduksi inflamasi",
+      "Mengurangi bias implisit terhadap kelompok 'lain'",
+      "Memperbaiki kesehatan mental pasca-trauma"
+    ],
+    variasi: "Versi tradisional Buddhis menggunakan 5 kategori orang: diri sendiri, benefactor (orang yang berjasa), teman, orang netral, orang sulit. Versi sekuler Sharon Salzberg cukup pakai 4 kategori. Ada juga Tonglen Tibet — 'mengambil' penderitaan orang lain dengan nafas masuk, 'memberi' cinta dengan nafas keluar. Versi singkat 'Self-Compassion Break' oleh Dr. Kristin Neff cocok untuk momen krisis pribadi.",
+    cocok_untuk: "Saat hubungan sulit atau ada konflik interpersonal, merasa kesepian atau terisolasi, terlalu kritis pada diri sendiri, setelah mengalami kekecewaan atau pengkhianatan, atau ingin membangun hati yang lebih hangat. Sangat terapeutik untuk mereka dengan masalah attachment atau riwayat trauma relasional."
+  },
+  fokus: {
+    arti: "Meditasi Fokus, atau Samatha dalam tradisi Buddhis, adalah praktik melatih konsentrasi dengan mengunci perhatian pada satu objek tunggal dalam jangka waktu lama. Objeknya bisa apa saja: nyala lilin, suara detik jam, sebuah kata (mantra), rasa nafas di lubang hidung, atau bahkan titik di dinding. Inti praktiknya bukan tidak memikirkan apa-apa — tapi menyadari saat pikiran melayang dan dengan lembut mengembalikannya ke objek. Dalam tradisi yoga, ini disebut Dharana (konsentrasi), tahap ke-6 dari 8 tahap Ashtanga Yoga Patanjali, yang merupakan prasyarat untuk Dhyana (meditasi mendalam) dan Samadhi (penyerapan total).",
+    sejarah: "Praktik konsentrasi terpusat adalah inti dari hampir semua tradisi kontemplatif dunia. Dalam Buddhisme, Samatha ('ketenangan') diajarkan Buddha sebagai salah satu dari dua sayap meditasi (yang lain adalah Vipassana/insight). Tradisi yoga sistematisasi praktik ini dalam Yoga Sutra Patanjali (400 SM). Biarawan Kristen abad pertengahan mempraktikkan 'concentration prayer' dengan Nama Yesus. Zen Jepang mengajarkan Shikantaza — duduk hanya dengan kesadaran murni pada postur. Dalam sains modern, penelitian Dr. Richard Davidson di University of Wisconsin-Madison (sejak 1992) menunjukkan bahwa biksu Tibet dengan 10.000+ jam meditasi konsentrasi memiliki perubahan permanen di struktur otak — gelombang gamma yang konstan, materi abu-abu lebih tebal di area perhatian.",
+    cara_kerja: "Konsentrasi melatih jaringan perhatian otak — khususnya Default Mode Network (DMN), jaringan yang aktif saat pikiran 'melayang' dan sering bertanggung jawab atas overthinking. Saat kita fokus pada satu objek, DMN menurun sementara Task Positive Network (TPN) meningkat. Dengan latihan berulang, kita memperkuat 'otot mental' yaitu kemampuan untuk menyadari kapan pikiran melayang dan kembali. Ini persis prinsip latihan beban — setiap kali pikiran melayang dan kita menyadarinya, itu 'satu repetisi'. Studi Harvard Medical School (2011) menemukan 8 minggu latihan konsentrasi 27 menit/hari meningkatkan materi abu-abu di hippocampus (memori), korteks cingulate posterior (kesadaran), dan persimpangan temporo-parietal (empati).",
+    fungsi: "Melatih otak untuk bertahan pada satu objek perhatian dalam waktu lama, melawan kecenderungan alami pikiran untuk melompat-lompat (monkey mind), memperkuat area otak untuk atensi dan kontrol diri, dan membangun 'penyerapan' mental yang lebih dalam.",
+    manfaat: [
+      "Meningkatkan rentang perhatian dari rata-rata 8 detik menjadi menit/jam",
+      "Memperbaiki memori kerja dan kemampuan multitasking",
+      "Mengurangi mind-wandering dan overthinking secara signifikan",
+      "Meningkatkan produktivitas kerja dan kualitas belajar",
+      "Memperbaiki kontrol impuls dan pengambilan keputusan",
+      "Meningkatkan kualitas tidur karena pikiran lebih tenang",
+      "Mengurangi gejala ADHD pada praktisi jangka panjang",
+      "Memperkuat fungsi eksekutif korteks prefrontal",
+      "Meningkatkan kreativitas melalui akses ke keadaan 'flow'",
+      "Memperbaiki regulasi emosi karena pikiran tidak mudah terseret"
+    ],
+    variasi: "Trataka — fokus pada nyala lilin. Kasina — fokus pada objek berwarna atau elemen (tanah, air, api, udara). Anapanasati — fokus pada nafas di satu titik (ujung hidung atau perut). Mantra repetition — fokus pada satu kata/frasa. Walking meditation focus — fokus pada sensasi telapak kaki. Sound meditation — fokus pada satu suara (mangkuk Tibet, dentuman jam).",
+    cocok_untuk: "Profesional yang bekerja deep focus (programmer, penulis, peneliti), pelajar/mahasiswa yang perlu belajar lebih efektif, siapapun dengan distraksi digital kronis, orang yang ingin mengurangi overthinking, pemula yang ingin membangun fondasi meditasi sebelum lanjut ke teknik lebih halus."
+  },
+  mantra: {
+    arti: "Meditasi Mantra adalah praktik meditasi dengan pengulangan terus-menerus sebuah kata, frasa, atau suara suci sebagai jangkar perhatian. Kata 'mantra' berasal dari Sanskrit: 'man' artinya pikiran, 'tra' artinya alat atau pembebas — sehingga mantra secara harfiah berarti 'alat untuk pikiran' atau 'pembebas pikiran'. Mantra bisa diucapkan keras (Vachika), dibisikkan (Upamshu), atau hanya dalam pikiran (Manasika). Setiap mantra dipercaya memiliki getaran energi tersendiri yang mempengaruhi pikiran dan tubuh. Ini adalah salah satu bentuk meditasi tertua dan tersebar paling luas — ditemukan di hampir semua tradisi spiritual dunia.",
+    sejarah: "Tradisi mantra sudah ada lebih dari 3500 tahun, dengan bukti tertulis pertama di Rig Veda (sekitar 1500 SM), kitab suci Hindu tertua. Mantra seperti 'Om' dipercaya sebagai suara primordial alam semesta. Dalam Buddhisme, mantra berkembang luas di tradisi Mahayana dan Vajrayana (Buddhisme Tibet), dengan mantra terkenal 'Om Mani Padme Hum' (permata dalam teratai). Tradisi Sufi Islam menggunakan dzikr — pengulangan nama-nama Allah. Tradisi Ortodoks Kristen memiliki 'Jesus Prayer' — 'Tuhan Yesus Kristus, kasihanilah aku' diulang terus menerus. Maharishi Mahesh Yogi membawa teknik Transcendental Meditation (TM) ke Barat pada 1960-an, di mana praktisi diberi mantra personal dan meditasi 20 menit 2x sehari. Studi ilmiah atas TM di Harvard Medical School oleh Dr. Herbert Benson menghasilkan konsep 'Relaxation Response' — bukti bahwa mantra repetition memicu respons fisiologis yang terukur.",
+    cara_kerja: "Pengulangan mantra bekerja melalui beberapa mekanisme. Pertama, repetisi menciptakan pola neural yang menggeser otak dari mode analisis (beta waves) ke mode istirahat (alpha/theta waves). Kedua, memberi pikiran satu fokus yang kompetitif dengan arus pikiran otomatis — sulit overthinking sambil mengulang mantra. Ketiga, aspek vokalisasi (jika diucapkan) mengaktifkan nervus vagus melalui getaran di tenggorokan, memicu respons relaksasi. Keempat, aspek irama yang teratur menstabilkan ritme jantung dan pernafasan. Studi EEG menunjukkan 20 menit mantra meditation menurunkan detak jantung rata-rata 10-15%, menurunkan kortisol, dan meningkatkan serotonin serta dopamin. Penelitian Dr. Andrew Newberg (University of Pennsylvania) dengan brain imaging menunjukkan area otak yang terlibat dalam spiritualitas (lobus parietal) menjadi aktif selama mantra repetition.",
+    fungsi: "Memberikan pikiran satu fokus repetitif yang menenangkan kebisingan mental, mengaktifkan respons relaksasi fisiologis tubuh, memicu gelombang otak alpha dan theta yang berasosiasi dengan ketenangan, dan (dalam konteks spiritual) menghubungkan praktisi dengan energi atau makna yang lebih tinggi.",
+    manfaat: [
+      "Menurunkan kadar kortisol (hormon stres) hingga 30%",
+      "Menstabilkan detak jantung dan menurunkan tekanan darah",
+      "Memicu respons relaksasi fisiologis (Herbert Benson)",
+      "Meningkatkan produksi serotonin dan endorfin",
+      "Mengurangi kecemasan generalized dan social anxiety",
+      "Memperbaiki kualitas tidur karena menenangkan pikiran sebelum tidur",
+      "Meningkatkan kesadaran spiritual dan rasa koneksi transenden",
+      "Membantu mengatasi gangguan obsesif-kompulsif (OCD)",
+      "Meningkatkan fokus bagi mereka yang sulit dengan keheningan total",
+      "Memberikan 'jangkar' mental di situasi sulit atau krisis"
+    ],
+    variasi: "Mantra Sanskrit: 'Om', 'So Hum' (aku adalah itu), 'Om Namah Shivaya', 'Om Mani Padme Hum'. Mantra bebas dalam bahasa sendiri: 'Aku tenang dan damai', 'Semua baik-baik saja', 'Aku aman'. Mantra religi Islam: 'La ilaha illa Allah', 'Subhanallah', 'Alhamdulillah'. Mantra Kristen: 'Tuhan kasihanilah', 'Abba, Bapa'. Pilih yang resonan dengan keyakinan pribadi — efek psikologis tetap sama selama mantra personal bermakna.",
+    cocok_untuk: "Mereka yang suka struktur dan repetisi dalam meditasi, pemula yang sulit meditasi dalam keheningan total, orang dengan pikiran yang sangat aktif, praktisi spiritual dari tradisi mana pun, mereka dengan gejala OCD atau kecemasan kronis, siapapun yang ingin meditasi dengan elemen devosi."
+  },
+  syukur: {
+    arti: "Meditasi Syukur adalah praktik kontemplatif dengan secara sadar dan sistematis merenungkan hal-hal yang kita syukuri dalam hidup — dari yang besar (kesehatan, keluarga, pekerjaan) sampai yang kecil (secangkir kopi hangat pagi, matahari pagi, nafas yang nyaman). Bukan sekadar 'positive thinking' dangkal, tapi latihan mendalam untuk melatih otak melihat kelimpahan alih-alih kekurangan. Praktiknya melibatkan pause sejenak, mengarahkan perhatian ke satu hal, merasakannya sepenuhnya di tubuh (bukan hanya berpikir tentangnya), dan membiarkan perasaan apresiasi meresap. Syukur bukan hanya emosi — ini adalah lensa untuk melihat realitas.",
+    sejarah: "Syukur sebagai praktik spiritual ada di hampir semua tradisi agama: Ibadah syukur dalam Islam, Thanksgiving dalam Kristen, Dana Paramita dalam Buddhisme, Hakarat HaTov dalam Yudaisme. Namun meditasi syukur sebagai praktik psikologis terstruktur adalah penemuan modern. Dr. Robert Emmons dari University of California Davis, yang disebut 'father of gratitude research', memulai studi ilmiah sistematis sejak 1998. Karyanya bersama Dr. Michael McCullough menghasilkan serangkaian eksperimen yang membuktikan bahwa praktik syukur terstruktur (seperti menulis 5 hal yang disyukuri setiap hari) menghasilkan peningkatan terukur pada kesejahteraan, kualitas tidur, dan kesehatan fisik. Dr. Martin Seligman, pendiri Positive Psychology, memasukkan syukur sebagai salah satu dari 24 'character strengths' utama manusia. Dalam 2 dekade terakhir, lebih dari 500 studi peer-reviewed telah mendokumentasikan efek syukur pada kesehatan mental dan fisik.",
+    cara_kerja: "Syukur secara neurologis mengaktifkan korteks cingulate anterior dan medial prefrontal — area otak untuk pengenalan sosial, penghargaan, dan regulasi emosi. Saat kita bersyukur, otak melepaskan dopamin (motivasi/hadiah) dan serotonin (kebahagiaan/stabilitas mood) — neurotransmitter yang sama yang ditingkatkan oleh antidepresan SSRI, hanya saja diproduksi secara alami. Aspek 'body-based' dari meditasi syukur (merasakan di tubuh, bukan hanya berpikir) mengaktifkan nervus vagus, memicu respons relaksasi. Dengan praktik berulang, otak mulai 'default' ke pola melihat hal positif — ini disebut hedonic adaptation reversal. Area otak untuk appreciation dan meaning menguat, sementara area untuk threat detection (amigdala) menjadi kurang reaktif terhadap ketidaknyamanan sehari-hari.",
+    fungsi: "Mengalihkan fokus otak dari kekurangan/masalah ke kelimpahan/apresiasi, membangun optimisme dan kepuasan hidup, memicu respons fisiologis positif (dopamin, serotonin, oksitosin), memperkuat pola neural untuk melihat hal baik, dan membangun 'immunity' psikologis terhadap stres kronis.",
+    manfaat: [
+      "Meningkatkan kebahagiaan subjektif hingga 25% (studi Emmons 2003)",
+      "Mengurangi gejala depresi secara signifikan dalam 3 minggu praktik",
+      "Menurunkan kecemasan dan gejala PTSD",
+      "Memperbaiki kualitas dan durasi tidur",
+      "Memperkuat ikatan sosial dan hubungan romantis",
+      "Meningkatkan empati dan mengurangi perilaku agresif",
+      "Meningkatkan sistem imun dan mengurangi peradangan",
+      "Menurunkan tekanan darah dan risiko penyakit jantung",
+      "Meningkatkan resiliensi saat menghadapi trauma atau kesulitan",
+      "Memperbaiki harga diri dan mengurangi perbandingan sosial",
+      "Meningkatkan kinerja akademik dan profesional",
+      "Mengurangi materialistisme dan ketergantungan pada konsumsi"
+    ],
+    variasi: "Gratitude Journal — tulis 5 hal yang disyukuri setiap hari (klasik Emmons). Loving-Gratitude — gabungan syukur dan Metta, syukur pada orang tertentu. Gratitude Walk — berjalan sambil menyebutkan hal yang disyukuri. Pre-sleep Gratitude — 3 hal yang disyukuri sebelum tidur, memperbaiki kualitas tidur. Gratitude Letter — tulis surat syukur pada orang yang berjasa (Dr. Seligman menemukan ini memberi efek 1 bulan bahkan tanpa dikirim). Gratitude Body Scan — pindai tubuh sambil bersyukur pada setiap bagian yang berfungsi.",
+    cocok_untuk: "Semua orang, terutama saat mood rendah, merasa tidak cukup, dilanda pesimisme, menghadapi kesulitan atau kehilangan, terjebak dalam mindset scarcity (kekurangan), selalu membandingkan dengan orang lain, sedang pemulihan dari depresi, atau ingin menumbuhkan perspektif yang lebih seimbang pada hidup."
+  },
+  visualisasi: {
+    arti: "Meditasi Visualisasi adalah praktik membayangkan secara detail dan multi-sensorik tempat, pengalaman, atau hasil yang menenangkan atau memberdayakan. Berbeda dengan daydreaming pasif, visualisasi meditatif adalah aktif dan terarah — kita membangun gambaran mental dengan sengaja dan terlibat sepenuhnya dengan kelima indra (penglihatan, suara, bau, rasa, sentuhan). Bisa berupa tempat alam yang damai (pantai, hutan, gunung), pengalaman yang diinginkan (sembuh dari penyakit, sukses presentasi), atau figur simbolis (cahaya penyembuh, guru spiritual, sosok kuat dalam diri). Pikiran manusia tidak selalu bisa membedakan antara pengalaman real dan pengalaman yang divisualisasikan dengan vivid — ini kekuatan sekaligus tanggung jawab teknik ini.",
+    sejarah: "Visualisasi kuno ditemukan di banyak tradisi: Buddhisme Tibet memiliki sadhana — visualisasi detail dewa-dewi, mandala, dan alam pencerahan sebagai jalur transformasi batin. Shamanisme di berbagai suku primordial menggunakan 'journey work' — perjalanan mental ke alam spiritual. Tradisi Kabbalah Yahudi memiliki pathworking di Tree of Life. Namun versi modern sistematis lahir di psikologi dan kedokteran abad ke-20. Dr. Carl Simonton, ahli onkologi Amerika, memelopori visualisasi untuk pasien kanker di 1970-an — mengajak pasien membayangkan sel imun melawan sel kanker. Dr. Martin Rossman mengembangkan 'guided imagery' dalam konteks klinis. Dalam psikologi olahraga, Dr. Bruce Ogilvie sejak 1960-an mengembangkan visualisasi performa untuk atlet Olympic. Athlete legendaris seperti Michael Phelps, Tiger Woods, dan Kobe Bryant terbuka tentang peran visualisasi dalam performa puncak mereka.",
+    cara_kerja: "Otak merespons imajinasi vivid dengan cara yang mirip dengan pengalaman nyata — fenomena yang dikenal sebagai 'functional equivalence'. Brain imaging menunjukkan ketika kita membayangkan berjalan di pantai, area otak untuk penglihatan, gerakan, dan sensasi panas/dingin diaktifkan, hampir identik dengan pengalaman sesungguhnya. Ini membuka peluang luar biasa: tubuh bisa mengalami manfaat 'relaksasi di pantai' tanpa benar-benar di pantai. Neuron cermin (mirror neurons) memfasilitasi ini — otak 'berlatih' dengan imajinasi. Dalam konteks penyembuhan, visualisasi penyembuhan bisa mempengaruhi sistem imun (psikoneuroimunologi — Dr. Candace Pert). Dalam performa, visualisasi membangun jalur neural yang sama seperti latihan fisik — studi pada pemain piano menunjukkan visualisasi mental 2 jam/hari selama 5 hari menghasilkan perubahan otak yang sebanding dengan latihan fisik riil.",
+    fungsi: "Memanfaatkan kekuatan imajinasi untuk menginduksi keadaan fisiologis dan emosional yang diinginkan, melatih respons mental terhadap situasi sulit sebelum menghadapinya, mengaktifkan 'memori masa depan' yang memandu perilaku, menstimulasi proses penyembuhan psikosomatis, dan mengakses sumber daya batin (kebijaksanaan, keberanian, ketenangan) secara simbolis.",
+    manfaat: [
+      "Menurunkan kecemasan sebelum performa, ujian, atau acara penting",
+      "Meningkatkan kepercayaan diri dan self-efficacy",
+      "Membantu proses penyembuhan penyakit fisik (studi Simonton)",
+      "Mempercepat pemulihan pasca operasi dan rehabilitasi",
+      "Meningkatkan performa atletik dan skill motorik",
+      "Mengurangi nyeri kronis (melalui endorfin dan gate control)",
+      "Meningkatkan kreativitas dan problem-solving",
+      "Membantu mengatasi fobia dan trauma",
+      "Meningkatkan kualitas tidur (visualisasi tempat damai sebelum tidur)",
+      "Memperkuat motivasi untuk mencapai goal jangka panjang"
+    ],
+    variasi: "Safe Place Visualization — bayangkan tempat paling aman dan damai, untuk grounding saat cemas. Healing Light — bayangkan cahaya putih/emas menyembuhkan tubuh. Future Self — bayangkan diri di masa depan yang sudah mencapai goal. Mountain Meditation (Jon Kabat-Zinn) — membayangkan diri kuat seperti gunung. Color Meditation — bayangkan warna yang memenuhi tubuh dengan kualitas tertentu (biru = tenang, hijau = penyembuhan, emas = perlindungan). Guided Journey — ada narator yang memandu visualisasi panjang.",
+    cocok_untuk: "Atlet, performer, public speaker, artis, siapapun menghadapi tantangan besar atau momen performa puncak, pasien dalam pemulihan, orang dengan kecemasan antisipatif, kreatif yang butuh inspirasi, mereka dengan imajinasi visual yang kuat, orang yang kesulitan dengan meditasi abstrak dan butuh lebih banyak struktur narasi."
+  },
+  pereda_stres: {
+    arti: "Meditasi Pereda Stres adalah praktik kombinatif yang menggabungkan beberapa teknik meditasi terbukti — nafas sadar, body awareness, self-compassion, dan grounding — dalam satu sesi yang dirancang khusus untuk meredakan stres akut dengan cepat dan efektif. Berbeda dengan meditasi tradisional yang fokus pada satu teknik, pereda stres adalah 'toolkit kilat' yang menyesuaikan dengan kondisi aktual tubuh dan pikiran saat sedang stres. Prinsipnya: stres akut butuh intervensi multi-level — fisiologis (nafas dan tubuh), emosional (self-compassion), dan kognitif (grounding dan reframing). Satu sesi 10-15 menit bisa secara dramatis menggeser sistem saraf dari mode 'fight or flight' ke mode 'rest and digest'.",
+    sejarah: "Program MBSR (Mindfulness-Based Stress Reduction) adalah tonggak utama lahirnya pendekatan ini. Dikembangkan oleh Dr. Jon Kabat-Zinn di University of Massachusetts Medical Center pada tahun 1979, MBSR adalah program 8 minggu yang menggabungkan mindfulness meditation, body scan, yoga sadar, dan prinsip-prinsip Buddhis yang disekularkan untuk konteks medis. Awalnya dirancang untuk pasien dengan nyeri kronis yang tidak merespons pengobatan konvensional, MBSR terbukti efektif dan kini dipraktikkan di ribuan rumah sakit, universitas, korporasi, dan militer di seluruh dunia. Dr. Mark Williams di Oxford dan Dr. Zindel Segal di Toronto mengembangkan MBCT (Mindfulness-Based Cognitive Therapy) pada 2000-an, khusus untuk pencegahan kambuhnya depresi. Dr. Kristin Neff mengembangkan Self-Compassion Break pada 2003. Teknik-teknik ini dikombinasikan dalam pendekatan modern pereda stres.",
+    cara_kerja: "Stres akut mengaktifkan aksis HPA (Hipotalamus-Pituitari-Adrenal) — memicu kaskade kortisol, adrenalin, dan respons simpatik (fight/flight/freeze). Meditasi pereda stres bekerja dengan mengintervensi di multiple titik. Pertama, nafas dalam yang lambat langsung mengaktifkan nervus vagus dan respons parasimpatik — 'rem darurat' tubuh. Kedua, body scan mengalihkan perhatian dari pikiran katastropik ke sensasi fisik, mengurangi rumination. Ketiga, self-compassion (berbicara pada diri seperti pada teman) mengaktifkan sistem care/attachment otak, melepaskan oksitosin. Keempat, grounding (fokus pada 5 hal yang terlihat, 4 yang terdengar, dll) menancapkan kesadaran di sini-kini, memotong spiral kecemasan masa depan. Kelima, kognitif reframing ringan membantu melihat situasi dari perspektif yang kurang mengancam. Semua ini menurunkan kortisol, menormalkan detak jantung, dan mengembalikan fungsi korteks prefrontal yang sempat 'hijacked' oleh amigdala.",
+    fungsi: "Mengaktifkan sistem saraf parasimpatik ('rest and digest') untuk menetralkan respons 'fight or flight' tubuh, memutus siklus pikiran cemas, mengembalikan kesadaran ke momen sekarang, membangun keterampilan regulasi emosi, dan memberikan 'toolkit darurat' untuk situasi stres di masa depan.",
+    manfaat: [
+      "Menurunkan tekanan darah 5-10 mmHg dalam 10 menit praktik",
+      "Mengurangi kadar kortisol hingga 30% dalam satu sesi",
+      "Menormalkan detak jantung dan pernafasan dari kondisi stres akut",
+      "Memperbaiki fungsi kognitif setelah situasi stres",
+      "Mengaktifkan korteks prefrontal kembali (pengambilan keputusan rasional)",
+      "Mengurangi ketegangan otot leher, bahu, dan rahang",
+      "Meningkatkan ketahanan terhadap stres kronis jangka panjang",
+      "Membantu regulasi emosi dan respons terhadap konflik",
+      "Memperbaiki kualitas tidur saat dilakukan sebelum tidur",
+      "Mencegah kelelahan kronis dan burnout",
+      "Mengurangi gejala gangguan kecemasan (GAD)",
+      "Memperbaiki sistem imun dengan mengurangi inflamasi kronis"
+    ],
+    variasi: "5-4-3-2-1 Grounding — 5 hal dilihat, 4 didengar, 3 disentuh, 2 dicium, 1 dirasa. Box Breathing — 4-4-4-4 (inspirasi-tahan-ekspirasi-tahan). Progressive Muscle Relaxation — tegangkan-lepaskan otot sistematis dari ujung kaki. Self-Compassion Break — 3 langkah: acknowledge pain, common humanity, self-kindness. RAIN (Tara Brach) — Recognize, Allow, Investigate, Nurture. Quick Coherence (HeartMath) — fokus di jantung sambil nafas teratur, menghadirkan emosi positif.",
+    cocok_untuk: "Saat merasa kewalahan/overwhelmed, sebelum meeting atau presentasi penting, setelah hari yang sangat melelahkan, setelah konflik atau argumentasi, saat mengalami panic attack atau kecemasan akut, profesional di pekerjaan berisiko tinggi (dokter, pengacara, eksekutif), orangtua yang kewalahan, mahasiswa di masa ujian, siapapun yang merasa sistem saraf-nya 'overdrive'."
+  },
+  body_scan: {
+    arti: "Meditasi Body Scan, atau Pemindaian Tubuh, adalah praktik meditatif dengan secara sistematis membawa kesadaran dari ujung kepala sampai ujung kaki (atau sebaliknya), mengamati setiap bagian tubuh dengan perhatian terbuka dan tanpa menghakimi. Bukan hanya 'mengecek' — tapi benar-benar 'berada' di setiap bagian tubuh, merasakan apa pun sensasi yang ada di sana: hangat, dingin, kesemutan, tegang, ringan, berat, atau bahkan 'tidak ada' sensasi (yang juga adalah sensasi). Biasanya dilakukan berbaring telentang (shavasana), tapi bisa juga duduk. Durasi bervariasi — dari 10 menit cepat sampai 45 menit mendalam.",
+    sejarah: "Akar praktiknya ada di tradisi Buddhis Theravada, khususnya dalam teknik Vipassana yang diajarkan oleh U Ba Khin dan diteruskan oleh S.N. Goenka dari Burma (Myanmar). Dalam tradisi Vipassana, body scan adalah inti latihan — dilakukan selama 10-12 jam per hari selama retret 10 hari. Namun yang membawanya ke dunia medis Barat adalah Dr. Jon Kabat-Zinn di University of Massachusetts Medical Center pada 1979, melalui program MBSR (Mindfulness-Based Stress Reduction). Kabat-Zinn mensekularisasi teknik ini untuk pasien dengan nyeri kronis, insomnia, dan stres medis — hasilnya luar biasa efektif. Sejak itu, body scan telah diteliti dalam ratusan studi klinis, digunakan di rumah sakit, klinik nyeri, pusat rehabilitasi PTSD, dan bahkan sekolah. Di militer, program Warrior Mind digunakan untuk veteran dengan trauma, memanfaatkan body scan sebagai teknik utama.",
+    cara_kerja: "Body scan bekerja melalui konsep 'interoception' — kesadaran akan sinyal internal tubuh, yang diproses di insula anterior otak. Saat kita secara sadar memindai tubuh, kita memperkuat koneksi antara otak dan tubuh yang sering terputus oleh kehidupan modern yang 'head-centric'. Tiga mekanisme kunci: Pertama, kesadaran membuka 'default tension patterns' — ketegangan kronis yang tersembunyi (khususnya di leher, bahu, rahang, perut) bisa mencair ketika disadari. Kedua, body scan melatih nervous system untuk 'menginformasikan' otak tentang kondisi tubuh — memperbaiki regulasi nervous system otonom. Ketiga, untuk nyeri kronis, body scan membantu memisahkan 'sensasi murni' dari 'interpretasi pikiran tentang sensasi' — mengurangi suffering tanpa mengurangi sensasi. Studi klinis di Mass General Hospital menunjukkan 8 minggu MBSR dengan body scan mengurangi intensitas nyeri hingga 40% pada pasien nyeri kronis. Brain imaging menunjukkan peningkatan materi abu-abu di insula dan penurunan aktivitas di 'pain matrix'.",
+    fungsi: "Membangun koneksi pikiran-tubuh yang kuat (interoception), melepaskan ketegangan tersembunyi yang telah menjadi kronis, memperbaiki kesadaran akan sinyal tubuh (kelelahan, lapar, emosi yang muncul di tubuh), mendukung pemulihan dari nyeri kronis dan trauma, menyeimbangkan sistem saraf otonom, dan menjadi jembatan tidur untuk insomnia.",
+    manfaat: [
+      "Mengurangi intensitas nyeri kronis hingga 40% (studi MBSR klinis)",
+      "Memperbaiki tidur dan mengatasi insomnia kronis",
+      "Meningkatkan kesadaran sensasi tubuh dan interoception",
+      "Membantu pemulihan dari trauma dan PTSD (dipakai militer AS)",
+      "Melepaskan ketegangan otot yang tidak disadari",
+      "Memperbaiki pencernaan dan fungsi saluran cerna",
+      "Mengurangi gejala fibromialgia dan sakit kepala tegang",
+      "Meningkatkan koneksi tubuh bagi korban body shaming atau disordered eating",
+      "Memperbaiki kinerja atletik melalui body awareness",
+      "Menurunkan kecemasan yang termanifestasi sebagai gejala fisik",
+      "Membantu pemulihan dari operasi atau cedera",
+      "Meningkatkan kualitas orgasme dan keintiman (melalui body awareness)"
+    ],
+    variasi: "Full Body Scan Klasik (Kabat-Zinn, 45 menit) — dari jempol kaki ke ubun-ubun sangat detail. Quick Body Scan — 10 menit, bagian besar saja. Tense-Release — tegangkan lalu lepaskan setiap bagian (ideal untuk pemula). Breath-Aware Body Scan — bernafas 'ke' setiap bagian tubuh. Walking Body Scan — memindai sambil berjalan (tradisi Zen). Self-Compassion Body Scan — mengirim kehangatan dan penerimaan ke setiap bagian. Trauma-Informed Body Scan (Dr. Peter Levine, Dr. Bessel van der Kolk) — khusus untuk pemulihan trauma, dengan pilihan untuk pindah fokus jika ada area trigger.",
+    cocok_untuk: "Orang dengan nyeri kronis (punggung, leher, sendi), insomnia atau gangguan tidur, ketegangan fisik kronis (terutama bahu dan rahang), pemulihan dari trauma atau PTSD, penyintas kecelakaan atau operasi, praktisi yoga yang ingin memperdalam awareness, atlet yang ingin meningkatkan body awareness, orang dengan disordered eating atau body image issues, sebelum tidur untuk memperbaiki kualitas istirahat."
+  },
+  berjalan: {
+    arti: "Meditasi Berjalan adalah praktik membawa mindfulness (kesadaran penuh) ke dalam gerakan berjalan — setiap langkah, setiap sentuhan kaki dengan bumi, setiap ayunan tangan, setiap nafas masuk dan keluar. Bukan berjalan biasa dengan pikiran melayang ke mana-mana, bukan juga berjalan untuk olahraga dengan fokus pada detak jantung. Ini adalah berjalan sebagai meditasi — lambat, sadar, penuh kehadiran. Bisa dilakukan di mana saja: di lorong rumah, di taman, di hutan, bahkan di dalam satu ruangan kecil dengan berputar-putar. Kecepatan biasanya sangat lambat (satu langkah 4-5 detik), meski bisa juga dalam kecepatan normal dengan kesadaran penuh. Inti praktiknya: menjadikan aktivitas sehari-hari sebagai gerbang ke present moment.",
+    sejarah: "Meditasi berjalan memiliki sejarah panjang di banyak tradisi kontemplatif. Dalam Buddhisme Theravada (Sri Lanka, Thailand, Myanmar), praktik ini disebut Cankama dan dilakukan secara teratur di antara sesi meditasi duduk — biarawan berjalan bolak-balik di jalur khusus 15-30 meter. Dalam Zen Jepang, disebut Kinhin — dilakukan di dojo di antara sesi zazen, biasanya sangat lambat dengan tangan terlipat di dada. Dalam tradisi Tibet, kora adalah bentuk meditasi berjalan di sekitar tempat suci (seperti Gunung Kailash). Biarawan Kristen abad pertengahan berjalan di labirin katedral sebagai meditasi spiritual — Labirin Chartres di Prancis adalah contoh paling terkenal yang masih aktif digunakan. Namun yang paling berpengaruh di Barat modern adalah Thich Nhat Hanh, biksu Zen Vietnam yang menulis 'The Long Road Turns to Joy' (1996) dan 'Walking Meditation' — membawa praktik ini ke jutaan orang di seluruh dunia melalui Plum Village, komunitas retret di Prancis yang ia dirikan.",
+    cara_kerja: "Meditasi berjalan bekerja melalui beberapa jalur unik. Pertama, aktivitas fisik ringan + mindfulness memberikan 'dual benefit' — menggabungkan manfaat exercise (endorfin, sirkulasi, oksigenasi) dengan manfaat meditasi (kesadaran, ketenangan). Kedua, sensasi fisik langkah kaki adalah objek meditasi yang SANGAT kaya — kontak dengan lantai, shifting berat tubuh, gerakan pergelangan, ayunan tangan — semua terus berubah setiap momen, memberi banyak 'material' untuk perhatian. Ketiga, untuk orang yang sulit duduk diam (entah karena ADHD, trauma, atau hanya energi tinggi), berjalan menyediakan 'wadah' untuk energi sambil tetap berlatih kesadaran. Keempat, kaki bersentuhan langsung dengan bumi (terutama jika bertelanjang kaki di rumput atau tanah) memberi efek 'grounding' fisiologis — studi oleh Dr. Gaétan Chevalier menunjukkan kontak langsung dengan bumi menurunkan inflamasi dan menormalkan ritme jantung. Kelima, berjalan di alam menambahkan efek 'biophilia' — manfaat dari keterpaparan alam terhadap sistem saraf (Nature-based therapy, Dr. Qing Li — shinrin-yoku/forest bathing).",
+    fungsi: "Membawa mindfulness ke aktivitas sehari-hari, memberikan alternatif meditasi bagi yang sulit duduk diam, menggabungkan manfaat kesadaran dengan gerakan fisik ringan, menyatukan tubuh-pikiran dalam aksi, memberikan 'grounding' fisik yang kuat, dan menjadi jembatan dari meditasi formal ke kehidupan sehari-hari.",
+    manfaat: [
+      "Menggabungkan manfaat aktivitas fisik ringan + meditasi dalam satu praktik",
+      "Memperbaiki sirkulasi darah dan kesehatan kardiovaskular",
+      "Mengurangi kekakuan tubuh, sendi, dan otot",
+      "Aksesibel untuk semua usia termasuk lansia dan pemulihan cedera",
+      "Meningkatkan grounding dan rasa terhubung dengan lingkungan",
+      "Memperbaiki keseimbangan dan koordinasi",
+      "Mengurangi kecemasan dan depresi (kombinasi exercise + meditasi)",
+      "Membangun mindfulness yang lebih mudah ditransfer ke kehidupan",
+      "Meningkatkan kreativitas dan pemecahan masalah (penelitian Stanford 2014)",
+      "Menurunkan tekanan darah dan meningkatkan variabilitas detak jantung",
+      "Mengurangi 'mental fatigue' bagi pekerja kantoran",
+      "Menyediakan 'circuit breaker' di tengah hari kerja intens"
+    ],
+    variasi: "Kinhin Zen — sangat lambat, tangan di dada, mata di depan 2 meter, ritme mengikuti nafas. Thich Nhat Hanh style — kecepatan nyaman, gabungkan dengan mantra seperti 'Saya tiba, saya di rumah'. Walking Body Scan — pindai bagian tubuh sambil berjalan. Nature Walking — berjalan di alam dengan perhatian terbuka ke sekitar. Labirin Walking — meditasi berjalan di pola labirin (ada di beberapa taman kota). Barefoot Grounding Walk — berjalan tanpa alas kaki di rumput/tanah. Urban Walking — meditasi berjalan di kota, membuka perhatian pada arsitektur, orang, suara. Gratitude Walking — berjalan sambil menyebutkan hal yang disyukuri.",
+    cocok_untuk: "Lansia atau mereka dengan keterbatasan fisik yang sulit duduk lama, orang dengan nyeri pinggang atau masalah sendi yang tidak nyaman duduk lama, orang dengan ADHD atau energi tinggi, penderita trauma/PTSD yang sulit diam (gerakan memberi rasa kontrol), pekerja kantoran yang butuh 'break aktif', mereka yang suka alam outdoor, pemula yang merasa meditasi duduk 'terlalu sulit', praktisi yang ingin menyeimbangkan meditasi duduk dengan aktif."
+  },
+  tidur_nyenyak: {
+    arti: "Meditasi Tidur Nyenyak, atau yang dikenal sebagai Yoga Nidra (secara harfiah 'Tidur Yoga'), adalah praktik relaksasi sistematis mendalam yang membawa praktisi ke keadaan liminal antara bangun dan tidur — suatu 'twilight zone' di mana tubuh benar-benar tertidur namun kesadaran tetap terjaga secara halus. Berbeda dengan tidur biasa yang pasif dan tidak sadar, Yoga Nidra adalah relaksasi aktif dan sadar — praktisi dipandu melalui serangkaian tahap: setting intention (sankalpa), body rotation (rotasi kesadaran di seluruh tubuh), breath awareness, opposite sensations (panas-dingin, berat-ringan), visualisasi simbolis, dan akhirnya kembali perlahan. Satu jam Yoga Nidra dipercaya memberi efek restoratif setara 3-4 jam tidur biasa. Ini bukan hanya untuk tidur, tapi juga untuk pemulihan mendalam kapan pun.",
+    sejarah: "Akar Yoga Nidra ada di tradisi Tantra India kuno, khususnya dalam naskah Shaiva Tantra dan Nyasa dari abad ke-11 Masehi, di mana praktik 'menenangkan tubuh sambil menjaga kesadaran' disebutkan sebagai jalur menuju pencerahan. Namun bentuk modernnya — yang sistematis dan bisa diajarkan kepada siapa saja — adalah karya Swami Satyananda Saraswati di Bihar School of Yoga di India. Pada tahun 1960-an, ia mengkodifikasi teknik 6-8 tahap yang masih digunakan secara luas hari ini, dan mengajarkannya kepada ribuan siswa dari seluruh dunia. Bukunya 'Yoga Nidra' (1976) adalah referensi utama. Dalam 2 dekade terakhir, Dr. Richard Miller di California mengembangkan iRest (Integrative Restoration) — adaptasi Yoga Nidra untuk konteks terapi modern, khususnya untuk veteran PTSD. iRest kini digunakan oleh militer AS, Departemen Urusan Veteran (VA), dan ratusan klinik kesehatan mental. Studi klinis menunjukkan Yoga Nidra efektif untuk insomnia kronis, PTSD, kecemasan generalized, dan burnout.",
+    cara_kerja: "Yoga Nidra bekerja melalui mekanisme unik yang berbeda dari meditasi lain. Pertama, progresif body scan dan relaksasi otot menurunkan aktivitas sistem saraf simpatik secara ekstrem — tubuh masuk ke mode 'deep rest' yang jarang dicapai bahkan dalam tidur normal. Kedua, gelombang otak bergerak dari beta (sadar aktif) ke alpha (relaksasi), lalu theta (kreatif, antara tidur-bangun), dan kadang delta (tidur dalam) — tapi dengan kesadaran yang tetap tipis-tipis ada. Ini adalah keadaan yang sama dengan stage REM dan slow-wave sleep, tapi dipertahankan tanpa benar-benar tertidur. Ketiga, dalam fase ini, sistem glymphatic otak (yang 'membersihkan' toksin metabolik) aktif penuh — yang biasanya hanya terjadi saat tidur. Keempat, setting 'sankalpa' (niat) di awal dan akhir praktik, ketika otak dalam keadaan sangat sugestif (theta), menanamkan pola neural baru dengan efektivitas yang sulit dicapai dalam keadaan sadar normal. Kelima, untuk trauma, keadaan 'tidak tidur tidak bangun' ini memungkinkan pemrosesan emosional tanpa trigger penuh — alasan mengapa iRest sangat efektif untuk PTSD.",
+    fungsi: "Menginduksi relaksasi total tubuh dan pikiran tanpa benar-benar tertidur, memulihkan sistem saraf secara lebih mendalam daripada tidur biasa, memberikan akses ke keadaan kreatif dan sugestif untuk transformasi personal, mendukung pemulihan dari trauma dengan cara yang aman, dan menyediakan alternatif restoratif bagi mereka dengan insomnia atau kelelahan kronis.",
+    manfaat: [
+      "1 jam Yoga Nidra setara 3-4 jam tidur biasa dalam efek restoratif",
+      "Mengatasi insomnia kronis dan memperbaiki arsitektur tidur",
+      "Mengurangi gejala PTSD secara signifikan (studi VA + iRest)",
+      "Menyeimbangkan sistem saraf otonom (simpatik-parasimpatik)",
+      "Memperbaiki pemulihan dari kelelahan kronis dan burnout",
+      "Menurunkan tekanan darah dan gula darah (pada diabetes tipe 2)",
+      "Mengurangi gejala kecemasan generalized dan serangan panik",
+      "Meningkatkan kreativitas dan wawasan intuitif melalui keadaan theta",
+      "Membantu perubahan kebiasaan melalui sankalpa (niat dalam keadaan sugestif)",
+      "Mengurangi nyeri kronis dan fibromialgia",
+      "Memperbaiki memori dan konsolidasi pembelajaran",
+      "Meningkatkan regulasi emosi dan resiliensi"
+    ],
+    variasi: "Yoga Nidra Klasik (Satyananda, 45-60 menit) — lengkap dengan 8 tahap termasuk opposite sensations, visualisasi simbolis. iRest (Dr. Richard Miller) — versi modern 30-40 menit yang disesuaikan untuk konteks terapeutik. NSDR (Non-Sleep Deep Rest) — istilah yang dipopulerkan Dr. Andrew Huberman, versi 10-20 menit untuk profesional sibuk. Yoga Nidra untuk Tidur — versi yang dirancang supaya praktisi benar-benar tertidur di akhir. Power Nap Nidra — 20 menit di siang hari untuk pemulihan energi (jauh lebih efektif daripada power nap biasa). Trauma-Sensitive Yoga Nidra — adaptasi Dr. Bessel van der Kolk untuk penyintas trauma.",
+    cocok_untuk: "Sebelum tidur untuk memperbaiki kualitas tidur, siapapun dengan insomnia kronis, orang dengan kelelahan kronis atau burnout, penyintas trauma dan PTSD, profesional sibuk yang butuh pemulihan cepat di siang hari (power nap), pasien dalam pemulihan dari penyakit, ibu baru dengan kurang tidur, atlet untuk recovery, siapapun yang merasa meditasi 'aktif' terlalu menantang dan butuh sesuatu yang sepenuhnya reseptif."
+  }
+};
+
+// Merge konten into MEDITASI_LIST
+MEDITASI_LIST.forEach(function(m){ m.konten = KONTEN_MEDITASI[m.id]; });
+
+
+// ===== AUDIO GENERATORS — Web Audio API =====
+// Each creator returns { start(), stop() } with graceful fade-ins and fade-outs.
+// Philosophy: every soundscape layers at least 3 sources for richness.
+var _meditAudioCtx = null;
+function _meditGetCtx(){
+  if (!_meditAudioCtx){
+    try { _meditAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch(e){ return null; }
+  }
+  if (_meditAudioCtx.state === 'suspended') _meditAudioCtx.resume();
+  return _meditAudioCtx;
+}
+
+// ---- Noise helpers ----
+function _meditNoiseBuffer(ctx, type){
+  var len = 2 * ctx.sampleRate;
+  var buf = ctx.createBuffer(1, len, ctx.sampleRate);
+  var d = buf.getChannelData(0);
+  var b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0; // pink
+  var lastBrown = 0;
+  for (var i=0; i<len; i++){
+    var white = Math.random()*2-1;
+    if (type === 'pink'){
+      b0 = 0.99886*b0 + white*0.0555179;
+      b1 = 0.99332*b1 + white*0.0750759;
+      b2 = 0.96900*b2 + white*0.1538520;
+      b3 = 0.86650*b3 + white*0.3104856;
+      b4 = 0.55000*b4 + white*0.5329522;
+      b5 = -0.7616*b5 - white*0.0168980;
+      d[i] = (b0+b1+b2+b3+b4+b5+b6+white*0.5362) * 0.11;
+      b6 = white*0.115926;
+    } else if (type === 'brown'){
+      lastBrown = (lastBrown + 0.02*white) / 1.02;
+      d[i] = lastBrown * 3.5;
+    } else {
+      d[i] = white;
+    }
+  }
+  return buf;
+}
+function _meditNoiseSource(ctx, type){
+  var src = ctx.createBufferSource();
+  src.buffer = _meditNoiseBuffer(ctx, type || 'white');
+  src.loop = true;
+  return src;
+}
+
+function _meditMakeScheduler(){
+  var timers = [];
+  return {
+    set: function(fn, ms){ var id = setTimeout(fn, ms); timers.push(id); return id; },
+    interval: function(fn, ms){ var id = setInterval(fn, ms); timers.push(id); return id; },
+    clear: function(){ timers.forEach(function(id){ clearTimeout(id); clearInterval(id); }); timers = []; }
+  };
+}
+
+// ===== 1. MINDFULNESS — soft rain + distant thunder + gentle wind =====
+function _meditCreateRain(ctx){
+  var master = ctx.createGain(); master.gain.value = 0;
+  master.connect(ctx.destination);
+  // Rain: bandpass filtered white noise 800-2000Hz
+  var rain = _meditNoiseSource(ctx, 'white');
+  var rainFilter = ctx.createBiquadFilter();
+  rainFilter.type = 'bandpass'; rainFilter.frequency.value = 1400; rainFilter.Q.value = 0.6;
+  var rainHi = ctx.createBiquadFilter();
+  rainHi.type = 'highpass'; rainHi.frequency.value = 600;
+  var rainGain = ctx.createGain(); rainGain.gain.value = 0.22;
+  rain.connect(rainFilter); rainFilter.connect(rainHi); rainHi.connect(rainGain); rainGain.connect(master);
+  // Wind: pink noise with slow lowpass sweep
+  var wind = _meditNoiseSource(ctx, 'pink');
+  var windFilter = ctx.createBiquadFilter();
+  windFilter.type = 'lowpass'; windFilter.frequency.value = 500;
+  var windGain = ctx.createGain(); windGain.gain.value = 0.18;
+  var windLfo = ctx.createOscillator(); windLfo.type='sine'; windLfo.frequency.value = 0.07;
+  var windLfoGain = ctx.createGain(); windLfoGain.gain.value = 300;
+  windLfo.connect(windLfoGain); windLfoGain.connect(windFilter.frequency);
+  wind.connect(windFilter); windFilter.connect(windGain); windGain.connect(master);
+  // Thunder rumble — 40Hz sine with slow envelope, triggered occasionally
+  var sched = _meditMakeScheduler();
+  var running = true;
+  function thunder(){
+    if (!running) return;
+    var t = ctx.currentTime;
+    var o = ctx.createOscillator(); o.type='sine'; o.frequency.value = 38 + Math.random()*8;
+    var o2 = ctx.createOscillator(); o2.type='triangle'; o2.frequency.value = 75;
+    var g = ctx.createGain(); g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.35, t + 0.4);
+    g.gain.linearRampToValueAtTime(0.15, t + 2.5);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 6);
+    // Low-freq noise burst for texture
+    var rumble = _meditNoiseSource(ctx, 'brown');
+    var rumbleF = ctx.createBiquadFilter(); rumbleF.type='lowpass'; rumbleF.frequency.value=120;
+    var rg = ctx.createGain(); rg.gain.setValueAtTime(0, t);
+    rg.gain.linearRampToValueAtTime(0.22, t + 0.5);
+    rg.gain.exponentialRampToValueAtTime(0.001, t + 5);
+    rumble.connect(rumbleF); rumbleF.connect(rg); rg.connect(master);
+    o.connect(g); o2.connect(g); g.connect(master);
+    o.start(t); o2.start(t); rumble.start(t);
+    o.stop(t + 6.5); o2.stop(t + 6.5); rumble.stop(t + 5.5);
+  }
+  return {
+    start: function(){
+      rain.start(); wind.start(); windLfo.start();
+      master.gain.linearRampToValueAtTime(1, ctx.currentTime + 1.5);
+      sched.set(thunder, 8000);
+      sched.interval(function(){
+        sched.set(thunder, Math.random() * 12000);
+      }, 22000);
+    },
+    stop: function(){
+      running = false; sched.clear();
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8);
+      setTimeout(function(){ try{ rain.stop(); wind.stop(); windLfo.stop(); }catch(e){} }, 900);
+    }
+  };
+}
+
+// ===== 2. ZEN — singing bowl + near-silence gaps + occasional wind chime =====
+function _meditCreateBowlScape(ctx, freq){
+  var master = ctx.createGain(); master.gain.value = 0;
+  master.connect(ctx.destination);
+  // Subtle room tone
+  var room = _meditNoiseSource(ctx, 'brown');
+  var roomF = ctx.createBiquadFilter(); roomF.type='lowpass'; roomF.frequency.value = 200;
+  var roomG = ctx.createGain(); roomG.gain.value = 0.04;
+  room.connect(roomF); roomF.connect(roomG); roomG.connect(master);
+  var sched = _meditMakeScheduler();
+  var running = true;
+  function strike(){
+    if (!running) return;
+    var t = ctx.currentTime;
+    // Main tone with harmonics (spec: 396 + 792 + 1188)
+    var partials = [1, 2.01, 3.0, 4.05, 5.43];
+    var amps = [1.0, 0.55, 0.45, 0.2, 0.1];
+    partials.forEach(function(p, i){
+      var o = ctx.createOscillator(); o.type='sine'; o.frequency.value = freq * p;
+      var g = ctx.createGain();
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.22 * amps[i], t + 0.04);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 10 + Math.random()*2);
+      o.connect(g); g.connect(master);
+      o.start(t); o.stop(t + 13);
+    });
+    var clk = ctx.createOscillator(); clk.type='triangle'; clk.frequency.value = freq * 8.1;
+    var cg = ctx.createGain();
+    cg.gain.setValueAtTime(0, t);
+    cg.gain.linearRampToValueAtTime(0.07, t + 0.01);
+    cg.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
+    clk.connect(cg); cg.connect(master); clk.start(t); clk.stop(t + 0.6);
+    if (Math.random() < 0.35){
+      var chimeNotes = [1046, 1174, 1318, 1567, 1760];
+      var fn = chimeNotes[Math.floor(Math.random()*chimeNotes.length)];
+      var chime = ctx.createOscillator(); chime.type='sine'; chime.frequency.value = fn;
+      var chime2 = ctx.createOscillator(); chime2.type='sine'; chime2.frequency.value = fn*2;
+      var chg = ctx.createGain();
+      chg.gain.setValueAtTime(0, t + 1.2);
+      chg.gain.linearRampToValueAtTime(0.08, t + 1.25);
+      chg.gain.exponentialRampToValueAtTime(0.001, t + 5);
+      var chg2 = ctx.createGain();
+      chg2.gain.setValueAtTime(0, t + 1.2);
+      chg2.gain.linearRampToValueAtTime(0.025, t + 1.25);
+      chg2.gain.exponentialRampToValueAtTime(0.001, t + 4);
+      chime.connect(chg); chg.connect(master);
+      chime2.connect(chg2); chg2.connect(master);
+      chime.start(t + 1.2); chime2.start(t + 1.2);
+      chime.stop(t + 5.5); chime2.stop(t + 4.5);
+    }
+    sched.set(strike, 15000 + Math.random() * 5000);
+  }
+  return {
+    start: function(){
+      room.start();
+      master.gain.linearRampToValueAtTime(1, ctx.currentTime + 0.3);
+      strike();
+    },
+    stop: function(){
+      running = false; sched.clear();
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8);
+      setTimeout(function(){ try{ room.stop(); }catch(e){} }, 900);
+    }
+  };
+}
+
+// ===== 3. VIPASSANA — silence + subtle hum + occasional bird =====
+function _meditCreateSilence(ctx){
+  var master = ctx.createGain(); master.gain.value = 0;
+  master.connect(ctx.destination);
+  var brown = _meditNoiseSource(ctx, 'brown');
+  var brF = ctx.createBiquadFilter(); brF.type='lowpass'; brF.frequency.value = 100;
+  var brG = ctx.createGain(); brG.gain.value = 0.06;
+  brown.connect(brF); brF.connect(brG); brG.connect(master);
+  var hum = ctx.createOscillator(); hum.type='sine'; hum.frequency.value = 60;
+  var humG = ctx.createGain(); humG.gain.value = 0.015;
+  hum.connect(humG); humG.connect(master);
+  var sched = _meditMakeScheduler();
+  var running = true;
+  function bird(){
+    if (!running) return;
+    var t = ctx.currentTime;
+    var n = 2 + Math.floor(Math.random()*3);
+    for (var i=0; i<n; i++){
+      var dt = i * (0.12 + Math.random()*0.08);
+      var o = ctx.createOscillator(); o.type='sine';
+      var f0 = 1800 + Math.random()*1200;
+      o.frequency.setValueAtTime(f0, t + dt);
+      o.frequency.linearRampToValueAtTime(f0 * (1 + (Math.random()-0.5)*0.3), t + dt + 0.08);
+      var g = ctx.createGain();
+      g.gain.setValueAtTime(0, t + dt);
+      g.gain.linearRampToValueAtTime(0.04, t + dt + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.001, t + dt + 0.12);
+      o.connect(g); g.connect(master);
+      o.start(t + dt); o.stop(t + dt + 0.18);
+    }
+    sched.set(bird, 8000 + Math.random() * 18000);
+  }
+  return {
+    start: function(){
+      brown.start(); hum.start();
+      master.gain.linearRampToValueAtTime(1, ctx.currentTime + 1.0);
+      sched.set(bird, 6000 + Math.random() * 8000);
+    },
+    stop: function(){
+      running = false; sched.clear();
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8);
+      setTimeout(function(){ try{ brown.stop(); hum.stop(); }catch(e){} }, 900);
+    }
+  };
+}
+
+// ===== 4. YOGA NIDRA — ocean + underwater pad + heartbeat =====
+function _meditCreateOcean(ctx){
+  var master = ctx.createGain(); master.gain.value = 0;
+  master.connect(ctx.destination);
+  var wave = _meditNoiseSource(ctx, 'white');
+  var waveF = ctx.createBiquadFilter(); waveF.type='lowpass'; waveF.frequency.value = 700; waveF.Q.value = 0.8;
+  var waveG = ctx.createGain(); waveG.gain.value = 0;
+  var waveLfo = ctx.createOscillator(); waveLfo.type='sine'; waveLfo.frequency.value = 0.08;
+  var waveLfoG = ctx.createGain(); waveLfoG.gain.value = 0.2;
+  waveLfo.connect(waveLfoG); waveLfoG.connect(waveG.gain);
+  var waveLfo2 = ctx.createOscillator(); waveLfo2.type='sine'; waveLfo2.frequency.value = 0.08;
+  var waveLfo2G = ctx.createGain(); waveLfo2G.gain.value = 400;
+  waveLfo2.connect(waveLfo2G); waveLfo2G.connect(waveF.frequency);
+  wave.connect(waveF); waveF.connect(waveG); waveG.connect(master);
+  var pad = ctx.createOscillator(); pad.type='sine'; pad.frequency.value = 55;
+  var pad2 = ctx.createOscillator(); pad2.type='sine'; pad2.frequency.value = 82.5;
+  var padG = ctx.createGain(); padG.gain.value = 0.08;
+  var padG2 = ctx.createGain(); padG2.gain.value = 0.04;
+  pad.connect(padG); padG.connect(master);
+  pad2.connect(padG2); padG2.connect(master);
+  var heart = ctx.createOscillator(); heart.type='sine'; heart.frequency.value = 60;
+  var heartG = ctx.createGain(); heartG.gain.value = 0;
+  heart.connect(heartG); heartG.connect(master);
+  var sched = _meditMakeScheduler();
+  var running = true;
+  function pulse(){
+    if (!running) return;
+    var t = ctx.currentTime;
+    heartG.gain.cancelScheduledValues(t);
+    heartG.gain.setValueAtTime(0, t);
+    heartG.gain.linearRampToValueAtTime(0.12, t + 0.05);
+    heartG.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+    heartG.gain.setValueAtTime(0, t + 0.35);
+    heartG.gain.linearRampToValueAtTime(0.07, t + 0.4);
+    heartG.gain.exponentialRampToValueAtTime(0.001, t + 0.65);
+    sched.set(pulse, 1000);
+  }
+  return {
+    start: function(){
+      wave.start(); waveLfo.start(); waveLfo2.start();
+      pad.start(); pad2.start(); heart.start();
+      master.gain.linearRampToValueAtTime(1, ctx.currentTime + 2);
+      sched.set(pulse, 500);
+    },
+    stop: function(){
+      running = false; sched.clear();
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 1);
+      setTimeout(function(){ try{ wave.stop(); waveLfo.stop(); waveLfo2.stop(); pad.stop(); pad2.stop(); heart.stop(); }catch(e){} }, 1200);
+    }
+  };
+}
+
+// ===== 5. TAI CHI — stream + bamboo wind + pentatonic flute =====
+function _meditCreateStream(ctx){
+  var master = ctx.createGain(); master.gain.value = 0;
+  master.connect(ctx.destination);
+  var stream = _meditNoiseSource(ctx, 'white');
+  var streamF = ctx.createBiquadFilter(); streamF.type='bandpass'; streamF.frequency.value = 2500; streamF.Q.value = 1.2;
+  var streamG = ctx.createGain(); streamG.gain.value = 0.2;
+  var streamLfo = ctx.createOscillator(); streamLfo.type='sine'; streamLfo.frequency.value = 0.12;
+  var streamLfoG = ctx.createGain(); streamLfoG.gain.value = 1000;
+  streamLfo.connect(streamLfoG); streamLfoG.connect(streamF.frequency);
+  stream.connect(streamF); streamF.connect(streamG); streamG.connect(master);
+  var wind = _meditNoiseSource(ctx, 'pink');
+  var windF = ctx.createBiquadFilter(); windF.type='lowpass'; windF.frequency.value = 600;
+  var windG = ctx.createGain(); windG.gain.value = 0.1;
+  var windLfo = ctx.createOscillator(); windLfo.type='sine'; windLfo.frequency.value = 0.06;
+  var windLfoG = ctx.createGain(); windLfoG.gain.value = 0.08;
+  windLfo.connect(windLfoG); windLfoG.connect(windG.gain);
+  wind.connect(windF); windF.connect(windG); windG.connect(master);
+  var scale = [261.63, 293.66, 329.63, 392.00, 440.00];
+  var sched = _meditMakeScheduler();
+  var running = true;
+  function fluteNote(){
+    if (!running) return;
+    var t = ctx.currentTime;
+    var f = scale[Math.floor(Math.random()*scale.length)];
+    if (Math.random() < 0.35) f *= 2;
+    var o = ctx.createOscillator(); o.type='sine'; o.frequency.value = f;
+    var o2 = ctx.createOscillator(); o2.type='triangle'; o2.frequency.value = f * 2;
+    var vib = ctx.createOscillator(); vib.type='sine'; vib.frequency.value = 5;
+    var vibG = ctx.createGain(); vibG.gain.value = 2;
+    vib.connect(vibG); vibG.connect(o.frequency);
+    var dur = 2 + Math.random() * 2;
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.12, t + 0.3);
+    g.gain.linearRampToValueAtTime(0.08, t + dur * 0.7);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    var g2 = ctx.createGain();
+    g2.gain.setValueAtTime(0, t);
+    g2.gain.linearRampToValueAtTime(0.03, t + 0.35);
+    g2.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o.connect(g); g.connect(master);
+    o2.connect(g2); g2.connect(master);
+    o.start(t); o2.start(t); vib.start(t);
+    o.stop(t + dur + 0.2); o2.stop(t + dur + 0.2); vib.stop(t + dur + 0.2);
+    sched.set(fluteNote, (4 + Math.random() * 2) * 1000);
+  }
+  return {
+    start: function(){
+      stream.start(); streamLfo.start(); wind.start(); windLfo.start();
+      master.gain.linearRampToValueAtTime(1, ctx.currentTime + 1.5);
+      sched.set(fluteNote, 2500);
+    },
+    stop: function(){
+      running = false; sched.clear();
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 1);
+      setTimeout(function(){ try{ stream.stop(); streamLfo.stop(); wind.stop(); windLfo.stop(); }catch(e){} }, 1200);
+    }
+  };
+}
+
+// ===== 6. QIGONG — warm drone + crystal shimmer + bowl strikes =====
+function _meditCreateCrystal(ctx){
+  var master = ctx.createGain(); master.gain.value = 0;
+  master.connect(ctx.destination);
+  var freq = 528;
+  var partials = [1, 1.5, 2, 3];
+  var amps = [0.22, 0.08, 0.09, 0.04];
+  var oscs = [];
+  partials.forEach(function(p, i){
+    var o = ctx.createOscillator(); o.type='sine'; o.frequency.value = freq * p;
+    var g = ctx.createGain(); g.gain.value = amps[i];
+    o.connect(g); g.connect(master);
+    oscs.push(o);
+  });
+  var lfo = ctx.createOscillator(); lfo.type='sine'; lfo.frequency.value = 0.1;
+  var lfoG = ctx.createGain(); lfoG.gain.value = 3;
+  lfo.connect(lfoG); lfoG.connect(oscs[0].frequency);
+  var trem = ctx.createOscillator(); trem.type='sine'; trem.frequency.value = 3.5;
+  var tremG = ctx.createGain(); tremG.gain.value = 0.04;
+  trem.connect(tremG); tremG.connect(master.gain);
+  var sched = _meditMakeScheduler();
+  var running = true;
+  function shimmer(){
+    if (!running) return;
+    var t = ctx.currentTime;
+    var f0 = 2000 + Math.random() * 2000;
+    var f1 = f0 + (Math.random() * 1000 - 500);
+    var o = ctx.createOscillator(); o.type='sine';
+    o.frequency.setValueAtTime(f0, t);
+    o.frequency.linearRampToValueAtTime(f1, t + 3);
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.035, t + 1);
+    g.gain.linearRampToValueAtTime(0, t + 3);
+    o.connect(g); g.connect(master);
+    o.start(t); o.stop(t + 3.2);
+    sched.set(shimmer, 3500 + Math.random() * 2500);
+  }
+  function bowl(){
+    if (!running) return;
+    var t = ctx.currentTime;
+    var ps = [1, 2.01, 3.0];
+    var as = [0.18, 0.08, 0.04];
+    ps.forEach(function(p, i){
+      var o = ctx.createOscillator(); o.type='sine'; o.frequency.value = 720 * p;
+      var g = ctx.createGain();
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(as[i], t + 0.03);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 8);
+      o.connect(g); g.connect(master);
+      o.start(t); o.stop(t + 8.2);
+    });
+    sched.set(bowl, 10000);
+  }
+  return {
+    start: function(){
+      oscs.forEach(function(o){ o.start(); });
+      lfo.start(); trem.start();
+      master.gain.linearRampToValueAtTime(1, ctx.currentTime + 1.5);
+      sched.set(shimmer, 1500);
+      sched.set(bowl, 4000);
+    },
+    stop: function(){
+      running = false; sched.clear();
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8);
+      setTimeout(function(){ try{ oscs.forEach(function(o){ o.stop(); }); lfo.stop(); trem.stop(); }catch(e){} }, 900);
+    }
+  };
+}
+
+// ===== 7. METTA — warm pad chord + harp plucks + choir vibrato =====
+function _meditCreateChoir(ctx){
+  var master = ctx.createGain(); master.gain.value = 0;
+  master.connect(ctx.destination);
+  var warmth = ctx.createBiquadFilter(); warmth.type='lowpass'; warmth.frequency.value = 1800; warmth.Q.value = 0.5;
+  warmth.connect(master);
+  var chordG = ctx.createGain(); chordG.gain.value = 0.18;
+  chordG.connect(warmth);
+  var chord = [261.63, 329.63, 392.00];
+  var oscs = [];
+  chord.forEach(function(f){
+    var o1 = ctx.createOscillator(); o1.type='sine'; o1.frequency.value = f;
+    var o2 = ctx.createOscillator(); o2.type='sine'; o2.frequency.value = f * 1.005;
+    var g = ctx.createGain(); g.gain.value = 0.28;
+    var vib = ctx.createOscillator(); vib.type='sine'; vib.frequency.value = 4.5 + Math.random();
+    var vibG = ctx.createGain(); vibG.gain.value = 2;
+    vib.connect(vibG); vibG.connect(o1.frequency);
+    o1.connect(g); o2.connect(g); g.connect(chordG);
+    oscs.push(o1); oscs.push(o2); oscs.push(vib);
+  });
+  var pluckScale = [523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66];
+  var sched = _meditMakeScheduler();
+  var running = true;
+  function pluck(){
+    if (!running) return;
+    var t = ctx.currentTime;
+    var f = pluckScale[Math.floor(Math.random()*pluckScale.length)];
+    var o = ctx.createOscillator(); o.type='triangle'; o.frequency.value = f;
+    var o2 = ctx.createOscillator(); o2.type='sine'; o2.frequency.value = f * 2;
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.08, t + 0.005);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 2.5);
+    var g2 = ctx.createGain();
+    g2.gain.setValueAtTime(0, t);
+    g2.gain.linearRampToValueAtTime(0.03, t + 0.005);
+    g2.gain.exponentialRampToValueAtTime(0.001, t + 1.5);
+    o.connect(g); g.connect(master);
+    o2.connect(g2); g2.connect(master);
+    o.start(t); o2.start(t);
+    o.stop(t + 2.6); o2.stop(t + 1.6);
+    sched.set(pluck, 2000 + Math.random() * 3000);
+  }
+  return {
+    start: function(){
+      oscs.forEach(function(o){ o.start(); });
+      master.gain.linearRampToValueAtTime(1, ctx.currentTime + 2);
+      sched.set(pluck, 2000);
+    },
+    stop: function(){
+      running = false; sched.clear();
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 1);
+      setTimeout(function(){ try{ oscs.forEach(function(o){ o.stop(); }); }catch(e){} }, 1200);
+    }
+  };
+}
+
+// ===== 8. CHAKRA — 7 tones ascending with binaural beats =====
+function _meditCreateChakra(ctx){
+  var freqs = [256, 288, 320, 341, 384, 426, 480];
+  var master = ctx.createGain(); master.gain.value = 0;
+  var merger = ctx.createChannelMerger(2);
+  merger.connect(master);
+  master.connect(ctx.destination);
+  var oscL = ctx.createOscillator(); oscL.type='sine'; oscL.frequency.value = freqs[0];
+  var oscR = ctx.createOscillator(); oscR.type='sine'; oscR.frequency.value = freqs[0] + 3;
+  var gL = ctx.createGain(); gL.gain.value = 0.2;
+  var gR = ctx.createGain(); gR.gain.value = 0.2;
+  oscL.connect(gL); gL.connect(merger, 0, 0);
+  oscR.connect(gR); gR.connect(merger, 0, 1);
+  var oct = ctx.createOscillator(); oct.type='sine'; oct.frequency.value = freqs[0] * 2;
+  var gOct = ctx.createGain(); gOct.gain.value = 0.08;
+  oct.connect(gOct); gOct.connect(master);
+  var fifth = ctx.createOscillator(); fifth.type='sine'; fifth.frequency.value = freqs[0] * 1.5;
+  var gFifth = ctx.createGain(); gFifth.gain.value = 0.04;
+  fifth.connect(gFifth); gFifth.connect(master);
+  var trem = ctx.createOscillator(); trem.type='sine'; trem.frequency.value = 0.25;
+  var tremG = ctx.createGain(); tremG.gain.value = 0.03;
+  trem.connect(tremG); tremG.connect(master.gain);
+  var idx = 0;
+  var sched = _meditMakeScheduler();
+  var running = true;
+  function nextTone(){
+    if (!running) return;
+    idx = (idx + 1) % freqs.length;
+    var f = freqs[idx];
+    var beat = 2 + (idx * 0.3);
+    var t = ctx.currentTime;
+    oscL.frequency.linearRampToValueAtTime(f, t + 2.5);
+    oscR.frequency.linearRampToValueAtTime(f + beat, t + 2.5);
+    oct.frequency.linearRampToValueAtTime(f * 2, t + 2.5);
+    fifth.frequency.linearRampToValueAtTime(f * 1.5, t + 2.5);
+    sched.set(nextTone, 30000);
+  }
+  return {
+    start: function(){
+      oscL.start(); oscR.start(); oct.start(); fifth.start(); trem.start();
+      master.gain.linearRampToValueAtTime(1, ctx.currentTime + 1.5);
+      sched.set(nextTone, 30000);
+    },
+    stop: function(){
+      running = false; sched.clear();
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 1);
+      setTimeout(function(){ try{ oscL.stop(); oscR.stop(); oct.stop(); fifth.stop(); trem.stop(); }catch(e){} }, 1200);
+    }
+  };
+}
+
+// ===== 9. MANTRA — OM drone + tambura + rhythmic pulse =====
+function _meditCreateMantra(ctx, freq){
+  var master = ctx.createGain(); master.gain.value = 0;
+  master.connect(ctx.destination);
+  freq = freq || 136.1;
+  var o1 = ctx.createOscillator(); o1.type='sine'; o1.frequency.value = freq;
+  var o2 = ctx.createOscillator(); o2.type='sine'; o2.frequency.value = freq * 2;
+  var o3 = ctx.createOscillator(); o3.type='triangle'; o3.frequency.value = freq * 3;
+  var g1 = ctx.createGain(); g1.gain.value = 0.28;
+  var g2 = ctx.createGain(); g2.gain.value = 0.11;
+  var g3 = ctx.createGain(); g3.gain.value = 0.05;
+  o1.connect(g1); g1.connect(master);
+  o2.connect(g2); g2.connect(master);
+  o3.connect(g3); g3.connect(master);
+  var saw1 = ctx.createOscillator(); saw1.type='sawtooth'; saw1.frequency.value = freq;
+  var saw2 = ctx.createOscillator(); saw2.type='sawtooth'; saw2.frequency.value = freq * 1.5;
+  var sawF = ctx.createBiquadFilter(); sawF.type='lowpass'; sawF.frequency.value = 450; sawF.Q.value = 3;
+  var sawG = ctx.createGain(); sawG.gain.value = 0.09;
+  saw1.connect(sawF); saw2.connect(sawF);
+  sawF.connect(sawG); sawG.connect(master);
+  var sawLfo = ctx.createOscillator(); sawLfo.type='sine'; sawLfo.frequency.value = 0.08;
+  var sawLfoG = ctx.createGain(); sawLfoG.gain.value = 200;
+  sawLfo.connect(sawLfoG); sawLfoG.connect(sawF.frequency);
+  var pulse = ctx.createOscillator(); pulse.type='sine'; pulse.frequency.value = 0.5;
+  var pulseG = ctx.createGain(); pulseG.gain.value = 0.2;
+  pulse.connect(pulseG); pulseG.connect(master.gain);
+  return {
+    start: function(){
+      o1.start(); o2.start(); o3.start(); saw1.start(); saw2.start(); sawLfo.start(); pulse.start();
+      master.gain.linearRampToValueAtTime(0.7, ctx.currentTime + 2);
+    },
+    stop: function(){
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 1);
+      setTimeout(function(){ try{ o1.stop(); o2.stop(); o3.stop(); saw1.stop(); saw2.stop(); sawLfo.stop(); pulse.stop(); }catch(e){} }, 1200);
+    }
+  };
+}
+
+// ===== 10. PRANAYAMA — 4-4-4-2 breathing with musical tones + soft wind =====
+function _meditCreateBreathing(ctx){
+  var master = ctx.createGain(); master.gain.value = 0;
+  master.connect(ctx.destination);
+  var wind = _meditNoiseSource(ctx, 'pink');
+  var windF = ctx.createBiquadFilter(); windF.type='lowpass'; windF.frequency.value = 400;
+  var windG = ctx.createGain(); windG.gain.value = 0.08;
+  wind.connect(windF); windF.connect(windG); windG.connect(master);
+  var osc = ctx.createOscillator(); osc.type='sine'; osc.frequency.value = 200;
+  var osc2 = ctx.createOscillator(); osc2.type='sine'; osc2.frequency.value = 400;
+  var gain = ctx.createGain(); gain.gain.value = 0;
+  var g2 = ctx.createGain(); g2.gain.value = 0;
+  osc.connect(gain); gain.connect(master);
+  osc2.connect(g2); g2.connect(master);
+  var shimmer = ctx.createOscillator(); shimmer.type='sine'; shimmer.frequency.value = 1600;
+  var shG = ctx.createGain(); shG.gain.value = 0;
+  shimmer.connect(shG); shG.connect(master);
+  var inhale = 4, hold = 4, exhale = 4, pause = 2;
+  var cycle = inhale + hold + exhale + pause;
+  var running = true;
+  var sched = _meditMakeScheduler();
+  function runCycle(){
+    if (!running) return;
+    var t = ctx.currentTime;
+    osc.frequency.cancelScheduledValues(t);
+    osc.frequency.setValueAtTime(200, t);
+    osc.frequency.linearRampToValueAtTime(400, t + inhale);
+    osc.frequency.setValueAtTime(400, t + inhale + hold);
+    osc.frequency.linearRampToValueAtTime(200, t + inhale + hold + exhale);
+    gain.gain.cancelScheduledValues(t);
+    gain.gain.setValueAtTime(0.02, t);
+    gain.gain.linearRampToValueAtTime(0.22, t + inhale);
+    gain.gain.setValueAtTime(0.22, t + inhale + hold);
+    gain.gain.linearRampToValueAtTime(0.02, t + inhale + hold + exhale);
+    gain.gain.linearRampToValueAtTime(0, t + inhale + hold + exhale + pause);
+    g2.gain.cancelScheduledValues(t);
+    g2.gain.setValueAtTime(0, t);
+    g2.gain.linearRampToValueAtTime(0.06, t + inhale);
+    g2.gain.setValueAtTime(0.06, t + inhale + hold);
+    g2.gain.linearRampToValueAtTime(0, t + inhale + hold + exhale);
+    shG.gain.cancelScheduledValues(t);
+    shG.gain.setValueAtTime(0, t + inhale);
+    shG.gain.linearRampToValueAtTime(0.02, t + inhale + 0.5);
+    shG.gain.setValueAtTime(0.02, t + inhale + hold - 0.5);
+    shG.gain.linearRampToValueAtTime(0, t + inhale + hold);
+  }
+  return {
+    cycleSec: cycle,
+    start: function(){
+      wind.start(); osc.start(); osc2.start(); shimmer.start();
+      master.gain.linearRampToValueAtTime(1, ctx.currentTime + 0.8);
+      runCycle();
+      sched.interval(runCycle, cycle * 1000);
+    },
+    stop: function(){
+      running = false; sched.clear();
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8);
+      setTimeout(function(){ try{ wind.stop(); osc.stop(); osc2.stop(); shimmer.stop(); }catch(e){} }, 1000);
+    }
+  };
+}
+
+function meditCreateAudio(med){
+  var ctx = _meditGetCtx();
+  if (!ctx) return null;
+  var a = med.audio;
+  switch(a.type){
+    case 'rain': return _meditCreateRain(ctx);
+    case 'bowl': return _meditCreateBowlScape(ctx, a.freq || 396);
+    case 'silence': return _meditCreateSilence(ctx);
+    case 'ocean': return _meditCreateOcean(ctx);
+    case 'stream': return _meditCreateStream(ctx);
+    case 'crystal': return _meditCreateCrystal(ctx);
+    case 'choir': return _meditCreateChoir(ctx);
+    case 'chakra': return _meditCreateChakra(ctx);
+    case 'mantra': return _meditCreateMantra(ctx, a.freq);
+    case 'breathing': return _meditCreateBreathing(ctx);
+    default: return _meditCreateRain(ctx);
+  }
+}
+
+// ===== RENDERING (new photoreal avatar UI — 2026-04-23) =====
+var _meditState = {
+  currentMed: null,
+  player: null,
+  playing: false,
+  selectedDuration: 0,        // minutes user picked on slider
+  remaining: 0,                // seconds left
+  tickTimer: null
+};
+
+function _escHtml(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function _meditFormatTime(sec){
+  sec = Math.max(0, Math.floor(sec));
+  var m = Math.floor(sec / 60);
+  var s = sec % 60;
+  return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+}
+
+function _meditFindById(id){
+  for (var i = 0; i < MEDITASI_LIST.length; i++){
+    if (MEDITASI_LIST[i].id === id) return MEDITASI_LIST[i];
+  }
+  return null;
+}
+
+// Ordered layout for the 7 collapsible sections. Default: first one open.
+var _meditKontenSchema = [
+  { key:'arti',        icon:'📖', label:'Arti' },
+  { key:'sejarah',     icon:'🌿', label:'Sejarah & Tradisi' },
+  { key:'cara_kerja',  icon:'⚡', label:'Cara Kerja' },
+  { key:'fungsi',      icon:'🎯', label:'Fungsi' },
+  { key:'manfaat',     icon:'💚', label:'Manfaat' },
+  { key:'variasi',     icon:'🔄', label:'Variasi Teknik' },
+  { key:'cocok_untuk', icon:'👤', label:'Cocok Untuk' }
+];
+
+function _meditChevronSvg(){
+  return '<svg class="medit-konten-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+}
+
+function _meditRenderKonten(m){
+  var k = m && m.konten;
+  if (!k) return '';
+  var html = '<div class="medit-konten-divider"></div><div class="medit-konten-wrap">';
+  for (var i = 0; i < _meditKontenSchema.length; i++){
+    var s = _meditKontenSchema[i];
+    var val = k[s.key];
+    if (val == null || (typeof val === 'string' && val === '')) continue;
+    var openCls = (i === 0) ? ' open' : '';
+    var innerHtml;
+    if (s.key === 'manfaat' && Object.prototype.toString.call(val) === '[object Array]'){
+      var items = '';
+      for (var j = 0; j < val.length; j++){
+        items += '<li>' + _escHtml(val[j]) + '</li>';
+      }
+      innerHtml = '<ul class="medit-konten-manfaat">' + items + '</ul>';
+    } else {
+      innerHtml = _escHtml(String(val));
+    }
+    html +=
+      '<div class="medit-konten-section' + openCls + '" data-key="' + _escHtml(s.key) + '">' +
+        '<button class="medit-konten-header" type="button" onclick="meditToggleSection(\'' + _escHtml(s.key) + '\')" aria-expanded="' + (i === 0 ? 'true' : 'false') + '">' +
+          '<span class="medit-konten-icon">' + s.icon + '</span>' +
+          '<span class="medit-konten-label">' + _escHtml(s.label) + '</span>' +
+          _meditChevronSvg() +
+        '</button>' +
+        '<div class="medit-konten-body">' +
+          '<div class="medit-konten-inner">' + innerHtml + '</div>' +
+        '</div>' +
+      '</div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function meditToggleSection(key){
+  var section = document.querySelector('.medit-konten-section[data-key="' + (key+'').replace(/"/g,'') + '"]');
+  if (!section) return;
+  var isOpen = section.classList.toggle('open');
+  var btn = section.querySelector('.medit-konten-header');
+  if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
+function meditRenderGallery(){
+  var gallery = document.getElementById('medit-gallery');
+  if (!gallery) return;
+  gallery.innerHTML = '';
+  for (var i = 0; i < MEDITASI_LIST.length; i++){
+    var m = MEDITASI_LIST[i];
+    var card = document.createElement('div');
+    card.className = 'medit-card';
+    card.setAttribute('data-id', m.id);
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.style.animationDelay = (i * 0.05) + 's';
+    card.innerHTML =
+      '<div class="medit-card-duration">' + m.durasi + ' min</div>' +
+      '<div class="medit-card-avatar"><img src="' + _escHtml(m.avatar) + '" alt="' + _escHtml(m.nama) + '" loading="lazy"></div>' +
+      '<div class="medit-card-nama">' + _escHtml(m.nama) + '</div>' +
+      '<div class="medit-card-deskripsi">' + _escHtml(m.deskripsi) + '</div>';
+    (function(id){
+      card.addEventListener('click', function(){ meditOpenDetail(id); });
+      card.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); meditOpenDetail(id); }
+      });
+    })(m.id);
+    gallery.appendChild(card);
+  }
+}
+
+function meditOpenDetail(id){
+  var m = _meditFindById(id);
+  if (!m) return;
+  _meditState.currentMed = m;
+  _meditState.selectedDuration = m.durasi;
+  _meditState.remaining = m.durasi * 60;
+
+  var headerTitle = document.getElementById('medit-detail-header-title');
+  if (headerTitle) headerTitle.textContent = m.nama;
+
+  var body = document.getElementById('medit-detail-body');
+  if (body){
+    body.innerHTML =
+      '<div class="medit-hero">' +
+        '<div class="medit-hero-aura"></div>' +
+        '<div class="medit-hero-avatar-wrap" id="medit-hero-avatar-wrap">' +
+          '<img src="' + _escHtml(m.avatar) + '" alt="' + _escHtml(m.nama) + '">' +
+        '</div>' +
+        '<div class="medit-detail-title">' + _escHtml(m.nama) + '</div>' +
+        '<div class="medit-detail-deskripsi">' + _escHtml(m.deskripsi) + '</div>' +
+      '</div>' +
+      _meditRenderKonten(m) +
+      '<div class="medit-duration-block" id="medit-duration-block">' +
+        '<div class="medit-duration-label">' +
+          '<span class="medit-duration-label-text">Durasi meditasi</span>' +
+          '<span class="medit-duration-label-value" id="medit-duration-value">' + m.durasi + ' menit</span>' +
+        '</div>' +
+        '<input type="range" min="5" max="30" step="5" value="' + m.durasi + '" class="medit-duration-slider" id="medit-duration-slider">' +
+      '</div>' +
+      '<div class="medit-timer" id="medit-timer">' + _meditFormatTime(m.durasi * 60) + '</div>' +
+      '<div class="medit-play-row">' +
+        '<button class="medit-play-btn" id="medit-play-btn" onclick="meditTogglePlay()" aria-label="Mulai meditasi">' +
+          '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg>' +
+        '</button>' +
+        '<div class="medit-sound-pill">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>' +
+          _escHtml(m.audio && m.audio.label ? m.audio.label : 'Soundscape') +
+        '</div>' +
+      '</div>' +
+      '<button class="medit-detail-close-link" onclick="meditBack()">Selesai</button>';
+  }
+
+  var galleryView = document.getElementById('medit-gallery-view');
+  var detailView = document.getElementById('medit-detail-view');
+  if (galleryView) galleryView.style.display = 'none';
+  if (detailView) detailView.classList.add('open');
+  var panel = document.getElementById('modal-medit');
+  if (panel) panel.scrollTop = 0;
+
+  // Wire the slider
+  var slider = document.getElementById('medit-duration-slider');
+  if (slider){
+    _meditUpdateSliderFill(slider);
+    slider.addEventListener('input', function(){
+      var val = parseInt(slider.value, 10) || m.durasi;
+      _meditState.selectedDuration = val;
+      _meditState.remaining = val * 60;
+      var valEl = document.getElementById('medit-duration-value');
+      if (valEl) valEl.textContent = val + ' menit';
+      var tEl = document.getElementById('medit-timer');
+      if (tEl) tEl.textContent = _meditFormatTime(val * 60);
+      _meditUpdateSliderFill(slider);
+    });
+  }
+}
+
+function _meditUpdateSliderFill(slider){
+  var min = parseFloat(slider.min) || 5;
+  var max = parseFloat(slider.max) || 30;
+  var val = parseFloat(slider.value) || min;
+  var pct = ((val - min) / (max - min)) * 100;
+  slider.style.setProperty('--medit-slider-pct', pct + '%');
+}
+
+function meditBack(){
+  _meditStopAudio();
+  var galleryView = document.getElementById('medit-gallery-view');
+  var detailView = document.getElementById('medit-detail-view');
+  if (galleryView) galleryView.style.display = '';
+  if (detailView) detailView.classList.remove('open');
+  _meditState.currentMed = null;
+}
+
+function meditTogglePlay(){
+  if (_meditState.playing){ _meditStopAudio(); }
+  else { _meditStartAudio(); }
+}
+
+function _meditStartAudio(){
+  var m = _meditState.currentMed;
+  if (!m) return;
+  if (!_meditState.selectedDuration) _meditState.selectedDuration = m.durasi;
+  if (!_meditState.remaining || _meditState.remaining <= 0){
+    _meditState.remaining = _meditState.selectedDuration * 60;
+  }
+  if (!_meditState.player){
+    _meditState.player = meditCreateAudio(m);
+  }
+  try { if (_meditState.player) _meditState.player.start(); } catch(e){}
+  _meditState.playing = true;
+
+  // Hide slider once session starts
+  var block = document.getElementById('medit-duration-block');
+  if (block) block.classList.add('hidden');
+
+  var btn = document.getElementById('medit-play-btn');
+  if (btn){
+    btn.classList.add('playing');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+    btn.setAttribute('aria-label', 'Jeda meditasi');
+  }
+  var heroWrap = document.getElementById('medit-hero-avatar-wrap');
+  if (heroWrap) heroWrap.classList.add('playing');
+
+  _meditState.tickTimer = setInterval(_meditTick, 1000);
+}
+
+function _meditTick(){
+  _meditState.remaining -= 1;
+  var tEl = document.getElementById('medit-timer');
+  if (tEl) tEl.textContent = _meditFormatTime(_meditState.remaining);
+  if (_meditState.remaining <= 0){
+    _meditStopAudio();
+    // Signal completion
+    if (tEl) tEl.textContent = '00:00';
+  }
+}
+
+function _meditStopAudio(){
+  if (_meditState.player){
+    try { _meditState.player.stop(); } catch(e){}
+    _meditState.player = null;
+  }
+  _meditState.playing = false;
+  if (_meditState.tickTimer){ clearInterval(_meditState.tickTimer); _meditState.tickTimer = null; }
+  var btn = document.getElementById('medit-play-btn');
+  if (btn){
+    btn.classList.remove('playing');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg>';
+    btn.setAttribute('aria-label', 'Mulai meditasi');
+  }
+  var heroWrap = document.getElementById('medit-hero-avatar-wrap');
+  if (heroWrap) heroWrap.classList.remove('playing');
+  // Reset timer display to selected duration (so user can re-play with same duration)
+  var tEl = document.getElementById('medit-timer');
+  if (tEl && _meditState.selectedDuration){
+    tEl.textContent = _meditFormatTime(_meditState.selectedDuration * 60);
+    _meditState.remaining = _meditState.selectedDuration * 60;
+  }
+  // Re-show slider
+  var block = document.getElementById('medit-duration-block');
+  if (block) block.classList.remove('hidden');
+}
+
+function openMeditasiModal(){
+  var overlay = document.getElementById('overlay-medit');
+  var panel = document.getElementById('modal-medit');
+  if (!overlay || !panel) return;
+  var galleryView = document.getElementById('medit-gallery-view');
+  var detailView = document.getElementById('medit-detail-view');
+  if (galleryView) galleryView.style.display = '';
+  if (detailView) detailView.classList.remove('open');
+  meditRenderGallery();
+  overlay.classList.add('open');
+  panel.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  panel.scrollTop = 0;
+}
+
+function closeMeditasiModal(){
+  _meditStopAudio();
+  var overlay = document.getElementById('overlay-medit');
+  var panel = document.getElementById('modal-medit');
+  if (overlay) overlay.classList.remove('open');
+  if (panel) panel.classList.remove('open');
+  var anyOpen = document.querySelector('.modal-panel.open');
+  if (!anyOpen) document.body.style.overflow = '';
+}
+
+// Expose globally for inline onclick handlers
+window.openMeditasiModal = openMeditasiModal;
+window.closeMeditasiModal = closeMeditasiModal;
+window.meditBack = meditBack;
+window.meditTogglePlay = meditTogglePlay;
+window.meditToggleSection = meditToggleSection;
+
+
+})();
 </script>
 </body>
 </html>
+ 
