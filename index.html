@@ -346,6 +346,18 @@ html.dark .hero::before{
 .hw-skel-line{height:10px;border-radius:5px;background:linear-gradient(90deg,rgba(255,255,255,.12),rgba(255,255,255,.22),rgba(255,255,255,.12));background-size:200% 100%;animation:hwShimmer 1.4s ease-in-out infinite}
 .hw-skel-line.w60{width:60%}.hw-skel-line.w40{width:40%}
 @keyframes hwShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.hw-fallback{display:flex;align-items:center;gap:12px;width:100%;position:relative;z-index:1}
+.hw-fallback-text{font-size:13px;opacity:.7;line-height:1.3}
+.hw-refresh-btn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+  border-radius:50%;border:.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);
+  cursor:pointer;flex-shrink:0;transition:all .2s ease;margin-left:auto}
+.hw-refresh-btn:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.25)}
+.hw-refresh-btn:active{transform:scale(.92)}
+.hw-refresh-btn svg{width:14px;height:14px;opacity:.8}
+.hw-offline-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:2px 8px;
+  border-radius:8px;background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.1);
+  color:rgba(250,250,247,.55);letter-spacing:.3px;margin-top:2px;line-height:1}
+.hw-offline-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:rgba(200,134,10,.7);flex-shrink:0}
 
 /* Health tip chips — individually floating glass elements */
 .hero-indicators{position:relative;z-index:4;display:flex;flex-wrap:wrap;align-items:center;gap:8px;
@@ -3922,11 +3934,86 @@ function renderHeroWeather(data) {
     '</div>';
 }
 
-function hwFallback() {
-  renderHeroWeather({ temperature:30, code:1, humidity:null, wind:null, location:'Jakarta' });
+var HW_CACHE_KEY = 'welvra_weather_cache';
+var HW_REFRESH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>';
+
+function hwSaveCache(data) {
+  try { localStorage.setItem(HW_CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch(e) {}
+}
+function hwLoadCache() {
+  try {
+    var raw = localStorage.getItem(HW_CACHE_KEY);
+    if (!raw) return null;
+    var parsed = JSON.parse(raw);
+    if (parsed && parsed.data) return parsed.data;
+  } catch(e) {}
+  return null;
+}
+
+function hwRenderFallback() {
+  var el = document.getElementById('hero-weather'); if (!el) return;
+  var cached = hwLoadCache();
+  if (cached) {
+    renderHeroWeather(cached);
+    var main = el.querySelector('.hero-weather-main');
+    if (main) {
+      var badge = document.createElement('div');
+      badge.className = 'hw-offline-badge';
+      badge.textContent = 'Offline mode';
+      main.appendChild(badge);
+    }
+  } else {
+    el.innerHTML =
+      '<div class="hero-weather-icon">' + hwIcon(1) + '</div>' +
+      '<div class="hw-fallback">' +
+        '<div class="hw-fallback-text">Cuaca tidak tersedia</div>' +
+        '<button class="hw-refresh-btn" onclick="loadHeroWeather()" aria-label="Refresh cuaca">' + HW_REFRESH_ICON + '</button>' +
+      '</div>';
+  }
+}
+
+function hwFetchWithTimeout(url, opts, ms) {
+  var controller = new AbortController();
+  var signal = controller.signal;
+  opts = opts || {};
+  opts.signal = signal;
+  var timer = setTimeout(function(){ controller.abort(); }, ms);
+  return fetch(url, opts).finally(function(){ clearTimeout(timer); });
+}
+
+async function hwFetchWeather(lat, lon, useDefaultCity) {
+  var wRes = await hwFetchWithTimeout(
+    'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+    '&current=temperature_2m,weathercode,windspeed_10m,relative_humidity_2m&timezone=auto', {}, 8000);
+  if (!wRes.ok) throw new Error('weather fetch failed');
+  var wData = await wRes.json();
+  var cur = wData.current || {};
+  var data = {
+    temperature: cur.temperature_2m,
+    code: cur.weathercode,
+    wind: cur.windspeed_10m,
+    humidity: cur.relative_humidity_2m,
+    location: useDefaultCity ? 'Jakarta' : null
+  };
+  if (!useDefaultCity) {
+    try {
+      var gRes = await hwFetchWithTimeout(
+        'https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lon + '&format=json&zoom=14',
+        { headers:{ 'Accept':'application/json' } }, 8000);
+      if (gRes.ok) {
+        var gData = await gRes.json();
+        var addr = gData.address || {};
+        data.location = addr.suburb || addr.village || addr.town || addr.city_district || addr.city || addr.county || addr.state || 'Lokasi Sekitar';
+      } else { data.location = 'Lokasi Sekitar'; }
+    } catch(e) { data.location = 'Lokasi Sekitar'; }
+  }
+  return data;
 }
 
 async function loadHeroWeather() {
+  var el = document.getElementById('hero-weather'); if (!el) return;
+  el.innerHTML = '<div class="hero-weather-skeleton"><div class="hw-skel-icon"></div><div class="hw-skel-lines"><div class="hw-skel-line w60"></div><div class="hw-skel-line w40"></div></div></div>';
+
   var coords = null;
   try {
     if (navigator.geolocation && window.isSecureContext !== false) {
@@ -3945,36 +4032,20 @@ async function loadHeroWeather() {
   var lon = coords ? coords.lon : 106.8456;
   var useDefaultCity = !coords;
 
-  try {
-    var wRes = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
-      '&current=temperature_2m,weathercode,windspeed_10m,relative_humidity_2m&timezone=auto');
-    if (!wRes.ok) throw new Error('weather fetch failed');
-    var wData = await wRes.json();
-    var cur = wData.current || {};
-    var data = {
-      temperature: cur.temperature_2m,
-      code: cur.weathercode,
-      wind: cur.windspeed_10m,
-      humidity: cur.relative_humidity_2m,
-      location: useDefaultCity ? 'Jakarta' : null
-    };
-
-    if (!useDefaultCity) {
-      try {
-        var gRes = await fetch('https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lon + '&format=json&zoom=14', { headers:{ 'Accept':'application/json' } });
-        if (gRes.ok) {
-          var gData = await gRes.json();
-          var addr = gData.address || {};
-          data.location = addr.suburb || addr.village || addr.town || addr.city_district || addr.city || addr.county || addr.state || 'Lokasi Sekitar';
-        } else {
-          data.location = 'Lokasi Sekitar';
-        }
-      } catch(e) { data.location = 'Lokasi Sekitar'; }
+  var maxRetries = 2;
+  for (var attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      var data = await hwFetchWeather(lat, lon, useDefaultCity);
+      hwSaveCache(data);
+      renderHeroWeather(data);
+      return;
+    } catch(e) {
+      if (attempt < maxRetries - 1) {
+        await new Promise(function(r){ setTimeout(r, 1000); });
+      }
     }
-    renderHeroWeather(data);
-  } catch(e) {
-    hwFallback();
   }
+  hwRenderFallback();
 }
 
 document.addEventListener('DOMContentLoaded', function(){ setTimeout(loadHeroWeather, 100); });
