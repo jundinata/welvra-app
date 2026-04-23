@@ -1,0 +1,15 @@
+# API keys and secrets
+Welvra API Key Anthropic.txt
+*.key
+.env
+.env.local
+
+# Claude Code config
+.claude/
+
+# macOS system files
+.DS_Store
+
+# Editor configs
+.vscode/
+.idea/
