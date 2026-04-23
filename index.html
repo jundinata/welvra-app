@@ -3983,8 +3983,7 @@ function hwFetchWithTimeout(url, opts, ms) {
 
 async function hwFetchWeather(lat, lon, useDefaultCity) {
   var wRes = await hwFetchWithTimeout(
-    'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
-    '&current=temperature_2m,weathercode,windspeed_10m,relative_humidity_2m&timezone=auto', {}, 8000);
+    '/.netlify/functions/weather?latitude=' + lat + '&longitude=' + lon, {}, 8000);
   if (!wRes.ok) throw new Error('weather fetch failed');
   var wData = await wRes.json();
   var cur = wData.current || {};
