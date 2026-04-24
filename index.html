@@ -1653,6 +1653,22 @@ html.dark .bp-ppg-disclaimer{background:rgba(225,112,85,0.14)}
 .bp-ppg-warn strong{color:#B54A30;display:block;margin-bottom:2px}
 html.dark .bp-ppg-warn strong{color:#EE8B70}
 
+/* Heart-rate disclaimer + CTAs (PPG heart-rate result) */
+.bp-hr-disclaimer{background:linear-gradient(135deg,rgba(200,134,10,.08) 0%,rgba(200,134,10,.03) 100%);border:1px solid rgba(200,134,10,.25);border-left:4px solid #C8860A;border-radius:16px;padding:14px 16px;margin-top:14px;display:flex;gap:10px;align-items:flex-start;transition:background .3s,border-color .3s}
+html.dark .bp-hr-disclaimer{background:linear-gradient(135deg,rgba(200,134,10,.14) 0%,rgba(200,134,10,.05) 100%);border-color:rgba(200,134,10,.3)}
+.bp-hr-disclaimer-icon{font-size:1.1rem;flex-shrink:0;line-height:1.4}
+.bp-hr-disclaimer-text{font-size:.82rem;color:var(--text);line-height:1.6}
+.bp-hr-disclaimer-text strong{color:#8B6914;font-weight:600}
+html.dark .bp-hr-disclaimer-text strong{color:#D4A84A}
+.bp-hr-cta-row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.bp-hr-cta{flex:1;min-width:140px;padding:12px 14px;border-radius:12px;background:var(--gradient-btn-neutral);color:var(--text);border:1px solid var(--border);font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;min-height:44px;transition:transform .15s,box-shadow .2s,background .3s,border-color .3s}
+.bp-hr-cta:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.bp-hr-cta:active{transform:translateY(0);box-shadow:var(--shadow-pressed)}
+.bp-hr-cta.secondary{background:transparent}
+html.dark .bp-hr-cta.secondary{background:transparent}
+.bp-history-source.hr_camera{background:rgba(225,72,112,.14);color:#B53860}
+html.dark .bp-history-source.hr_camera{color:#F08AB0;background:rgba(225,72,112,.22)}
+
 /* History + Chart */
 .bp-history-section{margin-top:22px}
 .bp-history-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:6px}
@@ -3164,7 +3180,7 @@ html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,
       <div class="bp-tab-indicator pos-0" id="bp-tab-indicator"></div>
       <button class="bp-tab active" id="bp-tab-manual" onclick="bpSwitchTab('manual')" type="button">&#x270D;&#xFE0F; Manual</button>
       <button class="bp-tab" id="bp-tab-bluetooth" onclick="bpSwitchTab('bluetooth')" type="button">&#x1F517; Bluetooth</button>
-      <button class="bp-tab" id="bp-tab-ppg" onclick="bpSwitchTab('ppg')" type="button">&#x1F4F7; Kamera</button>
+      <button class="bp-tab" id="bp-tab-ppg" onclick="bpSwitchTab('ppg')" type="button">&#x2764;&#xFE0F; Detak Jantung</button>
     </div>
 
     <!-- MANUAL -->
@@ -3244,10 +3260,10 @@ html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,
         <button class="bp-ppg-help-btn" onclick="bpOpenTutorial()" type="button" aria-label="Panduan pengukuran" title="Panduan pengukuran">?</button>
       </div>
       <div class="bp-ppg-disclaimer" id="bp-ppg-disclaimer">
-        <h5>&#x26A0;&#xFE0F; Penting untuk diketahui</h5>
-        <p>Pengukuran melalui kamera adalah <strong>estimasi</strong> dan tidak bisa menggantikan alat medis.</p>
-        <p>Untuk hasil akurat, gunakan alat tensi digital atau konsultasi ke dokter.</p>
-        <button class="bp-ppg-ack" onclick="bpAckPPG()" type="button">&#x2713; Saya Mengerti</button>
+        <h5>&#x2764;&#xFE0F; Detak Jantung via Kamera</h5>
+        <p>Fitur ini mengukur <strong>detak jantung</strong> kamu dengan menangkap denyut di ujung jari melalui kamera.</p>
+        <p>Hasil pengukuran <strong>bukan tekanan darah</strong>. Untuk tekanan darah, gunakan tab Manual atau Bluetooth.</p>
+        <button class="bp-ppg-ack" onclick="bpAckPPG()" type="button">&#x2713; Mulai Ukur Detak Jantung</button>
       </div>
       <div class="bp-ppg-stage" id="bp-ppg-stage" style="display:none">
         <div class="bp-ppg-preview" id="bp-ppg-preview">
@@ -3273,8 +3289,8 @@ html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,
       </div>
       <div id="bp-ppg-result"></div>
       <div class="bp-ppg-warn">
-        <strong>Catatan Akurasi</strong>
-        Hasil estimasi dari kamera hanya untuk gambaran kasar. Selalu verifikasi dengan alat tensi digital atau pemeriksaan dokter.
+        <strong>Ini mengukur detak jantung, bukan tekanan darah</strong>
+        Untuk memeriksa tekanan darah, gunakan tab Manual atau Bluetooth dengan alat tensi digital.
       </div>
     </div>
 
@@ -3307,7 +3323,7 @@ html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,
 <div class="bp-tut-overlay" id="bp-tut-overlay">
   <div class="bp-tut-box">
     <div class="bp-tut-header">
-      <div class="bp-tut-title">Panduan Pengukuran Kamera</div>
+      <div class="bp-tut-title">Panduan Detak Jantung via Kamera</div>
       <button class="bp-tut-close" onclick="bpHideTutorial()" aria-label="Tutup" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="bp-tut-track">
@@ -3405,10 +3421,10 @@ html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,
             <ellipse class="bp-tut-finger" cx="92" cy="48" rx="34" ry="20" transform="rotate(-12 92 48)"/>
             <ellipse class="bp-tut-finger-nail" cx="74" cy="42" rx="7" ry="4" transform="rotate(-12 92 48)"/>
           </svg>
-          <div class="bp-tut-headline">Siap Mengukur</div>
+          <div class="bp-tut-headline">Siap Ukur Detak Jantung</div>
           <div class="bp-tut-flashnote">
             <div class="bp-tut-flashnote-icon">&#9889;</div>
-            <div class="bp-tut-flashnote-text">Lampu flash akan menyala otomatis<small>Pengukuran berlangsung 30 detik</small></div>
+            <div class="bp-tut-flashnote-text">Lampu flash akan menyala otomatis<small>Pengukuran detak jantung berlangsung 30 detik</small></div>
           </div>
           <div class="bp-tut-tips">
             <div class="bp-tut-tips-title">&#x1F4A1; Tips</div>
@@ -7405,6 +7421,16 @@ function aktivShowToast(msg) {
     bpRefresh();
   };
 
+  // Only entries with real systolic/diastolic count as blood-pressure readings.
+  // Excludes HR-only PPG entries and legacy fabricated-BP ppg_camera entries so
+  // they do not appear in BP charts, summaries, averages, or AI context.
+  function isValidBP(r) {
+    return !!(r && r.systolic && r.diastolic
+      && r.source !== 'ppg_camera'
+      && r.source !== 'ppg_heart_rate');
+  }
+  window.isValidBP = isValidBP;
+
   // ---- WHO / JNC 8 classification ----
   window.classifyBP = function(sys, dia) {
     if (sys < 90 || dia < 60) return { level:'hipotensi', label:'Tekanan Darah Rendah', color:'#3498DB', icon:'\uD83D\uDC99',
@@ -7454,14 +7480,14 @@ function aktivShowToast(msg) {
 
   // ---- API context injection ----
   window.buildBPContext = function() {
-    var arr = window.bpGetReadings();
+    var arr = window.bpGetReadings().filter(isValidBP);
     if (!arr.length) return '';
     var latest = arr[arr.length - 1];
     var last5 = arr.slice(-5);
     var cls = window.classifyBP(latest.systolic, latest.diastolic);
     var avgSys = Math.round(last5.reduce(function(s,r){return s+r.systolic;},0)/last5.length);
     var avgDia = Math.round(last5.reduce(function(s,r){return s+r.diastolic;},0)/last5.length);
-    var srcMap = { manual:'input manual', bluetooth:'alat tensi Bluetooth', ppg_camera:'estimasi kamera' };
+    var srcMap = { manual:'input manual', bluetooth:'alat tensi Bluetooth' };
     var timeStr = '';
     try { timeStr = new Date(latest.timestamp).toLocaleString('id-ID'); } catch(e) {}
     var out = '\n\nData Cek Tensi Anda:';
@@ -7469,7 +7495,6 @@ function aktivShowToast(msg) {
     out += '\n- Sumber: ' + (srcMap[latest.source] || latest.source) + (timeStr ? ', Waktu: ' + timeStr : '');
     if (last5.length > 1) out += '\n- Rata-rata ' + last5.length + ' pengukuran terakhir: ' + avgSys + '/' + avgDia + ' mmHg';
     out += '\n- Total pengukuran tersimpan: ' + arr.length;
-    if (latest.source === 'ppg_camera') out += '\n- Catatan: pengukuran terakhir dari estimasi kamera (akurasi rendah, jangan jadikan acuan klinis).';
     return out;
   };
 
@@ -7891,30 +7916,49 @@ function aktivShowToast(msg) {
     return Math.round(bpm);
   }
 
-  function bpEstimateBP(hr) {
-    var profile = {};
-    try { if (typeof getHealthProfile === 'function') profile = getHealthProfile() || {}; } catch(e) {}
-    var age = 35, bmi = 22.5;
-    if (profile.dob) {
-      try {
-        var bd = new Date(profile.dob), t = new Date();
-        var a = t.getFullYear() - bd.getFullYear();
-        var mo = t.getMonth() - bd.getMonth();
-        if (mo < 0 || (mo === 0 && t.getDate() < bd.getDate())) a--;
-        if (a > 0 && a < 120) age = a;
-      } catch(e) {}
-    }
-    if (profile.weight && profile.height) {
-      var hm = parseFloat(profile.height) / 100;
-      var b = parseFloat(profile.weight) / (hm * hm);
-      if (b > 10 && b < 60) bmi = b;
-    }
-    var sys = 110, dia = 70;
-    if (hr > 80) { sys += (hr - 80) * 0.3; dia += (hr - 80) * 0.15; }
-    if (age > 40) sys += (age - 40) * 0.4;
-    if (bmi > 25) { sys += (bmi - 25) * 1.2; dia += (bmi - 25) * 0.8; }
-    return { systolic: Math.round(sys), diastolic: Math.round(dia) };
+  function bpClassifyHR(hr) {
+    if (hr < 60) return { level:'hipotensi', label:'Rendah', icon:'💙',
+      message:'detak jantungmu lebih rendah dari rata-rata. Kalau sering pusing atau lemas, sebaiknya konsultasi dokter.' };
+    if (hr > 100) return { level:'hypertension1', label:'Tinggi', icon:'❤️',
+      message:'detak jantungmu agak tinggi. Coba rileks sejenak lalu ukur lagi. Kalau terus tinggi, konsultasi dokter ya.' };
+    return { level:'normal', label:'Normal', icon:'💚',
+      message:'detak jantungmu dalam rentang normal. Tetap jaga pola hidup sehat ya!' };
   }
+
+  function bpRenderPPGHeartRate(container, reading) {
+    var hr = reading.heartRate;
+    var cls = bpClassifyHR(hr);
+    var userName = (typeof getUserName === 'function' && getUserName()) || '';
+    var greet = userName ? ('Halo ' + bpEscape(userName) + ', ') : '';
+    var msg = greet + cls.message;
+    container.innerHTML =
+      '<div class="bp-result">' +
+        '<div class="bp-saved-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tersimpan!</div>' +
+        '<div class="bp-result-card">' +
+          '<span class="bp-result-number">' +
+            '<span class="bp-heart">♥</span> ' +
+            '<span id="bp-anim-hr-' + bpEscape(reading.id) + '">0</span>' +
+          '</span>' +
+          '<div class="bp-result-unit">BPM</div>' +
+          '<div class="bp-result-level bp-lvl-' + cls.level + '">' + cls.icon + ' ' + bpEscape(cls.label) + '</div>' +
+          '<div class="bp-result-msg">“' + bpEscape(msg) + '”</div>' +
+          '<div class="bp-result-sign">— Welvra</div>' +
+        '</div>' +
+        '<div class="bp-hr-disclaimer">' +
+          '<div class="bp-hr-disclaimer-icon">💛</div>' +
+          '<div class="bp-hr-disclaimer-text">Fitur ini hanya mengukur <strong>detak jantung</strong>, bukan tekanan darah. Untuk mengukur tekanan darah yang akurat, gunakan tensimeter digital atau konsultasi dokter.</div>' +
+        '</div>' +
+        '<div class="bp-hr-cta-row">' +
+          '<button class="bp-hr-cta" onclick="bpToastBeliTensi()" type="button">🛒 Beli Tensimeter</button>' +
+          '<button class="bp-hr-cta secondary" onclick="bpToastCariKlinik()" type="button">🏥 Cari Klinik Terdekat</button>' +
+        '</div>' +
+      '</div>';
+    var hrEl = document.getElementById('bp-anim-hr-' + reading.id);
+    if (hrEl) bpAnimateCounter(hrEl, hr, 800, '');
+  }
+
+  window.bpToastBeliTensi = function() { bpToast('Fitur rekomendasi tensimeter segera hadir 💚'); };
+  window.bpToastCariKlinik = function() { bpToast('Fitur pencarian klinik segera hadir 🌿'); };
 
   function bpProcessPPG(values) {
     ppgRunning = false;
@@ -7930,20 +7974,19 @@ function aktivShowToast(msg) {
       document.getElementById('bp-ppg-result').innerHTML = '<div class="bp-ppg-warn" style="margin-top:14px"><strong>Tidak bisa membaca sinyal</strong>Tempelkan jari lebih rapat di lensa dan coba lagi. Pastikan pencahayaan cukup.</div>';
       return;
     }
-    var est = bpEstimateBP(hr);
     var now = Date.now();
     var reading = {
       id: 'bp_' + now,
-      systolic: est.systolic, diastolic: est.diastolic, heartRate: hr,
-      source: 'ppg_camera', accuracy: 'estimation',
+      systolic: null, diastolic: null, heartRate: hr,
+      source: 'ppg_heart_rate', accuracy: 'pulse_only',
       deviceName: null, position: bpPosition, notes: '',
-      classification: window.classifyBP(est.systolic, est.diastolic).level,
+      classification: bpClassifyHR(hr).level,
       timestamp: now,
       date: new Date(now).toISOString().slice(0,10),
       time: new Date(now).toTimeString().slice(0,5)
     };
     window.bpSaveReading(reading);
-    bpRenderResult(document.getElementById('bp-ppg-result'), reading, { estimate: true });
+    bpRenderPPGHeartRate(document.getElementById('bp-ppg-result'), reading);
     bpRefresh();
   }
 
@@ -7958,7 +8001,7 @@ function aktivShowToast(msg) {
   };
 
   function bpFilteredReadings() {
-    var arr = window.bpGetReadings();
+    var arr = window.bpGetReadings().filter(isValidBP);
     if (!bpChartRange) return arr;
     var cutoff = Date.now() - bpChartRange * 86400000;
     return arr.filter(function(r){ return r.timestamp >= cutoff; });
@@ -7978,7 +8021,8 @@ function aktivShowToast(msg) {
     var map = {
       manual: { cls:'manual', icon:'\u270D\uFE0F', label:'Manual' },
       bluetooth: { cls:'bluetooth', icon:'\uD83D\uDD17', label:'Bluetooth' },
-      ppg_camera: { cls:'ppg_camera', icon:'\uD83D\uDCF7', label:'Estimasi' }
+      ppg_camera: { cls:'ppg_camera', icon:'\uD83D\uDCF7', label:'Estimasi (lama)' },
+      ppg_heart_rate: { cls:'hr_camera', icon:'🧡', label:'Detak Jantung' }
     };
     return map[src] || map.manual;
   }
@@ -8245,7 +8289,11 @@ function aktivShowToast(msg) {
 
   function homeComputeBP() {
     try {
-      var arr = (typeof window.bpGetReadings === 'function') ? window.bpGetReadings() : [];
+      var all = (typeof window.bpGetReadings === 'function') ? window.bpGetReadings() : [];
+      var arr = all.filter(function(r){
+        return typeof window.isValidBP === 'function' ? window.isValidBP(r)
+          : (r && r.systolic && r.diastolic && r.source !== 'ppg_camera' && r.source !== 'ppg_heart_rate');
+      });
       if (!arr.length) return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true };
       var latest = arr[arr.length - 1];
       var cls = (typeof window.classifyBP === 'function') ? window.classifyBP(latest.systolic, latest.diastolic) : null;
@@ -8255,8 +8303,7 @@ function aktivShowToast(msg) {
       if (level === 'elevated') badgeCls = 'sb-elevated';
       else if (level === 'hypertension1' || level === 'hypertension2' || level === 'crisis') badgeCls = 'sb-high';
       else if (level === 'hipotensi') badgeCls = 'sb-low';
-      var prefix = latest.source === 'ppg_camera' ? '~' : '';
-      return { value: prefix + latest.systolic + '/' + prefix + latest.diastolic, badge:{cls:badgeCls,label:label}, small:false };
+      return { value: latest.systolic + '/' + latest.diastolic, badge:{cls:badgeCls,label:label}, small:false };
     } catch(e) { return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true }; }
   }
 
@@ -8358,10 +8405,16 @@ function aktivShowToast(msg) {
       var bp = (typeof window.bpGetReadings === 'function') ? window.bpGetReadings() : [];
       bp.forEach(function(r) {
         if (!r.timestamp) return;
-        var prefix = r.source === 'ppg_camera' ? '~' : '';
+        if (r.source === 'ppg_camera') return;
+        if (r.source === 'ppg_heart_rate') {
+          if (!r.heartRate) return;
+          events.push({ ts: r.timestamp, desc: 'Cek detak jantung: ' + r.heartRate + ' BPM', dot: 'ad-bp' });
+          return;
+        }
+        if (!r.systolic || !r.diastolic) return;
         events.push({
           ts: r.timestamp,
-          desc: 'Cek tensi: ' + prefix + r.systolic + '/' + prefix + r.diastolic + ' mmHg',
+          desc: 'Cek tensi: ' + r.systolic + '/' + r.diastolic + ' mmHg',
           dot: 'ad-bp'
         });
       });
