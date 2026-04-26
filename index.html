@@ -2893,6 +2893,272 @@ html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,
   .medit-card{opacity:1;transform:none}
 }
 
+/* ============================================================ */
+/* PHASE 2A — DRAWER + BOTTOM NAV (luxury layer)                */
+/* ============================================================ */
+:root{
+  --teal-dark:#064F45;
+  --teal-light:#2A9B8C;
+  --gold-dark:#A57008;
+  --gold-cream:#F5E6C8;
+  --gold-shimmer:#E5C281;
+  --sage-muted:rgba(107,158,120,.6);
+  --ivory-warm:#F5EDE0;
+  --cream:#FFF8E7;
+  --txt-primary:#064F45;
+  --txt-secondary:rgba(10,79,69,.7);
+  --txt-tertiary:rgba(10,79,69,.5);
+  --border-subtle:rgba(200,134,10,.15);
+  --border-medium:rgba(200,134,10,.3);
+  --shadow-sm:0 2px 8px rgba(10,79,69,.08);
+  --shadow-w-md:0 8px 24px rgba(10,79,69,.12);
+  --shadow-w-lg:0 16px 48px rgba(10,79,69,.16);
+  --shadow-gold:0 8px 32px rgba(200,134,10,.15);
+  --ease-out-expo:cubic-bezier(.16,1,.3,1);
+  --ease-in-out-quart:cubic-bezier(.76,0,.24,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --ease-decelerate:cubic-bezier(0,0,.2,1);
+  --ease-accelerate:cubic-bezier(.4,0,1,1);
+  --dur-fast:150ms;--dur-base:250ms;--dur-medium:350ms;--dur-slow:500ms;--dur-luxury:700ms;
+}
+html.dark{
+  --gold-cream:rgba(200,134,10,.18);
+  --txt-primary:#F0EDE8;
+  --txt-secondary:rgba(240,237,232,.72);
+  --txt-tertiary:rgba(240,237,232,.5);
+  --border-subtle:rgba(200,134,10,.22);
+  --border-medium:rgba(200,134,10,.4);
+  --ivory-warm:#1A2030;
+  --cream:#171B27;
+}
+
+/* ===== HAMBURGER ===== */
+.hamburger-btn{
+  width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+  background:transparent;border:none;cursor:pointer;padding:0;margin-right:6px;
+  border-radius:12px;transition:background var(--dur-base) var(--ease-decelerate);
+  -webkit-tap-highlight-color:transparent;flex-shrink:0;
+}
+.hamburger-btn:hover,.hamburger-btn:focus-visible{background:rgba(200,134,10,.08)}
+.hamburger-btn:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.hamburger-btn svg{width:22px;height:18px;display:block;stroke:var(--primary);transition:stroke var(--dur-base) var(--ease-decelerate),transform var(--dur-base) var(--ease-decelerate)}
+.hamburger-btn:hover svg,.hamburger-btn[aria-expanded="true"] svg{stroke:var(--gold);transform:translateX(.5px)}
+html.dark .hamburger-btn svg{stroke:#E5D8B8}
+html.dark .hamburger-btn:hover svg{stroke:var(--gold-shimmer)}
+
+/* ===== DRAWER OVERLAY ===== */
+.drawer-overlay{
+  position:fixed;inset:0;background:rgba(10,47,41,.55);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  opacity:0;visibility:hidden;z-index:999;
+  transition:opacity 350ms var(--ease-decelerate),visibility 0s 350ms;
+}
+.drawer-overlay.open{opacity:1;visibility:visible;transition:opacity 350ms var(--ease-decelerate),visibility 0s 0s}
+
+/* ===== DRAWER CONTAINER ===== */
+.welvra-drawer{
+  position:fixed;top:0;left:0;bottom:0;
+  width:min(85vw,360px);height:100vh;height:100dvh;
+  background:linear-gradient(170deg,#FAFAF7 0%,var(--ivory-warm) 100%);
+  box-shadow:4px 0 32px rgba(10,79,69,.15);
+  border-radius:0 28px 28px 0;
+  overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
+  transform:translateX(-100%);
+  transition:transform 350ms var(--ease-out-expo);
+  z-index:1000;
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  backdrop-filter:blur(20px) saturate(180%);
+}
+@media (max-width:359px){.welvra-drawer{width:90vw}}
+.welvra-drawer.open{transform:translateX(0)}
+html.dark .welvra-drawer{background:linear-gradient(170deg,#141820 0%,#1C2030 100%)}
+.welvra-drawer::-webkit-scrollbar{width:4px}
+.welvra-drawer::-webkit-scrollbar-track{background:transparent}
+.welvra-drawer::-webkit-scrollbar-thumb{background:var(--border-subtle);border-radius:2px}
+
+/* ===== DRAWER HEADER ===== */
+.drawer-header{
+  position:relative;padding:32px 24px 28px;
+  background:linear-gradient(135deg,var(--cream) 0%,#FAFAF7 50%,var(--gold-cream) 100%);
+}
+html.dark .drawer-header{background:linear-gradient(135deg,#1A1F2E 0%,#1C2030 50%,rgba(200,134,10,.12) 100%)}
+.drawer-ornament{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px}
+.drawer-ornament.bottom{margin-bottom:0;margin-top:24px}
+.ornament-line{flex:1;max-width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 50%,transparent)}
+.ornament-diamond{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--gold);opacity:.85}
+.drawer-avatar-wrapper{position:relative;width:88px;height:88px;margin:0 auto}
+.drawer-avatar-ring{
+  position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 0deg,var(--gold) 0deg,var(--gold-shimmer) 90deg,var(--sage) 180deg,var(--primary) 270deg,var(--gold) 360deg);
+  animation:drawerRingRotate 30s linear infinite;
+  filter:blur(.5px);
+}
+@keyframes drawerRingRotate{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.drawer-avatar{
+  position:absolute;inset:4px;border-radius:50%;
+  background:#FAFAF7;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 20px rgba(200,134,10,.08),0 4px 16px rgba(200,134,10,.2);
+}
+html.dark .drawer-avatar{background:#1C2030;box-shadow:inset 0 0 20px rgba(200,134,10,.12),0 4px 16px rgba(200,134,10,.18)}
+.drawer-avatar-initials{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:32px;font-weight:500;color:var(--gold);letter-spacing:-.5px}
+@media (prefers-reduced-motion:reduce){.drawer-avatar-ring{animation:none}}
+.drawer-username{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--teal-dark);text-align:center;margin:16px 0 4px;letter-spacing:-.3px}
+html.dark .drawer-username{color:#F0EDE8}
+.drawer-email{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary);text-align:center;margin:0 0 8px}
+.drawer-member-since{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--gold);text-align:center;margin:0;letter-spacing:.3px}
+.drawer-close{
+  position:absolute;top:16px;right:16px;width:36px;height:36px;
+  background:rgba(255,255,255,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid var(--border-subtle);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;
+  transition:background var(--dur-base) var(--ease-decelerate),transform var(--dur-base) var(--ease-decelerate);
+}
+html.dark .drawer-close{background:rgba(255,255,255,.08)}
+.drawer-close:hover{background:var(--gold-cream);transform:rotate(90deg)}
+.drawer-close svg{width:14px;height:14px;stroke:var(--teal-dark);stroke-width:1.5;stroke-linecap:round;fill:none}
+html.dark .drawer-close svg{stroke:#F0EDE8}
+
+/* ===== DRAWER MENU ===== */
+.drawer-section-label{
+  display:block;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:2px;
+  color:var(--sage-muted);text-transform:uppercase;
+  padding:24px 24px 12px;
+}
+html.dark .drawer-section-label{color:rgba(140,180,150,.6)}
+.drawer-menu-item{
+  position:relative;display:flex;align-items:center;gap:16px;
+  padding:14px 24px;cursor:pointer;
+  transition:background 250ms var(--ease-decelerate);
+  border:none;background:transparent;width:100%;text-align:left;
+  font-family:inherit;color:inherit;
+}
+.drawer-menu-item:hover,.drawer-menu-item:active,.drawer-menu-item:focus-visible{background:rgba(245,230,200,.5)}
+html.dark .drawer-menu-item:hover,html.dark .drawer-menu-item:focus-visible{background:rgba(200,134,10,.08)}
+.drawer-menu-item:focus-visible{outline:none}
+.drawer-menu-item::after{
+  content:'';position:absolute;bottom:8px;left:56px;right:24px;height:1px;
+  background:linear-gradient(90deg,var(--gold) 0%,transparent 100%);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 400ms var(--ease-decelerate);
+}
+.drawer-menu-item:hover::after,.drawer-menu-item:focus-visible::after{transform:scaleX(1)}
+.drawer-menu-icon{display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex-shrink:0;transition:transform 250ms var(--ease-spring)}
+.drawer-menu-item:hover .drawer-menu-icon{transform:scale(1.15)}
+.drawer-menu-icon svg{width:22px;height:22px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.drawer-menu-icon[data-color="gold"] svg{stroke:var(--gold)}
+.drawer-menu-icon[data-color="sage"] svg{stroke:var(--sage)}
+.drawer-menu-icon[data-color="teal"] svg{stroke:var(--primary)}
+.drawer-menu-icon[data-color="danger"] svg{stroke:#C84B30}
+html.dark .drawer-menu-icon[data-color="teal"] svg{stroke:var(--teal-light)}
+.drawer-menu-label{flex:1;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:500;color:var(--txt-primary);letter-spacing:-.1px}
+html.dark .drawer-menu-label{color:#F0EDE8}
+.drawer-menu-chevron{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt-tertiary);font-size:18px;font-weight:300;transition:transform 250ms var(--ease-decelerate),color 250ms var(--ease-decelerate);line-height:1}
+.drawer-menu-item:hover .drawer-menu-chevron{color:var(--gold);transform:translateX(4px)}
+.drawer-divider{height:1px;margin:12px 24px;background:linear-gradient(90deg,transparent,var(--border-medium) 50%,transparent)}
+.drawer-footer{padding:12px 0 32px}
+.drawer-menu-danger:hover,.drawer-menu-danger:focus-visible{background:rgba(200,75,48,.06) !important}
+.drawer-menu-danger .drawer-menu-label{color:#C84B30}
+html.dark .drawer-menu-danger .drawer-menu-label{color:#E07555}
+
+/* iOS toggle */
+.ios-toggle{position:relative;display:inline-block;width:44px;height:24px;background:rgba(0,0,0,.1);border-radius:12px;transition:background 250ms var(--ease-decelerate);flex-shrink:0;border:none;padding:0;cursor:pointer}
+html.dark .ios-toggle{background:rgba(255,255,255,.12)}
+.ios-toggle[data-state="on"]{background:var(--primary)}
+.ios-toggle-thumb{position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);transition:transform 250ms var(--ease-spring)}
+.ios-toggle[data-state="on"] .ios-toggle-thumb{transform:translateX(20px)}
+
+/* Stagger reveal */
+.welvra-drawer .drawer-menu-item,.welvra-drawer .drawer-section-label,.welvra-drawer .drawer-divider{opacity:0;transform:translateX(-20px);transition:opacity 300ms var(--ease-decelerate),transform 300ms var(--ease-decelerate)}
+.welvra-drawer.open .drawer-menu-item,.welvra-drawer.open .drawer-section-label,.welvra-drawer.open .drawer-divider{opacity:1;transform:translateX(0)}
+@media (prefers-reduced-motion:reduce){
+  .welvra-drawer .drawer-menu-item,.welvra-drawer .drawer-section-label,.welvra-drawer .drawer-divider{transition:none;opacity:1;transform:none}
+}
+
+/* ============================================================ */
+/* BOTTOM NAVIGATION                                            */
+/* ============================================================ */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;
+  height:calc(78px + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);
+  background:rgba(250,250,247,.92);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  backdrop-filter:blur(20px) saturate(180%);
+  border-top:1px solid transparent;
+  box-shadow:0 -4px 24px rgba(10,79,69,.08);
+  display:flex;justify-content:space-around;align-items:center;
+  z-index:90;max-width:480px;margin:0 auto;
+}
+html.dark .bottom-nav{background:rgba(20,24,32,.85);box-shadow:0 -4px 24px rgba(0,0,0,.35)}
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+  .bottom-nav{background:#FAFAF7}
+  html.dark .bottom-nav{background:#141820}
+}
+.bottom-nav::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 0%,var(--gold) 50%,transparent 100%);
+  opacity:.5;
+}
+.nav-tab{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;padding:8px 4px;background:transparent;border:none;cursor:pointer;
+  position:relative;height:100%;font-family:inherit;
+  -webkit-tap-highlight-color:transparent;color:inherit;
+}
+.nav-tab:focus-visible{outline:none}
+.nav-tab:focus-visible .nav-tab-icon{outline:2px solid var(--gold);outline-offset:4px;border-radius:50%}
+.nav-tab-icon{width:26px;height:26px;display:flex;align-items:center;justify-content:center;transition:transform 300ms var(--ease-spring)}
+.nav-tab-icon svg{width:26px;height:26px;stroke:var(--sage-muted);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke 250ms var(--ease-decelerate),fill 250ms var(--ease-decelerate)}
+html.dark .nav-tab-icon svg{stroke:rgba(160,180,170,.55)}
+.nav-tab-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.3px;color:var(--sage-muted);transition:color 250ms var(--ease-decelerate)}
+html.dark .nav-tab-label{color:rgba(160,180,170,.6)}
+.nav-tab-indicator{position:absolute;bottom:6px;left:50%;width:0;height:2px;background:linear-gradient(90deg,var(--gold-cream),var(--gold),var(--gold-cream));border-radius:1px;transform:translateX(-50%);transition:width 400ms var(--ease-out-expo)}
+.nav-tab.active .nav-tab-icon svg{stroke:url(#welvraGoldGradient);fill:url(#welvraGoldGradient);fill-opacity:.15}
+.nav-tab.active .nav-tab-label{color:var(--primary);font-weight:600}
+html.dark .nav-tab.active .nav-tab-label{color:var(--teal-light)}
+.nav-tab.active .nav-tab-indicator{width:24px}
+.nav-tab:active .nav-tab-icon{transform:scale(.92)}
+.nav-tab.tap-spring .nav-tab-icon{animation:navTabSpring 300ms var(--ease-spring)}
+@keyframes navTabSpring{0%{transform:scale(1)}30%{transform:scale(.92)}60%{transform:scale(1.05)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.nav-tab.tap-spring .nav-tab-icon{animation:none}}
+
+body{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+
+/* ===== WELVRA TOAST (premium) — does not conflict with legacy .toast ===== */
+.welvra-toast{
+  position:fixed;
+  bottom:calc(100px + env(safe-area-inset-bottom));
+  left:50%;transform:translateX(-50%) translateY(20px);
+  background:rgba(250,250,247,.95);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid var(--gold-cream);border-radius:24px;
+  padding:12px 24px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;
+  color:var(--teal-dark);box-shadow:var(--shadow-w-md);
+  opacity:0;visibility:hidden;
+  transition:opacity 300ms var(--ease-decelerate),transform 300ms var(--ease-decelerate),visibility 0s 300ms;
+  z-index:2000;max-width:calc(100vw - 48px);text-align:center;white-space:nowrap;
+}
+html.dark .welvra-toast{background:rgba(28,32,48,.95);color:#F0EDE8;border-color:rgba(200,134,10,.3)}
+.welvra-toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);transition:opacity 300ms var(--ease-decelerate),transform 300ms var(--ease-decelerate),visibility 0s 0s}
+
+/* ===== RESET CONFIRM MODAL ===== */
+.welvra-confirm-overlay{position:fixed;inset:0;background:rgba(10,47,41,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;visibility:hidden;z-index:1100;transition:opacity 250ms var(--ease-decelerate),visibility 0s 250ms;display:flex;align-items:center;justify-content:center;padding:24px}
+.welvra-confirm-overlay.open{opacity:1;visibility:visible;transition:opacity 250ms var(--ease-decelerate),visibility 0s 0s}
+.welvra-confirm-box{background:linear-gradient(170deg,var(--cream) 0%,#FAFAF7 100%);border-radius:24px;padding:32px 24px 24px;max-width:340px;width:100%;box-shadow:var(--shadow-w-lg);text-align:center;transform:scale(.92);transition:transform 280ms var(--ease-out-expo)}
+html.dark .welvra-confirm-box{background:linear-gradient(170deg,#1C2030 0%,#141820 100%)}
+.welvra-confirm-overlay.open .welvra-confirm-box{transform:scale(1)}
+.welvra-confirm-box h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--teal-dark);margin-bottom:10px}
+html.dark .welvra-confirm-box h3{color:#F0EDE8}
+.welvra-confirm-box p{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--txt-secondary);line-height:1.55;margin-bottom:24px}
+.welvra-confirm-actions{display:flex;gap:10px}
+.welvra-confirm-btn{flex:1;padding:13px 16px;border-radius:14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:transform 200ms var(--ease-spring),box-shadow 200ms var(--ease-decelerate)}
+.welvra-confirm-btn:active{transform:scale(.97)}
+.welvra-confirm-cancel{background:transparent;color:var(--txt-secondary);border:1px solid var(--border-medium)}
+.welvra-confirm-confirm{background:linear-gradient(180deg,#D45A3E 0%,#9C3A22 100%);color:#fff;box-shadow:0 4px 12px rgba(200,75,48,.25)}
+.welvra-confirm-confirm:hover{box-shadow:0 6px 18px rgba(200,75,48,.35)}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -2900,6 +3166,17 @@ html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,
 <script>if(window.pdfjsLib){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';}</script>
 </head>
 <body>
+
+<!-- WELVRA GOLD GRADIENT (used by bottom-nav active icons) -->
+<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
+  <defs>
+    <linearGradient id="welvraGoldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5E6C8"/>
+      <stop offset="50%" stop-color="#C8860A"/>
+      <stop offset="100%" stop-color="#A57008"/>
+    </linearGradient>
+  </defs>
+</svg>
 
 <!-- SPLASH SCREEN -->
 <div id="splash">
@@ -2946,6 +3223,13 @@ html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,
   <header class="header">
     <div class="container header-inner">
       <div class="header-left">
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Buka menu" aria-expanded="false" aria-controls="welvra-drawer" onclick="openWelvraDrawer(this)">
+          <svg viewBox="0 0 22 18" fill="none" aria-hidden="true">
+            <line x1="1" y1="3"  x2="21" y2="3"  stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="1" y1="9"  x2="17" y2="9"  stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="1" y1="15" x2="21" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
         <button class="header-logo-btn" onclick="showSplashBrief()" title="Kembali ke Beranda" style="width:90px;height:auto;background:transparent;border:none;padding:0;cursor:pointer;display:flex;align-items:center;">
           <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="140 280 1130 280" preserveAspectRatio="xMidYMid meet" style="width:90px;height:auto">
           <g fill="#0A7B6C">
@@ -2960,7 +3244,7 @@ html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,
         <div class="header-brand"><small>Sahabat Sehatmu</small></div>
       </div>
       <div class="header-right">
-        <button class="profile-avatar-btn" id="profile-avatar-btn" onclick="openProfilePanel()"><span class="profile-avatar-letter" id="profile-avatar-letter">W</span><span class="profile-avatar-dot"></span></button>
+        <button class="profile-avatar-btn" id="profile-avatar-btn" onclick="openWelvraDrawer(this)" aria-label="Buka menu pengguna"><span class="profile-avatar-letter" id="profile-avatar-letter">W</span><span class="profile-avatar-dot"></span></button>
         <button class="settings-btn" onclick="openModal('settings')" title="Pengaturan">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </button>
@@ -3766,6 +4050,200 @@ html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,
     <button class="btn-primary" onclick="saveHealthProfile()">Simpan Profil &#x1F49A;</button>
   </div>
 </div>
+
+<!-- WELVRA DRAWER -->
+<div class="drawer-overlay" id="welvra-drawer-overlay" onclick="closeWelvraDrawer()" aria-hidden="true"></div>
+<aside class="welvra-drawer" id="welvra-drawer" role="navigation" aria-label="Menu utama" aria-hidden="true">
+  <div class="drawer-header">
+    <button class="drawer-close" onclick="closeWelvraDrawer()" aria-label="Tutup menu">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
+    </button>
+    <div class="drawer-ornament"><span class="ornament-line"></span><span class="ornament-diamond">&#9670;</span><span class="ornament-line"></span></div>
+    <div class="drawer-avatar-wrapper">
+      <div class="drawer-avatar-ring"></div>
+      <div class="drawer-avatar"><span class="drawer-avatar-initials" id="drawer-avatar-initials">W</span></div>
+    </div>
+    <h2 class="drawer-username" id="drawer-username">Pengguna</h2>
+    <p class="drawer-email" id="drawer-email">welvra.app</p>
+    <p class="drawer-member-since" id="drawer-member-since">Member sejak 2026</p>
+    <div class="drawer-ornament bottom"><span class="ornament-line"></span><span class="ornament-diamond">&#9670;</span><span class="ornament-line"></span></div>
+  </div>
+
+  <span class="drawer-section-label">Profil &amp; Riwayat</span>
+  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){openProfilePanel()},290)">
+    <span class="drawer-menu-icon" data-color="gold">
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2.5"/><line x1="14" y1="10" x2="18" y2="10"/><line x1="14" y1="13" x2="17.5" y2="13"/><path d="M5.5 17.5 C6 15.5 7.5 14.5 9 14.5 C10.5 14.5 12 15.5 12.5 17.5"/></svg>
+    </span>
+    <span class="drawer-menu-label">Profil &amp; Data Kesehatan</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <button class="drawer-menu-item" onclick="showWelvraToast('Analitik Kesehatan segera hadir &#10024;')">
+    <span class="drawer-menu-icon" data-color="gold">
+      <svg viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/><line x1="3" y1="21" x2="21" y2="21"/></svg>
+    </span>
+    <span class="drawer-menu-label">Analitik Kesehatan</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){openModal('history')},290)">
+    <span class="drawer-menu-icon" data-color="gold">
+      <svg viewBox="0 0 24 24"><path d="M5 5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-4 3z"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="13.5" x2="13" y2="13.5"/></svg>
+    </span>
+    <span class="drawer-menu-label">Riwayat Konsultasi</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.openMeditasiModal)openMeditasiModal()},290)">
+    <span class="drawer-menu-icon" data-color="gold">
+      <svg viewBox="0 0 24 24"><path d="M12 4 C12 11 12 14 12 18"/><path d="M12 18 C9 18 6 16 5 13 C8 12 11 14 12 18 Z"/><path d="M12 18 C15 18 18 16 19 13 C16 12 13 14 12 18 Z"/><path d="M12 18 C10 16 8 13 8 9 C11 9 12 12 12 18 Z"/><path d="M12 18 C14 16 16 13 16 9 C13 9 12 12 12 18 Z"/></svg>
+    </span>
+    <span class="drawer-menu-label">Riwayat Meditasi</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){openModal('tensi')},290)">
+    <span class="drawer-menu-icon" data-color="gold">
+      <svg viewBox="0 0 24 24"><polyline points="3 12 7 12 9 7 12 17 14 10 16 12 21 12"/><path d="M12 21 C8 18 4 15 4 10 C4 7 6 5 9 5 C10.5 5 11.5 6 12 7 C12.5 6 13.5 5 15 5 C18 5 20 7 20 10 C20 15 16 18 12 21 Z" opacity=".25"/></svg>
+    </span>
+    <span class="drawer-menu-label">Riwayat Tensi</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <button class="drawer-menu-item" onclick="showWelvraToast('Catatan Kesehatan segera hadir &#10024;')">
+    <span class="drawer-menu-icon" data-color="gold">
+      <svg viewBox="0 0 24 24"><path d="M6 4 H17 A2 2 0 0 1 19 6 V20 A2 2 0 0 1 17 22 H6 Z"/><line x1="6" y1="4" x2="6" y2="22"/><line x1="9" y1="9" x2="16" y2="9"/><line x1="9" y1="13" x2="16" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+    </span>
+    <span class="drawer-menu-label">Catatan Kesehatan</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+
+  <div class="drawer-divider"></div>
+
+  <span class="drawer-section-label">Pengaturan</span>
+  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){openModal('settings')},290)">
+    <span class="drawer-menu-icon" data-color="sage">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2 V5 M12 19 V22 M2 12 H5 M19 12 H22 M4.9 4.9 L7 7 M17 17 L19.1 19.1 M4.9 19.1 L7 17 M17 7 L19.1 4.9"/></svg>
+    </span>
+    <span class="drawer-menu-label">Pengaturan Umum</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <button class="drawer-menu-item" onclick="welvraToggleDarkFromDrawer()" type="button">
+    <span class="drawer-menu-icon" data-color="sage">
+      <svg viewBox="0 0 24 24"><path d="M20 14.5 A8 8 0 1 1 9.5 4 A6.5 6.5 0 0 0 20 14.5 Z"/></svg>
+    </span>
+    <span class="drawer-menu-label">Mode Gelap</span>
+    <span class="ios-toggle" id="drawer-dark-toggle" data-state="off" aria-hidden="true"><span class="ios-toggle-thumb"></span></span>
+  </button>
+  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){openModal('reminder')},290)">
+    <span class="drawer-menu-icon" data-color="sage">
+      <svg viewBox="0 0 24 24"><path d="M6 16 V11 A6 6 0 0 1 18 11 V16 L20 18 H4 Z"/><path d="M10 21 A2 2 0 0 0 14 21"/></svg>
+    </span>
+    <span class="drawer-menu-label">Notifikasi</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <button class="drawer-menu-item" onclick="showWelvraToast('Bahasa: Bahasa Indonesia')">
+    <span class="drawer-menu-icon" data-color="sage">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+    </span>
+    <span class="drawer-menu-label">Bahasa</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+
+  <div class="drawer-divider"></div>
+
+  <span class="drawer-section-label">Bantuan &amp; Info</span>
+  <button class="drawer-menu-item" onclick="showWelvraToast('Tutorial Welvra segera hadir &#10024;')">
+    <span class="drawer-menu-icon" data-color="teal">
+      <svg viewBox="0 0 24 24"><path d="M3 5 C6 4 9 4 12 6 C15 4 18 4 21 5 V19 C18 18 15 18 12 20 C9 18 6 18 3 19 Z"/><line x1="12" y1="6" x2="12" y2="20"/></svg>
+    </span>
+    <span class="drawer-menu-label">Tutorial Welvra</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){openModal('feedback')},290)">
+    <span class="drawer-menu-icon" data-color="teal">
+      <svg viewBox="0 0 24 24"><path d="M3 6 L12 13 L21 6"/><path d="M3 6 H21 V17 A1 1 0 0 1 20 18 H4 A1 1 0 0 1 3 17 Z"/><path d="M12 11.5 C11 10.5 9.5 11 9.5 12.3 C9.5 13.5 12 15 12 15 C12 15 14.5 13.5 14.5 12.3 C14.5 11 13 10.5 12 11.5 Z"/></svg>
+    </span>
+    <span class="drawer-menu-label">Beri Masukan</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <button class="drawer-menu-item" onclick="showWelvraToast('Pusat Bantuan segera hadir &#10024;')">
+    <span class="drawer-menu-icon" data-color="teal">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9 C9.5 7.5 10.7 6.5 12 6.5 C13.3 6.5 14.5 7.5 14.5 8.8 C14.5 10.5 12 11 12 12.5"/><circle cx="12" cy="16.5" r=".7" fill="currentColor"/></svg>
+    </span>
+    <span class="drawer-menu-label">Pusat Bantuan</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <button class="drawer-menu-item" onclick="showWelvraToast('Welvra v2.0 &mdash; Sahabat sehatmu')">
+    <span class="drawer-menu-icon" data-color="teal">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="8" r=".8" fill="currentColor"/></svg>
+    </span>
+    <span class="drawer-menu-label">Tentang Welvra</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <button class="drawer-menu-item" onclick="showWelvraToast('Kebijakan Privasi segera hadir &#10024;')">
+    <span class="drawer-menu-icon" data-color="teal">
+      <svg viewBox="0 0 24 24"><path d="M12 3 L20 6 V12 C20 17 16 20 12 21 C8 20 4 17 4 12 V6 Z"/><polyline points="9 12 11 14 15 10"/></svg>
+    </span>
+    <span class="drawer-menu-label">Kebijakan Privasi</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <button class="drawer-menu-item" onclick="showWelvraToast('Syarat Layanan segera hadir &#10024;')">
+    <span class="drawer-menu-icon" data-color="teal">
+      <svg viewBox="0 0 24 24"><path d="M7 3 H15 L19 7 V20 A1 1 0 0 1 18 21 H7 A1 1 0 0 1 6 20 V4 A1 1 0 0 1 7 3 Z"/><polyline points="14 3 14 8 19 8"/><line x1="9" y1="13" x2="16" y2="13"/><line x1="9" y1="16.5" x2="14" y2="16.5"/></svg>
+    </span>
+    <span class="drawer-menu-label">Syarat Layanan</span>
+    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
+  </button>
+
+  <div class="drawer-footer">
+    <button class="drawer-menu-item drawer-menu-danger" onclick="openWelvraResetConfirm()">
+      <span class="drawer-menu-icon" data-color="danger">
+        <svg viewBox="0 0 24 24"><path d="M20 12 A8 8 0 1 1 17 6.3"/><polyline points="20 4 20 9 15 9"/></svg>
+      </span>
+      <span class="drawer-menu-label">Reset Data Welvra</span>
+    </button>
+  </div>
+</aside>
+
+<!-- WELVRA RESET CONFIRM -->
+<div class="welvra-confirm-overlay" id="welvra-reset-confirm" role="dialog" aria-modal="true" aria-labelledby="welvra-reset-title" onclick="if(event.target===this)closeWelvraResetConfirm()">
+  <div class="welvra-confirm-box">
+    <h3 id="welvra-reset-title">Reset Data Welvra</h3>
+    <p>Yakin mau reset semua data Welvra? Tindakan ini tidak bisa dibatalkan.</p>
+    <div class="welvra-confirm-actions">
+      <button class="welvra-confirm-btn welvra-confirm-cancel" onclick="closeWelvraResetConfirm()">Batal</button>
+      <button class="welvra-confirm-btn welvra-confirm-confirm" onclick="confirmWelvraReset()">Reset</button>
+    </div>
+  </div>
+</div>
+
+<!-- WELVRA BOTTOM NAVIGATION -->
+<nav class="bottom-nav" role="navigation" aria-label="Navigasi utama">
+  <button class="nav-tab active" data-tab="beranda" aria-current="page" aria-label="Beranda" onclick="welvraSwitchTab(this,'beranda')">
+    <span class="nav-tab-icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11 L12 4 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z"/><path d="M10 21 V14 H14 V21"/></svg>
+    </span>
+    <span class="nav-tab-label">Beranda</span>
+    <span class="nav-tab-indicator"></span>
+  </button>
+  <button class="nav-tab" data-tab="wisdom" aria-label="Wisdom &mdash; Artikel kesehatan" onclick="welvraSwitchTab(this,'wisdom')">
+    <span class="nav-tab-icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5 C6 4 9 4 12 6 C15 4 18 4 21 5 V19 C18 18 15 18 12 20 C9 18 6 18 3 19 Z"/><line x1="12" y1="6" x2="12" y2="20"/><path d="M16 8 C17.5 9 18 10.5 17 12 C18.5 11.5 19.5 10 19 8.5" opacity=".7"/></svg>
+    </span>
+    <span class="nav-tab-label">Wisdom</span>
+    <span class="nav-tab-indicator"></span>
+  </button>
+  <button class="nav-tab" data-tab="konsultasi" aria-label="Konsultasi dengan Dr. Sly" onclick="welvraSwitchTab(this,'konsultasi')">
+    <span class="nav-tab-icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5 H20 A1 1 0 0 1 21 6 V16 A1 1 0 0 1 20 17 H10 L5 21 V17 A1 1 0 0 1 4 16 Z"/><circle cx="9" cy="11" r=".9" fill="currentColor"/><circle cx="12.5" cy="11" r=".9" fill="currentColor"/><circle cx="16" cy="11" r=".9" fill="currentColor"/></svg>
+    </span>
+    <span class="nav-tab-label">Konsultasi</span>
+    <span class="nav-tab-indicator"></span>
+  </button>
+  <button class="nav-tab" data-tab="toko" aria-label="Toko Welvra" onclick="welvraSwitchTab(this,'toko')">
+    <span class="nav-tab-icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8 H19 L18 20 A1 1 0 0 1 17 21 H7 A1 1 0 0 1 6 20 Z"/><path d="M9 8 V6 A3 3 0 0 1 15 6 V8"/></svg>
+    </span>
+    <span class="nav-tab-label">Toko</span>
+    <span class="nav-tab-indicator"></span>
+  </button>
+</nav>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
@@ -9690,6 +10168,196 @@ window.meditTogglePlay = meditTogglePlay;
 window.meditToggleSection = meditToggleSection;
 
 
+})();
+</script>
+
+<!-- =========================================================== -->
+<!-- PHASE 2A — Drawer + Bottom Navigation behavior              -->
+<!-- =========================================================== -->
+<script>
+(function(){
+  var lastDrawerTrigger = null;
+  var swipeStartX = 0;
+
+  function $(id){ return document.getElementById(id); }
+
+  function isDrawerOpen(){
+    var d = $('welvra-drawer');
+    return !!(d && d.classList.contains('open'));
+  }
+
+  function bodyScrollLock(on){
+    if (on) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      var anyModalOpen = document.querySelector('.modal-panel.open, .profile-panel.open, .apikey-overlay.open, .onboard-overlay.open');
+      if (!anyModalOpen && !isDrawerOpen()) document.body.style.overflow = '';
+    }
+  }
+
+  function syncDrawerProfile(){
+    var name = (window.getUserName && window.getUserName()) || 'Pengguna';
+    var initial = (name.trim().charAt(0) || 'W').toUpperCase();
+    var u = $('drawer-username'); if (u) u.textContent = name;
+    var ai = $('drawer-avatar-initials'); if (ai) ai.textContent = initial;
+    var months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    var d = new Date();
+    var ms = $('drawer-member-since'); if (ms) ms.textContent = 'Member sejak ' + months[d.getMonth()] + ' ' + d.getFullYear();
+    try {
+      var p = JSON.parse(localStorage.getItem('welvra_health_profile') || '{}');
+      var em = $('drawer-email');
+      if (em) em.textContent = (p && p.email) ? p.email : 'welvra.app';
+    } catch(e){}
+    var dt = $('drawer-dark-toggle');
+    if (dt) dt.dataset.state = (localStorage.getItem('welvra_darkmode') === 'true') ? 'on' : 'off';
+  }
+
+  window.openWelvraDrawer = function(trigger){
+    lastDrawerTrigger = trigger || $('hamburger-btn');
+    syncDrawerProfile();
+    var drawer = $('welvra-drawer');
+    var overlay = $('welvra-drawer-overlay');
+    var hamb = $('hamburger-btn');
+    if (!drawer || !overlay) return;
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+    overlay.setAttribute('aria-hidden','false');
+    if (hamb) hamb.setAttribute('aria-expanded','true');
+    bodyScrollLock(true);
+    var items = drawer.querySelectorAll('.drawer-section-label, .drawer-menu-item, .drawer-divider');
+    items.forEach(function(el,i){ el.style.transitionDelay = (60 + i*40) + 'ms'; });
+    setTimeout(function(){
+      var c = drawer.querySelector('.drawer-close');
+      if (c) c.focus();
+    }, 360);
+  };
+
+  window.closeWelvraDrawer = function(){
+    var drawer = $('welvra-drawer');
+    var overlay = $('welvra-drawer-overlay');
+    var hamb = $('hamburger-btn');
+    if (!drawer || !overlay) return;
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    overlay.setAttribute('aria-hidden','true');
+    if (hamb) hamb.setAttribute('aria-expanded','false');
+    setTimeout(function(){
+      bodyScrollLock(false);
+      drawer.querySelectorAll('.drawer-section-label, .drawer-menu-item, .drawer-divider').forEach(function(el){ el.style.transitionDelay = ''; });
+      if (lastDrawerTrigger && typeof lastDrawerTrigger.focus === 'function') {
+        try { lastDrawerTrigger.focus(); } catch(e){}
+      }
+    }, 290);
+  };
+
+  // ESC + tab trap
+  document.addEventListener('keydown', function(e){
+    if (!isDrawerOpen()) return;
+    if (e.key === 'Escape') { e.preventDefault(); window.closeWelvraDrawer(); return; }
+    if (e.key === 'Tab') {
+      var drawer = $('welvra-drawer');
+      var f = drawer.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])');
+      if (!f.length) return;
+      var first = f[0], last = f[f.length-1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  // Swipe to close
+  document.addEventListener('DOMContentLoaded', function(){
+    var d = $('welvra-drawer');
+    if (!d) return;
+    d.addEventListener('touchstart', function(e){ swipeStartX = e.changedTouches[0].screenX; }, { passive:true });
+    d.addEventListener('touchend', function(e){
+      var ex = e.changedTouches[0].screenX;
+      if (swipeStartX - ex > 50) window.closeWelvraDrawer();
+    }, { passive:true });
+  });
+
+  // Dark-mode toggle from drawer (delegates to existing toggleDarkMode so legacy toggle stays in sync)
+  window.welvraToggleDarkFromDrawer = function(){
+    var legacy = document.getElementById('darkmode-toggle');
+    if (window.toggleDarkMode && legacy) {
+      window.toggleDarkMode();
+    } else {
+      // Fallback if legacy toggle absent: directly flip class + storage
+      var nowDark = !document.documentElement.classList.contains('dark');
+      document.documentElement.classList.toggle('dark', nowDark);
+      localStorage.setItem('welvra_darkmode', nowDark);
+    }
+    var dt = $('drawer-dark-toggle');
+    if (dt) dt.dataset.state = (localStorage.getItem('welvra_darkmode') === 'true') ? 'on' : 'off';
+  };
+
+  // Premium toast (kept separate from legacy showToast to avoid breaking callers)
+  window.showWelvraToast = function(msg, dur){
+    var existing = document.querySelector('.welvra-toast');
+    if (existing) existing.remove();
+    var t = document.createElement('div');
+    t.className = 'welvra-toast';
+    t.textContent = msg;
+    t.setAttribute('role','status');
+    t.setAttribute('aria-live','polite');
+    document.body.appendChild(t);
+    requestAnimationFrame(function(){ t.classList.add('show'); });
+    setTimeout(function(){
+      t.classList.remove('show');
+      setTimeout(function(){ if (t.parentNode) t.parentNode.removeChild(t); }, 320);
+    }, dur || 2500);
+  };
+
+  // Bottom-nav switching
+  window.welvraSwitchTab = function(btn, tab){
+    btn.classList.add('tap-spring');
+    setTimeout(function(){ btn.classList.remove('tap-spring'); }, 320);
+    if (tab === 'toko') { window.showWelvraToast('Toko Welvra segera hadir ✨'); return; }
+    if (tab === 'wisdom') { window.showWelvraToast('Wisdom segera hadir ✨'); return; }
+    document.querySelectorAll('.nav-tab').forEach(function(t){
+      t.classList.remove('active');
+      t.removeAttribute('aria-current');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-current','page');
+    if (tab === 'beranda') {
+      // Close any open modal/panel
+      document.querySelectorAll('.modal-panel.open, .modal-overlay.open, .profile-panel.open, .profile-overlay.open').forEach(function(el){ el.classList.remove('open'); });
+      document.body.style.overflow = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (tab === 'konsultasi' && window.openModal) {
+      window.openModal('chat');
+    }
+  };
+
+  // Reset confirm flow
+  window.openWelvraResetConfirm = function(){
+    var c = $('welvra-reset-confirm');
+    if (c) c.classList.add('open');
+  };
+  window.closeWelvraResetConfirm = function(){
+    var c = $('welvra-reset-confirm');
+    if (c) c.classList.remove('open');
+  };
+  window.confirmWelvraReset = function(){
+    var KEYS_PREFIXES = ['welvra_', 'mens-data', 'aktiv-'];
+    var KEYS_EXACT = ['bp-data','bp-range','ppg-tut-skip','hw-cache','warung-favorites'];
+    try {
+      Object.keys(localStorage).forEach(function(k){
+        if (KEYS_PREFIXES.some(function(p){ return k.indexOf(p) === 0; }) || KEYS_EXACT.indexOf(k) !== -1) {
+          localStorage.removeItem(k);
+        }
+      });
+    } catch(e){}
+    location.reload();
+  };
+
+  // Initial sync of drawer dark toggle on load
+  document.addEventListener('DOMContentLoaded', function(){
+    var dt = $('drawer-dark-toggle');
+    if (dt) dt.dataset.state = (localStorage.getItem('welvra_darkmode') === 'true') ? 'on' : 'off';
+  });
 })();
 </script>
 </body>
