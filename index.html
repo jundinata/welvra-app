@@ -3743,6 +3743,92 @@ html.dark .wisdom-skeleton-line{
   100%{background-position:200% 0}
 }
 
+/* ----- Article card (Phase 2C) ----- */
+.wisdom-card{
+  flex-shrink:0;width:200px;background:white;
+  border:1px solid rgba(200,134,10,.1);border-radius:16px;
+  overflow:hidden;box-shadow:var(--shadow-sm);cursor:pointer;
+  scroll-snap-align:start;
+  transition:transform 350ms cubic-bezier(.16,1,.3,1),box-shadow 350ms ease;
+  -webkit-tap-highlight-color:transparent;position:relative;contain:layout style;
+}
+html.dark .wisdom-card{background:#1A2030;border-color:rgba(200,134,10,.15)}
+.wisdom-card:hover,.wisdom-card:focus-visible{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.wisdom-card:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.wisdom-card-image-wrap{
+  position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;
+  background:linear-gradient(135deg,rgba(245,230,200,.4) 0%,rgba(229,194,129,.3) 100%);
+}
+.wisdom-card-image{
+  width:100%;height:100%;object-fit:cover;display:block;opacity:0;
+  transition:opacity 600ms cubic-bezier(.16,1,.3,1),transform 4s ease-out;
+}
+.wisdom-card-image.loaded{opacity:1}
+.wisdom-card:hover .wisdom-card-image{transform:scale(1.05)}
+
+.wisdom-card-bookmark{
+  position:absolute;top:10px;right:10px;width:32px;height:32px;
+  border-radius:50%;background:rgba(255,255,255,.9);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--gold);transition:transform 200ms cubic-bezier(.34,1.56,.64,1);z-index:2;
+}
+.wisdom-card-bookmark:active{transform:scale(.85)}
+.wisdom-card-bookmark[data-saved="true"]{
+  background:linear-gradient(135deg,var(--gold),#8B5E06);color:white;
+}
+
+.wisdom-card-body{padding:14px}
+.wisdom-card-eyebrow{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;
+  letter-spacing:1.5px;color:var(--sage);text-transform:uppercase;margin-bottom:6px;
+}
+.wisdom-card-title{
+  font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;
+  color:var(--teal-dark,#075F54);line-height:1.3;letter-spacing:-.2px;
+  margin:0 0 8px 0;display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;min-height:42px;
+}
+html.dark .wisdom-card-title{color:#E8E2D0}
+.wisdom-card-meta{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;
+  color:rgba(107,158,120,.8);font-style:italic;
+}
+
+/* ----- Featured card (hero) ----- */
+.wisdom-card--featured{
+  width:280px;border:1px solid rgba(200,134,10,.3);
+  box-shadow:0 8px 32px rgba(200,134,10,.18);
+}
+.wisdom-card--featured .wisdom-card-image-wrap{aspect-ratio:4/3}
+.wisdom-card--featured .wisdom-card-title{font-size:20px;-webkit-line-clamp:3;min-height:78px}
+.wisdom-card--featured .wisdom-card-eyebrow{color:var(--gold);font-size:10px}
+.wisdom-card--featured::before{
+  content:'Pilihan Editor';position:absolute;top:12px;left:12px;
+  background:linear-gradient(135deg,var(--gold),#8B5E06);color:white;
+  font-family:'Plus Jakarta Sans';font-size:9px;font-weight:700;
+  letter-spacing:1.5px;padding:4px 10px;border-radius:12px;z-index:2;text-transform:uppercase;
+}
+
+/* ----- Grid layout for filtered/category views ----- */
+.wisdom-cards-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:14px;padding:0 16px 24px;
+}
+@media(min-width:360px){
+  .wisdom-cards-grid{grid-template-columns:repeat(2,1fr)}
+}
+.wisdom-cards-grid .wisdom-card{width:100%;scroll-snap-align:none}
+
+/* ----- Image error fallback ----- */
+.wisdom-card-image.error{display:none}
+.wisdom-card-image-wrap:has(.wisdom-card-image.error)::after{
+  content:'\25C6';position:absolute;inset:0;display:flex;
+  align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond';font-size:32px;color:var(--gold);opacity:.4;
+}
+
 /* ----- Empty state ----- */
 .wisdom-empty{
   flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -3772,6 +3858,9 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
   }
   .wisdom-pill{transition:none}
   .wisdom-pill[data-active="true"]{transform:none}
+  .wisdom-card{transition:none}
+  .wisdom-card-image{transition:none}
+  .wisdom-card-bookmark{transition:none}
 }
 
 </style>
@@ -11102,22 +11191,130 @@ window.meditToggleSection = meditToggleSection;
     { id:'discover', label:'Discover' },
     { id:'saved', label:'Tersimpan' },
     { id:'kesehatan-umum', label:'Kesehatan Umum' },
-    { id:'kesehatan-reproduksi', label:'Reproduksi' },
+    { id:'kesehatan-reproduksi', label:'Kesehatan Reproduksi' },
     { id:'kehamilan', label:'Kehamilan' },
-    { id:'panduan-orangtua', label:'Orangtua' },
-    { id:'wellness-mental', label:'Mental Wellness' },
+    { id:'panduan-orangtua', label:'Panduan Orangtua' },
+    { id:'wellness-mental', label:'Wellness Mental' },
     { id:'nutrisi-gizi', label:'Nutrisi & Gizi' },
     { id:'kebugaran', label:'Kebugaran' },
     { id:'herbal-indonesia', label:'Herbal Indonesia' },
-    { id:'lifestyle', label:'Lifestyle' },
-    { id:'isu-sosial', label:'Isu Sosial' }
+    { id:'lifestyle', label:'Lifestyle & Kecantikan' },
+    { id:'isu-sosial', label:'Isu Sosial Kesehatan' }
   ];
 
-  var WISDOM_SECTIONS_CONFIG = [
-    { id:'recommended', title:'Pilihan untukmu', eyebrow:null, link:'Lihat Semua' },
-    { id:'reproduksi', title:'Reproductive Health', eyebrow:'KESEHATAN REPRODUKSI', link:'Lihat Semua' },
-    { id:'lifestyle', title:'Lifestyle', eyebrow:'LIFESTYLE & KECANTIKAN', link:'Lihat Semua' },
-    { id:'cerita', title:'Cerita Inspiratif', eyebrow:'NONA DIARIES', link:'Lihat Semua' }
+  // 100 ARTICLES — WELVRA WISDOM HUB CONTENT DATABASE
+  // Curated by Editorial Lead. Each article has unique Unsplash photo, Indonesian luxury copy.
+  var WELVRA_ARTICLES = [
+    // CATEGORY 1: KESEHATAN UMUM (10 articles)
+    {id:'art-001',category:'kesehatan-umum',title:'Tujuh Hingga Delapan Jam: Bahasa Cinta Tubuhmu',summary:'Tidur bukan kemewahan, melainkan investasi. Telusuri sains di balik durasi tidur yang menyembuhkan setiap sel tubuhmu.',image:'https://images.unsplash.com/photo-1631157852700-ee61bd2bc91a?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:true,publishedAt:'2026-04-15',tags:['tidur','mental','wellness'],author:'Tim Welvra'},
+    {id:'art-002',category:'kesehatan-umum',title:'Hidrasi Cantik: Lebih dari Sekadar Delapan Gelas',summary:'Air adalah perawatan kulit pertama. Pelajari ritual hidrasi yang dipraktikkan perempuan tercantik di Asia.',image:'https://images.unsplash.com/photo-1559762717-99c81ac85459?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:4,featured:false,publishedAt:'2026-04-14',tags:['hidrasi','kulit','beauty'],author:'Tim Welvra'},
+    {id:'art-003',category:'kesehatan-umum',title:'Postur Anggun: Rahasia Tubuh yang Tidak Pernah Lelah',summary:'Cara duduk dan berdiri menentukan energi seharian. Latihan postur ala balerina yang bisa kamu lakukan di rumah.',image:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:5,featured:false,publishedAt:'2026-04-13',tags:['postur','kebugaran','energi'],author:'Tim Welvra'},
+    {id:'art-004',category:'kesehatan-umum',title:'Imunitas Alami dari Dapur Nusantara',summary:'Nenek kita tidak butuh suplemen. Lima rahasia imunitas dari kunyit, jahe, dan ramuan tradisional Indonesia.',image:'https://images.unsplash.com/photo-1546039907-7fa05f864c02?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-12',tags:['imunitas','herbal','tradisional'],author:'Tim Welvra'},
+    {id:'art-005',category:'kesehatan-umum',title:'Pemeriksaan Rutin: Hadiah Terindah untuk Diri Sendiri',summary:'Daftar lengkap medical check-up berdasarkan usia. Karena pencegahan adalah bentuk self-love paling otentik.',image:'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-11',tags:['preventif','medis','check-up'],author:'Tim Welvra'},
+    {id:'art-006',category:'kesehatan-umum',title:'Memahami Gula Darah Tanpa Drama',summary:'Panduan elegan tentang glukosa, indeks glikemik, dan kenapa pisang lebih bersahabat daripada sereal sarapan.',image:'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-10',tags:['gula-darah','nutrisi','metabolik'],author:'Tim Welvra'},
+    {id:'art-007',category:'kesehatan-umum',title:'Kolesterol: Yang Baik dan Yang Diam-Diam Mengintai',summary:'Tidak semua lemak diciptakan sama. Bedakan HDL dari LDL dengan analogi yang akhirnya masuk akal.',image:'https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-09',tags:['kolesterol','jantung','preventif'],author:'Tim Welvra'},
+    {id:'art-008',category:'kesehatan-umum',title:'Manajemen Stres ala Wanita Jepang',summary:'Konsep Ikigai, ritual mandi onsen, dan kebiasaan kecil yang membuat usia harapan hidup mereka tertinggi di dunia.',image:'https://images.unsplash.com/photo-1531594652722-322f9cbcce18?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:true,publishedAt:'2026-04-08',tags:['stres','mindfulness','wellness'],author:'Tim Welvra'},
+    {id:'art-009',category:'kesehatan-umum',title:'Aging Gracefully: Filosofi Menua dengan Berkelas',summary:'Lupakan obsesi awet muda. Inilah cara menua yang dianut Helena Rubinstein, Iris Apfel, dan ibu-ibu kita.',image:'https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-07',tags:['aging','mindset','beauty'],author:'Tim Welvra'},
+    {id:'art-010',category:'kesehatan-umum',title:'Detoks Layar: Memulihkan Fokus di Era Notifikasi',summary:'Mata kita tidak diciptakan untuk tatapan delapan jam. Ritual digital detox yang bisa kamu mulai malam ini.',image:'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:5,featured:false,publishedAt:'2026-04-06',tags:['digital-detox','mata','fokus'],author:'Tim Welvra'},
+    // CATEGORY 2: KESEHATAN REPRODUKSI (10 articles)
+    {id:'art-011',category:'kesehatan-reproduksi',title:'Memahami Siklus Haid sebagai Peta Tubuhmu',summary:'Setiap fase siklus punya energi dan kebutuhan berbeda. Selaraskan hidupmu dengan ritme alami tubuhmu sendiri.',image:'https://images.unsplash.com/photo-1517398658634-b76a3a73f520?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:true,publishedAt:'2026-04-15',tags:['haid','siklus','hormon'],author:'Tim Welvra'},
+    {id:'art-012',category:'kesehatan-reproduksi',title:'PMS Bukan Drama: Solusi Naturopati yang Bekerja',summary:'Kram, mood swing, dan kelelahan punya solusi alami. Vitamin, herbal, dan ritual yang membuat fase luteal terasa lebih ringan.',image:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-14',tags:['pms','naturopati','haid'],author:'Tim Welvra'},
+    {id:'art-013',category:'kesehatan-reproduksi',title:'Memahami Kesuburan: Lebih dari Sekadar Ovulasi',summary:'Kesuburan adalah cermin kesehatan menyeluruh. Faktor gaya hidup yang mempengaruhi peluang konsepsi yang jarang dibahas.',image:'https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-13',tags:['kesuburan','reproduksi','lifestyle'],author:'Tim Welvra'},
+    {id:'art-014',category:'kesehatan-reproduksi',title:'Kontrasepsi Alami: Metode Sadar yang Diabaikan',summary:'Fertility awareness method, observasi serviks, dan teknologi tracking modern. Bagi yang ingin lebih dekat dengan tubuhnya.',image:'https://images.unsplash.com/photo-1545389336-cf090694435e?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-12',tags:['kontrasepsi','natural','awareness'],author:'Tim Welvra'},
+    {id:'art-015',category:'kesehatan-reproduksi',title:'PCOS: Memahami Tanpa Menghakimi',summary:'Sindrom ovarium polikistik bukan vonis. Pendekatan holistik dari nutrisi, olahraga, hingga manajemen stres yang membantu.',image:'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:10,featured:false,publishedAt:'2026-04-11',tags:['pcos','hormon','holistik'],author:'Tim Welvra'},
+    {id:'art-016',category:'kesehatan-reproduksi',title:'Endometriosis: Suara untuk yang Lama Terabaikan',summary:'Satu dari sepuluh perempuan mengalaminya, namun diagnosisnya rata-rata tujuh tahun. Tanda-tanda yang jangan diabaikan.',image:'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-10',tags:['endometriosis','reproduksi','awareness'],author:'Tim Welvra'},
+    {id:'art-017',category:'kesehatan-reproduksi',title:'Menopause sebagai Bab Baru, Bukan Akhir',summary:'Perimenopause hingga pasca-menopause adalah perjalanan transformasi. Persiapan elegan untuk fase paling powerful seorang wanita.',image:'https://images.unsplash.com/photo-1559599101-f09722fb4948?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:11,featured:false,publishedAt:'2026-04-09',tags:['menopause','hormon','transformasi'],author:'Tim Welvra'},
+    {id:'art-018',category:'kesehatan-reproduksi',title:'Intimasi sebagai Dimensi Kesehatan',summary:'Kehidupan intim yang memuaskan terkait dengan umur panjang dan kesehatan mental. Topik yang layak dibicarakan secara dewasa.',image:'https://images.unsplash.com/photo-1455620611406-966ca6889d2b?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-08',tags:['intimasi','wellness','hubungan'],author:'Tim Welvra'},
+    {id:'art-019',category:'kesehatan-reproduksi',title:'Merawat Area Intim dengan Sains, Bukan Mitos',summary:'pH alami, mikrobioma vagina, dan kenapa douching adalah ide buruk. Edukasi yang seharusnya kita dapatkan sejak remaja.',image:'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-07',tags:['intim','higiene','mikrobioma'],author:'Tim Welvra'},
+    {id:'art-020',category:'kesehatan-reproduksi',title:'Hormon dalam Harmoni: Panduan Holistik',summary:'Estrogen, progesteron, kortisol, insulin \u2014 orkestra yang mempengaruhi suasana hati hingga kulit. Cara menjaganya seimbang.',image:'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-06',tags:['hormon','holistik','balance'],author:'Tim Welvra'},
+    // CATEGORY 3: KEHAMILAN (10 articles)
+    {id:'art-021',category:'kehamilan',title:'Trimester Pertama: Kelembutan untuk Diri Sendiri',summary:'Mual, lelah, dan gelombang emosi adalah normal. Panduan elegan menjalani 12 minggu pertama dengan grace.',image:'https://images.unsplash.com/photo-1490109327237-44e7e4d9d05b?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:true,publishedAt:'2026-04-15',tags:['kehamilan','trimester-1','self-care'],author:'Tim Welvra'},
+    {id:'art-022',category:'kehamilan',title:'Nutrisi untuk Dua: Bukan Berarti Porsi Dua Kali Lipat',summary:'Folate, zat besi, omega-3, dan kalsium dari makanan Indonesia sehari-hari. Mitos dan fakta nutrisi ibu hamil.',image:'https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-14',tags:['nutrisi','kehamilan','gizi'],author:'Tim Welvra'},
+    {id:'art-023',category:'kehamilan',title:'Olahraga Aman Selama Kehamilan',summary:'Yoga prenatal, jalan kaki, berenang \u2014 gerakan yang aman dan justru membantu persalinan yang lebih lancar.',image:'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-13',tags:['olahraga','kehamilan','yoga'],author:'Tim Welvra'},
+    {id:'art-024',category:'kehamilan',title:'Mood Swing dan Hormon: Kamu Tidak Sedang Berlebihan',summary:'Lonjakan estrogen dan progesteron memengaruhi otak. Cara mengelola emosi tanpa rasa bersalah menjadi ibu.',image:'https://images.unsplash.com/photo-1601052517755-ac74e4cc6e0e?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-12',tags:['mood','hormon','mental'],author:'Tim Welvra'},
+    {id:'art-025',category:'kehamilan',title:'Persiapan Persalinan: Membentuk Pengalaman, Bukan Sekadar Bertahan',summary:'Birth plan, doula, hypnobirthing, dan keputusan-keputusan penting yang sering tidak diceritakan dokter kandungan.',image:'https://images.unsplash.com/photo-1607673129140-93b3e21d36b5?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:11,featured:true,publishedAt:'2026-04-11',tags:['persalinan','birth-plan','persiapan'],author:'Tim Welvra'},
+    {id:'art-026',category:'kehamilan',title:'ASI Eksklusif: Komitmen Cinta yang Tidak Mudah',summary:'Manfaat enam bulan menyusui untuk bayi dan ibu, plus solusi praktis tantangan menyusui yang jarang dibicarakan terbuka.',image:'https://images.unsplash.com/photo-1519397379796-6cb02d56b8de?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-10',tags:['asi','menyusui','bayi'],author:'Tim Welvra'},
+    {id:'art-027',category:'kehamilan',title:'Pemulihan Pasca-Persalinan dengan Bermartabat',summary:'Empat puluh hari pertama, perawatan tradisional Indonesia, dan kapan harus segera ke dokter. Panduan postpartum yang sering diabaikan.',image:'https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:10,featured:false,publishedAt:'2026-04-09',tags:['postpartum','pemulihan','pasca-persalinan'],author:'Tim Welvra'},
+    {id:'art-028',category:'kehamilan',title:'Baby Blues vs Depresi Pasca-Melahirkan',summary:'Tahu kapan menangis di hari ketiga adalah normal, dan kapan itu pertanda butuh bantuan profesional. Tidak ada malu di sini.',image:'https://images.unsplash.com/photo-1499749516942-3e7ed7c89be1?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-08',tags:['baby-blues','depresi','mental'],author:'Tim Welvra'},
+    {id:'art-029',category:'kehamilan',title:'Body Image Setelah Melahirkan: Kelahiran Kembali',summary:'Tubuhmu baru saja menciptakan kehidupan. Cara berdamai dengan perubahan dan merangkul versi baru dirimu.',image:'https://images.unsplash.com/photo-1525873744027-1b5ce6e26468?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-07',tags:['body-image','postpartum','self-love'],author:'Tim Welvra'},
+    {id:'art-030',category:'kehamilan',title:'Stretchmark: Tanda yang Membawa Cerita',summary:'Dari minyak kemiri hingga retinoid, panduan jujur tentang yang berhasil, yang mitos, dan kenapa sebagian wanita memilih merangkulnya.',image:'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-06',tags:['stretchmark','kulit','pasca-hamil'],author:'Tim Welvra'},
+    // CATEGORY 4: PANDUAN ORANGTUA (10 articles)
+    {id:'art-031',category:'panduan-orangtua',title:'Imunisasi Anak: Memberi Hadiah Perlindungan Seumur Hidup',summary:'Jadwal imunisasi terkini, mitos yang beredar, dan cara menjelaskan ke anak yang takut jarum. Panduan tenang untuk orangtua.',image:'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-15',tags:['imunisasi','anak','preventif'],author:'Tim Welvra'},
+    {id:'art-032',category:'panduan-orangtua',title:'MPASI Elegan: Memperkenalkan Rasa Tanpa Stres',summary:'Filosofi baby-led weaning, makanan pertama lokal Indonesia, dan kenapa bubur instan bukan satu-satunya jalan.',image:'https://images.unsplash.com/photo-1607330289024-1535c6b4e1c1?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:true,publishedAt:'2026-04-14',tags:['mpasi','bayi','nutrisi'],author:'Tim Welvra'},
+    {id:'art-033',category:'panduan-orangtua',title:'Tidur Bayi: Sains di Balik Ritual Malam',summary:'Sleep training metode lembut, peran feeding clusterm dan kenapa bayi yang tidur berkualitas tumbuh lebih bahagia.',image:'https://images.unsplash.com/photo-1520206183501-b80df61043c2?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-13',tags:['tidur-bayi','parenting','rutinitas'],author:'Tim Welvra'},
+    {id:'art-034',category:'panduan-orangtua',title:'Screen Time Anak: Kualitas Mengalahkan Kuantitas',summary:'Rekomendasi WHO terkini, tanda-tanda overstimulasi, dan cara membentuk hubungan sehat anak dengan layar sejak dini.',image:'https://images.unsplash.com/photo-1604880170524-3a39c1a26d62?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-12',tags:['screen-time','anak','digital'],author:'Tim Welvra'},
+    {id:'art-035',category:'panduan-orangtua',title:'Parenting Tanpa Drama: Komunikasi Asertif dengan Anak',summary:'Berhenti membentak, mulai berkomunikasi. Teknik dari psikologi anak yang mengubah hubungan kalian selamanya.',image:'https://images.unsplash.com/photo-1611174743420-3d7df880ce32?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:10,featured:false,publishedAt:'2026-04-11',tags:['parenting','komunikasi','psikologi'],author:'Tim Welvra'},
+    {id:'art-036',category:'panduan-orangtua',title:'Sibling Rivalry: Saat Cinta Harus Dibagi',summary:'Persaingan saudara adalah natural. Cara memvalidasi perasaan masing-masing anak tanpa menjadi wasit yang lelah.',image:'https://images.unsplash.com/photo-1602030638412-bb8dcc0bc8b0?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-10',tags:['sibling','saudara','parenting'],author:'Tim Welvra'},
+    {id:'art-037',category:'panduan-orangtua',title:'Hari Pertama Sekolah: Persiapan Emosional yang Sering Terlewat',summary:'Lebih dari sekadar tas dan seragam. Cara mempersiapkan anak menghadapi separation anxiety dengan rasa percaya diri.',image:'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-09',tags:['sekolah','transisi','emosi'],author:'Tim Welvra'},
+    {id:'art-038',category:'panduan-orangtua',title:'ADHD pada Anak: Memahami, Bukan Menghakimi',summary:'Tanda-tanda awal, mitos vs sains, dan kenapa banyak anak ADHD justru memiliki kreativitas luar biasa yang perlu disalurkan.',image:'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:11,featured:false,publishedAt:'2026-04-08',tags:['adhd','anak','neurodiversitas'],author:'Tim Welvra'},
+    {id:'art-039',category:'panduan-orangtua',title:'Anak Berkebutuhan Khusus: Cinta sebagai Kompas',summary:'Diagnosis bukan akhir, melainkan awal pemahaman. Sumber daya, komunitas, dan cerita ibu-ibu Indonesia yang menginspirasi.',image:'https://images.unsplash.com/photo-1521133573892-e44906baee46?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-07',tags:['kebutuhan-khusus','inklusi','parenting'],author:'Tim Welvra'},
+    {id:'art-040',category:'panduan-orangtua',title:'Quality Time vs Quantity Time: Mitos yang Perlu Diluruskan',summary:'Lima belas menit penuh perhatian mengalahkan dua jam sambil scroll. Ritual harian kecil yang membentuk attachment kuat.',image:'https://images.unsplash.com/photo-1591343395082-e120087004b4?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:5,featured:false,publishedAt:'2026-04-06',tags:['quality-time','attachment','parenting'],author:'Tim Welvra'},
+    // CATEGORY 5: WELLNESS MENTAL (10 articles)
+    {id:'art-041',category:'wellness-mental',title:'Anxiety: Memahami Tanpa Memuliakan',summary:'Dari panic attack hingga generalized anxiety. Tools praktis dari CBT, breathwork, hingga kapan harus mencari bantuan.',image:'https://images.unsplash.com/photo-1502139214982-d0ad755818d8?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:true,publishedAt:'2026-04-15',tags:['anxiety','mental','cbt'],author:'Tim Welvra'},
+    {id:'art-042',category:'wellness-mental',title:'Depresi: Lebih dari Sekadar Sedih',summary:'Kenali tanda-tandanya pada diri dan orang tercinta. Penjelasan klinis tanpa stigma, beserta jalan pemulihan yang teruji.',image:'https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:11,featured:false,publishedAt:'2026-04-14',tags:['depresi','mental','awareness'],author:'Tim Welvra'},
+    {id:'art-043',category:'wellness-mental',title:'Meditasi untuk Pemula yang Skeptis',summary:'Tidak perlu duduk bersila satu jam. Lima menit napas sadar, dan kenapa Steve Jobs hingga Marcus Aurelius mempraktikkannya.',image:'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-13',tags:['meditasi','mindfulness','pemula'],author:'Tim Welvra'},
+    {id:'art-044',category:'wellness-mental',title:'Journaling Ritual: Menulis sebagai Terapi',summary:'Morning pages, gratitude journal, atau brain dump? Memilih metode yang cocok dan kenapa pena lebih kuat dari layar.',image:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-12',tags:['journaling','menulis','mindfulness'],author:'Tim Welvra'},
+    {id:'art-045',category:'wellness-mental',title:'Memulihkan Trauma: Perjalanan, Bukan Tujuan',summary:'Inner child work, somatic experiencing, EMDR \u2014 pendekatan modern untuk luka lama. Pemulihan yang tidak terburu-buru.',image:'https://images.unsplash.com/photo-1515894203077-9cd36032142f?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:12,featured:false,publishedAt:'2026-04-11',tags:['trauma','pemulihan','terapi'],author:'Tim Welvra'},
+    {id:'art-046',category:'wellness-mental',title:'Batas Sehat: Seni Mengatakan Tidak dengan Anggun',summary:'Keluarga, pasangan, kantor \u2014 semua butuh batas. Frasa-frasa yang bisa kamu pakai tanpa merasa egois atau bersalah.',image:'https://images.unsplash.com/photo-1597392582469-a697322d5c16?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:true,publishedAt:'2026-04-10',tags:['boundaries','asertif','self-respect'],author:'Tim Welvra'},
+    {id:'art-047',category:'wellness-mental',title:'Self-Compassion: Bicara pada Diri Seperti Sahabat Tercinta',summary:'Kita lebih kasar pada diri sendiri daripada pada orang lain. Riset Kristin Neff dan tiga komponen self-compassion sejati.',image:'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-09',tags:['self-compassion','mindfulness','wellness'],author:'Tim Welvra'},
+    {id:'art-048',category:'wellness-mental',title:'Memilih Terapis: Bukan Sembarang Cocok',summary:'Konselor, psikolog, atau psikiater? Aliran terapi mana yang sesuai? Panduan praktis menemukan profesional yang tepat.',image:'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-08',tags:['terapi','profesional','mental'],author:'Tim Welvra'},
+    {id:'art-049',category:'wellness-mental',title:'Pernapasan 4-7-8: Tools Tercepat Menenangkan Sistem Saraf',summary:'Teknik dari Dr. Andrew Weil yang bisa dipakai sebelum presentasi, di kemacetan, atau saat insomnia. Sederhana, ilmiah, gratis.',image:'https://images.unsplash.com/photo-1528319725582-ddc096101511?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:4,featured:false,publishedAt:'2026-04-07',tags:['breathwork','anxiety','tools'],author:'Tim Welvra'},
+    {id:'art-050',category:'wellness-mental',title:'Detoks Digital: Memulihkan Hubungan dengan Pikiran Sendiri',summary:'Otak modern lapar akan keheningan. Eksperimen 24 jam tanpa media sosial dan dampaknya pada fokus serta kebahagiaan.',image:'https://images.unsplash.com/photo-1499933374294-4584851497cc?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-06',tags:['digital-detox','fokus','mindfulness'],author:'Tim Welvra'},
+    // CATEGORY 6: NUTRISI & GIZI (10 articles)
+    {id:'art-051',category:'nutrisi-gizi',title:'Superfood Indonesia yang Kalah Pamor dari Quinoa',summary:'Sorghum, daun kelor, sagu, beras hitam \u2014 bahan lokal dengan profil nutrisi setara superfood global, tapi seperempat harganya.',image:'https://images.unsplash.com/photo-1505253758473-96b7015fcd40?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:true,publishedAt:'2026-04-15',tags:['superfood','lokal','nutrisi'],author:'Tim Welvra'},
+    {id:'art-052',category:'nutrisi-gizi',title:'Diet Seimbang: Filosofi Piring Indonesia',summary:'Empat sehat lima sempurna versi modern. Cara membentuk piring yang menyenangkan mata, perut, dan tubuh sekaligus.',image:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-14',tags:['gizi','piring','seimbang'],author:'Tim Welvra'},
+    {id:'art-053',category:'nutrisi-gizi',title:'Intermittent Fasting yang Realistis untuk Perempuan Indonesia',summary:'IF tidak satu ukuran untuk semua. Pola 16:8 vs 14:10, dan kenapa siklus haid mempengaruhi cara tubuh merespon puasa.',image:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:10,featured:false,publishedAt:'2026-04-13',tags:['if','puasa','metabolik'],author:'Tim Welvra'},
+    {id:'art-054',category:'nutrisi-gizi',title:'Gluten-Free: Tren atau Kebutuhan Sejati?',summary:'Celiac, gluten sensitivity, atau hanya marketing? Kapan benar-benar perlu menghindari gluten, dan kapan itu malah merugikan.',image:'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-12',tags:['gluten','diet','sensitivitas'],author:'Tim Welvra'},
+    {id:'art-055',category:'nutrisi-gizi',title:'Protein Nabati: Dari Tempe hingga Tahu, Indonesia Sudah Lebih Dulu',summary:'Tempe adalah daging masa depan. Profil asam amino, cara meningkatkan absorpsi, dan kreasi resep gourmet.',image:'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-11',tags:['protein','nabati','tempe'],author:'Tim Welvra'},
+    {id:'art-056',category:'nutrisi-gizi',title:'Gut Health: Usus sebagai Otak Kedua',summary:'Microbiome, fermentasi, prebiotik. Kenapa kesehatan usus mempengaruhi mood, kulit, hingga sistem imun secara keseluruhan.',image:'https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:11,featured:false,publishedAt:'2026-04-10',tags:['gut-health','microbiome','fermentasi'],author:'Tim Welvra'},
+    {id:'art-057',category:'nutrisi-gizi',title:'Antioksidan Lokal: Buah dan Rempah Nusantara yang Powerful',summary:'Manggis, salak, mengkudu, kayu manis \u2014 radikal-bebas penyembuh dari halaman rumah, bukan hanya impor blueberry.',image:'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-09',tags:['antioksidan','buah','lokal'],author:'Tim Welvra'},
+    {id:'art-058',category:'nutrisi-gizi',title:'Fermentasi: Tempe, Tape, Kombucha \u2014 Sains di Balik Tradisi',summary:'Fermentasi adalah bioteknologi nenek moyang. Cara membuat tempe sendiri, kombucha rumahan, dan manfaat probiotiknya.',image:'https://images.unsplash.com/photo-1571781565036-d3f759be73e4?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-08',tags:['fermentasi','probiotik','tradisional'],author:'Tim Welvra'},
+    {id:'art-059',category:'nutrisi-gizi',title:'Ritual Teh Herbal: Sore yang Layak Ditunggu',summary:'Chamomile untuk tidur, peppermint untuk pencernaan, jahe-kunyit untuk imunitas. Memilih dan menyeduh dengan kesadaran.',image:'https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-07',tags:['teh','herbal','ritual'],author:'Tim Welvra'},
+    {id:'art-060',category:'nutrisi-gizi',title:'Hidrasi sebagai Filosofi: Air, Mineral, dan Ritme',summary:'Air mineral, air kelapa, infused water. Berapa banyak yang kita butuhkan dan tanda-tanda dehidrasi yang diam-diam menua.',image:'https://images.unsplash.com/photo-1502740479091-635887520276?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:5,featured:false,publishedAt:'2026-04-06',tags:['hidrasi','air','mineral'],author:'Tim Welvra'},
+    // CATEGORY 7: KEBUGARAN (10 articles)
+    {id:'art-061',category:'kebugaran',title:'Yoga untuk Pemula: Tujuh Pose Fondasi',summary:'Surya Namaskar yang anggun, Tadasana yang berakar, Savasana yang memulihkan. Ritual pagi yang mengubah hari.',image:'https://images.unsplash.com/photo-1588286840104-8957b019727f?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:true,publishedAt:'2026-04-15',tags:['yoga','pemula','pose'],author:'Tim Welvra'},
+    {id:'art-062',category:'kebugaran',title:'Pilates di Rumah: Kekuatan Inti Tanpa Studio',summary:'Lima belas menit pagi, hanya butuh matras. Gerakan yang dipraktikkan Audrey Hepburn dan ballerina Royal Ballet.',image:'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-14',tags:['pilates','core','di-rumah'],author:'Tim Welvra'},
+    {id:'art-063',category:'kebugaran',title:'Lari Santai: Dari Couch ke 5K dengan Anggun',summary:'Bukan tentang kecepatan, tapi konsistensi. Program delapan minggu untuk pemula, plus playlist yang membangkitkan semangat.',image:'https://images.unsplash.com/photo-1486218119243-13883505764c?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-13',tags:['lari','kardio','5k'],author:'Tim Welvra'},
+    {id:'art-064',category:'kebugaran',title:'Strength Training untuk Wanita: Mitos Bulky yang Perlu Dimusnahkan',summary:'Mengangkat beban tidak akan membuatmu seperti binaragawan. Justru, latihan beban adalah anti-aging paling powerful.',image:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:10,featured:false,publishedAt:'2026-04-12',tags:['strength','beban','anti-aging'],author:'Tim Welvra'},
+    {id:'art-065',category:'kebugaran',title:'Fleksibilitas: Aset Sepanjang Hayat',summary:'Tubuh fleksibel bukan hanya soal split. Stretching harian sepuluh menit dan dampaknya pada postur, mood, dan tidur.',image:'https://images.unsplash.com/photo-1599447421416-3414500d18a5?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-11',tags:['fleksibilitas','stretching','mobilitas'],author:'Tim Welvra'},
+    {id:'art-066',category:'kebugaran',title:'Postur Kerja: Solusi untuk Pekerja Profesional',summary:'Tech neck, hunchback, low back pain. Setup ergonomis dan latihan korektif untuk yang bekerja delapan jam di depan layar.',image:'https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-10',tags:['postur','kerja','ergonomis'],author:'Tim Welvra'},
+    {id:'art-067',category:'kebugaran',title:'Pernapasan Diafragma: Kekuatan yang Diabaikan',summary:'Bernapas dengan benar mengaktifkan vagus nerve, menurunkan kortisol, dan meningkatkan oksigen ke otak. Latihan harian sepuluh menit.',image:'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:5,featured:false,publishedAt:'2026-04-09',tags:['breathwork','diafragma','kortisol'],author:'Tim Welvra'},
+    {id:'art-068',category:'kebugaran',title:'Recovery: Istirahat sebagai Bagian Latihan',summary:'Otot tumbuh saat istirahat, bukan saat latihan. Foam rolling, sauna, contrast bath, dan magnesium untuk pemulihan optimal.',image:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-08',tags:['recovery','istirahat','otot'],author:'Tim Welvra'},
+    {id:'art-069',category:'kebugaran',title:'Dance Therapy: Bergerak sebagai Sukacita',summary:'Tidak ada cermin, tidak ada koreografer. Kenapa menari sendirian di kamar adalah salah satu olahraga paling membebaskan.',image:'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:5,featured:false,publishedAt:'2026-04-07',tags:['dance','sukacita','gerak'],author:'Tim Welvra'},
+    {id:'art-070',category:'kebugaran',title:'Walking Meditation: Bergerak Sambil Hadir',summary:'Tradisi Zen yang dipraktikkan Thich Nhat Hanh. Cara mengubah jalan kaki harian menjadi ritual mindfulness yang menyembuhkan.',image:'https://images.unsplash.com/photo-1511497584788-876760111969?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-06',tags:['walking','meditasi','mindfulness'],author:'Tim Welvra'},
+    // CATEGORY 8: HERBAL INDONESIA (10 articles)
+    {id:'art-071',category:'herbal-indonesia',title:'Kunyit Asam: Ritual Bulanan yang Diturunkan',summary:'Resep nenek dengan dukungan sains modern. Curcumin sebagai anti-inflamasi alami untuk kram haid dan kesehatan hati.',image:'https://images.unsplash.com/photo-1615485925600-97237c4fc1ec?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:true,publishedAt:'2026-04-15',tags:['kunyit','asam','haid'],author:'Tim Welvra'},
+    {id:'art-072',category:'herbal-indonesia',title:'Jahe: Penghangat dari Akar Bumi',summary:'Gingerol untuk mual, anti-inflamasi, dan imunitas. Cara membuat wedang jahe yang elegan sebagai ritual sore.',image:'https://images.unsplash.com/photo-1573486549300-2ec70feaeacf?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-14',tags:['jahe','gingerol','wedang'],author:'Tim Welvra'},
+    {id:'art-073',category:'herbal-indonesia',title:'Daun Kelor: Superfood yang Dilupakan',summary:'Lebih banyak vitamin C dari jeruk, lebih banyak kalsium dari susu, lebih banyak protein dari telur. Tujuh kali lebih powerful.',image:'https://images.unsplash.com/photo-1585870683015-b4e1b7c2e3a3?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-13',tags:['kelor','superfood','vitamin'],author:'Tim Welvra'},
+    {id:'art-074',category:'herbal-indonesia',title:'Temulawak: Sahabat Hati yang Sederhana',summary:'Xanthorrhizol melindungi hati dari toksin modern. Cara mengolah temulawak menjadi minuman pagi yang menyegarkan.',image:'https://images.unsplash.com/photo-1589363460779-cd717c0a6293?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-12',tags:['temulawak','hati','detoks'],author:'Tim Welvra'},
+    {id:'art-075',category:'herbal-indonesia',title:'Daun Sirih: Anti-Bakteri dari Halaman Rumah',summary:'Bukan hanya untuk nyirih. Air rebusan sirih sebagai pembersih intim alami, obat sariawan, dan perawatan luka kecil.',image:'https://images.unsplash.com/photo-1556228852-80b6e5eeff06?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-11',tags:['sirih','antibakteri','tradisional'],author:'Tim Welvra'},
+    {id:'art-076',category:'herbal-indonesia',title:'Kayu Manis: Pengontrol Gula Darah Alami',summary:'Cinnamaldehyde meningkatkan sensitivitas insulin. Setengah sendok teh sehari yang bisa menjadi rutinitas sederhana.',image:'https://images.unsplash.com/photo-1599909533826-3a37a14b2bb6?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:5,featured:false,publishedAt:'2026-04-10',tags:['kayu-manis','gula-darah','insulin'],author:'Tim Welvra'},
+    {id:'art-077',category:'herbal-indonesia',title:'Brotowali: Pahit yang Menyembuhkan',summary:'Tinospora cordifolia untuk diabetes, demam, dan imunitas. Kepahitan yang dihormati dalam pengobatan Ayurveda dan Jamu.',image:'https://images.unsplash.com/photo-1598546720077-65a4c4ad0f24?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-09',tags:['brotowali','pahit','jamu'],author:'Tim Welvra'},
+    {id:'art-078',category:'herbal-indonesia',title:'Sambiloto: Si Pahit Pembersih Tubuh',summary:'Andrographolide sebagai imunomodulator dan hepatoprotektor. Kapan dan bagaimana mengkonsumsinya dengan bijak.',image:'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-08',tags:['sambiloto','detoks','imun'],author:'Tim Welvra'},
+    {id:'art-079',category:'herbal-indonesia',title:'Kencur: Penyembuh Batuk Tradisional',summary:'Beras kencur yang diminum nenek bukan tanpa alasan. Kaempferol sebagai antitusif alami yang lembut bagi anak.',image:'https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:5,featured:false,publishedAt:'2026-04-07',tags:['kencur','batuk','jamu'],author:'Tim Welvra'},
+    {id:'art-080',category:'herbal-indonesia',title:'Lidah Buaya: Penyembuh Kulit dari Kebun',summary:'Lebih dari sekadar gel rambut tradisional. Anti-inflamasi untuk kulit sensitif, perawatan luka bakar, dan masker alami.',image:'https://images.unsplash.com/photo-1567527556373-32b1f1b0a32d?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-06',tags:['lidah-buaya','kulit','natural'],author:'Tim Welvra'},
+    // CATEGORY 9: LIFESTYLE & KECANTIKAN (10 articles)
+    {id:'art-081',category:'lifestyle',title:'Skincare Minimalis: Filosofi Tiga Langkah',summary:'Cleanse, treat, protect \u2014 itu inti. Bukan dua belas langkah Korea yang melelahkan. Memilih dengan kesadaran.',image:'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:true,publishedAt:'2026-04-15',tags:['skincare','minimalis','beauty'],author:'Tim Welvra'},
+    {id:'art-082',category:'lifestyle',title:'Hair Oiling: Tradisi yang Kembali Bersinar',summary:'Minyak kemiri, urang-aring, atau argan? Ritual minggon yang menjaga rambut tetap hitam pekat hingga usia matang.',image:'https://images.unsplash.com/photo-1522335789203-aaa2a4b9bcaf?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-14',tags:['hair','minyak','tradisional'],author:'Tim Welvra'},
+    {id:'art-083',category:'lifestyle',title:'Body Brushing: Lima Menit Self-Care Pagi',summary:'Dry brushing untuk sirkulasi limfa, sel kulit mati, dan ritual sebelum mandi. Investasi terkecil dengan hasil ter-noticeable.',image:'https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:5,featured:false,publishedAt:'2026-04-13',tags:['dry-brush','sirkulasi','detoks'],author:'Tim Welvra'},
+    {id:'art-084',category:'lifestyle',title:'Slow Living: Antitesis dari Hustle Culture',summary:'Filosofi dari Italia hingga Skandinavia. Cara menerapkan ritme lambat di tengah Jakarta yang serba cepat.',image:'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-12',tags:['slow-living','mindful','lifestyle'],author:'Tim Welvra'},
+    {id:'art-085',category:'lifestyle',title:'Mindful Shopping: Membeli dengan Niat',summary:'Capsule wardrobe, cost-per-wear analysis, dan filsafat one-in-one-out. Belanja sebagai praktik mindfulness, bukan dopamine hit.',image:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-11',tags:['shopping','mindful','capsule'],author:'Tim Welvra'},
+    {id:'art-086',category:'lifestyle',title:'Capsule Wardrobe: Kebebasan dari Pilihan Berlebihan',summary:'Tiga puluh tiga item, satu musim. Cara membentuk lemari yang setiap pakaiannya kamu cintai dan sering dipakai.',image:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:7,featured:false,publishedAt:'2026-04-10',tags:['capsule','wardrobe','minimalis'],author:'Tim Welvra'},
+    {id:'art-087',category:'lifestyle',title:'Self-Care Sunday: Ritual yang Layak Diprioritaskan',summary:'Empat jam sekali seminggu untuk diri sendiri. Sequence ritual yang bisa kamu adaptasi: mandi, masker, jurnal, teh.',image:'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-09',tags:['self-care','sunday','ritual'],author:'Tim Welvra'},
+    {id:'art-088',category:'lifestyle',title:'Parfum Alami: Aroma sebagai Ekspresi Diri',summary:'Niche perfumery, essential oil blending, dan kenapa parfum tidak harus berasal dari department store internasional.',image:'https://images.unsplash.com/photo-1610631066894-62452ccb927c?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-08',tags:['parfum','natural','aroma'],author:'Tim Welvra'},
+    {id:'art-089',category:'lifestyle',title:'Hand Care: Tanda Anggun yang Sering Diabaikan',summary:'Tangan adalah cerminan usia. Hand cream berkualitas, gloves di malam hari, dan perawatan kuku yang elegan.',image:'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:5,featured:false,publishedAt:'2026-04-07',tags:['tangan','kuku','beauty'],author:'Tim Welvra'},
+    {id:'art-090',category:'lifestyle',title:'Sleep Hygiene Aesthetic: Tidur sebagai Ritual',summary:'Sprei linen, candle aroma lavender, eye mask sutra. Membentuk tempat tidur sebagai tempat paling sakral di rumah.',image:'https://images.unsplash.com/photo-1601631918554-fd6f4f70395a?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:false,publishedAt:'2026-04-06',tags:['tidur','aesthetic','ritual'],author:'Tim Welvra'},
+    // CATEGORY 10: ISU SOSIAL KESEHATAN (10 articles)
+    {id:'art-091',category:'isu-sosial',title:'Stigma Kesehatan Mental di Indonesia',summary:'Mengapa "kerja yang banyak doa" bukan jawaban universal. Pergeseran budaya yang perlahan terjadi pada Gen Z dan Millennial.',image:'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:10,featured:true,publishedAt:'2026-04-15',tags:['stigma','mental','budaya'],author:'Tim Welvra'},
+    {id:'art-092',category:'isu-sosial',title:'Kesehatan Reproduksi Remaja: Edukasi yang Tertunda',summary:'Pendidikan seksualitas yang komprehensif, peran orangtua, dan akses informasi yang aman bagi remaja Indonesia hari ini.',image:'https://images.unsplash.com/photo-1517673400267-0251440c45dc?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-14',tags:['remaja','edukasi','reproduksi'],author:'Tim Welvra'},
+    {id:'art-093',category:'isu-sosial',title:'Akses Kesehatan di Daerah: Realitas yang Jujur',summary:'Kesenjangan layanan kesehatan urban-rural, peran telemedicine, dan inisiatif yang mulai mempersempit jurang.',image:'https://images.unsplash.com/photo-1612965607446-25e1332775ae?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:11,featured:false,publishedAt:'2026-04-13',tags:['akses','rural','telemedicine'],author:'Tim Welvra'},
+    {id:'art-094',category:'isu-sosial',title:'Mental Health di Tempat Kerja: Hak yang Sering Diabaikan',summary:'Burnout, toxic workplace, dan bagaimana perusahaan Indonesia mulai menyediakan dukungan kesehatan mental karyawan.',image:'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-12',tags:['burnout','kerja','mental'],author:'Tim Welvra'},
+    {id:'art-095',category:'isu-sosial',title:'Kekerasan dalam Keluarga: Tidak Lagi Tabu',summary:'Tanda-tanda emotional abuse yang sering tersembunyi, sumber daya bantuan, dan keberanian untuk mengakhiri lingkaran.',image:'https://images.unsplash.com/photo-1495434942214-9b525bba74e9?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:12,featured:false,publishedAt:'2026-04-11',tags:['kekerasan','kdrt','awareness'],author:'Tim Welvra'},
+    {id:'art-096',category:'isu-sosial',title:'Body Shaming: Luka yang Tidak Terlihat',summary:'Komentar kecil yang bertahun-tahun. Cara melindungi diri dari toxic positivity dan menerima tubuh sebagai rumah.',image:'https://images.unsplash.com/photo-1517637382994-f02da38c6728?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-10',tags:['body-shame','self-love','mental'],author:'Tim Welvra'},
+    {id:'art-097',category:'isu-sosial',title:'Kesehatan Inklusif: Semua Layak Dirawat',summary:'Akses layanan kesehatan untuk komunitas marginal di Indonesia. Empati sebagai fondasi sistem kesehatan yang manusiawi.',image:'https://images.unsplash.com/photo-1542596594-649edbc13630?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:10,featured:false,publishedAt:'2026-04-09',tags:['inklusif','akses','empati'],author:'Tim Welvra'},
+    {id:'art-098',category:'isu-sosial',title:'Disabilitas dan Kesehatan: Layanan yang Setara',summary:'Aksesibilitas layanan medis untuk penyandang disabilitas, hak yang sering tidak terpenuhi, dan inisiatif yang menjanjikan.',image:'https://images.unsplash.com/photo-1576091160101-2a8f06fa9bc4?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-08',tags:['disabilitas','akses','inklusi'],author:'Tim Welvra'},
+    {id:'art-099',category:'isu-sosial',title:'Lansia dan Kesepian: Pandemi Senyap',summary:'Kesepian sebagai faktor risiko kesehatan setara merokok lima belas batang sehari. Cara merawat orangtua kita yang menua.',image:'https://images.unsplash.com/photo-1582719371511-bd8c1cc6f8b7?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:9,featured:false,publishedAt:'2026-04-07',tags:['lansia','kesepian','keluarga'],author:'Tim Welvra'},
+    {id:'art-100',category:'isu-sosial',title:'Kesehatan Mahasiswa: Generasi yang Lelah',summary:'Tekanan akademik, financial stress, dan identitas yang sedang dibentuk. Sumber daya kesehatan mental untuk dunia kampus.',image:'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-06',tags:['mahasiswa','akademik','mental'],author:'Tim Welvra'}
   ];
 
   var wisdomLastFocusedElement = null;
@@ -11165,54 +11362,225 @@ window.meditToggleSection = meditToggleSection;
     });
   }
 
-  function renderWisdomContent(){
+  // ----- Lazy loading (IntersectionObserver) -----
+  var wisdomImageObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        var img = entry.target;
+        var src = img.dataset.src;
+        if (!src) return;
+        var tempImage = new Image();
+        tempImage.onload = function(){ img.src = src; img.classList.add('loaded'); };
+        tempImage.onerror = function(){ img.classList.add('error'); };
+        tempImage.src = src;
+        wisdomImageObserver.unobserve(img);
+      }
+    });
+  }, { rootMargin:'200px 0px', threshold:0.01 });
+
+  function observeWisdomImages(){
+    document.querySelectorAll('.wisdom-card-image[data-src]:not(.loaded):not(.error)').forEach(function(img){
+      wisdomImageObserver.observe(img);
+    });
+  }
+
+  // ----- Bookmark / save -----
+  var SAVED_ARTICLES_KEY = 'welvra_saved_articles';
+  function getSavedArticleIds(){
+    try { return JSON.parse(localStorage.getItem(SAVED_ARTICLES_KEY) || '[]'); }
+    catch(e){ return []; }
+  }
+  function isBookmarked(articleId){ return getSavedArticleIds().indexOf(articleId) !== -1; }
+  function toggleBookmark(articleId){
+    var ids = getSavedArticleIds();
+    var idx = ids.indexOf(articleId);
+    var saved;
+    if (idx === -1){ ids.push(articleId); saved = true; }
+    else { ids.splice(idx, 1); saved = false; }
+    try { localStorage.setItem(SAVED_ARTICLES_KEY, JSON.stringify(ids)); }
+    catch(e){ console.warn('Bookmark save failed', e); }
+    document.querySelectorAll('.wisdom-card[data-article-id="'+articleId+'"] .wisdom-card-bookmark').forEach(function(btn){
+      btn.dataset.saved = saved;
+      btn.setAttribute('aria-pressed', saved);
+      btn.setAttribute('aria-label', saved ? 'Hapus dari simpanan' : 'Simpan artikel');
+      var svg = btn.querySelector('svg');
+      if (svg) svg.setAttribute('fill', saved ? 'currentColor' : 'none');
+    });
+    if (typeof showToast === 'function'){
+      showToast(saved ? 'Artikel disimpan' : 'Dihapus dari simpanan');
+    }
+    if (welvraWisdomState.activeCategory === 'saved'){ renderWisdomContent(); }
+  }
+
+  // ----- Search & helpers -----
+  function getCategoryLabel(catId){
+    var cat = WISDOM_CATEGORIES.filter(function(c){ return c.id === catId; })[0];
+    return cat ? cat.label : catId;
+  }
+  function searchWisdomArticles(query){
+    if (!query || query.length < 2) return WELVRA_ARTICLES;
+    var q = query.toLowerCase().trim();
+    return WELVRA_ARTICLES.filter(function(article){
+      return article.title.toLowerCase().indexOf(q) !== -1 ||
+             article.summary.toLowerCase().indexOf(q) !== -1 ||
+             (article.tags && article.tags.some(function(tag){ return tag.toLowerCase().indexOf(q) !== -1; })) ||
+             getCategoryLabel(article.category).toLowerCase().indexOf(q) !== -1;
+    });
+  }
+
+  // ----- Render article card -----
+  function renderArticleCard(article, extraClass){
+    var saved = isBookmarked(article.id);
+    var cls = 'wisdom-card' + (extraClass ? ' ' + extraClass : '');
+    return '<article class="' + cls + '" data-article-id="' + escHtml(article.id) + '" tabindex="0" role="button"'
+      + ' aria-label="' + escHtml(article.title) + ', ' + article.readTime + ' menit baca">'
+      + '<div class="wisdom-card-image-wrap">'
+        + '<img class="wisdom-card-image" data-src="' + escHtml(article.image) + '"'
+        + ' alt="' + escHtml(article.title) + '" decoding="async" width="200" height="200">'
+        + '<button class="wisdom-card-bookmark" aria-label="' + (saved ? 'Hapus dari simpanan' : 'Simpan artikel') + '"'
+        + ' aria-pressed="' + saved + '" data-saved="' + saved + '" type="button">'
+          + '<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor"'
+          + ' fill="' + (saved ? 'currentColor' : 'none') + '" stroke-width="2" aria-hidden="true">'
+            + '<path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>'
+          + '</svg>'
+        + '</button>'
+      + '</div>'
+      + '<div class="wisdom-card-body">'
+        + '<div class="wisdom-card-eyebrow">' + escHtml(getCategoryLabel(article.category)) + '</div>'
+        + '<h3 class="wisdom-card-title">' + escHtml(article.title) + '</h3>'
+        + '<div class="wisdom-card-meta">' + article.readTime + ' min</div>'
+      + '</div>'
+    + '</article>';
+  }
+
+  // ----- Render section -----
+  function renderSection(opts){
+    var title = opts.title, eyebrow = opts.eyebrow, articles = opts.articles;
+    var cardClass = opts.cardClass || '', link = opts.link, categoryId = opts.categoryId;
+    return '<section class="wisdom-section">'
+      + '<div class="wisdom-section-header"><div>'
+      + (eyebrow ? '<div class="wisdom-section-eyebrow">' + escHtml(eyebrow) + '</div>' : '')
+      + '<h2 class="wisdom-section-title">' + escHtml(title) + '</h2>'
+      + '</div>'
+      + (link ? '<button class="wisdom-section-link" type="button" data-category="' + escHtml(categoryId || '') + '">' + escHtml(link) + ' \u203A</button>' : '')
+      + '</div>'
+      + '<div class="wisdom-cards-track">'
+      + articles.map(function(a){ return renderArticleCard(a, cardClass); }).join('')
+      + '</div></section>';
+  }
+
+  // ----- Discover view -----
+  function renderDiscoverSections(){
+    var content = $('wisdomContent');
+    if (!content) return;
+    var featured = WELVRA_ARTICLES.filter(function(a){ return a.featured; }).slice(0, 6);
+    var recommended = WELVRA_ARTICLES.filter(function(a){ return !a.featured; }).slice(0, 8);
+    var topCategories = ['kesehatan-umum','wellness-mental','herbal-indonesia','lifestyle'];
+    var html = '';
+    if (featured.length > 0){
+      html += renderSection({ title:'Pilihan Editor', eyebrow:null, articles:featured, cardClass:'wisdom-card--featured' });
+    }
+    html += renderSection({ title:'Untukmu', eyebrow:'REKOMENDASI', articles:recommended, link:'Lihat Semua' });
+    topCategories.forEach(function(catId){
+      var catArticles = WELVRA_ARTICLES.filter(function(a){ return a.category === catId; }).slice(0, 6);
+      var catLabel = getCategoryLabel(catId);
+      html += renderSection({ title:catLabel, eyebrow:catLabel.toUpperCase(), articles:catArticles, link:'Lihat Semua', categoryId:catId });
+    });
+    content.innerHTML = html;
+    observeWisdomImages();
+  }
+
+  // ----- Event delegation -----
+  function initWisdomEventDelegation(){
+    var root = $('wisdomContent') || $('wisdom-panel');
+    if (!root || root.dataset.delegated === 'true') return;
+    root.dataset.delegated = 'true';
+    root.addEventListener('click', function(e){
+      var bookmarkBtn = e.target.closest('.wisdom-card-bookmark');
+      if (bookmarkBtn){
+        e.stopPropagation();
+        var card = bookmarkBtn.closest('.wisdom-card');
+        if (card) toggleBookmark(card.dataset.articleId);
+        return;
+      }
+      var sectionLink = e.target.closest('.wisdom-section-link');
+      if (sectionLink){
+        var cat = sectionLink.dataset.category;
+        if (cat){
+          welvraWisdomState.activeCategory = cat;
+          renderWisdomPills();
+          renderWisdomContent();
+        }
+        return;
+      }
+      var card = e.target.closest('.wisdom-card');
+      if (card){ console.log('[Phase 2D will handle] Open article:', card.dataset.articleId); }
+    });
+    root.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){
+        var card = e.target.closest('.wisdom-card');
+        if (card){ e.preventDefault(); card.click(); }
+      }
+    });
+  }
+
+  // ----- Empty state -----
+  function showWisdomEmptyState(query, category){
     var content = $('wisdomContent');
     var empty = $('wisdomEmpty');
-    if (!content || !empty) return;
-    var query = welvraWisdomState.searchQuery;
+    if (!empty || !content) return;
+    var emptyTitle = empty.querySelector('.wisdom-empty-title');
+    var emptyBody = empty.querySelector('.wisdom-empty-body');
+    if (query){
+      if (emptyTitle) emptyTitle.textContent = 'Belum ditemukan';
+      if (emptyBody) emptyBody.textContent = 'Coba kata kunci lain untuk "' + query + '"';
+    } else if (category === 'saved'){
+      if (emptyTitle) emptyTitle.textContent = 'Belum ada simpanan';
+      if (emptyBody) emptyBody.textContent = 'Tap ikon bookmark pada artikel untuk menyimpan';
+    } else {
+      if (emptyTitle) emptyTitle.textContent = 'Belum ada artikel';
+      if (emptyBody) emptyBody.textContent = 'Konten segera hadir';
+    }
+    content.hidden = true;
+    empty.hidden = false;
+  }
 
-    var filtered = WISDOM_SECTIONS_CONFIG.filter(function(section){
-      if (!query) return true;
-      var titleHit = section.title.toLowerCase().indexOf(query) !== -1;
-      var eyebrowHit = section.eyebrow && section.eyebrow.toLowerCase().indexOf(query) !== -1;
-      return titleHit || eyebrowHit;
-    });
+  // ----- Main render -----
+  function renderWisdomContent(){
+    var query = (welvraWisdomState.searchQuery || '').trim();
+    var activeCategory = welvraWisdomState.activeCategory;
+    var content = $('wisdomContent');
+    var empty = $('wisdomEmpty');
+    if (!content) return;
+    var articles;
 
-    if (filtered.length === 0){
-      content.hidden = true;
-      empty.hidden = false;
+    if (query){
+      articles = searchWisdomArticles(query);
+    } else if (activeCategory === 'discover' || !activeCategory){
+      renderDiscoverSections();
+      initWisdomEventDelegation();
+      if (empty) empty.hidden = true;
+      content.hidden = false;
+      return;
+    } else if (activeCategory === 'saved'){
+      var savedIds = getSavedArticleIds();
+      articles = WELVRA_ARTICLES.filter(function(a){ return savedIds.indexOf(a.id) !== -1; });
+    } else {
+      articles = WELVRA_ARTICLES.filter(function(a){ return a.category === activeCategory; });
+    }
+
+    if (!articles || articles.length === 0){
+      showWisdomEmptyState(query, activeCategory);
       return;
     }
+
+    if (empty) empty.hidden = true;
     content.hidden = false;
-    empty.hidden = true;
-
-    var skeletonCard =
-      '<div class="wisdom-skeleton-card" aria-hidden="true">'
-        + '<div class="wisdom-skeleton-image"></div>'
-        + '<div class="wisdom-skeleton-body">'
-          + '<div class="wisdom-skeleton-line"></div>'
-          + '<div class="wisdom-skeleton-line"></div>'
-          + '<div class="wisdom-skeleton-line short"></div>'
-        + '</div>'
-      + '</div>';
-
-    var html = '';
-    for (var i=0;i<filtered.length;i++){
-      var section = filtered[i];
-      html += '<section class="wisdom-section">'
-           + '<div class="wisdom-section-header">'
-             + '<div>'
-             + (section.eyebrow ? '<div class="wisdom-section-eyebrow">' + escHtml(section.eyebrow) + '</div>' : '')
-             + '<h2 class="wisdom-section-title">' + escHtml(section.title) + '</h2>'
-             + '</div>'
-             + (section.link ? '<button class="wisdom-section-link" type="button">' + escHtml(section.link) + ' &rsaquo;</button>' : '')
-           + '</div>'
-           + '<div class="wisdom-cards-track">'
-             + skeletonCard + skeletonCard + skeletonCard + skeletonCard
-           + '</div>'
-        + '</section>';
-    }
-    content.innerHTML = html;
+    content.innerHTML = '<section class="wisdom-section"><div class="wisdom-cards-grid">'
+      + articles.map(function(a){ return renderArticleCard(a); }).join('')
+      + '</div></section>';
+    observeWisdomImages();
+    initWisdomEventDelegation();
   }
 
   function wisdomHandleSearchInput(e){
