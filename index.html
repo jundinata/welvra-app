@@ -3159,6 +3159,279 @@ html.dark .welvra-confirm-box h3{color:#F0EDE8}
 .welvra-confirm-confirm{background:linear-gradient(180deg,#D45A3E 0%,#9C3A22 100%);color:#fff;box-shadow:0 4px 12px rgba(200,75,48,.25)}
 .welvra-confirm-confirm:hover{box-shadow:0 6px 18px rgba(200,75,48,.35)}
 
+/* ============================================================ */
+/* PHASE 2B — WISDOM HUB ARCHITECTURE                           */
+/* ============================================================ */
+
+/* ----- Panel container ----- */
+.wisdom-panel{
+  position:fixed;inset:0;z-index:950;
+  background:linear-gradient(180deg,var(--cream) 0%,var(--ivory-warm) 100%);
+  transform:translateY(100%);
+  transition:transform 400ms var(--ease-out-expo);
+  overflow:hidden;display:flex;flex-direction:column;
+  contain:layout paint;
+  visibility:hidden;
+}
+.wisdom-panel[data-open="true"]{transform:translateY(0);visibility:visible}
+.wisdom-panel-inner{
+  max-width:480px;margin:0 auto;width:100%;height:100%;
+  display:flex;flex-direction:column;overflow:hidden;
+}
+
+/* ----- Sticky header ----- */
+.wisdom-header{
+  position:relative;flex-shrink:0;text-align:center;
+  padding:max(env(safe-area-inset-top),24px) 20px 18px;
+  background:rgba(255,248,231,.82);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid rgba(200,134,10,.12);
+  touch-action:pan-y;
+}
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+  .wisdom-header{background:var(--cream)}
+}
+.wisdom-header::after{
+  content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent 0%,rgba(200,134,10,.35) 50%,transparent 100%);
+}
+html.dark .wisdom-header{background:rgba(20,24,32,.85);border-bottom-color:rgba(200,134,10,.18)}
+
+.wisdom-close{
+  position:absolute;top:max(env(safe-area-inset-top),24px);right:20px;
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.7);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid var(--border-subtle);
+  color:var(--teal-dark);cursor:pointer;padding:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform 200ms var(--ease-spring),background 200ms var(--ease-decelerate);
+  z-index:2;-webkit-tap-highlight-color:transparent;
+}
+.wisdom-close::before{content:'';position:absolute;inset:-4px;border-radius:50%}
+.wisdom-close:hover{background:var(--gold-cream)}
+.wisdom-close:active{transform:scale(.92)}
+.wisdom-close:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wisdom-close svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none}
+html.dark .wisdom-close{background:rgba(255,255,255,.08);color:#F0EDE8;border-color:rgba(200,134,10,.22)}
+html.dark .wisdom-close:hover{background:rgba(200,134,10,.18)}
+
+.wisdom-eyebrow{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:3px;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:10px;display:block;
+}
+.wisdom-title{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
+  font-size:30px;color:var(--teal-dark);
+  line-height:1.1;margin:0 0 4px 0;letter-spacing:-.5px;
+}
+html.dark .wisdom-title{color:#F0EDE8}
+.wisdom-subtitle{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:14px;color:var(--gold);margin:0;letter-spacing:.2px;
+}
+
+/* ----- Search bar ----- */
+.wisdom-search-wrap{padding:16px 20px 12px;flex-shrink:0}
+.wisdom-search{position:relative;width:100%;height:48px}
+.wisdom-search-icon{
+  position:absolute;left:18px;top:50%;transform:translateY(-50%);
+  color:var(--sage);pointer-events:none;
+  transition:color 200ms var(--ease-decelerate);
+}
+.wisdom-search-input{
+  width:100%;height:100%;
+  border:1px solid rgba(200,134,10,.2);border-radius:24px;
+  background:rgba(255,255,255,.7);
+  padding:0 20px 0 48px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;
+  color:var(--txt-primary);outline:none;
+  transition:border-color 200ms var(--ease-decelerate),box-shadow 200ms var(--ease-decelerate),background 200ms var(--ease-decelerate);
+  -webkit-appearance:none;appearance:none;
+}
+.wisdom-search-input::placeholder{color:rgba(107,158,120,.65)}
+.wisdom-search-input:focus{
+  border-color:var(--gold);background:rgba(255,255,255,.95);
+  box-shadow:0 0 0 4px rgba(200,134,10,.12);
+}
+.wisdom-search:focus-within .wisdom-search-icon{color:var(--gold)}
+.wisdom-search-input::-webkit-search-cancel-button,
+.wisdom-search-input::-webkit-search-decoration{-webkit-appearance:none;appearance:none}
+html.dark .wisdom-search-input{
+  background:rgba(255,255,255,.05);color:#F0EDE8;
+  border-color:rgba(200,134,10,.25);
+}
+html.dark .wisdom-search-input:focus{background:rgba(255,255,255,.08);border-color:var(--gold)}
+html.dark .wisdom-search-input::placeholder{color:rgba(160,180,170,.55)}
+
+/* ----- Category pills ----- */
+.wisdom-pills{flex-shrink:0;border-bottom:1px solid rgba(200,134,10,.1)}
+.wisdom-pills-track{
+  display:flex;gap:10px;padding:8px 20px 16px;
+  overflow-x:auto;overflow-y:hidden;
+  scrollbar-width:none;-ms-overflow-style:none;
+  -webkit-overflow-scrolling:touch;scroll-behavior:smooth;
+  scroll-snap-type:x proximity;
+}
+.wisdom-pills-track::-webkit-scrollbar{display:none;width:0;height:0}
+.wisdom-pill{
+  flex-shrink:0;
+  min-height:38px;padding:0 18px;
+  border-radius:20px;
+  background:rgba(245,237,224,.65);
+  border:1px solid rgba(200,134,10,.15);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.1px;
+  color:var(--txt-secondary);white-space:nowrap;cursor:pointer;
+  transition:transform 250ms var(--ease-out-expo),background 250ms var(--ease-decelerate),color 250ms var(--ease-decelerate),border-color 250ms var(--ease-decelerate),box-shadow 250ms var(--ease-decelerate);
+  scroll-snap-align:start;user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.wisdom-pill:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wisdom-pill:active{transform:scale(.95)}
+.wisdom-pill[data-active="true"]{
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);
+  color:#fff;border-color:var(--gold);
+  transform:scale(1.05);
+  box-shadow:0 4px 12px rgba(200,134,10,.3);
+}
+html.dark .wisdom-pill{background:rgba(200,134,10,.08);color:rgba(240,237,232,.78);border-color:rgba(200,134,10,.22)}
+html.dark .wisdom-pill[data-active="true"]{color:#fff}
+
+/* ----- Content area ----- */
+.wisdom-content{
+  flex:1;overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;scroll-behavior:smooth;
+  padding-bottom:max(env(safe-area-inset-bottom),32px);
+}
+.wisdom-content::-webkit-scrollbar{width:0;display:none}
+.wisdom-content[hidden]{display:none}
+
+.wisdom-section{padding:24px 0 8px;contain:layout style}
+.wisdom-section-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:12px;padding:0 20px 12px;
+}
+.wisdom-section-eyebrow{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:10px;font-weight:600;letter-spacing:2.5px;
+  color:var(--sage);text-transform:uppercase;margin-bottom:6px;
+}
+.wisdom-section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:500;
+  color:var(--teal-dark);margin:0;letter-spacing:-.3px;line-height:1.15;
+}
+html.dark .wisdom-section-title{color:#F0EDE8}
+.wisdom-section-link{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:12px;font-weight:600;
+  color:var(--gold-dark);background:none;border:none;
+  white-space:nowrap;cursor:pointer;padding:6px 4px;
+  transition:color 200ms var(--ease-decelerate),transform 200ms var(--ease-decelerate);
+  -webkit-tap-highlight-color:transparent;
+}
+html.dark .wisdom-section-link{color:var(--gold)}
+.wisdom-section-link:hover{transform:translateX(2px)}
+.wisdom-section-link:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+
+/* ----- Cards track ----- */
+.wisdom-cards-track{
+  display:flex;gap:14px;padding:4px 20px 20px;
+  overflow-x:auto;overflow-y:hidden;
+  scrollbar-width:none;-ms-overflow-style:none;
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x proximity;
+}
+.wisdom-cards-track::-webkit-scrollbar{display:none;width:0;height:0}
+
+/* ----- Skeleton card (gold-themed shimmer) ----- */
+.wisdom-skeleton-card{
+  flex-shrink:0;width:200px;
+  background:#fff;
+  border:1px solid rgba(200,134,10,.1);
+  border-radius:16px;overflow:hidden;
+  box-shadow:var(--shadow-sm);
+  scroll-snap-align:start;
+}
+html.dark .wisdom-skeleton-card{background:#1C2030;border-color:rgba(200,134,10,.15)}
+.wisdom-skeleton-image{
+  width:100%;aspect-ratio:1/1;
+  background:linear-gradient(90deg,
+    rgba(245,230,200,.4) 0%,
+    rgba(229,194,129,.6) 50%,
+    rgba(245,230,200,.4) 100%);
+  background-size:200% 100%;
+  animation:wisdomShimmer 2.4s cubic-bezier(.4,0,.2,1) infinite;
+}
+html.dark .wisdom-skeleton-image{
+  background:linear-gradient(90deg,
+    rgba(200,134,10,.08) 0%,
+    rgba(200,134,10,.18) 50%,
+    rgba(200,134,10,.08) 100%);
+  background-size:200% 100%;
+}
+.wisdom-skeleton-body{padding:14px}
+.wisdom-skeleton-line{
+  height:12px;border-radius:6px;
+  background:linear-gradient(90deg,
+    rgba(245,230,200,.35) 0%,
+    rgba(229,194,129,.55) 50%,
+    rgba(245,230,200,.35) 100%);
+  background-size:200% 100%;
+  animation:wisdomShimmer 2.4s cubic-bezier(.4,0,.2,1) infinite;
+  margin-bottom:8px;
+}
+html.dark .wisdom-skeleton-line{
+  background:linear-gradient(90deg,
+    rgba(200,134,10,.08) 0%,
+    rgba(200,134,10,.16) 50%,
+    rgba(200,134,10,.08) 100%);
+  background-size:200% 100%;
+}
+.wisdom-skeleton-line:nth-child(1){width:100%}
+.wisdom-skeleton-line:nth-child(2){width:70%;margin-bottom:12px}
+.wisdom-skeleton-line.short{width:40%;height:10px;margin-bottom:0}
+@keyframes wisdomShimmer{
+  0%{background-position:-200% 0}
+  100%{background-position:200% 0}
+}
+
+/* ----- Empty state ----- */
+.wisdom-empty{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:48px 32px;text-align:center;
+}
+.wisdom-empty[hidden]{display:none}
+.wisdom-empty-illustration{margin-bottom:18px;opacity:.85}
+.wisdom-empty-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:500;color:var(--teal-dark);
+  margin:0 0 6px 0;letter-spacing:-.3px;
+}
+html.dark .wisdom-empty-title{color:#F0EDE8}
+.wisdom-empty-body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;color:var(--txt-secondary);margin:0;
+}
+
+/* ----- Reduced motion ----- */
+@media (prefers-reduced-motion:reduce){
+  .wisdom-panel{transition:none}
+  .wisdom-skeleton-image,.wisdom-skeleton-line{
+    animation:none;background:rgba(245,230,200,.5);
+  }
+  html.dark .wisdom-skeleton-image,html.dark .wisdom-skeleton-line{
+    background:rgba(200,134,10,.12);
+  }
+  .wisdom-pill{transition:none}
+  .wisdom-pill[data-active="true"]{transform:none}
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -4247,6 +4520,56 @@ html.dark .welvra-confirm-box h3{color:#F0EDE8}
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
+
+<!-- ============================================================ -->
+<!-- PHASE 2B — WISDOM HUB PANEL                                  -->
+<!-- ============================================================ -->
+<aside class="wisdom-panel" id="wisdomPanel" role="dialog" aria-modal="true"
+       aria-labelledby="wisdomTitle" aria-hidden="true">
+  <div class="wisdom-panel-inner">
+    <header class="wisdom-header" id="wisdomHeader">
+      <button class="wisdom-close" id="wisdomClose" type="button" aria-label="Tutup Wisdom">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="wisdom-eyebrow">&#9670; Wisdom &#9670;</div>
+      <h1 id="wisdomTitle" class="wisdom-title">Petik kebijaksanaan</h1>
+      <p class="wisdom-subtitle">Inspirasi kesehatan, setiap hari</p>
+    </header>
+
+    <div class="wisdom-search-wrap">
+      <div class="wisdom-search">
+        <svg class="wisdom-search-icon" viewBox="0 0 24 24" width="18" height="18"
+             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input type="search" class="wisdom-search-input" id="wisdomSearch"
+               placeholder="Cari artikel kesehatan..."
+               aria-label="Cari artikel kesehatan" autocomplete="off"
+               aria-controls="wisdomContent"/>
+      </div>
+    </div>
+
+    <nav class="wisdom-pills" aria-label="Kategori artikel">
+      <div class="wisdom-pills-track" id="wisdomPillsTrack" role="tablist"></div>
+    </nav>
+
+    <div class="wisdom-content" id="wisdomContent" aria-live="polite"></div>
+
+    <div class="wisdom-empty" id="wisdomEmpty" role="status" aria-live="polite" hidden>
+      <div class="wisdom-empty-illustration">
+        <svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true">
+          <path d="M32 56 L32 30" stroke="#6B9E78" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <path d="M32 30 Q24 22 18 26 Q22 32 32 30" fill="#C8860A" opacity="0.6"/>
+          <path d="M32 30 Q40 22 46 26 Q42 32 32 30" fill="#C8860A" opacity="0.4"/>
+        </svg>
+      </div>
+      <h2 class="wisdom-empty-title">Belum ditemukan</h2>
+      <p class="wisdom-empty-body">Coba kata kunci lain</p>
+    </div>
+  </div>
+</aside>
 
 <script>
 // ===== STATE =====
@@ -10314,7 +10637,11 @@ window.meditToggleSection = meditToggleSection;
     btn.classList.add('tap-spring');
     setTimeout(function(){ btn.classList.remove('tap-spring'); }, 320);
     if (tab === 'toko') { window.showWelvraToast('Toko Welvra segera hadir ✨'); return; }
-    if (tab === 'wisdom') { window.showWelvraToast('Wisdom segera hadir ✨'); return; }
+    if (tab === 'wisdom') {
+      if (window.openWisdomPanel) { window.openWisdomPanel(btn); return; }
+      window.showWelvraToast('Wisdom segera hadir ✨');
+      return;
+    }
     document.querySelectorAll('.nav-tab').forEach(function(t){
       t.classList.remove('active');
       t.removeAttribute('aria-current');
@@ -10358,6 +10685,335 @@ window.meditToggleSection = meditToggleSection;
     var dt = $('drawer-dark-toggle');
     if (dt) dt.dataset.state = (localStorage.getItem('welvra_darkmode') === 'true') ? 'on' : 'off';
   });
+})();
+</script>
+
+<!-- =========================================================== -->
+<!-- PHASE 2B — Wisdom Hub behavior                              -->
+<!-- =========================================================== -->
+<script>
+(function(){
+  var welvraWisdomState = {
+    isOpen: false,
+    activeCategory: 'discover',
+    searchQuery: '',
+    previousActiveTab: null
+  };
+
+  var WISDOM_CATEGORIES = [
+    { id:'discover', label:'Discover' },
+    { id:'saved', label:'Tersimpan' },
+    { id:'kesehatan-umum', label:'Kesehatan Umum' },
+    { id:'kesehatan-reproduksi', label:'Reproduksi' },
+    { id:'kehamilan', label:'Kehamilan' },
+    { id:'panduan-orangtua', label:'Orangtua' },
+    { id:'wellness-mental', label:'Mental Wellness' },
+    { id:'nutrisi-gizi', label:'Nutrisi & Gizi' },
+    { id:'kebugaran', label:'Kebugaran' },
+    { id:'herbal-indonesia', label:'Herbal Indonesia' },
+    { id:'lifestyle', label:'Lifestyle' },
+    { id:'isu-sosial', label:'Isu Sosial' }
+  ];
+
+  var WISDOM_SECTIONS_CONFIG = [
+    { id:'recommended', title:'Pilihan untukmu', eyebrow:null, link:'Lihat Semua' },
+    { id:'reproduksi', title:'Reproductive Health', eyebrow:'KESEHATAN REPRODUKSI', link:'Lihat Semua' },
+    { id:'lifestyle', title:'Lifestyle', eyebrow:'LIFESTYLE & KECANTIKAN', link:'Lihat Semua' },
+    { id:'cerita', title:'Cerita Inspiratif', eyebrow:'NONA DIARIES', link:'Lihat Semua' }
+  ];
+
+  var wisdomLastFocusedElement = null;
+  var wisdomSearchDebounceTimer = null;
+
+  function $(id){ return document.getElementById(id); }
+
+  function escHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+    });
+  }
+
+  function isAnyOtherModalOpen(){
+    return !!document.querySelector('.modal-panel.open, .profile-panel.open, .apikey-overlay.open, .onboard-overlay.open, .welvra-drawer.open');
+  }
+
+  function renderWisdomPills(){
+    var track = $('wisdomPillsTrack');
+    if (!track) return;
+    var html = '';
+    for (var i=0;i<WISDOM_CATEGORIES.length;i++){
+      var cat = WISDOM_CATEGORIES[i];
+      var isActive = (cat.id === welvraWisdomState.activeCategory);
+      html += '<button class="wisdom-pill" type="button" role="tab"'
+           + ' data-category="' + escHtml(cat.id) + '"'
+           + ' data-active="' + (isActive ? 'true' : 'false') + '"'
+           + ' aria-selected="' + (isActive ? 'true' : 'false') + '">'
+           + escHtml(cat.label) + '</button>';
+    }
+    track.innerHTML = html;
+    var pills = track.querySelectorAll('.wisdom-pill');
+    pills.forEach(function(pill){
+      pill.addEventListener('click', function(){
+        welvraWisdomState.activeCategory = pill.dataset.category;
+        renderWisdomPills();
+        renderWisdomContent();
+        try { pill.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' }); } catch(e){}
+        var content = $('wisdomContent');
+        if (content) {
+          try { content.scrollTo({ top:0, behavior:'smooth' }); }
+          catch(e){ content.scrollTop = 0; }
+        }
+      });
+    });
+  }
+
+  function renderWisdomContent(){
+    var content = $('wisdomContent');
+    var empty = $('wisdomEmpty');
+    if (!content || !empty) return;
+    var query = welvraWisdomState.searchQuery;
+
+    var filtered = WISDOM_SECTIONS_CONFIG.filter(function(section){
+      if (!query) return true;
+      var titleHit = section.title.toLowerCase().indexOf(query) !== -1;
+      var eyebrowHit = section.eyebrow && section.eyebrow.toLowerCase().indexOf(query) !== -1;
+      return titleHit || eyebrowHit;
+    });
+
+    if (filtered.length === 0){
+      content.hidden = true;
+      empty.hidden = false;
+      return;
+    }
+    content.hidden = false;
+    empty.hidden = true;
+
+    var skeletonCard =
+      '<div class="wisdom-skeleton-card" aria-hidden="true">'
+        + '<div class="wisdom-skeleton-image"></div>'
+        + '<div class="wisdom-skeleton-body">'
+          + '<div class="wisdom-skeleton-line"></div>'
+          + '<div class="wisdom-skeleton-line"></div>'
+          + '<div class="wisdom-skeleton-line short"></div>'
+        + '</div>'
+      + '</div>';
+
+    var html = '';
+    for (var i=0;i<filtered.length;i++){
+      var section = filtered[i];
+      html += '<section class="wisdom-section">'
+           + '<div class="wisdom-section-header">'
+             + '<div>'
+             + (section.eyebrow ? '<div class="wisdom-section-eyebrow">' + escHtml(section.eyebrow) + '</div>' : '')
+             + '<h2 class="wisdom-section-title">' + escHtml(section.title) + '</h2>'
+             + '</div>'
+             + (section.link ? '<button class="wisdom-section-link" type="button">' + escHtml(section.link) + ' &rsaquo;</button>' : '')
+           + '</div>'
+           + '<div class="wisdom-cards-track">'
+             + skeletonCard + skeletonCard + skeletonCard + skeletonCard
+           + '</div>'
+        + '</section>';
+    }
+    content.innerHTML = html;
+  }
+
+  function wisdomHandleSearchInput(e){
+    clearTimeout(wisdomSearchDebounceTimer);
+    var val = e.target.value;
+    wisdomSearchDebounceTimer = setTimeout(function(){
+      welvraWisdomState.searchQuery = String(val || '').trim().toLowerCase();
+      renderWisdomContent();
+    }, 200);
+  }
+
+  function wisdomHandleEscKey(e){
+    if (e.key === 'Escape' && welvraWisdomState.isOpen){
+      e.preventDefault();
+      closeWisdomPanel();
+    }
+  }
+
+  function wisdomTrapFocus(e){
+    if (e.key !== 'Tab' || !welvraWisdomState.isOpen) return;
+    var panel = $('wisdomPanel');
+    if (!panel) return;
+    var focusables = panel.querySelectorAll(
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusables.length) return;
+    var first = focusables[0];
+    var last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first){
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last){
+      e.preventDefault(); first.focus();
+    }
+  }
+
+  function openWisdomPanel(triggerBtn){
+    var panel = $('wisdomPanel');
+    if (!panel || welvraWisdomState.isOpen) return;
+
+    wisdomLastFocusedElement = document.activeElement;
+
+    // Track which tab was active before the user tapped Wisdom
+    var currentActive = document.querySelector('.nav-tab.active');
+    if (currentActive && currentActive !== triggerBtn){
+      welvraWisdomState.previousActiveTab = currentActive;
+    } else {
+      welvraWisdomState.previousActiveTab = null;
+    }
+
+    // Mark wisdom button as visually active
+    document.querySelectorAll('.nav-tab').forEach(function(t){
+      t.classList.remove('active');
+      t.removeAttribute('aria-current');
+    });
+    if (triggerBtn){
+      triggerBtn.classList.add('active');
+      triggerBtn.setAttribute('aria-current','page');
+    }
+
+    welvraWisdomState.isOpen = true;
+    panel.dataset.open = 'true';
+    panel.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+
+    renderWisdomPills();
+    renderWisdomContent();
+
+    // Reset scroll positions
+    var content = $('wisdomContent');
+    if (content) content.scrollTop = 0;
+    var pillsTrack = $('wisdomPillsTrack');
+    if (pillsTrack) pillsTrack.scrollLeft = 0;
+
+    // Reset search input visually if dirty
+    var searchInput = $('wisdomSearch');
+    if (searchInput && searchInput.value){
+      searchInput.value = '';
+      welvraWisdomState.searchQuery = '';
+    }
+
+    setTimeout(function(){
+      var closeBtn = $('wisdomClose');
+      if (closeBtn) try { closeBtn.focus({ preventScroll:true }); } catch(e){ closeBtn.focus(); }
+    }, 420);
+
+    document.addEventListener('keydown', wisdomHandleEscKey);
+    document.addEventListener('keydown', wisdomTrapFocus);
+  }
+
+  function closeWisdomPanel(){
+    var panel = $('wisdomPanel');
+    if (!panel || !welvraWisdomState.isOpen) return;
+
+    welvraWisdomState.isOpen = false;
+    panel.dataset.open = 'false';
+    panel.setAttribute('aria-hidden','true');
+    panel.style.transform = '';
+    panel.style.transition = '';
+
+    // Restore previously-active bottom-nav tab visual state
+    var wisdomBtn = document.querySelector('.nav-tab[data-tab="wisdom"]');
+    if (wisdomBtn){
+      wisdomBtn.classList.remove('active');
+      wisdomBtn.removeAttribute('aria-current');
+    }
+    var prev = welvraWisdomState.previousActiveTab;
+    if (prev && document.body.contains(prev)){
+      prev.classList.add('active');
+      prev.setAttribute('aria-current','page');
+    }
+    welvraWisdomState.previousActiveTab = null;
+
+    // Body scroll lock — only release if no other modal is currently open
+    if (!isAnyOtherModalOpen()){
+      document.body.style.overflow = '';
+    }
+
+    document.removeEventListener('keydown', wisdomHandleEscKey);
+    document.removeEventListener('keydown', wisdomTrapFocus);
+
+    setTimeout(function(){
+      if (wisdomLastFocusedElement && typeof wisdomLastFocusedElement.focus === 'function'){
+        try { wisdomLastFocusedElement.focus({ preventScroll:true }); } catch(e){
+          try { wisdomLastFocusedElement.focus(); } catch(_){}
+        }
+      }
+      wisdomLastFocusedElement = null;
+    }, 100);
+  }
+
+  // Swipe-to-close (drag the header down)
+  var wisdomSwipeStartY = 0;
+  var wisdomSwipeCurrentY = 0;
+  var wisdomSwipeStartTime = 0;
+  var wisdomIsSwiping = false;
+
+  function attachSwipe(){
+    var header = $('wisdomHeader');
+    var panel = $('wisdomPanel');
+    if (!header || !panel) return;
+
+    header.addEventListener('touchstart', function(e){
+      if (!welvraWisdomState.isOpen) return;
+      wisdomSwipeStartY = e.touches[0].clientY;
+      wisdomSwipeCurrentY = wisdomSwipeStartY;
+      wisdomSwipeStartTime = Date.now();
+      wisdomIsSwiping = true;
+    }, { passive:true });
+
+    header.addEventListener('touchmove', function(e){
+      if (!wisdomIsSwiping) return;
+      wisdomSwipeCurrentY = e.touches[0].clientY;
+      var delta = wisdomSwipeCurrentY - wisdomSwipeStartY;
+      if (delta > 0){
+        var dampened = delta * 0.6;
+        panel.style.transition = 'none';
+        panel.style.transform = 'translateY(' + dampened + 'px)';
+      }
+    }, { passive:true });
+
+    header.addEventListener('touchend', function(){
+      if (!wisdomIsSwiping) return;
+      wisdomIsSwiping = false;
+      var delta = wisdomSwipeCurrentY - wisdomSwipeStartY;
+      var elapsed = Math.max(1, Date.now() - wisdomSwipeStartTime);
+      var velocity = delta / elapsed; // px/ms
+      panel.style.transition = '';
+      if (delta > 80 || velocity > 0.5){
+        panel.style.transform = '';
+        closeWisdomPanel();
+      } else {
+        panel.style.transform = '';
+      }
+    });
+
+    header.addEventListener('touchcancel', function(){
+      wisdomIsSwiping = false;
+      panel.style.transition = '';
+      panel.style.transform = '';
+    });
+  }
+
+  // Wire DOM-ready bindings
+  function init(){
+    var closeBtn = $('wisdomClose');
+    if (closeBtn) closeBtn.addEventListener('click', closeWisdomPanel);
+    var search = $('wisdomSearch');
+    if (search) search.addEventListener('input', wisdomHandleSearchInput);
+    attachSwipe();
+  }
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Expose
+  window.openWisdomPanel = openWisdomPanel;
+  window.closeWisdomPanel = closeWisdomPanel;
 })();
 </script>
 </body>
