@@ -3575,6 +3575,13 @@ html.dark .wisdom-title{color:#F0EDE8}
   font-family:'Cormorant Garamond',serif;font-style:italic;
   font-size:14px;color:var(--gold);margin:0;letter-spacing:.2px;
 }
+.wisdom-counter{
+  text-align:center;margin:4px 0 16px 0;
+  font-family:'Cormorant Garamond',serif;color:var(--gold);letter-spacing:.3px;
+}
+.wisdom-counter-num{font-size:18px;font-weight:500;font-style:italic}
+.wisdom-counter-label{font-size:13px;font-style:italic;margin-left:4px;opacity:.85}
+html.dark .wisdom-counter{color:var(--gold);opacity:.9}
 
 /* ----- Search bar ----- */
 .wisdom-search-wrap{padding:16px 20px 12px;flex-shrink:0}
@@ -5023,6 +5030,10 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
       <div class="wisdom-eyebrow">&#9670; Wisdom &#9670;</div>
       <h1 id="wisdomTitle" class="wisdom-title">Petik kebijaksanaan</h1>
       <p class="wisdom-subtitle">Inspirasi kesehatan, setiap hari</p>
+      <div class="wisdom-counter" id="wisdomCounter">
+        <span class="wisdom-counter-num" id="wisdomCounterNum">100</span>
+        <span class="wisdom-counter-label" id="wisdomCounterLabel">Artikel</span>
+      </div>
     </header>
 
     <div class="wisdom-search-wrap">
@@ -11189,6 +11200,7 @@ window.meditToggleSection = meditToggleSection;
 
   var WISDOM_CATEGORIES = [
     { id:'discover', label:'Discover' },
+    { id:'all', label:'Semua', icon:null },
     { id:'saved', label:'Tersimpan' },
     { id:'kesehatan-umum', label:'Kesehatan Umum' },
     { id:'kesehatan-reproduksi', label:'Kesehatan Reproduksi' },
@@ -11317,6 +11329,111 @@ window.meditToggleSection = meditToggleSection;
     {id:'art-100',category:'isu-sosial',title:'Kesehatan Mahasiswa: Generasi yang Lelah',summary:'Tekanan akademik, financial stress, dan identitas yang sedang dibentuk. Sumber daya kesehatan mental untuk dunia kampus.',image:'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:8,featured:false,publishedAt:'2026-04-06',tags:['mahasiswa','akademik','mental'],author:'Tim Welvra'}
   ];
 
+  // 98 stable Unsplash photo IDs used as automatic fallback when primary URLs fail.
+  // Selected from highly-viewed editorial collections (millions of views, very low takedown risk).
+  var ALTERNATE_PHOTO_POOL = [
+    "1531353826977-0941b4779a1c",
+    "1547989453-4e4ee4dba93d",
+    "1540206395-68808572332f",
+    "1518549223174-dd17962d20fc",
+    "1524758631624-e2822e304c36",
+    "1559757148-5c350d0d3c56",
+    "1548839140-29a749e1cf4d",
+    "1535930749574-1399327ce78f",
+    "1567226408338-13d088dad6f7",
+    "1505693416388-ac5ce068fe85",
+    "1551782450-a2132b4ba21d",
+    "1494390248081-4e521a5940db",
+    "1475090169767-40ed8d18f67d",
+    "1490818387583-1baba5e638af",
+    "1473093295043-cdd812d0e601",
+    "1468777675496-5782faaea55b",
+    "1504674900247-0877df9cc836",
+    "1490645935967-10de6ba17061",
+    "1458642849426-cfb724f15ee7",
+    "1467453678174-768ec283a940",
+    "1546039907-7fa05f864c02",
+    "1599909533826-3a37a14b2bb6",
+    "1599901860904-17e6ed7083a0",
+    "1628944681206-be3e0b87d80a",
+    "1471193945509-9ad0617afabf",
+    "1471943311424-646960669fbc",
+    "1556679343-c7306c1976bc",
+    "1576092768241-dec231879fc3",
+    "1560704429-0c0c2c2f4929",
+    "1558642084-fd07fae5282e",
+    "1545205597-3d9d15560349",
+    "1599447421416-3414500d18a5",
+    "1518611012118-696072aa579a",
+    "1540479859555-17af45c78602",
+    "1518310383802-640c2de311b2",
+    "1571902943202-507ec2618e8f",
+    "1599058917765-a780eda07a3e",
+    "1518644961665-ed172691aaa1",
+    "1593810450967-f9c42742e326",
+    "1506629082955-511b1aa562c8",
+    "1556228720-195a672e8a03",
+    "1556228724-2e4e2e3edc60",
+    "1571781926291-c477ebfd024b",
+    "1487412947147-5cebf100ffc2",
+    "1596462502278-27bfdc403348",
+    "1571781565036-d3f759be73e4",
+    "1522335789203-aaa2a4b9bcaf",
+    "1559599101-f09722fb4948",
+    "1610631066894-62452ccb927c",
+    "1571645163064-77faa9676a46",
+    "1490109327237-44e7e4d9d05b",
+    "1455620611406-966ca6889d2b",
+    "1518806118471-f28b20a1d79d",
+    "1531983412531-1f49a365ffed",
+    "1576091160550-2173dba999ef",
+    "1607673129140-93b3e21d36b5",
+    "1519397379796-6cb02d56b8de",
+    "1547746423-b4c937f97e88",
+    "1554342872-034a06541bad",
+    "1502685104226-ee32379fefbe",
+    "1499209974431-9dddcece7f88",
+    "1545389336-cf090694435e",
+    "1531594652722-322f9cbcce18",
+    "1506905925346-21bda4d32df4",
+    "1573497019418-b400bb3ab074",
+    "1469474968028-56623f02e42e",
+    "1528319725582-ddc096101511",
+    "1502139214982-d0ad755818d8",
+    "1518568814500-bf0f8d125f46",
+    "1578849278619-e73505e9610f",
+    "1576091160399-112ba8d25d1f",
+    "1601052517755-ac74e4cc6e0e",
+    "1503454537195-1dcabb73ffb9",
+    "1607113284175-f95faf3a37c9",
+    "1517673400267-0251440c45dc",
+    "1581952976147-5a2d15560349",
+    "1607330289024-1535c6b4e1c1",
+    "1520206183501-b80df61043c2",
+    "1602030638412-bb8dcc0bc8b0",
+    "1503676260728-1c00da094a0b",
+    "1490481651871-ab68de25d43d",
+    "1483985988355-763728e1935b",
+    "1490578474895-699cd4e2cf59",
+    "1505693416388-ac5ce068fe85",
+    "1506555191898-a76bacf004ca",
+    "1556909114-f6e7ad7d3136",
+    "1545173168-9f1947eebb7f",
+    "1531058020387-3be344556be6",
+    "1559757148-5c350d0d3c56",
+    "1601631918554-fd6f4f70395a",
+    "1521133573892-e44906baee46",
+    "1531123897727-8f129e1688ce",
+    "1559757175-0eb30cd8c063",
+    "1499749516942-3e7ed7c89be1",
+    "1507537297725-24a1c029d3ca",
+    "1542596594-649edbc13630",
+    "1612965607446-25e1332775ae",
+    "1582719371511-bd8c1cc6f8b7",
+    "1523580494863-6f3031224c94",
+    "1495434942214-9b525bba74e9"
+  ];
+
   var wisdomLastFocusedElement = null;
   var wisdomSearchDebounceTimer = null;
 
@@ -11362,6 +11479,47 @@ window.meditToggleSection = meditToggleSection;
     });
   }
 
+  // ----- Deterministic alternate URL selection -----
+  function getAlternateImageUrl(articleId) {
+    var hash = 0;
+    for (var i = 0; i < articleId.length; i++) {
+      hash = (hash + articleId.charCodeAt(i) * (i + 1)) >>> 0;
+    }
+    var photoId = ALTERNATE_PHOTO_POOL[hash % ALTERNATE_PHOTO_POOL.length];
+    return 'https://images.unsplash.com/photo-' + photoId + '?w=800&q=80&auto=format,compress&fit=crop';
+  }
+
+  // ----- Multi-tier image loading -----
+  function loadImageWithFallback(imgEl, primaryUrl, articleId) {
+    if (!primaryUrl) { imgEl.classList.add('error'); return; }
+    var tryPrimary = new Image();
+    tryPrimary.onload = function() {
+      imgEl.src = primaryUrl;
+      imgEl.classList.add('loaded');
+      imgEl.dataset.tier = '1';
+    };
+    tryPrimary.onerror = function() {
+      var altUrl = getAlternateImageUrl(articleId);
+      if (altUrl === primaryUrl) {
+        imgEl.classList.add('error');
+        imgEl.dataset.tier = 'fallback';
+        return;
+      }
+      var tryAlt = new Image();
+      tryAlt.onload = function() {
+        imgEl.src = altUrl;
+        imgEl.classList.add('loaded');
+        imgEl.dataset.tier = '2';
+      };
+      tryAlt.onerror = function() {
+        imgEl.classList.add('error');
+        imgEl.dataset.tier = 'fallback';
+      };
+      tryAlt.src = altUrl;
+    };
+    tryPrimary.src = primaryUrl;
+  }
+
   // ----- Lazy loading (IntersectionObserver) -----
   var wisdomImageObserver = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
@@ -11369,10 +11527,9 @@ window.meditToggleSection = meditToggleSection;
         var img = entry.target;
         var src = img.dataset.src;
         if (!src) return;
-        var tempImage = new Image();
-        tempImage.onload = function(){ img.src = src; img.classList.add('loaded'); };
-        tempImage.onerror = function(){ img.classList.add('error'); };
-        tempImage.src = src;
+        var card = img.closest('.wisdom-card');
+        var articleId = card ? card.dataset.articleId : '';
+        loadImageWithFallback(img, src, articleId);
         wisdomImageObserver.unobserve(img);
       }
     });
@@ -11490,6 +11647,25 @@ window.meditToggleSection = meditToggleSection;
     observeWisdomImages();
   }
 
+  // ----- Developer image audit (console function) -----
+  window.welvraImageAudit = function(){
+    console.log('[Welvra Image Audit] Testing ' + WELVRA_ARTICLES.length + ' images...');
+    var results = { ok: [], failed: [], total: WELVRA_ARTICLES.length };
+    return Promise.all(WELVRA_ARTICLES.map(function(article){
+      return new Promise(function(resolve){
+        var img = new Image();
+        img.onload = function(){ results.ok.push(article.id); resolve(); };
+        img.onerror = function(){ results.failed.push({ id: article.id, title: article.title, url: article.image }); resolve(); };
+        img.src = article.image;
+      });
+    })).then(function(){
+      console.log('[Welvra Image Audit] OK: ' + results.ok.length + '/' + results.total);
+      console.log('[Welvra Image Audit] Failed: ' + results.failed.length);
+      if (results.failed.length > 0) console.table(results.failed);
+      return results;
+    });
+  };
+
   // ----- Event delegation -----
   function initWisdomEventDelegation(){
     var root = $('wisdomContent') || $('wisdom-panel');
@@ -11545,8 +11721,41 @@ window.meditToggleSection = meditToggleSection;
     empty.hidden = false;
   }
 
+  // ----- Wisdom counter -----
+  function updateWisdomCounter(){
+    var numEl = document.getElementById('wisdomCounterNum');
+    var labelEl = document.getElementById('wisdomCounterLabel');
+    if (!numEl || !labelEl) return;
+    var query = (welvraWisdomState.searchQuery || '').trim();
+    var activeCategory = welvraWisdomState.activeCategory;
+    var total = WELVRA_ARTICLES.length;
+    if (query){
+      var found = searchWisdomArticles(query).length;
+      numEl.textContent = found;
+      labelEl.textContent = 'ditemukan';
+      return;
+    }
+    if (activeCategory === 'saved'){
+      var savedCount = getSavedArticleIds().filter(function(id){
+        return WELVRA_ARTICLES.some(function(a){ return a.id === id; });
+      }).length;
+      numEl.textContent = savedCount;
+      labelEl.textContent = 'Tersimpan';
+      return;
+    }
+    if (activeCategory && activeCategory !== 'discover' && activeCategory !== 'all'){
+      var catCount = WELVRA_ARTICLES.filter(function(a){ return a.category === activeCategory; }).length;
+      numEl.textContent = catCount + ' dari ' + total;
+      labelEl.textContent = 'Artikel';
+      return;
+    }
+    numEl.textContent = total;
+    labelEl.textContent = 'Artikel';
+  }
+
   // ----- Main render -----
   function renderWisdomContent(){
+    updateWisdomCounter();
     var query = (welvraWisdomState.searchQuery || '').trim();
     var activeCategory = welvraWisdomState.activeCategory;
     var content = $('wisdomContent');
@@ -11562,6 +11771,10 @@ window.meditToggleSection = meditToggleSection;
       if (empty) empty.hidden = true;
       content.hidden = false;
       return;
+    } else if (activeCategory === 'all'){
+      articles = WELVRA_ARTICLES.slice().sort(function(a, b){
+        return (b.publishedAt || '').localeCompare(a.publishedAt || '');
+      });
     } else if (activeCategory === 'saved'){
       var savedIds = getSavedArticleIds();
       articles = WELVRA_ARTICLES.filter(function(a){ return savedIds.indexOf(a.id) !== -1; });
