@@ -40,8 +40,13 @@ setTimeout(function(){
 --gradient-btn-gold:linear-gradient(180deg,#D4960B 0%,#8B5E06 100%);
 --gradient-btn-gold-press:linear-gradient(180deg,#8B5E06 0%,#6A4704 100%);
 --gradient-btn-neutral:linear-gradient(180deg,#FFFFFF 0%,#EDE8E0 100%);
---glass-bg:rgba(255,255,255,.78);
+--glass-bg:rgba(250,250,247,.78);
 --glass-border:rgba(255,255,255,.5);
+--glass-bg-gold:rgba(252,246,230,.80);
+--glass-txt-primary:#1A2F2C;
+--glass-txt-secondary:#4A5C5A;
+--glass-txt-tertiary:#738078;
+--glass-txt-accent:#A57008;
 --radius:24px;--max-w:480px;
 }
 html.dark{
@@ -61,8 +66,13 @@ html.dark{
 --gradient-btn-gold:linear-gradient(180deg,#E0A018 0%,#6A4704 100%);
 --gradient-btn-gold-press:linear-gradient(180deg,#6A4704 0%,#4A3200 100%);
 --gradient-btn-neutral:linear-gradient(180deg,#2A3145 0%,#1A2030 100%);
---glass-bg:rgba(30,41,59,.78);
+--glass-bg:rgba(20,24,32,.68);
 --glass-border:rgba(255,255,255,.08);
+--glass-bg-gold:rgba(40,30,18,.72);
+--glass-txt-primary:#F5F1E8;
+--glass-txt-secondary:#C9C2B5;
+--glass-txt-tertiary:#968F82;
+--glass-txt-accent:#E8C770;
 }
 html{font-size:16px;-webkit-text-size-adjust:100%}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;min-height:100vh;min-height:100dvh;transition:background .4s,color .4s;position:relative}
@@ -778,19 +788,19 @@ font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;white-space:nowrap}
 
 /* ===== MODAL ===== */
 .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:200;
-background:rgba(0,0,0,0.5);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);
-opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
+background:rgba(0,0,0,0.30);
+opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease,backdrop-filter .35s ease}
+.modal-overlay.open{-webkit-backdrop-filter:blur(8px) saturate(1.2);backdrop-filter:blur(8px) saturate(1.2)}
 html.dark .modal-overlay{background:rgba(0,0,0,.55)}
 .modal-overlay.open{opacity:1;visibility:visible}
 .modal-panel{position:fixed;top:50%;left:50%;z-index:201;width:calc(100% - 32px);max-width:480px;margin:0;box-sizing:border-box;
-background:var(--bg);border-radius:20px;max-height:calc(100vh - 80px);max-height:calc(100dvh - 80px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:none;
-transform:translate(-50%,calc(-50% + 40px));opacity:0;visibility:hidden;transition:transform .4s cubic-bezier(.32,.72,.24,1),opacity .3s ease,visibility .3s ease,background .3s;padding:0 22px 24px;
-box-shadow:0 8px 28px rgba(0,0,0,.08),0 24px 80px rgba(0,0,0,.12)}
+border-radius:24px;max-height:calc(100vh - 80px);max-height:calc(100dvh - 80px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:none;
+transform:translate(-50%,calc(-50% + 40px));opacity:0;visibility:hidden;transition:transform .4s cubic-bezier(.32,.72,.24,1),opacity .3s ease,visibility .3s ease;padding:0 22px 24px}
 .modal-panel::-webkit-scrollbar{display:none;width:0;height:0}
 html.dark .modal-panel{box-shadow:0 8px 28px rgba(0,0,0,.3),0 24px 80px rgba(0,0,0,.4)}
 .modal-overlay.open+.modal-panel,.modal-panel.open{transform:translate(-50%,-50%);opacity:1;visibility:visible}
 .modal-handle{display:none}
-.modal-header{display:flex;align-items:center;justify-content:space-between;margin:0 -22px 20px;position:sticky;top:0;background:var(--bg);padding:20px 22px 12px;z-index:5;flex-shrink:0;transition:background .3s}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin:0 -22px 20px;position:sticky;top:0;background:transparent;padding:20px 22px 12px;z-index:5;flex-shrink:0}
 .modal-header h2{font-size:1.25rem}
 .modal-close{width:36px;height:36px;border-radius:12px;background:rgba(45,42,38,.04);display:flex;align-items:center;justify-content:center;transition:all .25s cubic-bezier(.25,.8,.25,1)}
 html.dark .modal-close{background:rgba(255,255,255,.06)}
@@ -1279,8 +1289,26 @@ max-height:228px;overflow-y:auto;-webkit-overflow-scrolling:touch;display:none}
 .settings-overlay{align-items:flex-start;justify-content:center;padding:20px 20px 40px;box-sizing:border-box;overflow-y:auto;-webkit-overflow-scrolling:touch;display:none}
 .settings-overlay.open{display:flex;opacity:1;visibility:visible}
 .settings-box{position:relative;width:100%;max-width:var(--max-w);max-height:none;overflow-y:visible;
-margin:20px auto;border-radius:24px;background:var(--bg);
-box-shadow:0 20px 60px rgba(0,0,0,.1),0 4px 16px rgba(0,0,0,.05);padding:0 22px 48px;transition:background .3s}
+margin:20px auto;border-radius:24px;padding:0 22px 48px}
+/* settings popup specific glass refinement */
+.settings-box.welvra-glass{box-shadow:
+  inset 0 1px 0 rgba(255,255,255,0.55),
+  inset 0 -1px 0 rgba(200,134,10,0.06),
+  0 24px 60px rgba(10,79,69,0.18),
+  0 8px 24px rgba(200,134,10,0.10)}
+html.dark .settings-box.welvra-glass{box-shadow:
+  inset 0 1px 0 rgba(255,255,255,0.08),
+  inset 0 -1px 0 rgba(0,0,0,0.20),
+  0 24px 60px rgba(0,0,0,0.55),
+  0 8px 24px rgba(0,0,0,0.35)}
+.settings-box .modal-close{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(0,0,0,0.04);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 220ms var(--ease-out-expo),transform 220ms var(--ease-out-expo)}
+.settings-box .modal-close:hover{background:rgba(0,0,0,0.08);transform:rotate(90deg)}
+html.dark .settings-box .modal-close{background:rgba(255,255,255,0.06)}
+html.dark .settings-box .modal-close:hover{background:rgba(255,255,255,0.12)}
 @media(max-width:480px){.settings-overlay{padding-bottom:40px}}
 .settings-menu{display:flex;flex-direction:column;gap:2px}
 .settings-item{display:flex;align-items:center;gap:14px;padding:14px 8px;border-bottom:1px solid var(--border-light);cursor:pointer;transition:all .25s cubic-bezier(.25,.8,.25,1);border-radius:12px;margin:0 -4px}
@@ -1362,7 +1390,7 @@ html.dark .toast{background:#F0EDE8;color:#1A1F2E}
   --mens-text:#3D1C2E; --mens-muted:#9E6B80; --mens-soft:#6B4C5A;
   --mens-border:rgba(194,24,91,0.12);
 }
-#mens-modal { display:none; position:fixed; inset:0; z-index:500; flex-direction:column; background:linear-gradient(160deg,#FFF0F5 0%,#FCE4EC 30%,#FFF8FA 60%,#FFFFFF 100%); color:var(--mens-text); font-family:'Plus Jakarta Sans',sans-serif; overflow:hidden; }
+#mens-modal { display:none; position:fixed; inset:0; z-index:500; flex-direction:column; --glass-bg:rgba(255,240,245,.82); --glass-txt-primary:#5B1F38; --glass-txt-secondary:#7C3552; color:var(--mens-text); font-family:'Plus Jakarta Sans',sans-serif; overflow:hidden; }
 #mens-modal.open { display:flex; }
 #mens-modal::before, #mens-modal::after { content:''; position:absolute; border-radius:50%; background:#ffffff; opacity:0.55; filter:blur(60px); pointer-events:none; z-index:0; }
 #mens-modal::before { width:300px; height:300px; top:-80px; right:-60px; }
@@ -2070,7 +2098,7 @@ html.dark .bp-tut-finger-nail{fill:#E8B896;opacity:.4}
 .ws-manual-back:hover { color:#0A7B6C; }
 
 /* ===== AKTIVITAS HARIANKU — LUXURY FITNESS ===== */
-#aktivitas-modal { display:none; position:fixed; inset:0; z-index:500; flex-direction:column; background:linear-gradient(160deg,#0A0F1E 0%,#0D1B3E 30%,#1A1040 60%,#0F2027 100%); color:#fff; font-family:'Plus Jakarta Sans',sans-serif; overflow:hidden; }
+#aktivitas-modal { display:none; position:fixed; inset:0; z-index:500; flex-direction:column; --glass-bg:rgba(10,15,30,.82); --glass-txt-primary:#E8F0FF; --glass-txt-secondary:rgba(232,240,255,.78); color:#fff; font-family:'Plus Jakarta Sans',sans-serif; overflow:hidden; }
 #aktivitas-modal.open { display:flex; }
 .aktiv-orb { position:absolute; border-radius:50%; pointer-events:none; z-index:0; }
 .aktiv-orb.o1 { width:400px; height:400px; top:-100px; right:-100px; background:radial-gradient(circle,rgba(59,130,246,0.08),transparent 70%); }
@@ -2258,9 +2286,7 @@ html.dark .form-group input:focus,html.dark .form-group textarea:focus,html.dark
 .chat-input-bar input[type=text]{background:var(--gradient-input);border:1px solid rgba(0,0,0,.06);box-shadow:inset 0 2px 4px rgba(0,0,0,.05),inset 0 0 0 1px rgba(255,255,255,.3)}
 html.dark .chat-input-bar input[type=text]{border-color:rgba(255,255,255,.06);box-shadow:inset 0 2px 4px rgba(0,0,0,.3)}
 
-/* ---- D. Modal body depth (keeps existing backdrop-filter intact) ---- */
-.modal-panel{background:linear-gradient(180deg,var(--glass-bg) 0%,rgba(250,250,247,.88) 100%);box-shadow:0 -8px 32px rgba(0,0,0,.12),0 -2px 8px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.8)}
-html.dark .modal-panel{background:linear-gradient(180deg,var(--glass-bg) 0%,rgba(20,24,32,.92) 100%);box-shadow:0 -8px 32px rgba(0,0,0,.4),0 -2px 8px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.08)}
+/* ---- D. Modal body depth (legacy enhancement now superseded by .welvra-glass-modal — left empty intentionally) ---- */
 .modal-header{box-shadow:0 1px 0 rgba(0,0,0,.04),inset 0 1px 0 rgba(255,255,255,.6)}
 html.dark .modal-header{box-shadow:0 1px 0 rgba(255,255,255,.04),inset 0 1px 0 rgba(255,255,255,.04)}
 
@@ -2494,28 +2520,7 @@ html.dark .stat-card:hover{box-shadow:0 2px 4px rgba(0,0,0,.4),0 10px 20px rgba(
 html.dark .stat-value{text-shadow:0 1px 2px rgba(0,0,0,.5)}
 .stat-badge-dot{background:radial-gradient(circle at 30% 30%,#FFFFFF 0%,currentColor 60%) !important;box-shadow:0 1px 2px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.4) !important}
 
-/* ---------- 5. MODALS & PANELS — heavy frosted glass ---------- */
-.modal-panel{
-  background:linear-gradient(180deg,rgba(255,255,255,.75) 0%,rgba(250,247,241,.85) 100%) !important;
-  backdrop-filter:blur(40px) saturate(1.6) !important;-webkit-backdrop-filter:blur(40px) saturate(1.6) !important;
-  border-top:0.5px solid rgba(255,255,255,.8) !important;
-  box-shadow:
-    0 -2px 4px rgba(0,0,0,.04),
-    0 -8px 16px rgba(0,0,0,.08),
-    0 -20px 40px rgba(0,0,0,.12),
-    0 -40px 80px rgba(0,0,0,.1),
-    inset 0 1px 2px rgba(255,255,255,.95) !important;
-}
-html.dark .modal-panel{
-  background:linear-gradient(180deg,rgba(15,23,42,.85) 0%,rgba(10,15,28,.92) 100%) !important;
-  border-top-color:rgba(255,255,255,.1) !important;
-  box-shadow:
-    0 -2px 4px rgba(0,0,0,.4),
-    0 -8px 16px rgba(0,0,0,.5),
-    0 -20px 40px rgba(0,0,0,.5),
-    0 -40px 80px rgba(0,0,0,.4),
-    inset 0 1px 2px rgba(255,255,255,.1) !important;
-}
+/* ---------- 5. MODALS & PANELS — superseded by .welvra-glass-modal universal class ---------- */
 /* Modal handle pill — 3D capsule */
 .modal-panel::before{
   content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);
@@ -2722,11 +2727,12 @@ html.dark .tt-medit .feat-tile-icon{
 
 /* ==== Meditasi modal skin (dark-navy PS5 panel — preserved) ==== */
 #modal-medit{
-  padding:0 !important;background:linear-gradient(180deg,#0A1628 0%,#1A0A2E 60%,#12081F 100%) !important;
+  padding:0 !important;
+  --glass-bg:rgba(10,15,28,.82);--glass-txt-primary:#F5E9C8;--glass-txt-secondary:rgba(245,233,200,.78);
   color:#FAFAF7 !important;max-height:calc(100vh - 40px) !important;max-height:calc(100dvh - 40px) !important;
 }
-html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,#0A0416 100%) !important}
-#modal-medit::before{background:linear-gradient(180deg,#2A2142 0%,#0E0823 100%) !important}
+html.dark #modal-medit{--glass-bg:rgba(5,11,24,.82)}
+#modal-medit::before{display:none !important}
 #modal-medit .medit-header{
   position:sticky;top:0;z-index:10;padding:22px 20px 14px;
   background:linear-gradient(180deg,rgba(10,22,40,.92) 0%,rgba(26,10,46,.88) 100%);
@@ -2811,7 +2817,8 @@ html.dark #modal-medit{background:linear-gradient(180deg,#050B18 0%,#120620 60%,
 .medit-konten-header{display:flex;align-items:center;gap:12px;min-height:52px;padding:10px 14px;
   cursor:pointer;user-select:none;background:transparent;border:none;width:100%;text-align:left;color:inherit}
 .medit-konten-header:hover{background:rgba(255,255,255,.03)}
-.medit-konten-icon{font-size:18px;line-height:1;flex-shrink:0;width:22px;text-align:center}
+.medit-konten-icon{font-size:18px;line-height:1;flex-shrink:0;width:22px;text-align:center;display:inline-flex;align-items:center;justify-content:center}
+.medit-konten-icon svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none}
 .medit-konten-label{flex:1;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:#FAFAF7;letter-spacing:.2px}
 .medit-konten-section.open .medit-konten-label{color:#F2CE70}
 .medit-konten-chevron{flex-shrink:0;width:16px;height:16px;color:rgba(255,255,255,.5);
@@ -2932,6 +2939,315 @@ html.dark{
   --cream:#171B27;
 }
 
+/* ============================================================ */
+/* WELVRA POLISH — LUXURY GLASS MATERIAL SYSTEM                 */
+/* Layered: blur + saturation + brightness + tint + border      */
+/*          + inner highlight + outer shadow                    */
+/* ============================================================ */
+.welvra-glass{
+  background:rgba(250,250,247,0.72);
+  -webkit-backdrop-filter:blur(40px) saturate(180%) brightness(1.05);
+  backdrop-filter:blur(40px) saturate(180%) brightness(1.05);
+  border:0.5px solid rgba(255,255,255,0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.45),
+    inset 0 -1px 0 rgba(10,123,108,0.04),
+    0 8px 32px rgba(10,123,108,0.10),
+    0 2px 8px rgba(10,123,108,0.06);
+}
+html.dark .welvra-glass{
+  background:rgba(20,24,32,0.62);
+  -webkit-backdrop-filter:blur(40px) saturate(180%) brightness(1.10);
+  backdrop-filter:blur(40px) saturate(180%) brightness(1.10);
+  border:0.5px solid rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.20),
+    0 8px 32px rgba(0,0,0,0.45),
+    0 2px 8px rgba(0,0,0,0.30);
+}
+.welvra-glass--gold{
+  background:linear-gradient(180deg,rgba(252,246,230,0.78) 0%,rgba(250,250,247,0.70) 100%);
+}
+html.dark .welvra-glass--gold{
+  background:linear-gradient(180deg,rgba(40,30,18,0.68) 0%,rgba(20,24,32,0.62) 100%);
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .welvra-glass{background:var(--cream)}
+  html.dark .welvra-glass{background:#141820}
+  .welvra-glass--gold{background:#FAF3DD}
+  html.dark .welvra-glass--gold{background:#1F1A12}
+}
+@media (prefers-reduced-transparency:reduce){
+  .welvra-glass,html.dark .welvra-glass,
+  .welvra-glass--gold,html.dark .welvra-glass--gold{
+    backdrop-filter:none;-webkit-backdrop-filter:none;
+  }
+  .welvra-glass{background:var(--cream)}
+  html.dark .welvra-glass{background:#141820}
+  .welvra-glass--gold{background:#FAF3DD}
+  html.dark .welvra-glass--gold{background:#1F1A12}
+}
+
+/* ============================================================ */
+/* WELVRA GLASS MODAL — universal modal/popup glass surface     */
+/* Applied to .modal-panel, fullscreen overlays, settings, etc. */
+/* ============================================================ */
+.welvra-glass-modal{
+  background:var(--glass-bg) !important;
+  -webkit-backdrop-filter:blur(40px) saturate(180%) brightness(1.04);
+  backdrop-filter:blur(40px) saturate(180%) brightness(1.04);
+  border:0.5px solid rgba(255,255,255,0.32) !important;
+  border-radius:24px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 -0.5px 0 rgba(10,123,108,0.05),
+    0 12px 40px rgba(10,123,108,0.14),
+    0 2px 8px rgba(10,123,108,0.08) !important;
+  contain:layout style paint;
+  color:var(--glass-txt-primary);
+}
+html.dark .welvra-glass-modal{
+  border:0.5px solid rgba(255,255,255,0.10) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    inset 0 -0.5px 0 rgba(0,0,0,0.20),
+    0 12px 40px rgba(0,0,0,0.55),
+    0 2px 8px rgba(0,0,0,0.35) !important;
+}
+.welvra-glass-modal--gold{
+  background:var(--glass-bg-gold) !important;
+}
+.welvra-glass-modal h1,.welvra-glass-modal h2,.welvra-glass-modal h3,
+.welvra-glass-modal h4{color:var(--glass-txt-primary)}
+.welvra-glass-modal p,.welvra-glass-modal label,.welvra-glass-modal li{color:var(--glass-txt-secondary)}
+.welvra-glass-modal small,.welvra-glass-modal .muted,
+.welvra-glass-modal .text-muted{color:var(--glass-txt-tertiary)}
+
+/* Fullscreen variant — for #mens-modal, #aktivitas-modal, #modal-medit */
+.welvra-glass-modal--full{
+  border-radius:0 !important;
+  border:none !important;
+}
+.welvra-glass-modal--full::before,
+.welvra-glass-modal--full::after{display:none !important}
+
+/* Inputs / buttons inside glass — frosted panel feel */
+.welvra-glass-modal input[type=text],
+.welvra-glass-modal input[type=number],
+.welvra-glass-modal input[type=email],
+.welvra-glass-modal input[type=tel],
+.welvra-glass-modal input[type=date],
+.welvra-glass-modal input[type=search],
+.welvra-glass-modal textarea,
+.welvra-glass-modal select{
+  background:rgba(255,255,255,0.40) !important;
+  border:0.5px solid rgba(10,123,108,0.20) !important;
+  color:var(--glass-txt-primary) !important;
+  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(20px);
+  border-radius:14px !important;
+}
+html.dark .welvra-glass-modal input[type=text],
+html.dark .welvra-glass-modal input[type=number],
+html.dark .welvra-glass-modal input[type=email],
+html.dark .welvra-glass-modal input[type=tel],
+html.dark .welvra-glass-modal input[type=date],
+html.dark .welvra-glass-modal input[type=search],
+html.dark .welvra-glass-modal textarea,
+html.dark .welvra-glass-modal select{
+  background:rgba(255,255,255,0.06) !important;
+  border:0.5px solid rgba(255,255,255,0.14) !important;
+  color:var(--glass-txt-primary) !important;
+}
+.welvra-glass-modal input:focus-visible,
+.welvra-glass-modal textarea:focus-visible,
+.welvra-glass-modal select:focus-visible,
+.welvra-glass-modal button:focus-visible{
+  outline:2px solid var(--gold) !important;
+  outline-offset:2px;
+}
+
+/* Entry animation — backdrop ramps up with the modal */
+@keyframes welvraGlassIn{
+  from{opacity:0;transform:translate(-50%,calc(-50% + 24px)) scale(.97);
+       -webkit-backdrop-filter:blur(0) saturate(1);backdrop-filter:blur(0) saturate(1)}
+  to{opacity:1;transform:translate(-50%,-50%) scale(1);
+     -webkit-backdrop-filter:blur(40px) saturate(180%) brightness(1.04);backdrop-filter:blur(40px) saturate(180%) brightness(1.04)}
+}
+.modal-overlay.open + .modal-panel.welvra-glass-modal,
+.modal-overlay.open + .modal-panel.welvra-glass-modal.welvra-glass-modal--gold{
+  animation:welvraGlassIn 380ms cubic-bezier(.16,1,.3,1);
+}
+@keyframes welvraGlassFullIn{
+  from{opacity:0;
+       -webkit-backdrop-filter:blur(0) saturate(1);backdrop-filter:blur(0) saturate(1)}
+  to{opacity:1;
+     -webkit-backdrop-filter:blur(40px) saturate(180%) brightness(1.04);backdrop-filter:blur(40px) saturate(180%) brightness(1.04)}
+}
+.welvra-glass-modal.welvra-glass-modal--full.open{
+  animation:welvraGlassFullIn 420ms cubic-bezier(.16,1,.3,1);
+}
+
+/* Performance — disable backdrop when modal closed */
+.modal-overlay:not(.open) + .modal-panel.welvra-glass-modal,
+.modal-panel.welvra-glass-modal:not(.open){
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
+
+/* @supports + reduced transparency fallbacks */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .welvra-glass-modal{background:var(--cream) !important}
+  html.dark .welvra-glass-modal{background:#141820 !important}
+  .welvra-glass-modal--gold{background:#FAF3DD !important}
+  html.dark .welvra-glass-modal--gold{background:#1F1A12 !important}
+}
+@media (prefers-reduced-transparency:reduce){
+  .welvra-glass-modal,html.dark .welvra-glass-modal{
+    backdrop-filter:none !important;-webkit-backdrop-filter:none !important;
+  }
+  .welvra-glass-modal{background:var(--cream) !important}
+  html.dark .welvra-glass-modal{background:#141820 !important}
+}
+@media (prefers-reduced-motion:reduce){
+  .modal-overlay.open + .modal-panel.welvra-glass-modal,
+  .welvra-glass-modal.welvra-glass-modal--full.open{animation:none !important}
+}
+@media (forced-colors:active){
+  .welvra-glass-modal{background:Canvas !important;color:CanvasText !important;border:1px solid CanvasText !important;backdrop-filter:none !important}
+}
+
+/* WELVRA UTILITY ICON CLASS — em-sized, currentColor stroke 1.5px */
+.welvra-icon{
+  width:1em;height:1em;
+  fill:none;stroke:currentColor;stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round;
+  vertical-align:-0.125em;flex-shrink:0;
+  display:inline-block;
+}
+.welvra-icon--lg{width:1.5em;height:1.5em}
+.welvra-icon--xl{width:2em;height:2em}
+
+/* BP heart themable SVG (replaces 💙❤️💚💛🧡) */
+.bp-heart-svg{
+  width:1em;height:1em;display:inline-block;vertical-align:-0.125em;
+  fill:currentColor;stroke:none;
+}
+.bp-heart-svg--blue{color:#3B82F6}
+.bp-heart-svg--red{color:#D63031}
+.bp-heart-svg--green{color:#2D8653}
+.bp-heart-svg--yellow{color:#C8860A}
+.bp-heart-svg--orange{color:#E17055}
+
+/* ============================================================ */
+/* WELVRA HYBRID FEATURE CARD — photo bg + SVG icon overlay     */
+/* ============================================================ */
+.welvra-fcard{
+  position:relative;display:block;
+  border-radius:24px;overflow:hidden;
+  text-decoration:none;color:#fff;
+  isolation:isolate;cursor:pointer;
+  border:none;padding:0;text-align:left;
+  background:linear-gradient(135deg,#0A2F2C 0%,#1A4540 100%);
+  transition:transform 280ms var(--ease-spring),box-shadow 280ms var(--ease-out-expo);
+  box-shadow:0 4px 16px rgba(10,79,69,.12),0 1px 3px rgba(10,79,69,.08);
+  -webkit-tap-highlight-color:transparent;
+  contain:layout style paint;
+}
+.welvra-fcard:active{transform:scale(0.97)}
+.welvra-fcard:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+.welvra-fcard--lg{aspect-ratio:1/1;min-height:160px}
+.welvra-fcard--sm{aspect-ratio:1/1.05;min-height:130px}
+
+.welvra-fcard__photo{position:absolute;inset:0;z-index:0;background:#0A2F2C}
+.welvra-fcard__photo img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform 600ms var(--ease-out-expo);
+  opacity:0;animation:welvraFcardFadeIn 700ms var(--ease-out-expo) 80ms forwards;
+}
+@keyframes welvraFcardFadeIn{to{opacity:1}}
+.welvra-fcard:hover .welvra-fcard__photo img{transform:scale(1.05)}
+
+.welvra-fcard__overlay{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,
+    rgba(10,47,44,0.10) 0%,
+    rgba(10,47,44,0.40) 50%,
+    rgba(10,47,44,0.85) 100%);
+}
+html.dark .welvra-fcard__overlay{
+  background:linear-gradient(180deg,
+    rgba(0,0,0,0.18) 0%,
+    rgba(0,0,0,0.50) 50%,
+    rgba(0,0,0,0.92) 100%);
+}
+
+.welvra-fcard__content{
+  position:absolute;inset:0;z-index:2;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:16px;
+}
+.welvra-fcard--sm .welvra-fcard__content{padding:12px}
+
+.welvra-fcard__icon{
+  width:38px;height:38px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:10px;
+  background:rgba(255,255,255,0.16);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  backdrop-filter:blur(20px) saturate(180%);
+  border:0.5px solid rgba(255,255,255,0.28);
+  border-radius:50%;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.4),0 2px 8px rgba(0,0,0,0.18);
+}
+.welvra-fcard--sm .welvra-fcard__icon{width:32px;height:32px;margin-bottom:8px}
+.welvra-fcard__icon svg{
+  width:20px;height:20px;
+  fill:none;stroke:#fff;stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+}
+.welvra-fcard--sm .welvra-fcard__icon svg{width:17px;height:17px}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .welvra-fcard__icon{background:rgba(255,255,255,0.22)}
+}
+@media (prefers-reduced-transparency:reduce){
+  .welvra-fcard__icon{
+    backdrop-filter:none;-webkit-backdrop-filter:none;
+    background:rgba(255,255,255,0.30);
+  }
+}
+
+.welvra-fcard__title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:18px;font-weight:600;
+  margin:0 0 3px 0;color:#fff;
+  text-shadow:0 1px 8px rgba(0,0,0,0.30);
+  letter-spacing:0.01em;line-height:1.15;
+}
+.welvra-fcard--sm .welvra-fcard__title{font-size:14px;margin-bottom:2px}
+.welvra-fcard__sub{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:10.5px;font-weight:500;
+  margin:0;color:rgba(255,255,255,0.86);
+  letter-spacing:0.06em;text-transform:uppercase;
+  text-shadow:0 1px 4px rgba(0,0,0,0.30);
+}
+.welvra-fcard--sm .welvra-fcard__sub{font-size:9.5px;letter-spacing:0.05em}
+
+@media (prefers-reduced-motion:reduce){
+  .welvra-fcard,.welvra-fcard__photo img{transition:none}
+  .welvra-fcard:hover .welvra-fcard__photo img{transform:none}
+  .welvra-fcard__photo img{animation:none;opacity:1}
+}
+@media (max-width:380px){
+  .welvra-fcard--lg{min-height:140px}
+  .welvra-fcard--sm{min-height:118px}
+  .welvra-fcard__title{font-size:16px}
+  .welvra-fcard--sm .welvra-fcard__title{font-size:13px}
+}
+
 /* ===== HAMBURGER ===== */
 .hamburger-btn{
   width:44px;height:44px;display:flex;align-items:center;justify-content:center;
@@ -2948,30 +3264,46 @@ html.dark .hamburger-btn:hover svg{stroke:var(--gold-shimmer)}
 
 /* ===== DRAWER OVERLAY ===== */
 .drawer-overlay{
-  position:fixed;inset:0;background:rgba(10,47,41,.55);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  position:fixed;inset:0;background:rgba(10,47,41,.22);
   opacity:0;visibility:hidden;z-index:999;
-  transition:opacity 350ms var(--ease-decelerate),visibility 0s 350ms;
+  transition:opacity 350ms var(--ease-decelerate),visibility 0s 350ms,backdrop-filter 350ms var(--ease-decelerate);
 }
-.drawer-overlay.open{opacity:1;visibility:visible;transition:opacity 350ms var(--ease-decelerate),visibility 0s 0s}
+html.dark .drawer-overlay{background:rgba(0,0,0,.42)}
+.drawer-overlay.open{
+  opacity:1;visibility:visible;
+  -webkit-backdrop-filter:blur(10px) saturate(1.1) brightness(.92);
+  backdrop-filter:blur(10px) saturate(1.1) brightness(.92);
+  transition:opacity 350ms var(--ease-decelerate),visibility 0s 0s,backdrop-filter 350ms var(--ease-decelerate);
+}
 
-/* ===== DRAWER CONTAINER ===== */
+/* ===== DRAWER CONTAINER (glass via .welvra-glass utility) ===== */
 .welvra-drawer{
   position:fixed;top:0;left:0;bottom:0;
   width:min(85vw,360px);height:100vh;height:100dvh;
-  background:linear-gradient(170deg,#FAFAF7 0%,var(--ivory-warm) 100%);
-  box-shadow:4px 0 32px rgba(10,79,69,.15);
   border-radius:0 28px 28px 0;
   overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
   transform:translateX(-100%);
   transition:transform 350ms var(--ease-out-expo);
   z-index:1000;
-  -webkit-backdrop-filter:blur(20px) saturate(180%);
-  backdrop-filter:blur(20px) saturate(180%);
+}
+.welvra-drawer.welvra-glass{
+  box-shadow:
+    inset -1px 0 0 rgba(255,255,255,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.45),
+    inset 0 -1px 0 rgba(10,123,108,0.04),
+    4px 0 32px rgba(10,79,69,0.18),
+    0 2px 8px rgba(10,123,108,0.06);
+}
+html.dark .welvra-drawer.welvra-glass{
+  box-shadow:
+    inset -1px 0 0 rgba(255,255,255,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.20),
+    4px 0 32px rgba(0,0,0,0.55),
+    0 2px 8px rgba(0,0,0,0.30);
 }
 @media (max-width:359px){.welvra-drawer{width:90vw}}
 .welvra-drawer.open{transform:translateX(0)}
-html.dark .welvra-drawer{background:linear-gradient(170deg,#141820 0%,#1C2030 100%)}
 .welvra-drawer::-webkit-scrollbar{width:4px}
 .welvra-drawer::-webkit-scrollbar-track{background:transparent}
 .welvra-drawer::-webkit-scrollbar-thumb{background:var(--border-subtle);border-radius:2px}
@@ -3082,18 +3414,28 @@ html.dark .ios-toggle{background:rgba(255,255,255,.12)}
   position:fixed;bottom:0;left:0;right:0;
   height:calc(78px + env(safe-area-inset-bottom));
   padding-bottom:env(safe-area-inset-bottom);
-  background:rgba(250,250,247,.92);
-  -webkit-backdrop-filter:blur(20px) saturate(180%);
-  backdrop-filter:blur(20px) saturate(180%);
-  border-top:1px solid transparent;
-  box-shadow:0 -4px 24px rgba(10,79,69,.08);
   display:flex;justify-content:space-around;align-items:center;
   z-index:90;max-width:480px;margin:0 auto;
 }
-html.dark .bottom-nav{background:rgba(20,24,32,.85);box-shadow:0 -4px 24px rgba(0,0,0,.35)}
-@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
-  .bottom-nav{background:#FAFAF7}
-  html.dark .bottom-nav{background:#141820}
+/* Glass refinement (overrides .welvra-glass for nav-specific shape) */
+.bottom-nav.welvra-glass{
+  border-top-left-radius:24px;
+  border-top-right-radius:24px;
+  border:none;
+  border-top:0.5px solid rgba(255,255,255,0.20);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.55),
+    inset 0 -1px 0 rgba(10,123,108,0.04),
+    0 -8px 32px rgba(10,123,108,0.10),
+    0 -2px 8px rgba(10,123,108,0.06);
+}
+html.dark .bottom-nav.welvra-glass{
+  border-top:0.5px solid rgba(255,255,255,0.10);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,255,255,0.08),
+    inset 0 -1px 0 rgba(0,0,0,0.20),
+    0 -8px 32px rgba(0,0,0,0.45),
+    0 -2px 8px rgba(0,0,0,0.30);
 }
 .bottom-nav::before{
   content:'';position:absolute;top:0;left:0;right:0;height:1px;
@@ -3544,51 +3886,107 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
     </div>
     <div class="section-label">Layanan Kesehatan</div>
     <div class="features">
-      <!-- PRIMARY 2x2 GRID -->
+      <!-- PRIMARY 2x2 GRID — hybrid photo + monochrome SVG icon -->
       <div class="feat-grid">
-        <div class="feat-tile tt-foto" onclick="openModal('foto')" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-foto-body" x1="0.2" y1="0" x2="0.6" y2="1"><stop offset="0%" stop-color="#14A590"/><stop offset="55%" stop-color="#0A7B6C"/><stop offset="100%" stop-color="#064540"/></linearGradient><radialGradient id="g-foto-lens" cx="35%" cy="30%" r="80%"><stop offset="0%" stop-color="#2DBDA8"/><stop offset="55%" stop-color="#0A5D52"/><stop offset="100%" stop-color="#021C18"/></radialGradient></defs><rect x="6" y="19" width="36" height="23" rx="5.5" fill="#032924" opacity="0.28"/><rect x="6" y="17" width="36" height="23" rx="5.5" fill="url(#g-foto-body)"/><rect x="16.5" y="12.5" width="15" height="6" rx="1.8" fill="url(#g-foto-body)"/><circle cx="24" cy="28" r="9" fill="#021F1B"/><circle cx="24" cy="28" r="7.6" fill="url(#g-foto-lens)"/><circle cx="24" cy="28" r="3.8" fill="#021310"/><ellipse cx="21.5" cy="25.5" rx="2.2" ry="1.5" fill="#fff" opacity="0.55"/><path d="M9 18 Q24 14 39 18 L39 21 Q24 17 9 21 Z" fill="#fff" opacity="0.16"/><circle cx="39" cy="13" r="7" fill="#042E28" opacity="0.28"/><circle cx="38.5" cy="11.5" r="6.2" fill="url(#g-foto-body)"/><ellipse cx="37" cy="9.5" rx="2.2" ry="1.2" fill="#fff" opacity="0.35"/><rect x="37.3" y="8.2" width="2.4" height="6.6" rx="0.6" fill="#fff"/><rect x="35.2" y="10.3" width="6.6" height="2.4" rx="0.6" fill="#fff"/></svg></div>
-          <div class="feat-tile-name">Periksa Gejala</div>
-          <div class="feat-tile-sub">Foto &amp; cerita</div>
-        </div>
-        <div class="feat-tile tt-lab" onclick="openModal('lab')" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-lab-doc" x1="0.2" y1="0" x2="0.6" y2="1"><stop offset="0%" stop-color="#E6A721"/><stop offset="50%" stop-color="#C8860A"/><stop offset="100%" stop-color="#8B5E06"/></linearGradient><linearGradient id="g-lab-inner" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFF7E0"/><stop offset="100%" stop-color="#FFE9B0"/></linearGradient><linearGradient id="g-lab-fold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B5E06"/><stop offset="100%" stop-color="#5C3D04"/></linearGradient></defs><path d="M10 7 H28 L40 19 V43 Q40 45 38 45 H10 Q8 45 8 43 V9 Q8 7 10 7 Z" fill="#6E4804" opacity="0.28"/><path d="M10 5 H28 L40 17 V41 Q40 43 38 43 H10 Q8 43 8 41 V7 Q8 5 10 5 Z" fill="url(#g-lab-doc)"/><path d="M12 9 H26 V16 Q26 18 28 18 H38 V40 Q38 41 37 41 H12 Q11 41 11 40 V10 Q11 9 12 9 Z" fill="url(#g-lab-inner)"/><path d="M28 5 L40 17 H30 Q28 17 28 15 Z" fill="url(#g-lab-fold)"/><path d="M28 5 L40 17 H30 Q28 17 28 15 Z" fill="#fff" opacity="0.18"/><path d="M15 31 L20 25 L24 29 L29 22 L34 27" stroke="#C8860A" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="15" cy="31" r="1.3" fill="#C8860A"/><circle cx="20" cy="25" r="1.3" fill="#C8860A"/><circle cx="24" cy="29" r="1.3" fill="#C8860A"/><circle cx="29" cy="22" r="1.3" fill="#C8860A"/><circle cx="34" cy="27" r="1.3" fill="#C8860A"/><rect x="13" y="35" width="22" height="1.4" rx="0.7" fill="#C8860A" opacity="0.35"/><rect x="13" y="38" width="16" height="1.4" rx="0.7" fill="#C8860A" opacity="0.35"/><path d="M10 6 Q14 5 25 5.5 V7 Q14 6.5 10 7.5 Z" fill="#fff" opacity="0.35"/></svg></div>
-          <div class="feat-tile-name">Baca Hasil Lab</div>
-          <div class="feat-tile-sub">Dr. Sly jelasin</div>
-        </div>
-        <div class="feat-tile tt-chat" onclick="openModal('chat')" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g-chat-bubble" cx="30%" cy="25%" r="90%"><stop offset="0%" stop-color="#B8D7BF"/><stop offset="50%" stop-color="#6B9E78"/><stop offset="100%" stop-color="#3D6B48"/></radialGradient><linearGradient id="g-chat-heart" x1="0.3" y1="0" x2="0.7" y2="1"><stop offset="0%" stop-color="#FFB5C5"/><stop offset="60%" stop-color="#E67089"/><stop offset="100%" stop-color="#B23A56"/></linearGradient></defs><path d="M8 25 Q8 10 24 10 Q40 10 40 25 Q40 34 32 37 L19 43 L21 36 Q8 33 8 25 Z" fill="#1F3E28" opacity="0.3"/><path d="M8 23 Q8 8 24 8 Q40 8 40 23 Q40 32 32 35 L19 41 L21 34 Q8 31 8 23 Z" fill="url(#g-chat-bubble)"/><path d="M13 14 Q20 10 30 11 Q32 11 32 13 Q28 12 20 14 Q14 15 13 14 Z" fill="#fff" opacity="0.4"/><ellipse cx="14" cy="20" rx="3.5" ry="5.5" fill="#fff" opacity="0.2" transform="rotate(-20 14 20)"/><path d="M24 31 C20 28.5 16 25.5 16 21 C16 18 18 16 20.5 16 C22 16 23.2 16.8 24 17.8 C24.8 16.8 26 16 27.5 16 C30 16 32 18 32 21 C32 25.5 28 28.5 24 31 Z" fill="#71213A" opacity="0.4"/><path d="M24 30 C20 27.5 16 24.5 16 20 C16 17 18 15 20.5 15 C22 15 23.2 15.8 24 16.8 C24.8 15.8 26 15 27.5 15 C30 15 32 17 32 20 C32 24.5 28 27.5 24 30 Z" fill="url(#g-chat-heart)"/><ellipse cx="20.5" cy="19" rx="2.2" ry="1.3" fill="#fff" opacity="0.55" transform="rotate(-30 20.5 19)"/></svg></div>
-          <div class="feat-tile-name">Tanya Dr. Sly</div>
-          <div class="feat-tile-sub">Konsultasi langsung</div>
-        </div>
-        <div class="feat-tile tt-tensi" onclick="openModal('tensi')" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g-tensi-heart" cx="30%" cy="20%" r="95%"><stop offset="0%" stop-color="#FFC2AD"/><stop offset="35%" stop-color="#E17055"/><stop offset="75%" stop-color="#C0392B"/><stop offset="100%" stop-color="#7A1F17"/></radialGradient><linearGradient id="g-tensi-gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0.75"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><path d="M24 43 C24 43 6 32 6 19 C6 12 12 7.5 18 11.5 C20.5 13.2 24 17 24 17 C24 17 27.5 13.2 30 11.5 C36 7.5 42 12 42 19 C42 32 24 43 24 43 Z" fill="#5C1710" opacity="0.32"/><path d="M24 41 C24 41 6 30 6 17 C6 10 12 5.5 18 9.5 C20.5 11.2 24 15 24 15 C24 15 27.5 11.2 30 9.5 C36 5.5 42 10 42 17 C42 30 24 41 24 41 Z" fill="url(#g-tensi-heart)"/><path d="M10 14 C12 9 18 7 22 10 C23 10.7 23.6 11.4 24 12 C20 10 14 10 10 14 Z" fill="url(#g-tensi-gloss)"/><ellipse cx="15" cy="17" rx="4.5" ry="7.5" fill="#fff" opacity="0.2" transform="rotate(-25 15 17)"/><path d="M5 27 H13 L16 21 L20 32 L24 23 L28 28 H43" stroke="#5C1710" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/><path d="M5 26 H13 L16 20 L20 31 L24 22 L28 27 H43" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="feat-tile-name">Cek Tensi Anda</div>
-          <div class="feat-tile-sub">Pantau tekanan darah</div>
-        </div>
+        <button type="button" class="welvra-fcard welvra-fcard--lg tt-foto" onclick="openModal('foto')" aria-label="Periksa Gejala — foto dan cerita">
+          <picture class="welvra-fcard__photo">
+            <source type="image/webp" srcset="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&amp;q=80&amp;fm=webp 1x, https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1200&amp;q=80&amp;fm=webp 2x">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&amp;q=80" alt="" loading="eager" fetchpriority="high" decoding="async" width="600" height="600" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
+          </picture>
+          <div class="welvra-fcard__overlay"></div>
+          <div class="welvra-fcard__content">
+            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3"/><path d="M16 4h3a1 1 0 0 1 1 1v3"/><path d="M20 16v3a1 1 0 0 1-1 1h-3"/><path d="M8 20H5a1 1 0 0 1-1-1v-3"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <h3 class="welvra-fcard__title">Periksa Gejala</h3>
+            <p class="welvra-fcard__sub">FOTO &amp; CERITA</p>
+          </div>
+        </button>
+        <button type="button" class="welvra-fcard welvra-fcard--lg tt-lab" onclick="openModal('lab')" aria-label="Baca Hasil Lab — Dr. Sly jelasin">
+          <picture class="welvra-fcard__photo">
+            <source type="image/webp" srcset="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&amp;q=80&amp;fm=webp 1x, https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&amp;q=80&amp;fm=webp 2x">
+            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&amp;q=80" alt="" loading="eager" fetchpriority="high" decoding="async" width="600" height="600" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
+          </picture>
+          <div class="welvra-fcard__overlay"></div>
+          <div class="welvra-fcard__content">
+            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path d="M9 16h4"/></svg></span>
+            <h3 class="welvra-fcard__title">Baca Hasil Lab</h3>
+            <p class="welvra-fcard__sub">DR. SLY JELASIN</p>
+          </div>
+        </button>
+        <button type="button" class="welvra-fcard welvra-fcard--lg tt-chat" onclick="openModal('chat')" aria-label="Tanya Dr. Sly — konsultasi langsung">
+          <picture class="welvra-fcard__photo">
+            <source type="image/webp" srcset="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&amp;q=80&amp;fm=webp 1x, https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=1200&amp;q=80&amp;fm=webp 2x">
+            <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&amp;q=80" alt="" loading="eager" fetchpriority="high" decoding="async" width="600" height="600" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
+          </picture>
+          <div class="welvra-fcard__overlay"></div>
+          <div class="welvra-fcard__content">
+            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7l-4 3v-3H6a2 2 0 0 1-2-2V6Z"/><circle cx="9" cy="10.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="10.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="15" cy="10.5" r="0.9" fill="currentColor" stroke="none"/></svg></span>
+            <h3 class="welvra-fcard__title">Tanya Dr. Sly</h3>
+            <p class="welvra-fcard__sub">KONSULTASI LANGSUNG</p>
+          </div>
+        </button>
+        <button type="button" class="welvra-fcard welvra-fcard--lg tt-tensi" onclick="openModal('tensi')" aria-label="Cek Tensi Anda — pantau tekanan darah">
+          <picture class="welvra-fcard__photo">
+            <source type="image/webp" srcset="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&amp;q=80&amp;fm=webp 1x, https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&amp;q=80&amp;fm=webp 2x">
+            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&amp;q=80" alt="" loading="eager" fetchpriority="high" decoding="async" width="600" height="600" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
+          </picture>
+          <div class="welvra-fcard__overlay"></div>
+          <div class="welvra-fcard__content">
+            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 13h4l2-5 3 9 3-7 2 3h4"/></svg></span>
+            <h3 class="welvra-fcard__title">Cek Tensi Anda</h3>
+            <p class="welvra-fcard__sub">PANTAU TEKANAN DARAH</p>
+          </div>
+        </button>
       </div>
-      <!-- SECONDARY 3-COLUMN GRID -->
+      <!-- SECONDARY 3-COLUMN GRID — compact hybrid cards -->
       <div class="feat-grid-sec">
-        <div class="feat-tile feat-tile-sm tt-makan" onclick="openModal('makan')" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g-makan-plate" cx="35%" cy="30%" r="80%"><stop offset="0%" stop-color="#1FC9A8"/><stop offset="55%" stop-color="#0A7B6C"/><stop offset="100%" stop-color="#064540"/></radialGradient><radialGradient id="g-makan-inner" cx="40%" cy="35%" r="70%"><stop offset="0%" stop-color="#0F5A4F"/><stop offset="100%" stop-color="#03251F"/></radialGradient><linearGradient id="g-makan-util" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F2CE70"/><stop offset="50%" stop-color="#C8860A"/><stop offset="100%" stop-color="#8B5E06"/></linearGradient></defs><ellipse cx="16" cy="19" rx="13" ry="10.5" fill="#032924" opacity="0.3"/><ellipse cx="16" cy="17" rx="13" ry="10.5" fill="url(#g-makan-plate)"/><ellipse cx="16" cy="17" rx="9.5" ry="7.2" fill="url(#g-makan-inner)"/><ellipse cx="13" cy="12" rx="5.5" ry="1.8" fill="#fff" opacity="0.35"/><path d="M7.5 8 V13.5 M9.2 8 V13.5 M10.9 8 V13.5 M12.6 8 V13.5" stroke="url(#g-makan-util)" stroke-width="0.9" stroke-linecap="round"/><rect x="7.2" y="13" width="5.7" height="2" rx="0.7" fill="url(#g-makan-util)"/><rect x="9.2" y="14.5" width="1.7" height="7" rx="0.8" fill="url(#g-makan-util)"/><circle cx="19.5" cy="18" r="5" fill="#032924" opacity="0.4"/><circle cx="19.5" cy="17.5" r="4.4" fill="#0F5A4F"/><circle cx="19.5" cy="17.5" r="4.4" fill="none" stroke="url(#g-makan-util)" stroke-width="1.3"/><ellipse cx="17.9" cy="16" rx="1.5" ry="0.9" fill="#fff" opacity="0.55"/><path d="M22.8 20.8 L25.8 23.8" stroke="#8B5E06" stroke-width="2.2" stroke-linecap="round"/><path d="M22.8 20.8 L25.8 23.8" stroke="url(#g-makan-util)" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-          <div class="feat-tile-name">Analisa Makanku</div>
-          <div class="feat-tile-sub">Cek gizimu</div>
-        </div>
-        <div class="feat-tile feat-tile-sm tt-aktiv" id="aktiv-feat-card" onclick="openAktivitasModal()" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-aktiv-shoe" x1="0.2" y1="0" x2="0.5" y2="1"><stop offset="0%" stop-color="#1FC9A8"/><stop offset="55%" stop-color="#0A7B6C"/><stop offset="100%" stop-color="#064540"/></linearGradient><linearGradient id="g-aktiv-sole" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#B8D7BF"/><stop offset="100%" stop-color="#3D6B48"/></linearGradient></defs><path d="M2.5 11 H8.5" stroke="#6B9E78" stroke-width="1.5" stroke-linecap="round" opacity="0.75"/><path d="M1.5 15 H6.5" stroke="#6B9E78" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/><path d="M2.5 19 H7.5" stroke="#6B9E78" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/><path d="M8 22 Q7 18 10 16 Q13 14 16 14 Q20 14 23 16 L29 18 Q31 19 30 21 L29 23 Q28 24 27 24 H10 Q8 24 8 22 Z" fill="#032924" opacity="0.3"/><path d="M7 21 Q6 17 9 15 Q12 13 15 13 Q19 13 22 15 L28 17 Q30 18 29 20 L28 22 Q27 23 26 23 H9 Q7 23 7 21 Z" fill="url(#g-aktiv-shoe)"/><path d="M6.6 21 Q7 23 9 23 H26 Q27.2 23 28 22.2 L28.4 24 Q27.5 25 26 25 H9 Q6.2 25 6.2 22.6 Q6.2 21.6 6.6 21 Z" fill="url(#g-aktiv-sole)"/><path d="M13 15 L16 17 M14 13.5 L17 15.5 M15 12.5 L18 14" stroke="#fff" stroke-width="0.9" stroke-linecap="round" opacity="0.75"/><path d="M10 15 Q14 13 20 14 Q22 14.3 22 14.8 Q17 14 10 16 Z" fill="#fff" opacity="0.35"/><path d="M15 19 Q20 17.8 26 19" stroke="#fff" stroke-width="0.8" stroke-linecap="round" opacity="0.55" fill="none"/></svg></div>
-          <div class="feat-tile-name">TrackFit</div>
-          <div class="feat-tile-sub">Langkah &amp; kalori</div>
-        </div>
-        <div class="feat-tile feat-tile-sm tt-medit" onclick="openMeditasiModal()" role="button" tabindex="0">
-          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g-medit-pad" cx="35%" cy="30%" r="85%"><stop offset="0%" stop-color="#8B5EC9"/><stop offset="50%" stop-color="#3D1F6E"/><stop offset="100%" stop-color="#1B0A3A"/></radialGradient><linearGradient id="g-medit-body" x1="0.25" y1="0" x2="0.7" y2="1"><stop offset="0%" stop-color="#F2CE70"/><stop offset="55%" stop-color="#C8860A"/><stop offset="100%" stop-color="#6A4704"/></linearGradient><radialGradient id="g-medit-aura" cx="50%" cy="55%" r="55%"><stop offset="0%" stop-color="rgba(200,134,10,0.5)"/><stop offset="60%" stop-color="rgba(200,134,10,0.12)"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><ellipse cx="16" cy="24" rx="13" ry="4" fill="#0A0418" opacity="0.35"/><ellipse cx="16" cy="18" rx="14" ry="9" fill="url(#g-medit-aura)"/><path d="M4 22 Q7 14 16 14 Q25 14 28 22 Q28 26 24 27 H8 Q4 26 4 22 Z" fill="#0A0418" opacity="0.45"/><path d="M4 22 Q7 13 16 13 Q25 13 28 22 Q28 26 24 26 H8 Q4 26 4 22 Z" fill="url(#g-medit-pad)"/><path d="M6 16 Q14 12 26 14 Q27 14.5 26.5 15.5 Q14 13 6.8 17 Z" fill="#fff" opacity="0.14"/><path d="M10 20 Q13 15 16 15 Q19 15 22 20 Q23 22 22 23 L10 23 Q9 22 10 20 Z" fill="#08021A" opacity="0.35"/><circle cx="16" cy="6.5" r="2.8" fill="#08021A" opacity="0.3"/><circle cx="16" cy="6" r="2.8" fill="url(#g-medit-body)"/><ellipse cx="15.2" cy="5.2" rx="1" ry="0.7" fill="#fff" opacity="0.6"/><path d="M13.6 8.8 Q14.4 9.8 16 9.8 Q17.6 9.8 18.4 8.8 L18.2 11 Q17.2 11.5 16 11.5 Q14.8 11.5 13.8 11 Z" fill="url(#g-medit-body)"/><path d="M11 19 Q9 12 14 11 Q16 10.6 18 11 Q23 12 21 19 Q19 21 16 21 Q13 21 11 19 Z" fill="url(#g-medit-body)"/><path d="M11.5 17 Q9 18 7.5 20 Q6.5 21 8 21 L11 21 Q12 20 12 19 Z" fill="url(#g-medit-body)"/><path d="M20.5 17 Q23 18 24.5 20 Q25.5 21 24 21 L21 21 Q20 20 20 19 Z" fill="url(#g-medit-body)"/><circle cx="8" cy="21" r="1.3" fill="url(#g-medit-body)"/><circle cx="24" cy="21" r="1.3" fill="url(#g-medit-body)"/><path d="M11.5 13 Q14 12 19 12 Q21 12.2 20.5 13 Q16 12.3 12 14 Z" fill="#fff" opacity="0.22"/></svg></div>
-          <div class="feat-tile-name">Meditasi</div>
-          <div class="feat-tile-sub">Ketenangan jiwa &amp; raga</div>
-        </div>
-        <div class="feat-tile feat-tile-sm tt-mens" id="mens-feat-card" onclick="openMensModal()" role="button" tabindex="0" style="display:none">
-          <div class="feat-tile-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-mens-cal" x1="0.2" y1="0" x2="0.6" y2="1"><stop offset="0%" stop-color="#F590A8"/><stop offset="50%" stop-color="#E17090"/><stop offset="100%" stop-color="#A0385A"/></linearGradient><linearGradient id="g-mens-page" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFF0F4"/><stop offset="100%" stop-color="#FBD0DD"/></linearGradient><linearGradient id="g-mens-fold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FBD0DD"/><stop offset="100%" stop-color="#C0506B"/></linearGradient></defs><rect x="4" y="7" width="24" height="23" rx="3.5" fill="#6B1F38" opacity="0.3"/><rect x="4" y="5" width="24" height="23" rx="3.5" fill="url(#g-mens-cal)"/><path d="M4 8.5 Q4 5 7.5 5 H24.5 Q28 5 28 8.5 V11 H4 Z" fill="#A0385A"/><path d="M5 6.5 Q14 5.5 27 6.5 V7.5 Q14 6.5 5 7.8 Z" fill="#fff" opacity="0.4"/><rect x="8.7" y="2.5" width="1.9" height="5.3" rx="0.9" fill="#6B1F38"/><rect x="8.95" y="2.8" width="1.4" height="4.7" rx="0.6" fill="#E17090"/><rect x="21.1" y="2.5" width="1.9" height="5.3" rx="0.9" fill="#6B1F38"/><rect x="21.35" y="2.8" width="1.4" height="4.7" rx="0.6" fill="#E17090"/><rect x="6" y="12.5" width="20" height="13.5" rx="1.2" fill="url(#g-mens-page)"/><path d="M26 26 L21.5 26 L26 21.5 Z" fill="url(#g-mens-fold)"/><path d="M26 26 L21.5 26 L26 21.5 Z" fill="#fff" opacity="0.18"/><g transform="translate(16 19)"><circle cx="0" cy="-3.2" r="2" fill="#E17090"/><circle cx="2.9" cy="-1" r="2" fill="#E67396"/><circle cx="1.8" cy="2.6" r="2" fill="#E17090"/><circle cx="-1.8" cy="2.6" r="2" fill="#E67396"/><circle cx="-2.9" cy="-1" r="2" fill="#E17090"/><circle cx="0" cy="0" r="1.5" fill="#FFD166"/><circle cx="-0.5" cy="-0.5" r="0.55" fill="#fff" opacity="0.75"/></g></svg></div>
-          <div class="feat-tile-name">Siklus &#127800;</div>
-          <div class="feat-tile-sub">Lacak siklus</div>
-        </div>
+        <button type="button" class="welvra-fcard welvra-fcard--sm tt-makan" onclick="openModal('makan')" aria-label="Analisa Makanku — cek gizi">
+          <picture class="welvra-fcard__photo">
+            <source type="image/webp" srcset="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=600&amp;q=80&amp;fm=webp">
+            <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=600&amp;q=80" alt="" loading="lazy" decoding="async" width="600" height="630" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
+          </picture>
+          <div class="welvra-fcard__overlay"></div>
+          <div class="welvra-fcard__content">
+            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 9c-3 0-6 2.5-6 6.5C6 19 9 21 12 21s6-2 6-5.5C18 11.5 15 9 12 9Z"/><path d="M12 9c.5-2 2-3 4-3"/><path d="M12 9c-1-1.5-1-3 .5-4.5"/></svg></span>
+            <h3 class="welvra-fcard__title">Analisa Makanku</h3>
+            <p class="welvra-fcard__sub">CEK GIZIMU</p>
+          </div>
+        </button>
+        <button type="button" class="welvra-fcard welvra-fcard--sm tt-aktiv" id="aktiv-feat-card" onclick="openAktivitasModal()" aria-label="TrackFit — langkah dan kalori">
+          <picture class="welvra-fcard__photo">
+            <source type="image/webp" srcset="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&amp;q=80&amp;fm=webp">
+            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&amp;q=80" alt="" loading="lazy" decoding="async" width="600" height="630" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
+          </picture>
+          <div class="welvra-fcard__overlay"></div>
+          <div class="welvra-fcard__content">
+            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="13" cy="5" r="2"/><path d="M9 11l3-3 3 3 3 2"/><path d="M12 8l-2 4 3 3v5"/><path d="M9 21l2-3"/></svg></span>
+            <h3 class="welvra-fcard__title">TrackFit</h3>
+            <p class="welvra-fcard__sub">LANGKAH &amp; KALORI</p>
+          </div>
+        </button>
+        <button type="button" class="welvra-fcard welvra-fcard--sm tt-medit" onclick="openMeditasiModal()" aria-label="Meditasi — ketenangan jiwa dan raga">
+          <picture class="welvra-fcard__photo">
+            <source type="image/webp" srcset="https://images.unsplash.com/photo-1545389336-cf090694435e?w=600&amp;q=80&amp;fm=webp">
+            <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?w=600&amp;q=80" alt="" loading="lazy" decoding="async" width="600" height="630" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
+          </picture>
+          <div class="welvra-fcard__overlay"></div>
+          <div class="welvra-fcard__content">
+            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 14c-1.4-2-1.4-4 0-6 1.4 2 1.4 4 0 6Z"/><path d="M12 14c-2.5-1-5-2.5-5.5-5.5C9 9 11 10.5 12 14Z"/><path d="M12 14c2.5-1 5-2.5 5.5-5.5C15 9 13 10.5 12 14Z"/><path d="M5 17c2-1 12-1 14 0"/></svg></span>
+            <h3 class="welvra-fcard__title">Meditasi</h3>
+            <p class="welvra-fcard__sub">JIWA &amp; RAGA</p>
+          </div>
+        </button>
+        <button type="button" class="welvra-fcard welvra-fcard--sm tt-mens" id="mens-feat-card" onclick="openMensModal()" aria-label="Siklus Menstruasi — phase tracking" style="display:none">
+          <picture class="welvra-fcard__photo">
+            <source type="image/webp" srcset="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&amp;q=80&amp;fm=webp">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&amp;q=80" alt="" loading="lazy" decoding="async" width="600" height="630" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
+          </picture>
+          <div class="welvra-fcard__overlay"></div>
+          <div class="welvra-fcard__content">
+            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18c3-3 3-15 0-18Z" fill="currentColor" stroke="none" opacity="0.85"/></svg></span>
+            <h3 class="welvra-fcard__title">Siklus Mens</h3>
+            <p class="welvra-fcard__sub">PHASE TRACKING</p>
+          </div>
+        </button>
       </div>
     </div>
 
@@ -3611,7 +4009,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
     <!-- HEALTH TIP OF THE DAY -->
     <div class="tip-card" id="home-tip-card">
-      <div class="tip-icon">&#x1F4A1;</div>
+      <div class="tip-icon">
       <div class="tip-text">
         <div class="tip-label">Tip Hari Ini</div>
         <div class="tip-body" id="home-tip-body">Minum 8 gelas air putih setiap hari untuk menjaga hidrasi.</div>
@@ -3623,7 +4021,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: FOTO GEJALA -->
 <div class="modal-overlay" id="overlay-foto" onclick="closeModal('foto')"></div>
-<div class="modal-panel" id="modal-foto">
+<div class="modal-panel welvra-glass-modal" id="modal-foto" role="dialog" aria-modal="true" aria-label="Periksa Gejala">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Periksa Gejala</h2><button class="modal-close" onclick="closeModal('foto')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <div class="upload-area" id="upload-foto" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event,'foto')">
@@ -3642,7 +4040,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: HASIL LAB -->
 <div class="modal-overlay" id="overlay-lab" onclick="closeModal('lab')"></div>
-<div class="modal-panel" id="modal-lab">
+<div class="modal-panel welvra-glass-modal" id="modal-lab" role="dialog" aria-modal="true" aria-label="Baca Hasil Lab">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Baca Hasil Lab</h2><button class="modal-close" onclick="closeModal('lab')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <div class="lab-options" id="upload-lab">
@@ -3689,7 +4087,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: CHAT -->
 <div class="modal-overlay" id="overlay-chat" onclick="closeModal('chat')"></div>
-<div class="modal-panel" id="modal-chat">
+<div class="modal-panel welvra-glass-modal" id="modal-chat" role="dialog" aria-modal="true" aria-label="Tanya Dr. Sly">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Konsultasi Gejala</h2><button class="modal-close" onclick="closeModal('chat')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <!-- Custom chat header -->
@@ -3720,7 +4118,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: CEK TENSI ANDA -->
 <div class="modal-overlay" id="overlay-tensi" onclick="closeModal('tensi')"></div>
-<div class="modal-panel" id="modal-tensi">
+<div class="modal-panel welvra-glass-modal" id="modal-tensi" role="dialog" aria-modal="true" aria-label="Cek Tensi Anda">
   <div class="modal-handle"></div>
   <div class="bp-hero">
     <div class="bp-hero-row">
@@ -3736,7 +4134,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
     <div class="bp-tabs" role="tablist">
       <div class="bp-tab-indicator pos-0" id="bp-tab-indicator"></div>
       <button class="bp-tab active" id="bp-tab-manual" onclick="bpSwitchTab('manual')" type="button">&#x270D;&#xFE0F; Manual</button>
-      <button class="bp-tab" id="bp-tab-bluetooth" onclick="bpSwitchTab('bluetooth')" type="button">&#x1F517; Bluetooth</button>
+      <button class="bp-tab" id="bp-tab-bluetooth" onclick="bpSwitchTab('bluetooth')" type="button"><svg class="welvra-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" aria-hidden="true"><path d="M7 7l10 10-5 5V2l5 5-10 10" stroke-linecap="round" stroke-linejoin="round"/></svg> Bluetooth</button>
       <button class="bp-tab" id="bp-tab-ppg" onclick="bpSwitchTab('ppg')" type="button">&#x2764;&#xFE0F; Detak Jantung</button>
     </div>
 
@@ -3766,9 +4164,9 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
         <div class="bp-field">
           <label class="bp-field-label">Posisi Tubuh</label>
           <div class="bp-radio-row">
-            <button type="button" class="bp-radio active" data-position="sitting" onclick="bpSelectPosition(this)">&#x1FA91; Duduk</button>
-            <button type="button" class="bp-radio" data-position="standing" onclick="bpSelectPosition(this)">&#x1F9CD; Berdiri</button>
-            <button type="button" class="bp-radio" data-position="lying" onclick="bpSelectPosition(this)">&#x1F6CF;&#xFE0F; Baring</button>
+            <button type="button" class="bp-radio active" data-position="sitting" onclick="bpSelectPosition(this)">/button>
+            <button type="button" class="bp-radio" data-position="standing" onclick="bpSelectPosition(this)">/button>
+            <button type="button" class="bp-radio" data-position="lying" onclick="bpSelectPosition(this)">/button>
           </div>
         </div>
 
@@ -3853,7 +4251,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
     <!-- HISTORY + CHART -->
     <div class="bp-history-section">
-      <div class="bp-history-title">&#x1F4C8; Riwayat Cek Tensi Anda</div>
+      <div class="bp-history-title">
       <div class="bp-range-tabs">
         <button type="button" class="bp-range-tab active" data-range="7" onclick="bpSetRange(7,this)">7 Hari</button>
         <button type="button" class="bp-range-tab" data-range="30" onclick="bpSetRange(30,this)">30 Hari</button>
@@ -3984,7 +4382,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
             <div class="bp-tut-flashnote-text">Lampu flash akan menyala otomatis<small>Pengukuran detak jantung berlangsung 30 detik</small></div>
           </div>
           <div class="bp-tut-tips">
-            <div class="bp-tut-tips-title">&#x1F4A1; Tips</div>
+            <div class="bp-tut-tips-title">
             <div class="bp-tut-tip">Pastikan jari bersih dan kering</div>
             <div class="bp-tut-tip">Jangan gerakkan jari selama pengukuran</div>
             <div class="bp-tut-tip">Tetap tenang dan bernapas normal</div>
@@ -4013,31 +4411,31 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: ANALISA MAKANKU -->
 <div class="modal-overlay" id="overlay-makan" onclick="closeModal('makan')"></div>
-<div class="modal-panel" id="modal-makan">
+<div class="modal-panel welvra-glass-modal" id="modal-makan" role="dialog" aria-modal="true" aria-label="Analisa Makanku">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Analisa Makanku</h2><button class="modal-close" onclick="closeModal('makan')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <div class="makan-tabs">
-    <button class="makan-tab active" onclick="switchMakanTab('foto',this)">&#x1F4F8; Foto Makanan</button>
-    <button class="makan-tab" onclick="switchMakanTab('kebutuhan',this)">&#x1F49A; Tubuhku Butuh Apa?</button>
-    <button class="makan-tab" onclick="switchMakanTab('warung',this)">&#x1F5FA;&#xFE0F; Warung Sehat</button>
+    <button class="makan-tab active" onclick="switchMakanTab('foto',this)">/button>
+    <button class="makan-tab" onclick="switchMakanTab('kebutuhan',this)">/button>
+    <button class="makan-tab" onclick="switchMakanTab('warung',this)">/button>
   </div>
   <div class="makan-section" id="makan-foto">
-    <p class="makan-desc">Foto makananmu &mdash; Dr. Sly analisa kandungan gizi dan kesesuaiannya dengan kondisi kesehatanmu &#x1F4F8;</p>
+    <p class="makan-desc">Foto makananmu &mdash; Dr. Sly analisa kandungan gizi dan kesesuaiannya dengan kondisi kesehatanmu</p>
     <div class="upload-area" id="makan-upload-area">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
       <p>Tap untuk foto atau upload gambar makanan</p><small>JPG, PNG &mdash; maks 10MB</small>
       <input type="file" id="makan-img-input" accept="image/*" onchange="handleMakanPhoto(event)">
     </div>
     <img id="makan-preview-img" class="preview-img" style="display:none">
-    <button class="btn-primary" id="makan-analyze-btn" onclick="analyzeMakan()" style="display:none"><span>Analisa Makanan Ini &#x1F50D;</span></button>
+    <button class="btn-primary" id="makan-analyze-btn" onclick="analyzeMakan()" style="display:none"><span>Analisa Makanan Ini </span></button>
     <div class="makan-separator">&mdash; atau ketik nama makanan &mdash;</div>
     <div class="form-group"><input type="text" id="makan-nama-input" placeholder="Contoh: nasi padang, gado-gado, soto betawi, kerak telor..." onkeydown="if(event.key==='Enter')analyzeMakanText()"></div>
-    <button class="btn-primary" id="makan-text-analyze-btn" onclick="analyzeMakanText()"><span>Analisa Gizi &#x1F50D;</span></button>
+    <button class="btn-primary" id="makan-text-analyze-btn" onclick="analyzeMakanText()"><span>Analisa Gizi </span></button>
     <div class="results-area" id="makan-result"></div>
   </div>
   <div class="makan-section" id="makan-kebutuhan" style="display:none">
-    <p class="makan-desc">Berdasarkan profil kesehatanmu, Dr. Sly akan rekomendasikan nutrisi dan makanan yang paling kamu butuhkan &#x1F49A;</p>
-    <button class="btn-primary" id="kebutuhan-analyze-btn" onclick="analyzeKebutuhan()"><span>Analisa Kebutuhanku &#x1F4AA;</span></button>
+    <p class="makan-desc">Berdasarkan profil kesehatanmu, Dr. Sly akan rekomendasikan nutrisi dan makanan yang paling kamu butuhkan</p>
+    <button class="btn-primary" id="kebutuhan-analyze-btn" onclick="analyzeKebutuhan()"><span>Analisa Kebutuhanku </span></button>
     <div class="results-area" id="kebutuhan-result"></div>
   </div>
   <div class="makan-section" id="makan-warung" style="display:none">
@@ -4068,20 +4466,20 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
           <button class="ws-manual-link" onclick="showWarungPhase('manual')">Ketik kota manual &rarr;</button>
         </div>
         <div class="ws-features">
-          <span class="ws-feature-pill">&#128205; Radius Fleksibel</span>
-          <span class="ws-feature-pill">&#129302; Analisa Dr. Sly</span>
-          <span class="ws-feature-pill">&#128190; Simpan Favorit</span>
+          <span class="ws-feature-pill"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-7-7-13a7 7 0 1 1 14 0c0 6-7 13-7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
+          <span class="ws-feature-pill"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 4v3"/><circle cx="9" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1" fill="currentColor" stroke="none"/><path d="M9 16h6"/></svg></span>
+          <span class="ws-feature-pill"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h11l3 3v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/><rect x="8" y="13" width="8" height="6"/></svg></span>
         </div>
       </div>
 
       <!-- Manual city phase -->
       <div class="ws-phase" id="ws-phase-manual">
         <div class="ws-manual-card">
-          <div class="ws-manual-icon">&#128205;</div>
+          <div class="ws-manual-icon">
           <h3 class="ws-manual-title">Ketik kotamu untuk rekomendasi warung sehat terdekat</h3>
           <p class="ws-manual-desc">Dr. Sly akan carikan tempat makan sehat yang populer di kotamu</p>
           <input type="text" class="ws-manual-input" id="ws-manual-city" placeholder="Contoh: Jakarta Selatan, Bandung, Surabaya..." autocomplete="off" onkeydown="if(event.key==='Enter')submitWarungManualSearch()">
-          <button class="ws-manual-btn" onclick="submitWarungManualSearch()">Cari Warung Sehat &#127807;</button>
+          <button class="ws-manual-btn" onclick="submitWarungManualSearch()">Cari Warung Sehat</button>
           <button class="ws-manual-back" onclick="showWarungPhase('permission')">&larr; Kembali</button>
         </div>
         <div id="ws-manual-results"></div>
@@ -4127,7 +4525,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
         <div class="ws-filter-bar">
           <div class="ws-filter-row">
-            <div class="ws-loc-label" id="ws-loc-label">&#128205; Mendeteksi...</div>
+            <div class="ws-loc-label" id="ws-loc-label"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true" style="width:0.9em;height:0.9em"><path d="M12 22s-7-7-7-13a7 7 0 1 1 14 0c0 6-7 13-7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg> Mendeteksi...</div>
             <button class="ws-refresh-btn" id="ws-refresh-btn" onclick="searchNearbyRestaurants()" title="Refresh">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
             </button>
@@ -4168,23 +4566,23 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: SETTINGS -->
 <div class="modal-overlay settings-overlay" id="overlay-settings" onclick="if(event.target===this)closeModal('settings')">
-  <div class="settings-box" id="modal-settings">
+  <div class="settings-box welvra-glass welvra-glass--gold" id="modal-settings">
     <div class="modal-handle"></div>
     <div class="modal-header" style="position:relative;background:transparent"><h2>Pengaturan</h2><button class="modal-close" onclick="closeModal('settings')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
 
     <div class="settings-menu">
-      <div class="settings-item" onclick="openModal('history')"><div class="si-icon teal">&#x1F4CB;</div><div class="si-info"><strong>Riwayat Konsultasi</strong><small>Lihat konsultasi sebelumnya</small></div><span class="si-arrow">&#x203A;</span></div>
-      <div class="settings-item"><div class="si-icon sage">&#x1F319;</div><div class="si-info"><strong>Tema Gelap</strong><small>Nyaman untuk mata di malam hari</small></div><div class="toggle" id="darkmode-toggle" onclick="toggleDarkMode()"></div></div>
-      <div class="settings-item" onclick="openModal('reminder')"><div class="si-icon gold">&#x1F514;</div><div class="si-info"><strong>Notifikasi</strong><small id="reminder-status">Atur pengingat kesehatan</small></div><span class="si-arrow">&#x203A;</span></div>
-      <div class="settings-item" onclick="openModal('feedback')"><div class="si-icon blush">&#x1F49A;</div><div class="si-info"><strong>Beri Masukan</strong><small>Bantu Welvra jadi lebih baik</small></div><span class="si-arrow">&#x203A;</span></div>
-      <div class="settings-item" onclick="showApiKeyModal()"><div class="si-icon teal">&#x1F511;</div><div class="si-info"><strong>API Key</strong><small>Ubah konfigurasi API</small></div><span class="si-arrow">&#x203A;</span></div>
+      <div class="settings-item" onclick="openModal('history')"><div class="si-icon teal"><svg class="welvra-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div><div class="si-info"><strong>Riwayat Konsultasi</strong><small>Lihat konsultasi sebelumnya</small></div><span class="si-arrow">&#x203A;</span></div>
+      <div class="settings-item"><div class="si-icon sage"><svg class="welvra-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" aria-hidden="true"><path d="M19 14a8 8 0 1 1-9-9 6 6 0 0 0 9 9Z"/></svg></div><div class="si-info"><strong>Tema Gelap</strong><small>Nyaman untuk mata di malam hari</small></div><div class="toggle" id="darkmode-toggle" onclick="toggleDarkMode()"></div></div>
+      <div class="settings-item" onclick="openModal('reminder')"><div class="si-icon gold"><svg class="welvra-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0v5l2 3H4l2-3Z" stroke-linejoin="round"/><path d="M10 20a2 2 0 0 0 4 0" stroke-linecap="round"/></svg></div><div class="si-info"><strong>Notifikasi</strong><small id="reminder-status">Atur pengingat kesehatan</small></div><span class="si-arrow">&#x203A;</span></div>
+      <div class="settings-item" onclick="openModal('feedback')"><div class="si-icon blush"><svg class="welvra-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10Z" stroke-linejoin="round"/></svg></div><div class="si-info"><strong>Beri Masukan</strong><small>Bantu Welvra jadi lebih baik</small></div><span class="si-arrow">&#x203A;</span></div>
+      <div class="settings-item" onclick="showApiKeyModal()"><div class="si-icon teal"><svg class="welvra-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" aria-hidden="true"><circle cx="8" cy="14" r="4"/><path d="M11 14h10v3M16 14v3" stroke-linecap="round"/></svg></div><div class="si-info"><strong>API Key</strong><small>Ubah konfigurasi API</small></div><span class="si-arrow">&#x203A;</span></div>
     </div>
   </div>
 </div>
 
 <!-- MODAL: HISTORY -->
 <div class="modal-overlay" id="overlay-history" onclick="closeModal('history')"></div>
-<div class="modal-panel" id="modal-history">
+<div class="modal-panel welvra-glass-modal" id="modal-history" role="dialog" aria-modal="true" aria-label="Riwayat Konsultasi">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Riwayat Konsultasi</h2><button class="modal-close" onclick="closeModal('history')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <div id="history-list"></div>
@@ -4192,7 +4590,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: FEEDBACK -->
 <div class="modal-overlay" id="overlay-feedback" onclick="closeModal('feedback')"></div>
-<div class="modal-panel" id="modal-feedback">
+<div class="modal-panel welvra-glass-modal" id="modal-feedback" role="dialog" aria-modal="true" aria-label="Beri Masukan">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Beri Masukan</h2><button class="modal-close" onclick="closeModal('feedback')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <p style="font-size:.85rem;color:var(--text-light);margin-bottom:16px;text-align:center">Pendapat kamu sangat berarti untuk Welvra!</p>
@@ -4202,12 +4600,12 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
   <div class="form-group"><label>Kategori</label><select id="feedback-category"><option value="Tampilan">Tampilan</option><option value="Fitur">Fitur</option><option value="Akurasi Jawaban">Akurasi Jawaban</option><option value="Lainnya">Lainnya</option></select></div>
   <div class="form-group"><label>Pesan</label><textarea id="feedback-message" rows="3" placeholder="Ceritakan pengalamanmu..."></textarea></div>
   <div class="form-group"><label>Nama</label><input type="text" id="feedback-name"></div>
-  <button class="btn-primary" onclick="submitFeedback()">Kirim Masukan &#x1F49A;</button>
+  <button class="btn-primary" onclick="submitFeedback()">Kirim Masukan</button>
 </div>
 
 <!-- MODAL: REMINDER -->
 <div class="modal-overlay" id="overlay-reminder" onclick="closeModal('reminder')"></div>
-<div class="modal-panel" id="modal-reminder">
+<div class="modal-panel welvra-glass-modal" id="modal-reminder" role="dialog" aria-modal="true" aria-label="Notifikasi Pengingat">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Notifikasi</h2><button class="modal-close" onclick="closeModal('reminder')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <div class="toggle-row"><span>Aktifkan Pengingat Kesehatan</span><div class="toggle" id="reminder-master-toggle" onclick="toggleReminderMaster()"></div></div>
@@ -4223,13 +4621,13 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
     <button class="btn-primary" onclick="saveReminders()">Simpan Pengingat</button>
   </div>
   <div id="reminder-perm-msg" style="display:none;text-align:center;padding:16px;margin-top:14px;background:var(--gold-light);border-radius:14px;font-size:.82rem;color:#8B6914">
-    Aktifkan notifikasi di browser kamu ya! &#x1F33F;
+    Aktifkan notifikasi di browser kamu ya!
   </div>
 </div>
 
 <!-- MODAL: MEDITASI -->
 <div class="modal-overlay" id="overlay-medit" onclick="closeMeditasiModal()"></div>
-<div class="modal-panel" id="modal-medit">
+<div class="modal-panel welvra-glass-modal welvra-glass-modal--full" id="modal-medit" role="dialog" aria-modal="true" aria-label="Meditasi">
   <!-- Gallery view -->
   <div id="medit-gallery-view">
     <div class="medit-header">
@@ -4255,13 +4653,13 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 </div>
 
 <!-- ONBOARDING -->
-<div class="onboard-overlay" id="onboard-modal">
+<div class="onboard-overlay welvra-glass-modal welvra-glass-modal--gold" id="onboard-modal" role="dialog" aria-modal="true" aria-label="Selamat Datang di Welvra">
   <div class="onboard-box">
     <div class="onboard-logo"><svg viewBox="0 0 56 56" fill="none"><path d="M28 8c-5 0-9 4-10 8-.5 2 0 5 1 7" stroke="#0A7B6C" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".4"/><path d="M28 8c5 0 9 4 10 8 .5 2 0 5-1 7" stroke="#0A7B6C" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".4"/><path d="M28 12C23 12 20 16 20 20c0 6 8 14 8 14s8-8 8-14c0-4-3-8-8-8z" fill="rgba(10,123,108,0.08)" stroke="#0A7B6C" stroke-width="1.5"/><path d="M18 22l3 0 1.5-3.5 2.5 8 2.5-5 1.5 1.5 3-.5" stroke="#0A7B6C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-    <h3>Hei! Sebelum mulai, boleh kenalan dulu? &#x1F60A;</h3>
+    <h3>Hei! Sebelum mulai, boleh kenalan dulu?</h3>
     <p>Biar Welvra bisa nyapa kamu dengan nama kamu sendiri</p>
     <input type="text" id="onboard-name" placeholder="Nama panggilanmu" onkeydown="if(event.key==='Enter')saveOnboardName()">
-    <button class="btn-primary" onclick="saveOnboardName()">Yuk Mulai! &#x1F33F;</button>
+    <button class="btn-primary" onclick="saveOnboardName()">Yuk Mulai!</button>
   </div>
 </div>
 
@@ -4285,7 +4683,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
   </div>
   <div class="profile-hero">
     <div class="profile-hero-avatar" id="profile-hero-avatar"><span class="big-letter" id="profile-big-letter">W</span></div>
-    <button class="profile-photo-btn">📷 Ganti Foto<input type="file" accept="image/jpeg,image/png" onchange="handleAvatarUpload(event)"></button>
+    <button class="profile-photo-btn"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true" style="margin-right:6px"><path d="M4 7h4l2-2h4l2 2h4a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="4"/></svg><input type="file" accept="image/jpeg,image/png" onchange="handleAvatarUpload(event)"></button>
     <div class="profile-hero-name" id="profile-hero-name">Pengguna</div>
     <div class="profile-hero-badge">Anggota Welvra · 2026</div>
   </div>
@@ -4320,13 +4718,13 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
       <div class="profile-field full" id="hp-pregnant-wrap" style="display:none"><div class="toggle-row"><span>Sedang Hamil</span><div class="toggle" id="hp-pregnant-toggle" onclick="this.classList.toggle('on')"></div></div></div>
       <div class="profile-field full"><div class="toggle-row"><span>Merokok</span><div class="toggle" id="hp-smoking-toggle" onclick="this.classList.toggle('on')"></div></div></div>
     </div>
-    <button class="btn-primary" onclick="saveHealthProfile()">Simpan Profil &#x1F49A;</button>
+    <button class="btn-primary" onclick="saveHealthProfile()">Simpan Profil <svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10Z"/></svg>
   </div>
 </div>
 
 <!-- WELVRA DRAWER -->
 <div class="drawer-overlay" id="welvra-drawer-overlay" onclick="closeWelvraDrawer()" aria-hidden="true"></div>
-<aside class="welvra-drawer" id="welvra-drawer" role="navigation" aria-label="Menu utama" aria-hidden="true">
+<aside class="welvra-drawer welvra-glass" id="welvra-drawer" role="navigation" aria-label="Menu utama" aria-hidden="true">
   <div class="drawer-header">
     <button class="drawer-close" onclick="closeWelvraDrawer()" aria-label="Tutup menu">
       <svg viewBox="0 0 14 14" aria-hidden="true"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
@@ -4350,7 +4748,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
     <span class="drawer-menu-label">Profil &amp; Data Kesehatan</span>
     <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
   </button>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Analitik Kesehatan segera hadir &#10024;')">
+  <button class="drawer-menu-item" onclick="showWelvraToast('Analitik Kesehatan segera hadir')">
     <span class="drawer-menu-icon" data-color="gold">
       <svg viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/><line x1="3" y1="21" x2="21" y2="21"/></svg>
     </span>
@@ -4378,7 +4776,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
     <span class="drawer-menu-label">Riwayat Tensi</span>
     <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
   </button>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Catatan Kesehatan segera hadir &#10024;')">
+  <button class="drawer-menu-item" onclick="showWelvraToast('Catatan Kesehatan segera hadir')">
     <span class="drawer-menu-icon" data-color="gold">
       <svg viewBox="0 0 24 24"><path d="M6 4 H17 A2 2 0 0 1 19 6 V20 A2 2 0 0 1 17 22 H6 Z"/><line x1="6" y1="4" x2="6" y2="22"/><line x1="9" y1="9" x2="16" y2="9"/><line x1="9" y1="13" x2="16" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
     </span>
@@ -4421,7 +4819,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
   <div class="drawer-divider"></div>
 
   <span class="drawer-section-label">Bantuan &amp; Info</span>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Tutorial Welvra segera hadir &#10024;')">
+  <button class="drawer-menu-item" onclick="showWelvraToast('Tutorial Welvra segera hadir')">
     <span class="drawer-menu-icon" data-color="teal">
       <svg viewBox="0 0 24 24"><path d="M3 5 C6 4 9 4 12 6 C15 4 18 4 21 5 V19 C18 18 15 18 12 20 C9 18 6 18 3 19 Z"/><line x1="12" y1="6" x2="12" y2="20"/></svg>
     </span>
@@ -4435,7 +4833,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
     <span class="drawer-menu-label">Beri Masukan</span>
     <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
   </button>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Pusat Bantuan segera hadir &#10024;')">
+  <button class="drawer-menu-item" onclick="showWelvraToast('Pusat Bantuan segera hadir')">
     <span class="drawer-menu-icon" data-color="teal">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9 C9.5 7.5 10.7 6.5 12 6.5 C13.3 6.5 14.5 7.5 14.5 8.8 C14.5 10.5 12 11 12 12.5"/><circle cx="12" cy="16.5" r=".7" fill="currentColor"/></svg>
     </span>
@@ -4449,14 +4847,14 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
     <span class="drawer-menu-label">Tentang Welvra</span>
     <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
   </button>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Kebijakan Privasi segera hadir &#10024;')">
+  <button class="drawer-menu-item" onclick="showWelvraToast('Kebijakan Privasi segera hadir')">
     <span class="drawer-menu-icon" data-color="teal">
       <svg viewBox="0 0 24 24"><path d="M12 3 L20 6 V12 C20 17 16 20 12 21 C8 20 4 17 4 12 V6 Z"/><polyline points="9 12 11 14 15 10"/></svg>
     </span>
     <span class="drawer-menu-label">Kebijakan Privasi</span>
     <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
   </button>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Syarat Layanan segera hadir &#10024;')">
+  <button class="drawer-menu-item" onclick="showWelvraToast('Syarat Layanan segera hadir')">
     <span class="drawer-menu-icon" data-color="teal">
       <svg viewBox="0 0 24 24"><path d="M7 3 H15 L19 7 V20 A1 1 0 0 1 18 21 H7 A1 1 0 0 1 6 20 V4 A1 1 0 0 1 7 3 Z"/><polyline points="14 3 14 8 19 8"/><line x1="9" y1="13" x2="16" y2="13"/><line x1="9" y1="16.5" x2="14" y2="16.5"/></svg>
     </span>
@@ -4487,7 +4885,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 </div>
 
 <!-- WELVRA BOTTOM NAVIGATION -->
-<nav class="bottom-nav" role="navigation" aria-label="Navigasi utama">
+<nav class="bottom-nav welvra-glass" role="navigation" aria-label="Navigasi utama">
   <button class="nav-tab active" data-tab="beranda" aria-current="page" aria-label="Beranda" onclick="welvraSwitchTab(this,'beranda')">
     <span class="nav-tab-icon">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11 L12 4 L20 11 V20 A1 1 0 0 1 19 21 H5 A1 1 0 0 1 4 20 Z"/><path d="M10 21 V14 H14 V21"/></svg>
@@ -5421,7 +5819,7 @@ async function analyzeMakan() {
   } catch (e) {
     document.getElementById('makan-result').innerHTML = '<div class="result-card"><p>Maaf, terjadi kesalahan: ' + e.message + '</p></div>';
   }
-  btn.disabled = false; btn.innerHTML = '<span>Analisa Makanan Ini &#x1F50D;</span>';
+  btn.disabled = false; btn.innerHTML = '<span>Analisa Makanan Ini </span>';
 }
 
 async function analyzeMakanText() {
@@ -5438,7 +5836,7 @@ async function analyzeMakanText() {
   } catch (e) {
     document.getElementById('makan-result').innerHTML = '<div class="result-card"><p>Maaf, terjadi kesalahan: ' + e.message + '</p></div>';
   }
-  btn.disabled = false; btn.innerHTML = '<span>Analisa Gizi &#x1F50D;</span>';
+  btn.disabled = false; btn.innerHTML = '<span>Analisa Gizi </span>';
 }
 
 async function analyzeKebutuhan() {
@@ -5453,7 +5851,7 @@ async function analyzeKebutuhan() {
   } catch (e) {
     document.getElementById('kebutuhan-result').innerHTML = '<div class="result-card"><p>Maaf, terjadi kesalahan: ' + e.message + '</p></div>';
   }
-  btn.disabled = false; btn.innerHTML = '<span>Analisa Kebutuhanku &#x1F4AA;</span>';
+  btn.disabled = false; btn.innerHTML = '<span>Analisa Kebutuhanku </span>';
 }
 
 // ===== WARUNG SEHAT — PREMIUM FINDER =====
@@ -5571,7 +5969,7 @@ function renderWarungManualResults(city, text) {
           '<div class="ws-card-name">' + escapeWarung(it.name) + '</div>' +
           '<div class="ws-card-meta">' +
             (it.jenis ? '<span class="ws-cuisine-pill">' + escapeWarung(it.jenis) + '</span>' : '') +
-            (it.area ? '<span class="ws-dist-badge">&#128205; ' + escapeWarung(it.area) + '</span>' : '') +
+            (it.area ? '<span class="ws-dist-badge"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true" style="width:0.9em;height:0.9em"><path d="M12 22s-7-7-7-13a7 7 0 1 1 14 0c0 6-7 13-7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg> ' + escapeWarung(it.area) + '</span>' : '') +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -5676,13 +6074,13 @@ function sortWarungResults() {
 
 async function reverseGeocode() {
   var el = document.getElementById('ws-loc-label'); if (!el) return;
-  el.innerHTML = '&#128205; ' + warungUserLat.toFixed(4) + ', ' + warungUserLon.toFixed(4);
+  el.innerHTML = '<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true" style="width:0.9em;height:0.9em"><path d="M12 22s-7-7-7-13a7 7 0 1 1 14 0c0 6-7 13-7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg> ' + warungUserLat.toFixed(4) + ', ' + warungUserLon.toFixed(4);
   try {
     var res = await fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + warungUserLat + '&lon=' + warungUserLon + '&zoom=14', { headers:{ 'Accept':'application/json' } });
     var d = await res.json();
     var addr = d.address || {};
     var area = addr.suburb || addr.village || addr.town || addr.city_district || addr.city || addr.county || '';
-    if (area) el.innerHTML = '&#128205; ' + area;
+    if (area) el.innerHTML = '<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true" style="width:0.9em;height:0.9em"><path d="M12 22s-7-7-7-13a7 7 0 1 1 14 0c0 6-7 13-7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg> ' + area;
   } catch(e) {}
 }
 
@@ -5716,7 +6114,7 @@ function initWarungMap() {
       '<div class="ws-pop-strip"></div>' +
       '<div class="ws-pop-body">' +
         '<div class="ws-pop-name">' + escapeWarung(r.name) + '</div>' +
-        '<div class="ws-pop-meta">&#128205; ' + formatDist(r.distance) + ' dari lokasimu</div>' +
+        '<div class="ws-pop-meta"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true" style="width:0.9em;height:0.9em"><path d="M12 22s-7-7-7-13a7 7 0 1 1 14 0c0 6-7 13-7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg> ' + formatDist(r.distance) + ' dari lokasimu</div>' +
         '<span class="ws-pop-cuisine">' + escapeWarung(r.cuisine) + '</span>' +
         '<div class="ws-pop-btns">' +
           '<button class="ws-pop-btn primary" onclick="scrollToWarungCard(\'' + r.id + '\')">Lihat Detail &darr;</button>' +
@@ -5853,7 +6251,7 @@ function renderWarungCards() {
         '<div class="ws-initial" style="background:linear-gradient(135deg,' + color + ',' + color + 'cc);">' + escapeWarung(letter) + '</div>' +
         '<div class="ws-card-info">' +
           '<div class="ws-card-name">' + escapeWarung(r.name) + '</div>' +
-          '<div class="ws-card-meta"><span class="ws-cuisine-pill">' + escapeWarung(r.cuisine) + '</span><span class="ws-dist-badge">&#128205; ' + formatDist(r.distance) + '</span></div>' +
+          '<div class="ws-card-meta"><span class="ws-cuisine-pill">' + escapeWarung(r.cuisine) + '</span><span class="ws-dist-badge"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true" style="width:0.9em;height:0.9em"><path d="M12 22s-7-7-7-13a7 7 0 1 1 14 0c0 6-7 13-7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg> ' + formatDist(r.distance) + '</span></div>' +
           (r.address ? '<div class="ws-card-addr">' + escapeWarung(r.address) + '</div>' : '') +
         '</div>' +
         '<div class="ws-card-right">' +
@@ -5865,7 +6263,7 @@ function renderWarungCards() {
       '<div class="ws-card-actions">' +
         '<button class="ws-action-btn ws-btn-map" onclick="focusWarungOnMap(\'' + r.id + '\')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C7.58 2 4 5.58 4 10c0 6 8 12 8 12s8-6 8-12c0-4.42-3.58-8-8-8z"/><circle cx="12" cy="10" r="3"/></svg>Lihat Peta</button>' +
         '<button class="ws-action-btn ws-btn-analyze" onclick="analyzeWarungMenu(\'' + r.id + '\')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.2L21 9l-5 4.5 1.5 7L12 17l-5.5 3.5L8 13.5 3 9l6.6-.8z"/></svg>Analisa Menu</button>' +
-        '<button class="ws-action-btn ws-btn-dir" onclick="openWarungDirections(\'' + r.id + '\')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Rute &#129517;</button>' +
+        '<button class="ws-action-btn ws-btn-dir" onclick="openWarungDirections(\'' + r.id + '\')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Rute</button>' +
         '<button class="ws-action-btn ws-btn-save ' + (saved?'saved':'') + '" onclick="toggleWarungFav(\'' + r.id + '\')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Simpan</button>' +
       '</div>' +
       '<div class="ws-analysis" id="ws-analysis-' + r.id + '"></div>' +
@@ -6748,11 +7146,11 @@ function startMensSubtag() {
 
 function buildMensModal() {
   var html = '' +
-    '<div id="mens-modal">' +
+    '<div id="mens-modal" class="welvra-glass-modal welvra-glass-modal--full" role="dialog" aria-modal="true" aria-label="Siklus Menstruasi">' +
       '<div class="mens-header">' +
         '<button class="mens-icon-btn" onclick="closeMensModal()" aria-label="Kembali">&#8592;</button>' +
         '<div style="flex:1;text-align:center;">' +
-          '<div class="mens-header-title">Siklus Menstruasi</div>' +
+          '<div class="mens-header-title" aria-label="Siklus Menstruasi">Siklus Mens</div>' +
           '<div class="mens-header-sub" id="mens-header-sub"></div>' +
         '</div>' +
         '<button class="mens-icon-btn" onclick="openMensSettings()" aria-label="Pengaturan">&#9881;</button>' +
@@ -7877,7 +8275,7 @@ function updatePedometerUI() {
   if (status) status.innerHTML = aktivPedometerOn ? '<span class="dot"></span>Tracking aktif...' : '';
   if (sensorPill) {
     sensorPill.className = 'aktiv-sensor-pill ' + (aktivPedometerOn ? 'on' : 'off');
-    sensorPill.textContent = aktivPedometerOn ? 'Sensor Aktif ✓' : 'Manual Mode';
+    sensorPill.innerHTML = aktivPedometerOn ? 'Sensor Aktif <svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true" style="margin-left:4px"><path d="M5 12l5 5 9-11"/></svg>' : 'Manual Mode';
   }
 }
 
@@ -8033,7 +8431,7 @@ function startAktivSubtag() {
 
 function buildAktivitasModal() {
   var html =
-    '<div id="aktivitas-modal">' +
+    '<div id="aktivitas-modal" class="welvra-glass-modal welvra-glass-modal--full" role="dialog" aria-modal="true" aria-label="TrackFit Aktivitas Langkah">' +
       '<div class="aktiv-orb o1"></div><div class="aktiv-orb o2"></div><div class="aktiv-orb o3"></div>' +
       '<div class="aktiv-header">' +
         '<button class="aktiv-icon-btn" onclick="closeAktivitasModal()">&#8592;</button>' +
@@ -8234,17 +8632,17 @@ function aktivShowToast(msg) {
 
   // ---- WHO / JNC 8 classification ----
   window.classifyBP = function(sys, dia) {
-    if (sys < 90 || dia < 60) return { level:'hipotensi', label:'Tekanan Darah Rendah', color:'#3498DB', icon:'\uD83D\uDC99',
+    if (sys < 90 || dia < 60) return { level:'hipotensi', label:'Tekanan Darah Rendah', color:'#3498DB', icon:'<svg class="bp-heart-svg bp-heart-svg--blue" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4.5 4.5 0 0 1 7-3 4.5 4.5 0 0 1 7 3c0 5.5-7 10-7 10Z"/></svg>',
       message:'Tekanan darahmu di bawah normal. Pastikan kamu cukup minum air putih dan makan teratur ya.' };
-    if (sys > 180 || dia > 120) return { level:'crisis', label:'Krisis Hipertensi', color:'#D63031', icon:'\uD83D\uDEA8',
+    if (sys > 180 || dia > 120) return { level:'crisis', label:'Krisis Hipertensi', color:'#D63031', icon:'<svg class="bp-heart-svg bp-heart-svg--red" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2L12 3Z"/></svg>',
       message:'PERINGATAN: Tekanan darahmu sangat tinggi! Segera ke IGD atau hubungi layanan darurat, apalagi kalau ada sakit kepala hebat, sesak napas, atau nyeri dada.' };
-    if (sys >= 140 || dia >= 90) return { level:'hypertension2', label:'Hipertensi Tahap 2', color:'#D63031', icon:'\u2764\uFE0F',
+    if (sys >= 140 || dia >= 90) return { level:'hypertension2', label:'Hipertensi Tahap 2', color:'#D63031', icon:'<svg class="bp-heart-svg bp-heart-svg--red" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4.5 4.5 0 0 1 7-3 4.5 4.5 0 0 1 7 3c0 5.5-7 10-7 10Z"/></svg>',
       message:'Tekanan darahmu cukup tinggi. Sebaiknya segera konsultasi ke dokter untuk penanganan lebih lanjut.' };
-    if (sys >= 130 || dia >= 80) return { level:'hypertension1', label:'Hipertensi Tahap 1', color:'#E17055', icon:'\uD83E\uDDE1',
+    if (sys >= 130 || dia >= 80) return { level:'hypertension1', label:'Hipertensi Tahap 1', color:'#E17055', icon:'<svg class="bp-heart-svg bp-heart-svg--orange" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4.5 4.5 0 0 1 7-3 4.5 4.5 0 0 1 7 3c0 5.5-7 10-7 10Z"/></svg>',
       message:'Tekanan darahmu masuk hipertensi tahap 1. Yuk konsultasi dengan dokter dan perhatikan pola makanmu.' };
-    if (sys >= 120) return { level:'elevated', label:'Sedikit Tinggi', color:'#C8860A', icon:'\uD83D\uDC9B',
+    if (sys >= 120) return { level:'elevated', label:'Sedikit Tinggi', color:'#C8860A', icon:'<svg class="bp-heart-svg bp-heart-svg--yellow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4.5 4.5 0 0 1 7-3 4.5 4.5 0 0 1 7 3c0 5.5-7 10-7 10Z"/></svg>',
       message:'Tekanan darahmu sedikit di atas normal. Kurangi garam dan perbanyak aktivitas fisik ya.' };
-    return { level:'normal', label:'Normal', color:'#6B9E78', icon:'\uD83D\uDC9A',
+    return { level:'normal', label:'Normal', color:'#6B9E78', icon:'<svg class="bp-heart-svg bp-heart-svg--green" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4.5 4.5 0 0 1 7-3 4.5 4.5 0 0 1 7 3c0 5.5-7 10-7 10Z"/></svg>',
       message:'Tekanan darahmu dalam batas normal. Pertahankan gaya hidup sehatmu!' };
   };
 
@@ -8718,11 +9116,11 @@ function aktivShowToast(msg) {
   }
 
   function bpClassifyHR(hr) {
-    if (hr < 60) return { level:'hipotensi', label:'Rendah', icon:'💙',
+    if (hr < 60) return { level:'hipotensi', label:'Rendah', icon:'<svg class="bp-heart-svg bp-heart-svg--blue" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4.5 4.5 0 0 1 7-3 4.5 4.5 0 0 1 7 3c0 5.5-7 10-7 10Z"/></svg>',
       message:'detak jantungmu lebih rendah dari rata-rata. Kalau sering pusing atau lemas, sebaiknya konsultasi dokter.' };
-    if (hr > 100) return { level:'hypertension1', label:'Tinggi', icon:'❤️',
+    if (hr > 100) return { level:'hypertension1', label:'Tinggi', icon:'<svg class="bp-heart-svg bp-heart-svg--red" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4.5 4.5 0 0 1 7-3 4.5 4.5 0 0 1 7 3c0 5.5-7 10-7 10Z"/></svg>',
       message:'detak jantungmu agak tinggi. Coba rileks sejenak lalu ukur lagi. Kalau terus tinggi, konsultasi dokter ya.' };
-    return { level:'normal', label:'Normal', icon:'💚',
+    return { level:'normal', label:'Normal', icon:'<svg class="bp-heart-svg bp-heart-svg--green" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4.5 4.5 0 0 1 7-3 4.5 4.5 0 0 1 7 3c0 5.5-7 10-7 10Z"/></svg>',
       message:'detak jantungmu dalam rentang normal. Tetap jaga pola hidup sehat ya!' };
   }
 
@@ -8746,20 +9144,20 @@ function aktivShowToast(msg) {
           '<div class="bp-result-sign">— Welvra</div>' +
         '</div>' +
         '<div class="bp-hr-disclaimer">' +
-          '<div class="bp-hr-disclaimer-icon">💛</div>' +
+          '<div class="bp-hr-disclaimer-icon">' +
           '<div class="bp-hr-disclaimer-text">Fitur ini hanya mengukur <strong>detak jantung</strong>, bukan tekanan darah. Untuk mengukur tekanan darah yang akurat, gunakan tensimeter digital atau konsultasi dokter.</div>' +
         '</div>' +
         '<div class="bp-hr-cta-row">' +
-          '<button class="bp-hr-cta" onclick="bpToastBeliTensi()" type="button">🛒 Beli Tensimeter</button>' +
-          '<button class="bp-hr-cta secondary" onclick="bpToastCariKlinik()" type="button">🏥 Cari Klinik Terdekat</button>' +
+          '<button class="bp-hr-cta" onclick="bpToastBeliTensi()" type="button"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true" style="margin-right:6px"><path d="M3 5h3l2 11h11l2-7H7"/><circle cx="10" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></button>' +
+          '<button class="bp-hr-cta secondary" onclick="bpToastCariKlinik()" type="button"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true" style="margin-right:6px"><path d="M12 22s-7-7-7-13a7 7 0 1 1 14 0c0 6-7 13-7 13Z"/><path d="M10 9h4M12 7v4"/></svg></button>' +
         '</div>' +
       '</div>';
     var hrEl = document.getElementById('bp-anim-hr-' + reading.id);
     if (hrEl) bpAnimateCounter(hrEl, hr, 800, '');
   }
 
-  window.bpToastBeliTensi = function() { bpToast('Fitur rekomendasi tensimeter segera hadir 💚'); };
-  window.bpToastCariKlinik = function() { bpToast('Fitur pencarian klinik segera hadir 🌿'); };
+  window.bpToastBeliTensi = function() { bpToast('Fitur rekomendasi tensimeter segera hadir'); };
+  window.bpToastCariKlinik = function() { bpToast('Fitur pencarian klinik segera hadir'); };
 
   function bpProcessPPG(values) {
     ppgRunning = false;
@@ -8820,10 +9218,10 @@ function aktivShowToast(msg) {
   }
   function bpSourceBadge(src) {
     var map = {
-      manual: { cls:'manual', icon:'\u270D\uFE0F', label:'Manual' },
-      bluetooth: { cls:'bluetooth', icon:'\uD83D\uDD17', label:'Bluetooth' },
-      ppg_camera: { cls:'ppg_camera', icon:'\uD83D\uDCF7', label:'Estimasi (lama)' },
-      ppg_heart_rate: { cls:'hr_camera', icon:'🧡', label:'Detak Jantung' }
+      manual: { cls:'manual', icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 4l4 4-12 12H4v-4Z"/><path d="M14 6l4 4"/></svg>', label:'Manual' },
+      bluetooth: { cls:'bluetooth', icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 14.5l-4 4M14.5 9.5l4-4M9 9l-3 3 12 12 3-3M15 15l3-3-12-12-3 3"/></svg>', label:'Bluetooth' },
+      ppg_camera: { cls:'ppg_camera', icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h4l2-2h4l2 2h4a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="4"/></svg>', label:'Estimasi (lama)' },
+      ppg_heart_rate: { cls:'hr_camera', icon:'<svg class="bp-heart-svg bp-heart-svg--orange" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4.5 4.5 0 0 1 7-3 4.5 4.5 0 0 1 7 3c0 5.5-7 10-7 10Z"/></svg>', label:'Detak Jantung' }
     };
     return map[src] || map.manual;
   }
@@ -9310,16 +9708,16 @@ function aktivShowToast(msg) {
 // removed 2026-04-23 during photoreal avatar refactor. Pre-refactor version
 // preserved in git history. Do NOT re-add without updating MEDITASI_LIST.
 var MEDITASI_LIST = [
-  { id:'nafas',         nama:'Meditasi Nafas',    deskripsi:'Tenangkan pikiran dengan fokus pada nafas',       durasi:10, avatar:'avatars/nafas.png',         icon:'🌬️', audio:{ type:'breathing',             label:'Pola nafas lembut & angin' } },
-  { id:'cinta_kasih',   nama:'Cinta Kasih',       deskripsi:'Metta meditation untuk hati yang hangat',         durasi:15, avatar:'avatars/cinta_kasih.png',   icon:'💗',       audio:{ type:'bowl', freq:528,        label:'Singing bowl hangat 528 Hz' } },
-  { id:'fokus',         nama:'Fokus',             deskripsi:'Pertajam konsentrasi dan kejernihan mental',      durasi:10, avatar:'avatars/fokus.png',         icon:'🎯',       audio:{ type:'silence',              label:'Keheningan & kicau burung' } },
-  { id:'mantra',        nama:'Mantra',            deskripsi:'Repetisi suci untuk ketenangan jiwa',             durasi:20, avatar:'avatars/mantra.png',        icon:'📿',       audio:{ type:'mantra', freq:432,      label:'Chant mantra 432 Hz' } },
-  { id:'syukur',        nama:'Syukur',            deskripsi:'Ungkap rasa terima kasih dari dalam hati',        durasi:10, avatar:'avatars/syukur.png',        icon:'🙏',       audio:{ type:'choir',                label:'Pad choir hangat' } },
-  { id:'visualisasi',   nama:'Visualisasi',       deskripsi:'Bayangkan ketenangan di pikiran kamu',            durasi:15, avatar:'avatars/visualisasi.png',   icon:'✨',             audio:{ type:'crystal',              label:'Drone 528 Hz & kristal shimmer' } },
-  { id:'pereda_stres',  nama:'Pereda Stres',      deskripsi:'Lepaskan tekanan, temukan ketenangan',            durasi:12, avatar:'avatars/pereda_stres.png',  icon:'🌊',       audio:{ type:'ocean',                label:'Ombak laut dalam' } },
-  { id:'body_scan',     nama:'Body Scan',         deskripsi:'Pemindaian tubuh dari kepala sampai kaki',        durasi:20, avatar:'avatars/body_scan.png',     icon:'🧘',       audio:{ type:'chakra',               label:'Tone chakra dalam' } },
-  { id:'berjalan',      nama:'Meditasi Berjalan', deskripsi:'Mindful walking, satu langkah di setiap nafas',   durasi:15, avatar:'avatars/berjalan.png',      icon:'🚶',       audio:{ type:'stream',               label:'Sungai mengalir & seruling bambu' } },
-  { id:'tidur_nyenyak', nama:'Tidur Nyenyak',     deskripsi:'Yoga nidra untuk istirahat yang dalam',           durasi:25, avatar:'avatars/tidur_nyenyak.png', icon:'🌙',       audio:{ type:'rain',                 label:'Hujan lembut & guntur jauh' } }
+  { id:'nafas',         nama:'Meditasi Nafas',    deskripsi:'Tenangkan pikiran dengan fokus pada nafas',       durasi:10, avatar:'avatars/nafas.png',         icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h11a3 3 0 0 0 0-6"/><path d="M3 12h15a3 3 0 0 1 0 6"/><path d="M3 16h6"/></svg>', audio:{ type:'breathing',             label:'Pola nafas lembut & angin' } },
+  { id:'cinta_kasih',   nama:'Cinta Kasih',       deskripsi:'Metta meditation untuk hati yang hangat',         durasi:15, avatar:'avatars/cinta_kasih.png',   icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10Z"/><path d="M3 5l1.5 1.5M21 5l-1.5 1.5"/></svg>',       audio:{ type:'bowl', freq:528,        label:'Singing bowl hangat 528 Hz' } },
+  { id:'fokus',         nama:'Fokus',             deskripsi:'Pertajam konsentrasi dan kejernihan mental',      durasi:10, avatar:'avatars/fokus.png',         icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>',       audio:{ type:'silence',              label:'Keheningan & kicau burung' } },
+  { id:'mantra',        nama:'Mantra',            deskripsi:'Repetisi suci untuk ketenangan jiwa',             durasi:20, avatar:'avatars/mantra.png',        icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8c0 4 3 7 7 7s7-3 7-7"/><circle cx="6" cy="9" r="1.6"/><circle cx="9.5" cy="13" r="1.6"/><circle cx="14.5" cy="13" r="1.6"/><circle cx="18" cy="9" r="1.6"/></svg>',       audio:{ type:'mantra', freq:432,      label:'Chant mantra 432 Hz' } },
+  { id:'syukur',        nama:'Syukur',            deskripsi:'Ungkap rasa terima kasih dari dalam hati',        durasi:10, avatar:'avatars/syukur.png',        icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16"/><path d="M12 4c-1 2-3 5-5 7-1 1-2 2-2 3.5 0 1.5 1 2.5 2.5 2.5H12"/><path d="M12 4c1 2 3 5 5 7 1 1 2 2 2 3.5 0 1.5-1 2.5-2.5 2.5H12"/></svg>',       audio:{ type:'choir',                label:'Pad choir hangat' } },
+  { id:'visualisasi',   nama:'Visualisasi',       deskripsi:'Bayangkan ketenangan di pikiran kamu',            durasi:15, avatar:'avatars/visualisasi.png',   icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12c2-4 6-6 10-6s8 2 10 6c-2 4-6 6-10 6S4 16 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>',             audio:{ type:'crystal',              label:'Drone 528 Hz & kristal shimmer' } },
+  { id:'pereda_stres',  nama:'Pereda Stres',      deskripsi:'Lepaskan tekanan, temukan ketenangan',            durasi:12, avatar:'avatars/pereda_stres.png',  icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 20c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>',       audio:{ type:'ocean',                label:'Ombak laut dalam' } },
+  { id:'body_scan',     nama:'Body Scan',         deskripsi:'Pemindaian tubuh dari kepala sampai kaki',        durasi:20, avatar:'avatars/body_scan.png',     icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.2"/><path d="M9 21v-7H7l1.5-5h7L17 14h-2v7"/><path d="M3 12h18" opacity="0.55"/></svg>',       audio:{ type:'chakra',               label:'Tone chakra dalam' } },
+  { id:'berjalan',      nama:'Meditasi Berjalan', deskripsi:'Mindful walking, satu langkah di setiap nafas',   durasi:15, avatar:'avatars/berjalan.png',      icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="13" cy="4.5" r="2"/><path d="M9 11l3-3 3 4 3 1.5"/><path d="M12 9l-2 4 4 3-1 5"/><path d="M9 21l2-3"/></svg>',       audio:{ type:'stream',               label:'Sungai mengalir & seruling bambu' } },
+  { id:'tidur_nyenyak', nama:'Tidur Nyenyak',     deskripsi:'Yoga nidra untuk istirahat yang dalam',           durasi:25, avatar:'avatars/tidur_nyenyak.png', icon:'<svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14a8 8 0 1 1-9-9 6 6 0 0 0 9 9Z"/><path d="M14 5h4l-4 5h4" opacity="0.6"/></svg>',       audio:{ type:'rain',                 label:'Hujan lembut & guntur jauh' } }
 ];
 
 // ===== RICH CONTENT (educational per-meditation detail — 2026-04-23) =====
@@ -10221,13 +10619,13 @@ function _meditFindById(id){
 
 // Ordered layout for the 7 collapsible sections. Default: first one open.
 var _meditKontenSchema = [
-  { key:'arti',        icon:'📖', label:'Arti' },
-  { key:'sejarah',     icon:'🌿', label:'Sejarah & Tradisi' },
-  { key:'cara_kerja',  icon:'⚡', label:'Cara Kerja' },
-  { key:'fungsi',      icon:'🎯', label:'Fungsi' },
-  { key:'manfaat',     icon:'💚', label:'Manfaat' },
-  { key:'variasi',     icon:'🔄', label:'Variasi Teknik' },
-  { key:'cocok_untuk', icon:'👤', label:'Cocok Untuk' }
+  { key:'arti',        icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5a1 1 0 0 1 1-1h6a3 3 0 0 1 2 1 3 3 0 0 1 2-1h6a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a2 2 0 0 0-2 1 2 2 0 0 0-2-1H4a1 1 0 0 1-1-1Z"/><path d="M12 5v14"/></svg>', label:'Arti' },
+  { key:'sejarah',     icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c0-7 4-14 14-14 0 9-5 14-14 14Z"/><path d="M5 19l8-8" opacity="0.55"/></svg>', label:'Sejarah & Tradisi' },
+  { key:'cara_kerja',  icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>', label:'Cara Kerja' },
+  { key:'fungsi',      icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>', label:'Fungsi' },
+  { key:'manfaat',     icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10Z"/></svg>', label:'Manfaat' },
+  { key:'variasi',     icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3.4-7"/><path d="M21 4v5h-5"/></svg>', label:'Variasi Teknik' },
+  { key:'cocok_untuk', icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/></svg>', label:'Cocok Untuk' }
 ];
 
 function _meditChevronSvg(){
@@ -10636,10 +11034,10 @@ window.meditToggleSection = meditToggleSection;
   window.welvraSwitchTab = function(btn, tab){
     btn.classList.add('tap-spring');
     setTimeout(function(){ btn.classList.remove('tap-spring'); }, 320);
-    if (tab === 'toko') { window.showWelvraToast('Toko Welvra segera hadir ✨'); return; }
+    if (tab === 'toko') { window.showWelvraToast('Toko Welvra segera hadir'); return; }
     if (tab === 'wisdom') {
       if (window.openWisdomPanel) { window.openWisdomPanel(btn); return; }
-      window.showWelvraToast('Wisdom segera hadir ✨');
+      window.showWelvraToast('Wisdom segera hadir');
       return;
     }
     document.querySelectorAll('.nav-tab').forEach(function(t){
