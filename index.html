@@ -856,7 +856,6 @@ font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;white-space:nowrap}
 .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:200;
 background:rgba(0,0,0,0.30);
 opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease,backdrop-filter .35s ease}
-.modal-overlay.open{-webkit-backdrop-filter:blur(8px) saturate(1.2);backdrop-filter:blur(8px) saturate(1.2)}
 html.dark .modal-overlay{background:rgba(0,0,0,.55)}
 .modal-overlay.open{opacity:1;visibility:visible}
 .modal-panel{position:fixed;top:50%;left:50%;z-index:201;width:calc(100% - 32px);max-width:480px;margin:0;box-sizing:border-box;
@@ -4181,7 +4180,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: FOTO GEJALA -->
 <div class="modal-overlay" id="overlay-foto" onclick="closeModal('foto')"></div>
-<div class="modal-panel welvra-glass-modal" id="modal-foto" role="dialog" aria-modal="true" aria-label="Periksa Gejala">
+<div class="modal-panel welvra-glass-strong" id="modal-foto" role="dialog" aria-modal="true" aria-label="Periksa Gejala">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Periksa Gejala</h2><button class="modal-close" onclick="closeModal('foto')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <div class="upload-area" id="upload-foto" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event,'foto')">
@@ -4200,7 +4199,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: HASIL LAB -->
 <div class="modal-overlay" id="overlay-lab" onclick="closeModal('lab')"></div>
-<div class="modal-panel welvra-glass-modal" id="modal-lab" role="dialog" aria-modal="true" aria-label="Baca Hasil Lab">
+<div class="modal-panel welvra-glass-strong" id="modal-lab" role="dialog" aria-modal="true" aria-label="Baca Hasil Lab">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Baca Hasil Lab</h2><button class="modal-close" onclick="closeModal('lab')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <div class="lab-options" id="upload-lab">
@@ -4247,7 +4246,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: CHAT -->
 <div class="modal-overlay" id="overlay-chat" onclick="closeModal('chat')"></div>
-<div class="modal-panel welvra-glass-modal" id="modal-chat" role="dialog" aria-modal="true" aria-label="Tanya Dr. Sly">
+<div class="modal-panel welvra-glass-strong" id="modal-chat" role="dialog" aria-modal="true" aria-label="Tanya Dr. Sly">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Konsultasi Gejala</h2><button class="modal-close" onclick="closeModal('chat')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <!-- Custom chat header -->
@@ -4278,7 +4277,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: CEK TENSI ANDA -->
 <div class="modal-overlay" id="overlay-tensi" onclick="closeModal('tensi')"></div>
-<div class="modal-panel welvra-glass-modal" id="modal-tensi" role="dialog" aria-modal="true" aria-label="Cek Tensi Anda">
+<div class="modal-panel welvra-glass-strong" id="modal-tensi" role="dialog" aria-modal="true" aria-label="Cek Tensi Anda">
   <div class="modal-handle"></div>
   <div class="bp-hero">
     <div class="bp-hero-row">
@@ -4571,7 +4570,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: ANALISA MAKANKU -->
 <div class="modal-overlay" id="overlay-makan" onclick="closeModal('makan')"></div>
-<div class="modal-panel welvra-glass-modal" id="modal-makan" role="dialog" aria-modal="true" aria-label="Analisa Makanku">
+<div class="modal-panel welvra-glass-strong" id="modal-makan" role="dialog" aria-modal="true" aria-label="Analisa Makanku">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Analisa Makanku</h2><button class="modal-close" onclick="closeModal('makan')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <div class="makan-tabs">
@@ -4742,7 +4741,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: HISTORY -->
 <div class="modal-overlay" id="overlay-history" onclick="closeModal('history')"></div>
-<div class="modal-panel welvra-glass-modal" id="modal-history" role="dialog" aria-modal="true" aria-label="Riwayat Konsultasi">
+<div class="modal-panel welvra-glass-strong" id="modal-history" role="dialog" aria-modal="true" aria-label="Riwayat Konsultasi">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Riwayat Konsultasi</h2><button class="modal-close" onclick="closeModal('history')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <div id="history-list"></div>
@@ -4750,7 +4749,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: FEEDBACK -->
 <div class="modal-overlay" id="overlay-feedback" onclick="closeModal('feedback')"></div>
-<div class="modal-panel welvra-glass-modal" id="modal-feedback" role="dialog" aria-modal="true" aria-label="Beri Masukan">
+<div class="modal-panel welvra-glass-strong" id="modal-feedback" role="dialog" aria-modal="true" aria-label="Beri Masukan">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Beri Masukan</h2><button class="modal-close" onclick="closeModal('feedback')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <p style="font-size:.85rem;color:var(--text-light);margin-bottom:16px;text-align:center">Pendapat kamu sangat berarti untuk Welvra!</p>
@@ -4765,7 +4764,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: REMINDER -->
 <div class="modal-overlay" id="overlay-reminder" onclick="closeModal('reminder')"></div>
-<div class="modal-panel welvra-glass-modal" id="modal-reminder" role="dialog" aria-modal="true" aria-label="Notifikasi Pengingat">
+<div class="modal-panel welvra-glass-strong" id="modal-reminder" role="dialog" aria-modal="true" aria-label="Notifikasi Pengingat">
   <div class="modal-handle"></div>
   <div class="modal-header"><h2>Notifikasi</h2><button class="modal-close" onclick="closeModal('reminder')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <div class="toggle-row"><span>Aktifkan Pengingat Kesehatan</span><div class="toggle" id="reminder-master-toggle" onclick="toggleReminderMaster()"></div></div>
@@ -4787,7 +4786,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 
 <!-- MODAL: MEDITASI -->
 <div class="modal-overlay" id="overlay-medit" onclick="closeMeditasiModal()"></div>
-<div class="modal-panel welvra-glass-modal welvra-glass-modal--full" id="modal-medit" role="dialog" aria-modal="true" aria-label="Meditasi">
+<div class="modal-panel welvra-glass-strong welvra-glass-modal--full" id="modal-medit" role="dialog" aria-modal="true" aria-label="Meditasi">
   <!-- Gallery view -->
   <div id="medit-gallery-view">
     <div class="medit-header">
@@ -4813,7 +4812,7 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
 </div>
 
 <!-- ONBOARDING -->
-<div class="onboard-overlay welvra-glass-modal welvra-glass-modal--gold" id="onboard-modal" role="dialog" aria-modal="true" aria-label="Selamat Datang di Welvra">
+<div class="onboard-overlay welvra-glass-strong welvra-glass-modal--gold" id="onboard-modal" role="dialog" aria-modal="true" aria-label="Selamat Datang di Welvra">
   <div class="onboard-box">
     <div class="onboard-logo"><svg viewBox="0 0 56 56" fill="none"><path d="M28 8c-5 0-9 4-10 8-.5 2 0 5 1 7" stroke="#0A7B6C" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".4"/><path d="M28 8c5 0 9 4 10 8 .5 2 0 5-1 7" stroke="#0A7B6C" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".4"/><path d="M28 12C23 12 20 16 20 20c0 6 8 14 8 14s8-8 8-14c0-4-3-8-8-8z" fill="rgba(10,123,108,0.08)" stroke="#0A7B6C" stroke-width="1.5"/><path d="M18 22l3 0 1.5-3.5 2.5 8 2.5-5 1.5 1.5 3-.5" stroke="#0A7B6C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     <h3>Hei! Sebelum mulai, boleh kenalan dulu?</h3>
@@ -7310,7 +7309,7 @@ function startMensSubtag() {
 
 function buildMensModal() {
   var html = '' +
-    '<div id="mens-modal" class="welvra-glass-modal welvra-glass-modal--full" role="dialog" aria-modal="true" aria-label="Siklus Menstruasi">' +
+    '<div id="mens-modal" class="welvra-glass-strong welvra-glass-modal--full" role="dialog" aria-modal="true" aria-label="Siklus Menstruasi">' +
       '<div class="mens-header">' +
         '<button class="mens-icon-btn" onclick="closeMensModal()" aria-label="Kembali">&#8592;</button>' +
         '<div style="flex:1;text-align:center;">' +
@@ -8595,7 +8594,7 @@ function startAktivSubtag() {
 
 function buildAktivitasModal() {
   var html =
-    '<div id="aktivitas-modal" class="welvra-glass-modal welvra-glass-modal--full" role="dialog" aria-modal="true" aria-label="TrackFit Aktivitas Langkah">' +
+    '<div id="aktivitas-modal" class="welvra-glass-strong welvra-glass-modal--full" role="dialog" aria-modal="true" aria-label="TrackFit Aktivitas Langkah">' +
       '<div class="aktiv-orb o1"></div><div class="aktiv-orb o2"></div><div class="aktiv-orb o3"></div>' +
       '<div class="aktiv-header">' +
         '<button class="aktiv-icon-btn" onclick="closeAktivitasModal()">&#8592;</button>' +
