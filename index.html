@@ -3892,6 +3892,44 @@ html.dark .wisdom-card-title{color:#E8E2D0}
 }
 .wisdom-cards-grid .wisdom-card{width:100%;scroll-snap-align:none}
 
+/* ----- Welvra Image System (Phase 2C-C) ----- */
+.welvra-img{position:relative;overflow:hidden;margin:0;border-radius:12px}
+.welvra-img--hero{aspect-ratio:16/9}
+.welvra-img--thumbnail{aspect-ratio:1/1}
+.welvra-img--inline{aspect-ratio:16/9;width:100%}
+.welvra-img--avatar{aspect-ratio:1/1;border-radius:50%;width:40px;height:40px}
+.welvra-img--avatar.size-32{width:32px;height:32px}
+.welvra-img--avatar.size-48{width:48px;height:48px}
+.welvra-img--avatar.size-64{width:64px;height:64px}
+@supports not (aspect-ratio:1/1){
+  .welvra-img--hero{padding-bottom:56.25%}
+  .welvra-img--thumbnail{padding-bottom:100%}
+  .welvra-img--inline{padding-bottom:56.25%}
+}
+.welvra-img__photo{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity 600ms cubic-bezier(.16,1,.3,1);
+}
+.welvra-img__photo.loaded,.welvra-img__photo[src]:not([data-welvra-lazy]){opacity:1}
+.welvra-img__overlay{position:absolute;inset:0;pointer-events:none;z-index:1}
+.welvra-img__overlay--gradient-bottom{background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.08) 50%,transparent 100%)}
+.welvra-img__overlay--tint-teal{background:rgba(10,123,108,.08);mix-blend-mode:multiply}
+.welvra-img__overlay--tint-sage{background:rgba(107,158,120,.08);mix-blend-mode:multiply}
+html.dark .welvra-img__overlay--tint-teal,html.dark .welvra-img__overlay--tint-sage{mix-blend-mode:screen}
+.welvra-img__credit{
+  position:absolute;bottom:6px;right:8px;z-index:2;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;
+  color:rgba(255,255,255,.75);text-decoration:none;
+  text-shadow:0 1px 3px rgba(0,0,0,.5);
+  padding:4px 8px;min-height:44px;min-width:44px;
+  display:flex;align-items:flex-end;justify-content:flex-end;
+  transition:color 200ms ease;
+}
+.welvra-img__credit:hover{color:#fff}
+@media (prefers-reduced-motion:reduce){
+  .welvra-img__photo{transition:none;opacity:1}
+}
+
 /* ----- Hero gradient overlay ----- */
 .wisdom-card-gradient{
   position:absolute;inset:0;
@@ -11825,6 +11863,41 @@ window.meditToggleSection = meditToggleSection;
     return related;
   }
 
+  // ===== WELVRA IMAGE RENDERER =====
+  function renderWelvraImage(asset, options) {
+    if (!asset || !asset.url) return '';
+    var opts = options || {};
+    var variant = opts.variant || 'hero';
+    var lazy = opts.lazy !== false;
+    var overlay = opts.overlay || 'none';
+    var showCredit = opts.showCredit !== undefined ? opts.showCredit : (variant === 'hero');
+    var priority = opts.priority || 'low';
+
+    var cls = 'welvra-img welvra-img--' + variant;
+    var imgAttrs = ' alt="' + escHtml(asset.alt || '') + '" decoding="async"';
+    if (priority === 'high') {
+      imgAttrs += ' fetchpriority="high" src="' + escHtml(asset.url) + '"';
+    } else if (lazy) {
+      imgAttrs += ' loading="lazy" data-welvra-lazy data-src="' + escHtml(asset.url) + '"';
+    } else {
+      imgAttrs += ' src="' + escHtml(asset.url) + '"';
+    }
+
+    var html = '<figure class="' + cls + '" style="background:' + (asset.dominantColor || '#E8E0D0') + '">';
+    html += '<img class="welvra-img__photo"' + imgAttrs + '>';
+    if (overlay !== 'none') {
+      html += '<div class="welvra-img__overlay welvra-img__overlay--' + overlay + '" aria-hidden="true"></div>';
+    }
+    if (showCredit && asset.credit && asset.credit.photographer) {
+      html += '<a class="welvra-img__credit" href="' + escHtml(asset.credit.sourceUrl || 'https://unsplash.com') + '"'
+        + ' target="_blank" rel="noopener noreferrer"'
+        + ' aria-label="Foto oleh ' + escHtml(asset.credit.photographer) + ' di Unsplash">'
+        + escHtml(asset.credit.photographer) + '</a>';
+    }
+    html += '</figure>';
+    return html;
+  }
+
   // ===== CONTENT BLOCK RENDERER =====
   function renderContentBlock(block) {
     if (!block || !block.type) return '';
@@ -11950,6 +12023,10 @@ window.meditToggleSection = meditToggleSection;
 
   function observeWisdomImages(){
     document.querySelectorAll('.wisdom-card-image[data-src]:not(.loaded):not(.error)').forEach(function(img){
+      wisdomImageObserver.observe(img);
+    });
+    // Also observe welvra-img system photos
+    document.querySelectorAll('.welvra-img__photo[data-welvra-lazy]:not(.loaded)').forEach(function(img){
       wisdomImageObserver.observe(img);
     });
   }
