@@ -4108,6 +4108,9 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
   .wisdom-card{transition:none}
   .wisdom-card-image{transition:none}
   .wisdom-card-bookmark{transition:none}
+  .welvra-img__photo{transition:none;opacity:1}
+  .wisdom-card--horizontal:hover{transform:none}
+  .wisdom-card--list:hover{transform:none}
 }
 
 </style>
@@ -11431,6 +11434,13 @@ window.meditToggleSection = meditToggleSection;
 <!-- =========================================================== -->
 <script>
 (function(){
+  var welvraWisdomState = {
+    isOpen: false,
+    activeCategory: 'discover',
+    searchQuery: '',
+    previousActiveTab: null
+  };
+
   // ===== PHASE 2C: WISDOM HUB CONTENT =====
   // Canonical Phase 2B category slugs:
   // discover, all, saved, kesehatan-umum, kesehatan-reproduksi, kehamilan,
@@ -12421,9 +12431,18 @@ window.meditToggleSection = meditToggleSection;
 
     if (empty) empty.hidden = true;
     content.hidden = false;
-    content.innerHTML = '<section class="wisdom-section"><div class="wisdom-cards-grid">'
-      + articles.map(function(a){ return renderArticleCard(a); }).join('')
-      + '</div></section>';
+    // Use horizontal cards for search results, grid for category/all/saved
+    if (query) {
+      content.innerHTML = '<section class="wisdom-section"><div class="wisdom-section-header"><div>'
+        + '<h2 class="wisdom-section-title">Hasil Pencarian</h2></div></div>'
+        + '<div class="wisdom-trending-stack">'
+        + articles.map(function(a){ return renderArticleCard(a, 'wisdom-card--horizontal'); }).join('')
+        + '</div></section>';
+    } else {
+      content.innerHTML = '<section class="wisdom-section"><div class="wisdom-cards-grid">'
+        + articles.map(function(a){ return renderArticleCard(a); }).join('')
+        + '</div></section>';
+    }
     observeWisdomImages();
     initWisdomEventDelegation();
   }
