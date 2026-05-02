@@ -4094,6 +4094,92 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
   font-size:14px;color:var(--txt-secondary);margin:0;
 }
 
+/* ===== PHASE 2D: HEADER COLLAPSE ===== */
+.wisdom-hero{
+  transition:transform 320ms cubic-bezier(.16,1,.3,1),opacity 240ms ease,max-height 320ms cubic-bezier(.16,1,.3,1),margin-bottom 280ms ease;
+  transform-origin:top center;overflow:hidden;max-height:400px;will-change:transform,opacity,max-height;
+}
+.wisdom-hero.collapsed{transform:translateY(-12px);opacity:0;max-height:0;margin-bottom:0;pointer-events:none}
+.wisdom-sticky-bar{
+  position:sticky;top:0;z-index:10;background:transparent;display:flex;align-items:center;gap:8px;
+  transition:background-color 280ms ease,box-shadow 280ms ease;padding:0;
+}
+.wisdom-sticky-bar .wisdom-pills{flex:1;min-width:0}
+.wisdom-sticky-bar.elevated{
+  background:rgba(250,250,247,.92);-webkit-backdrop-filter:blur(20px) saturate(140%);backdrop-filter:blur(20px) saturate(140%);
+  box-shadow:0 4px 20px rgba(0,0,0,.06);
+}
+html.dark .wisdom-sticky-bar.elevated{background:rgba(20,20,18,.85);box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.wisdom-sticky-search-icon{
+  width:36px;height:36px;min-width:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(200,134,10,.08);color:var(--teal);border:none;cursor:pointer;flex-shrink:0;
+  opacity:0;transform:scale(.8);transition:opacity 240ms,transform 240ms;pointer-events:none;margin-right:12px;
+}
+.wisdom-sticky-bar.elevated .wisdom-sticky-search-icon{opacity:1;transform:scale(1);pointer-events:auto}
+html.dark .wisdom-sticky-search-icon{background:rgba(200,134,10,.12);color:var(--gold)}
+
+/* Move search wrap styling into hero context */
+.wisdom-hero .wisdom-search-wrap{padding:16px 0 4px}
+
+/* ===== PHASE 2D: ARTICLE DETAIL ===== */
+.wisdom-detail{position:fixed;inset:0;z-index:960;display:none;overflow:hidden;background:#FAFAF7}
+html.dark .wisdom-detail{background:#14140F}
+html.dark .wisdom-detail-article{background:#14140F}
+.wisdom-detail[data-open="true"]{display:flex;flex-direction:column}
+.wisdom-detail-progress{position:sticky;top:0;left:0;right:0;height:3px;background:rgba(200,134,10,.12);z-index:5;flex-shrink:0}
+.wisdom-detail-progress-fill{height:100%;background:var(--gold);width:0%;transition:width 100ms linear;transform-origin:left center}
+.wisdom-detail-header{
+  position:sticky;top:3px;display:flex;justify-content:space-between;align-items:center;padding:8px 16px;
+  background:rgba(250,250,247,.88);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);z-index:4;min-height:52px;flex-shrink:0;
+}
+html.dark .wisdom-detail-header{background:rgba(20,20,18,.8)}
+.wisdom-detail-close,.wisdom-detail-bookmark{
+  width:44px;height:44px;border-radius:50%;border:none;background:rgba(200,134,10,.08);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:var(--teal);transition:background 200ms,transform 150ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.wisdom-detail-close:active,.wisdom-detail-bookmark:active{transform:scale(.92)}
+.wisdom-detail-bookmark[aria-pressed="true"]{background:linear-gradient(135deg,var(--gold),#8B5E06);color:white}
+html.dark .wisdom-detail-close,html.dark .wisdom-detail-bookmark{background:rgba(200,134,10,.1);color:var(--gold)}
+.wisdom-detail-article{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;background:#FAFAF7}
+.wisdom-detail-hero{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#E8E0D0}
+.wisdom-detail-hero-img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 600ms ease}
+.wisdom-detail-hero-img.loaded{opacity:1}
+.wisdom-detail-hero-gradient{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.18) 0%,transparent 30%,transparent 60%,rgba(0,0,0,.55) 100%);pointer-events:none}
+.wisdom-detail-hero-credit{position:absolute;bottom:8px;right:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:rgba(255,255,255,.85);text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.wisdom-detail-meta{padding:24px 24px 16px}
+.wisdom-detail-category{display:inline-block;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--sage);margin-bottom:12px}
+.wisdom-detail-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;line-height:1.2;color:var(--teal);margin:0 0 12px;letter-spacing:-.3px}
+html.dark .wisdom-detail-title{color:#F0EDE8}
+.wisdom-detail-excerpt{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;line-height:1.6;color:var(--txt-secondary);margin:0 0 20px}
+html.dark .wisdom-detail-excerpt{color:rgba(240,237,232,.7)}
+.wisdom-detail-byline{display:flex;align-items:center;gap:12px;padding:16px 0;border-top:1px solid rgba(200,134,10,.1);border-bottom:1px solid rgba(200,134,10,.1)}
+.wisdom-detail-author-avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;background:var(--sage)}
+.wisdom-detail-byline-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.wisdom-detail-author-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;color:var(--teal)}
+html.dark .wisdom-detail-author-name{color:#F0EDE8}
+.wisdom-detail-author-role{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--sage)}
+.wisdom-detail-reading-time{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--txt-secondary);white-space:nowrap}
+.wisdom-detail-body{padding:24px 24px 40px}
+.wisdom-detail-source{padding:16px 24px;margin:0 24px 24px;background:rgba(107,158,120,.06);border-radius:8px}
+.wisdom-detail-source p{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--sage);margin:0;line-height:1.5;font-style:italic}
+.wisdom-detail-related{padding:24px;border-top:1px solid rgba(200,134,10,.1);margin-top:24px}
+.wisdom-detail-related-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--teal);margin:0 0 16px;letter-spacing:-.2px}
+html.dark .wisdom-detail-related-title{color:#F0EDE8}
+.wisdom-detail-related-list{display:flex;flex-direction:column;gap:12px;padding-bottom:100px}
+.wisdom-detail-consult-cta{
+  position:fixed;bottom:20px;right:20px;z-index:970;padding:12px 20px;border-radius:999px;border:none;
+  background:linear-gradient(135deg,var(--gold),#8B5E06);color:white;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;display:none;align-items:center;gap:8px;
+  box-shadow:0 8px 24px rgba(200,134,10,.35),0 2px 6px rgba(0,0,0,.1);
+  transition:transform 300ms cubic-bezier(.34,1.56,.64,1),opacity 200ms ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.wisdom-detail[data-open="true"] .wisdom-detail-consult-cta{display:flex}
+.wisdom-detail-consult-cta.cta-visible{transform:scale(1) translateY(0);opacity:1}
+.wisdom-detail-consult-cta.cta-hidden{transform:translateY(120%);opacity:0}
+.wisdom-detail-consult-cta:active{transform:scale(.95)}
+
 /* ----- Reduced motion ----- */
 @media (prefers-reduced-motion:reduce){
   .wisdom-panel{transition:none}
@@ -4111,6 +4197,8 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
   .welvra-img__photo{transition:none;opacity:1}
   .wisdom-card--horizontal:hover{transform:none}
   .wisdom-card--list:hover{transform:none}
+  .wisdom-hero,.wisdom-sticky-bar,.wisdom-sticky-search-icon{transition:none}
+  .wisdom-detail,.wisdom-detail-consult-cta,.wisdom-detail-progress-fill,.wisdom-detail-hero-img{transition:none}
 }
 
 </style>
@@ -5270,31 +5358,39 @@ html.dark .wisdom-empty-title{color:#F0EDE8}
           <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round"/>
         </svg>
       </button>
-      <div class="wisdom-eyebrow">&#9670; Wisdom &#9670;</div>
-      <h1 id="wisdomTitle" class="wisdom-title">Petik kebijaksanaan</h1>
-      <p class="wisdom-subtitle">Inspirasi kesehatan, setiap hari</p>
-      <div class="wisdom-counter" id="wisdomCounter">
-        <span class="wisdom-counter-num" id="wisdomCounterNum">100</span>
-        <span class="wisdom-counter-label" id="wisdomCounterLabel">Artikel</span>
+      <div class="wisdom-hero" id="wisdomHero">
+        <div class="wisdom-eyebrow">&#9670; Wisdom &#9670;</div>
+        <h1 id="wisdomTitle" class="wisdom-title">Petik kebijaksanaan</h1>
+        <p class="wisdom-subtitle">Inspirasi kesehatan, setiap hari</p>
+        <div class="wisdom-counter" id="wisdomCounter">
+          <span class="wisdom-counter-num" id="wisdomCounterNum">100</span>
+          <span class="wisdom-counter-label" id="wisdomCounterLabel">Artikel</span>
+        </div>
+        <div class="wisdom-search-wrap">
+          <div class="wisdom-search">
+            <svg class="wisdom-search-icon" viewBox="0 0 24 24" width="18" height="18"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <input type="search" class="wisdom-search-input" id="wisdomSearch"
+                   placeholder="Cari artikel kesehatan..."
+                   aria-label="Cari artikel kesehatan" autocomplete="off"
+                   aria-controls="wisdomContent"/>
+          </div>
+        </div>
       </div>
     </header>
 
-    <div class="wisdom-search-wrap">
-      <div class="wisdom-search">
-        <svg class="wisdom-search-icon" viewBox="0 0 24 24" width="18" height="18"
-             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+    <div class="wisdom-sticky-bar" id="wisdomStickyBar">
+      <nav class="wisdom-pills" aria-label="Kategori artikel">
+        <div class="wisdom-pills-track" id="wisdomPillsTrack" role="tablist"></div>
+      </nav>
+      <button class="wisdom-sticky-search-icon" id="wisdomStickySearch" type="button" aria-label="Cari artikel">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
           <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
         </svg>
-        <input type="search" class="wisdom-search-input" id="wisdomSearch"
-               placeholder="Cari artikel kesehatan..."
-               aria-label="Cari artikel kesehatan" autocomplete="off"
-               aria-controls="wisdomContent"/>
-      </div>
+      </button>
     </div>
-
-    <nav class="wisdom-pills" aria-label="Kategori artikel">
-      <div class="wisdom-pills-track" id="wisdomPillsTrack" role="tablist"></div>
-    </nav>
 
     <div class="wisdom-content" id="wisdomContent" aria-live="polite"></div>
 
@@ -12411,12 +12507,12 @@ window.meditToggleSection = meditToggleSection;
         return;
       }
       var card = e.target.closest('.wisdom-card');
-      if (card){
+      if (card && !e.target.closest('.wisdom-card-bookmark')){
         var artId = card.dataset.articleId;
-        var article = getArticleById(artId);
-        recordReadHistory(artId);
-        // PHASE 2D: replace with detail view navigation
-        console.log('[Welvra] Article opened:', article || artId);
+        if (artId) {
+          detailState.lastFocusedBeforeOpen = card;
+          openWisdomDetail(artId);
+        }
       }
     });
     root.addEventListener('keydown', function(e){
@@ -12712,6 +12808,386 @@ window.meditToggleSection = meditToggleSection;
     });
   }
 
+  // ===== PHASE 2D: HEADER COLLAPSE + ARTICLE DETAIL + DR. SLY CONSULT =====
+  // Dr. Sly chat opens via openModal('chat'), located at line ~5644
+  // Chat input: id="chat-input"
+
+  // --- Detail state ---
+  var detailState = {
+    isOpen: false,
+    currentArticleId: null,
+    scrollDepth: 0,
+    scrollDepthTimer: null,
+    lastFocusedBeforeOpen: null,
+    consultCtaLastY: 0,
+    detailDomBuilt: false,
+    historyPushed: false
+  };
+
+  // --- Header collapse ---
+  function setupHeroCollapse(){
+    var content = $('wisdomContent');
+    var hero = $('wisdomHero');
+    var stickyBar = $('wisdomStickyBar');
+    if (!content || !hero || !stickyBar) return;
+    var collapsed = false;
+    var ticking = false;
+    function update(){
+      var y = content.scrollTop;
+      if (!collapsed && y > 64){
+        hero.classList.add('collapsed');
+        stickyBar.classList.add('elevated');
+        collapsed = true;
+      } else if (collapsed && y <= 32){
+        hero.classList.remove('collapsed');
+        stickyBar.classList.remove('elevated');
+        collapsed = false;
+      }
+      ticking = false;
+    }
+    content.addEventListener('scroll', function(){
+      if (!ticking){ requestAnimationFrame(update); ticking = true; }
+    }, {passive:true});
+  }
+
+  function bindStickySearchIcon(){
+    var btn = $('wisdomStickySearch');
+    var content = $('wisdomContent');
+    var searchInput = $('wisdomSearch');
+    if (!btn || !content || !searchInput) return;
+    btn.addEventListener('click', function(){
+      content.scrollTo({top:0,behavior:'smooth'});
+      setTimeout(function(){ searchInput.focus(); }, 360);
+    });
+  }
+
+  // --- Detail DOM builder ---
+  function ensureDetailDom(){
+    if (detailState.detailDomBuilt) return;
+    var el = document.createElement('div');
+    el.className = 'wisdom-detail';
+    el.id = 'wisdomDetail';
+    el.setAttribute('role','dialog');
+    el.setAttribute('aria-modal','true');
+    el.setAttribute('aria-labelledby','wisdomDetailTitle');
+    el.setAttribute('data-open','false');
+    el.innerHTML = '<div class="wisdom-detail-progress" aria-hidden="true"><div class="wisdom-detail-progress-fill" id="wisdomDetailProgressFill"></div></div>'
+      + '<header class="wisdom-detail-header">'
+        + '<button class="wisdom-detail-close" id="wisdomDetailClose" type="button" aria-label="Tutup bacaan">'
+          + '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>'
+        + '</button>'
+        + '<button class="wisdom-detail-bookmark" id="wisdomDetailBookmark" type="button" aria-pressed="false" aria-label="Simpan artikel">'
+          + '<svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>'
+        + '</button>'
+      + '</header>'
+      + '<article class="wisdom-detail-article" id="wisdomDetailArticle"></article>'
+      + '<button class="wisdom-detail-consult-cta" id="wisdomDetailConsultCta" type="button" aria-label="Tanyakan kepada Dr. Sly tentang bacaan ini">'
+        + '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>'
+        + '<span>Tanyakan ke Dr. Sly</span>'
+      + '</button>';
+    document.body.appendChild(el);
+    detailState.detailDomBuilt = true;
+    bindDetailEvents();
+  }
+
+  // --- Render detail content ---
+  function renderArticleDetail(article){
+    var articleEl = $('wisdomDetailArticle');
+    if (!articleEl || !article) return;
+    var author = getArticleAuthor(article);
+    var readTime = getArticleReadTime(article);
+    var imgUrl = getArticleImage(article);
+    var imgAlt = getArticleImageAlt(article);
+    var dominantColor = getArticleDominantColor(article);
+    var excerpt = getArticleExcerpt(article);
+    var catLabel = getCategoryLabel(article.category);
+    var creditHtml = '';
+    if (article.heroImage && article.heroImage.credit && article.heroImage.credit.photographer){
+      creditHtml = '<div class="wisdom-detail-hero-credit">Foto: ' + escHtml(article.heroImage.credit.photographer) + '</div>';
+    }
+    var bodyHtml = '';
+    if (article.body && article.body.length){
+      for (var i = 0; i < article.body.length; i++){
+        bodyHtml += renderContentBlock(article.body[i]);
+      }
+    }
+    var sourceHtml = '';
+    if (article.source && article.source.publication){
+      sourceHtml = '<div class="wisdom-detail-source"><p>Diadaptasi dari ' + escHtml(article.source.publication) + '. ' + escHtml(article.source.adaptedNotice || '') + '</p></div>';
+    }
+    var relatedHtml = renderArticleRelated(article.id);
+    var html = '<div class="wisdom-detail-hero" style="background:' + dominantColor + '">'
+      + '<img class="wisdom-detail-hero-img" src="' + escHtml(imgUrl) + '" alt="' + escHtml(imgAlt) + '" fetchpriority="high" onload="this.classList.add(\'loaded\')">'
+      + '<div class="wisdom-detail-hero-gradient"></div>'
+      + creditHtml
+      + '</div>'
+      + '<div class="wisdom-detail-meta">'
+        + '<span class="wisdom-detail-category">' + escHtml(catLabel) + '</span>'
+        + '<h1 id="wisdomDetailTitle" class="wisdom-detail-title">' + escHtml(article.title) + '</h1>'
+        + '<p class="wisdom-detail-excerpt">' + escHtml(excerpt) + '</p>'
+        + '<div class="wisdom-detail-byline">'
+          + '<img class="wisdom-detail-author-avatar" src="' + escHtml(author.avatarUrl || '/avatars/dr_sly.svg') + '" alt="' + escHtml(author.name) + '">'
+          + '<div class="wisdom-detail-byline-text">'
+            + '<span class="wisdom-detail-author-name">' + escHtml(author.name) + '</span>'
+            + '<span class="wisdom-detail-author-role">' + escHtml(author.role || '') + '</span>'
+          + '</div>'
+          + '<span class="wisdom-detail-reading-time">' + readTime + ' menit baca</span>'
+        + '</div>'
+      + '</div>'
+      + '<div class="wisdom-detail-body">' + bodyHtml + '</div>'
+      + sourceHtml
+      + relatedHtml;
+    articleEl.innerHTML = html;
+    articleEl.scrollTop = 0;
+    // Update bookmark button
+    var bm = $('wisdomDetailBookmark');
+    if (bm){
+      var saved = isBookmarked(article.id);
+      bm.setAttribute('aria-pressed', saved);
+      bm.setAttribute('aria-label', saved ? 'Hapus dari simpanan' : 'Simpan artikel');
+      var svg = bm.querySelector('svg');
+      if (svg) svg.setAttribute('fill', saved ? 'currentColor' : 'none');
+    }
+  }
+
+  function renderArticleRelated(articleId){
+    var related = getRelatedArticles(articleId, 3);
+    if (!related || related.length === 0) return '';
+    var cards = related.map(function(a){ return renderArticleCard(a, 'wisdom-card--horizontal'); }).join('');
+    return '<div class="wisdom-detail-related">'
+      + '<h2 class="wisdom-detail-related-title">Bacaan Terkait</h2>'
+      + '<div class="wisdom-detail-related-list">' + cards + '</div></div>';
+  }
+
+  // --- Open/Close detail ---
+  function openWisdomDetail(articleId){
+    var article = getArticleById(articleId);
+    if (!article){
+      if (typeof showToast === 'function') showToast('Bacaan tidak ditemukan');
+      return;
+    }
+    ensureDetailDom();
+    detailState.isOpen = true;
+    detailState.currentArticleId = articleId;
+    detailState.scrollDepth = 0;
+    detailState.consultCtaLastY = 0;
+    recordReadHistory(articleId);
+    renderArticleDetail(article);
+    var detail = $('wisdomDetail');
+    if (detail) detail.setAttribute('data-open','true');
+    document.body.style.overflow = 'hidden';
+    // Show consult CTA with delay
+    var cta = $('wisdomDetailConsultCta');
+    if (cta){ cta.classList.remove('cta-hidden'); setTimeout(function(){ cta.classList.add('cta-visible'); }, 280); }
+    // Push history state
+    try {
+      history.pushState({welvraDetail:articleId,slug:article.slug}, '', '#article-' + article.slug);
+      detailState.historyPushed = true;
+    } catch(e){}
+    // Setup scroll tracking
+    setupDetailScrollTracking();
+    // Focus close button
+    setTimeout(function(){
+      var closeBtn = $('wisdomDetailClose');
+      if (closeBtn) try { closeBtn.focus({preventScroll:true}); } catch(e){ closeBtn.focus(); }
+    }, 350);
+    // Observe lazy images in related section
+    setTimeout(observeWisdomImages, 400);
+    // ESC key
+    document.addEventListener('keydown', handleDetailEsc);
+  }
+
+  function closeWisdomDetail(){
+    if (!detailState.isOpen) return;
+    detailState.isOpen = false;
+    var detail = $('wisdomDetail');
+    var cta = $('wisdomDetailConsultCta');
+    if (cta){ cta.classList.remove('cta-visible'); cta.classList.add('cta-hidden'); }
+    if (detail) detail.setAttribute('data-open','false');
+    // Save final scroll depth
+    saveScrollDepth();
+    clearTimeout(detailState.scrollDepthTimer);
+    // Body scroll
+    if (!isAnyOtherModalOpen() && welvraWisdomState.isOpen){
+      document.body.style.overflow = 'hidden';
+    } else if (!isAnyOtherModalOpen()){
+      document.body.style.overflow = '';
+    }
+    // History
+    if (detailState.historyPushed){
+      detailState.historyPushed = false;
+      _detailClosing = true;
+      try { history.back(); } catch(e){}
+      setTimeout(function(){ _detailClosing = false; }, 100);
+    }
+    // Restore focus
+    if (detailState.lastFocusedBeforeOpen && typeof detailState.lastFocusedBeforeOpen.focus === 'function'){
+      try { detailState.lastFocusedBeforeOpen.focus({preventScroll:true}); } catch(e){}
+    }
+    detailState.currentArticleId = null;
+    document.removeEventListener('keydown', handleDetailEsc);
+  }
+
+  function handleDetailEsc(e){
+    if (e.key === 'Escape' && detailState.isOpen){
+      e.preventDefault();
+      e.stopPropagation();
+      closeWisdomDetail();
+    }
+  }
+
+  // --- Scroll tracking ---
+  function setupDetailScrollTracking(){
+    var articleEl = $('wisdomDetailArticle');
+    if (!articleEl) return;
+    var ticking = false;
+    function onScroll(){
+      var y = articleEl.scrollTop;
+      var max = articleEl.scrollHeight - articleEl.clientHeight;
+      var progress = max > 0 ? Math.min(1, y / max) : 0;
+      // Update progress bar
+      var fill = $('wisdomDetailProgressFill');
+      if (fill) fill.style.width = (progress * 100) + '%';
+      // Store scroll depth
+      detailState.scrollDepth = Math.round(progress * 100);
+      // Debounce save
+      clearTimeout(detailState.scrollDepthTimer);
+      detailState.scrollDepthTimer = setTimeout(saveScrollDepth, 800);
+      // Consult CTA hide/show
+      var cta = $('wisdomDetailConsultCta');
+      if (cta){
+        var dy = y - detailState.consultCtaLastY;
+        if (dy > 4 && y > 100) cta.classList.add('cta-hidden');
+        else if (dy < -4 || progress >= 0.95) { cta.classList.remove('cta-hidden'); cta.classList.add('cta-visible'); }
+        detailState.consultCtaLastY = y;
+      }
+      ticking = false;
+    }
+    articleEl.addEventListener('scroll', function(){
+      if (!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+    }, {passive:true});
+  }
+
+  function saveScrollDepth(){
+    if (!detailState.currentArticleId || detailState.scrollDepth <= 0) return;
+    var state = loadWisdomHubState();
+    for (var i = 0; i < state.readHistory.length; i++){
+      if (state.readHistory[i].articleId === detailState.currentArticleId){
+        state.readHistory[i].scrollDepth = detailState.scrollDepth;
+        break;
+      }
+    }
+    saveWisdomHubState(state);
+  }
+
+  // --- Detail events ---
+  function bindDetailEvents(){
+    var closeBtn = $('wisdomDetailClose');
+    if (closeBtn) closeBtn.addEventListener('click', closeWisdomDetail);
+    var bmBtn = $('wisdomDetailBookmark');
+    if (bmBtn) bmBtn.addEventListener('click', function(){
+      if (detailState.currentArticleId) toggleBookmark(detailState.currentArticleId);
+      // Sync detail bookmark UI
+      var saved = isBookmarked(detailState.currentArticleId);
+      bmBtn.setAttribute('aria-pressed', saved);
+      bmBtn.setAttribute('aria-label', saved ? 'Hapus dari simpanan' : 'Simpan artikel');
+      var svg = bmBtn.querySelector('svg');
+      if (svg) svg.setAttribute('fill', saved ? 'currentColor' : 'none');
+    });
+    var consultCta = $('wisdomDetailConsultCta');
+    if (consultCta) consultCta.addEventListener('click', function(){
+      var article = getArticleById(detailState.currentArticleId);
+      openDrSlyContextualConsult(article);
+    });
+    // Related card clicks (delegated)
+    var articleEl = $('wisdomDetailArticle');
+    if (articleEl) articleEl.addEventListener('click', function(e){
+      var bmk = e.target.closest('.wisdom-card-bookmark');
+      if (bmk){ e.stopPropagation(); var card = bmk.closest('.wisdom-card'); if (card) toggleBookmark(card.dataset.articleId); return; }
+      var card = e.target.closest('.wisdom-card');
+      if (card && card.dataset.articleId){
+        e.stopPropagation();
+        detailState.historyPushed = false;
+        openWisdomDetail(card.dataset.articleId);
+      }
+    });
+    // Swipe down to close
+    var detail = $('wisdomDetail');
+    if (!detail) return;
+    var swipeY = 0, swiping = false, swipeTime = 0;
+    detail.addEventListener('touchstart', function(e){
+      if (!detailState.isOpen) return;
+      var articleEl = $('wisdomDetailArticle');
+      if (articleEl && articleEl.scrollTop > 10) return;
+      swipeY = e.touches[0].clientY;
+      swipeTime = Date.now();
+      swiping = true;
+    }, {passive:true});
+    detail.addEventListener('touchmove', function(e){
+      if (!swiping) return;
+    }, {passive:true});
+    detail.addEventListener('touchend', function(e){
+      if (!swiping) return;
+      swiping = false;
+      var dy = e.changedTouches[0].clientY - swipeY;
+      var velocity = dy / Math.max(1, Date.now() - swipeTime);
+      if (dy > 80 || velocity > 0.5) closeWisdomDetail();
+    });
+  }
+
+  // --- Dr. Sly contextual consult ---
+  function openDrSlyContextualConsult(article){
+    if (!article) return;
+    var prefilledMessage = "Saya baru saja membaca '" + article.title + "'. Boleh tolong jelaskan lebih dalam tentang topik ini, atau bagaimana saya bisa menerapkannya dalam keseharian?";
+    window.__welvraDrSlyContext = {
+      context: {source:'article',articleId:article.id,articleTitle:article.title,articleCategory:article.category},
+      prefilledMessage: prefilledMessage
+    };
+    closeWisdomDetail();
+    setTimeout(function(){
+      if (typeof openModal === 'function'){
+        closeWisdomPanel();
+        setTimeout(function(){ openModal('chat'); hookDrSlyContext(); }, 300);
+      } else {
+        if (typeof showToast === 'function') showToast('Konsultasi Dr. Sly akan segera tersedia');
+      }
+    }, 200);
+  }
+
+  function hookDrSlyContext(){
+    if (!window.__welvraDrSlyContext) return;
+    var input = document.getElementById('chat-input');
+    if (input && window.__welvraDrSlyContext.prefilledMessage){
+      input.value = window.__welvraDrSlyContext.prefilledMessage;
+      input.focus();
+    }
+    window.__welvraDrSlyContext = null;
+  }
+
+  // --- Popstate handler ---
+  var _detailClosing = false;
+  function handlePopState(e){
+    if (_detailClosing) return;
+    if (detailState.isOpen){
+      detailState.historyPushed = false;
+      closeWisdomDetail();
+    }
+  }
+  window.addEventListener('popstate', handlePopState);
+
+  // --- Hash-based deep link ---
+  function checkDetailDeepLink(){
+    var hash = location.hash;
+    if (!hash || hash.indexOf('#article-') !== 0) return;
+    var slug = hash.substring(9);
+    for (var i = 0; i < WELVRA_ARTICLES.length; i++){
+      if (WELVRA_ARTICLES[i].slug === slug){
+        setTimeout(function(){ openWisdomDetail(WELVRA_ARTICLES[i].id); }, 500);
+        return;
+      }
+    }
+  }
+
   // Wire DOM-ready bindings
   function init(){
     var closeBtn = $('wisdomClose');
@@ -12719,6 +13195,9 @@ window.meditToggleSection = meditToggleSection;
     var search = $('wisdomSearch');
     if (search) search.addEventListener('input', wisdomHandleSearchInput);
     attachSwipe();
+    setupHeroCollapse();
+    bindStickySearchIcon();
+    checkDetailDeepLink();
   }
   if (document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', init);
