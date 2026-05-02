@@ -3892,6 +3892,144 @@ html.dark .wisdom-card-title{color:#E8E2D0}
 }
 .wisdom-cards-grid .wisdom-card{width:100%;scroll-snap-align:none}
 
+/* ----- Hero gradient overlay ----- */
+.wisdom-card-gradient{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.08) 50%,transparent 100%);
+  pointer-events:none;z-index:1;
+}
+
+/* ----- Featured card excerpt + footer ----- */
+.wisdom-card-excerpt{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;line-height:1.5;
+  color:var(--txt-secondary);margin:0 0 10px 0;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+html.dark .wisdom-card-excerpt{color:rgba(240,237,232,.65)}
+.wisdom-card-footer{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.wisdom-card-author{display:flex;align-items:center;gap:6px}
+.wisdom-card-author-name{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;
+  color:var(--sage);letter-spacing:.1px;
+}
+
+/* ----- Horizontal card (Trending) ----- */
+.wisdom-card--horizontal{
+  width:100%;flex-shrink:0;border-radius:14px;
+  box-shadow:var(--shadow-xs);
+}
+.wisdom-card--horizontal:hover{transform:translateY(-2px)}
+.wisdom-card-h-inner{display:flex;gap:14px;padding:0}
+.wisdom-card-h-thumb{
+  flex-shrink:0;width:96px;height:96px;border-radius:12px;
+  overflow:hidden;position:relative;
+}
+.wisdom-card-h-thumb .wisdom-card-image{
+  width:100%;height:100%;object-fit:cover;
+}
+.wisdom-card-h-content{
+  flex:1;min-width:0;padding:10px 14px 10px 0;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.wisdom-card--horizontal .wisdom-card-title{
+  font-size:15px;min-height:auto;margin-bottom:4px;
+  -webkit-line-clamp:2;
+}
+.wisdom-card--horizontal .wisdom-card-excerpt{
+  font-size:12px;margin-bottom:6px;-webkit-line-clamp:2;
+}
+.wisdom-card--horizontal .wisdom-card-eyebrow{margin-bottom:4px}
+.wisdom-card--horizontal .wisdom-card-footer{margin-top:auto}
+.wisdom-card-bookmark--inline{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(245,230,200,.4);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold);flex-shrink:0;
+  transition:transform 200ms cubic-bezier(.34,1.56,.64,1);
+}
+.wisdom-card-bookmark--inline:active{transform:scale(.85)}
+.wisdom-card-bookmark--inline[data-saved="true"]{
+  background:linear-gradient(135deg,var(--gold),#8B5E06);color:white;
+}
+html.dark .wisdom-card-bookmark--inline{background:rgba(200,134,10,.12)}
+
+/* Trending stack layout */
+.wisdom-trending-stack{
+  display:flex;flex-direction:column;gap:10px;padding:4px 20px 20px;
+}
+
+/* ----- List card (Recent) ----- */
+.wisdom-card--list{
+  width:100%;flex-shrink:0;border-radius:12px;
+  box-shadow:none;border:none;background:transparent;
+  border-bottom:1px solid rgba(200,134,10,.08);
+}
+.wisdom-card--list:last-child{border-bottom:none}
+.wisdom-card--list:hover{transform:none;box-shadow:none;background:rgba(245,230,200,.15)}
+html.dark .wisdom-card--list{background:transparent;border-bottom-color:rgba(200,134,10,.1)}
+html.dark .wisdom-card--list:hover{background:rgba(200,134,10,.06)}
+.wisdom-card-l-inner{display:flex;gap:14px;padding:12px 0;align-items:center}
+.wisdom-card-l-thumb{
+  flex-shrink:0;width:64px;height:64px;border-radius:10px;
+  overflow:hidden;position:relative;
+}
+.wisdom-card-l-thumb .wisdom-card-image{width:100%;height:100%;object-fit:cover}
+.wisdom-card-l-content{flex:1;min-width:0}
+.wisdom-card--list .wisdom-card-title{
+  font-size:14px;min-height:auto;margin-bottom:6px;
+  -webkit-line-clamp:2;
+}
+.wisdom-card-l-meta{display:flex;align-items:center;gap:8px}
+.wisdom-card-cat-pill{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:600;
+  color:var(--sage);background:rgba(107,158,120,.1);
+  padding:2px 8px;border-radius:10px;letter-spacing:.2px;
+}
+
+/* Recent stack layout */
+.wisdom-recent-stack{
+  display:flex;flex-direction:column;padding:0 20px 20px;
+}
+
+/* ----- Category grid card ----- */
+.wisdom-card--category-grid{
+  width:100%;scroll-snap-align:none;
+}
+.wisdom-card--category-grid .wisdom-card-image-wrap{aspect-ratio:4/3}
+
+/* ----- Content block styles (Phase 2D article detail) ----- */
+.wcb-paragraph{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;line-height:1.75;color:var(--txt-primary);margin:0 0 16px}
+.wcb-heading{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--teal-dark);margin:28px 0 12px;letter-spacing:-.3px}
+h2.wcb-heading{font-size:22px}
+h3.wcb-heading{font-size:18px}
+.wcb-blockquote{border-left:3px solid var(--gold);margin:20px 0;padding:12px 20px;background:rgba(200,134,10,.04);border-radius:0 8px 8px 0}
+.wcb-blockquote p{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--teal-dark);margin:0;line-height:1.6}
+.wcb-blockquote cite{display:block;margin-top:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--sage);font-style:normal}
+.wcb-list{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.7;color:var(--txt-primary);margin:0 0 16px;padding-left:20px}
+.wcb-list li{margin-bottom:6px}
+.wcb-callout{border-radius:12px;padding:16px 18px;margin:20px 0}
+.wcb-callout--calm{background:rgba(107,158,120,.08);border:1px solid rgba(107,158,120,.15)}
+.wcb-callout--warm{background:rgba(200,134,10,.06);border:1px solid rgba(200,134,10,.12)}
+.wcb-callout--gentle-warning{background:rgba(217,169,56,.08);border:1px solid rgba(217,169,56,.15)}
+.wcb-callout-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;display:block;margin-bottom:6px;color:var(--teal-dark)}
+.wcb-callout p{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;line-height:1.6;color:var(--txt-secondary);margin:0}
+.wcb-image{margin:20px 0;border-radius:12px;overflow:hidden}
+.wcb-image img{width:100%;height:auto;display:block}
+.wcb-image figcaption{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--sage);padding:8px 0;text-align:center}
+.wcb-divider{border:none;border-top:1px solid rgba(200,134,10,.12);margin:24px 0}
+html.dark .wcb-paragraph{color:#E8E2D0}
+html.dark .wcb-heading{color:#F0EDE8}
+html.dark .wcb-blockquote{background:rgba(200,134,10,.06)}
+html.dark .wcb-blockquote p{color:#E8E2D0}
+html.dark .wcb-callout-title{color:#F0EDE8}
+html.dark .wcb-callout p{color:rgba(240,237,232,.7)}
+
+/* ----- Search result highlight ----- */
+.wisdom-highlight{background:transparent;color:var(--gold-dark);font-weight:700;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:2px}
+html.dark .wisdom-highlight{color:var(--gold)}
+
 /* ----- Image error fallback ----- */
 .wisdom-card-image.error{display:none}
 .wisdom-card-image-wrap:has(.wisdom-card-image.error)::after{
@@ -11251,20 +11389,100 @@ window.meditToggleSection = meditToggleSection;
 </script>
 
 <!-- =========================================================== -->
-<!-- PHASE 2B — Wisdom Hub behavior                              -->
+<!-- PHASE 2B/2C — Wisdom Hub behavior + Content System          -->
 <!-- =========================================================== -->
 <script>
 (function(){
-  var welvraWisdomState = {
-    isOpen: false,
-    activeCategory: 'discover',
-    searchQuery: '',
-    previousActiveTab: null
-  };
+  // ===== PHASE 2C: WISDOM HUB CONTENT =====
+  // Canonical Phase 2B category slugs:
+  // discover, all, saved, kesehatan-umum, kesehatan-reproduksi, kehamilan,
+  // panduan-orangtua, wellness-mental, nutrisi-gizi, kebugaran,
+  // herbal-indonesia, lifestyle, isu-sosial
 
+  /**
+   * @typedef {Object} WelvraArticle
+   * @property {string} id
+   * @property {string} slug
+   * @property {string} title
+   * @property {string} excerpt
+   * @property {ContentBlock[]} body
+   * @property {string} category
+   * @property {string|null} subcategory
+   * @property {string[]} tags
+   * @property {WelvraAuthor} author
+   * @property {WelvraSource|null} source
+   * @property {string} publishedAt
+   * @property {string|null} updatedAt
+   * @property {number} readingTimeMinutes
+   * @property {WelvraImageAsset} heroImage
+   * @property {WelvraImageAsset} thumbnail
+   * @property {boolean} featured
+   * @property {number} trendingScore
+   * @property {boolean} pinned
+   * @property {"ringan"|"sedang"|"dalam"} difficulty
+   * @property {string[]} relatedArticleIds
+   */
+
+  /**
+   * @typedef {Object} ContentBlock
+   * Variants:
+   * - { type:"paragraph", text:string }
+   * - { type:"heading", level:2|3, text:string }
+   * - { type:"blockquote", text:string, attribution:string|null }
+   * - { type:"list", style:"unordered"|"ordered", items:string[] }
+   * - { type:"callout", tone:"calm"|"warm"|"gentle-warning", title:string, text:string }
+   * - { type:"image", asset:WelvraImageAsset, caption:string|null }
+   * - { type:"divider" }
+   */
+
+  /**
+   * @typedef {Object} WelvraAuthor
+   * @property {string} id
+   * @property {string} name
+   * @property {string} role
+   * @property {string|null} credentials
+   * @property {string} avatarUrl
+   * @property {string} bio
+   */
+
+  /**
+   * @typedef {Object} WelvraSource
+   * @property {string} publication
+   * @property {string|null} url
+   * @property {string} adaptedNotice
+   */
+
+  /**
+   * @typedef {Object} WelvraImageAsset
+   * @property {string} url
+   * @property {string} alt
+   * @property {{photographer:string, photographerUrl:string, sourceUrl:string, platform:"Unsplash"}} credit
+   * @property {"16:9"|"4:5"|"1:1"|"4:3"} aspectRatio
+   * @property {string} dominantColor
+   * @property {number} width
+   * @property {number} height
+   */
+
+  // ===== AUTHORS =====
+  var WELVRA_AUTHORS = Object.freeze([
+    { id:'auth_dr_sly', name:'Dr. Sly', role:'Konsultan Wellness Welvra', credentials:'MD, Integrative Health', avatarUrl:'/avatars/dr_sly.svg', bio:'Konsultan kesehatan Welvra yang menggabungkan pendekatan medis modern dengan kearifan lokal.' },
+    { id:'auth_ratna', name:'Ratna Kusuma', role:'Nutritionist & Food Writer', credentials:'MSc Nutrition', avatarUrl:'/avatars/ratna.svg', bio:'Penulis nutrisi yang percaya bahwa makanan terbaik tumbuh di halaman rumah Indonesia.' },
+    { id:'auth_dian', name:'Dian Paramita', role:'Mindfulness Practitioner', credentials:'Certified MBSR Teacher', avatarUrl:'/avatars/dian.svg', bio:'Praktisi mindfulness yang telah membimbing ratusan perempuan Indonesia menemukan ketenangan.' },
+    { id:'auth_maya', name:'Maya Lestari', role:'Women\'s Health Writer', credentials:null, avatarUrl:'/avatars/maya.svg', bio:'Penulis kesehatan perempuan yang mengangkat topik-topik yang sering dianggap tabu dengan cara yang hangat.' },
+    { id:'auth_andi', name:'Andi Prasetyo', role:'Sleep & Recovery Specialist', credentials:'MSc Sleep Medicine', avatarUrl:'/avatars/andi.svg', bio:'Spesialis tidur yang membantu pekerja urban Indonesia memulihkan kualitas istirahat mereka.' }
+  ]);
+
+  function getAuthorById(id) {
+    for (var i = 0; i < WELVRA_AUTHORS.length; i++) {
+      if (WELVRA_AUTHORS[i].id === id) return WELVRA_AUTHORS[i];
+    }
+    return WELVRA_AUTHORS[0];
+  }
+
+  // ===== CATEGORIES (aligned to Phase 2B taxonomy) =====
   var WISDOM_CATEGORIES = [
     { id:'discover', label:'Discover' },
-    { id:'all', label:'Semua', icon:null },
+    { id:'all', label:'Semua' },
     { id:'saved', label:'Tersimpan' },
     { id:'kesehatan-umum', label:'Kesehatan Umum' },
     { id:'kesehatan-reproduksi', label:'Kesehatan Reproduksi' },
@@ -11278,8 +11496,105 @@ window.meditToggleSection = meditToggleSection;
     { id:'isu-sosial', label:'Isu Sosial Kesehatan' }
   ];
 
-  // 100 ARTICLES — WELVRA WISDOM HUB CONTENT DATABASE
-  // Curated by Editorial Lead. Each article has unique Unsplash photo, Indonesian luxury copy.
+  // ===== UNSPLASH IMAGE HELPER =====
+  function buildUnsplashUrl(photoId, variant) {
+    var params = { hero:'w=800&h=450&auto=format&fit=crop&q=75', thumbnail:'w=400&h=400&auto=format&fit=crop&q=70', inline:'w=720&h=405&auto=format&fit=crop&q=75', avatar:'w=96&h=96&auto=format&fit=crop&q=80' };
+    var p = params[variant] || params.hero;
+    return 'https://images.unsplash.com/photo-' + photoId + '?' + p;
+  }
+
+  function makeImageAsset(photoId, alt, photographer, aspect, dominant) {
+    return {
+      url: buildUnsplashUrl(photoId, aspect === '1:1' ? 'thumbnail' : 'hero'),
+      alt: alt || '',
+      credit: { photographer: photographer || 'Unsplash', photographerUrl: 'https://unsplash.com', sourceUrl: 'https://unsplash.com', platform: 'Unsplash' },
+      aspectRatio: aspect || '16:9',
+      dominantColor: dominant || '#E8E0D0',
+      width: aspect === '1:1' ? 400 : 800,
+      height: aspect === '1:1' ? 400 : 450
+    };
+  }
+
+  // ===== READING TIME CALCULATOR =====
+  function calculateReadingTime(body) {
+    if (!body || !body.length) return 1;
+    var wordCount = 0;
+    for (var i = 0; i < body.length; i++) {
+      var block = body[i];
+      if (block.text) wordCount += block.text.split(/\s+/).length;
+      if (block.items) {
+        for (var j = 0; j < block.items.length; j++) {
+          wordCount += block.items[j].split(/\s+/).length;
+        }
+      }
+      if (block.title) wordCount += block.title.split(/\s+/).length;
+    }
+    var minutes = Math.ceil(wordCount / 200);
+    return Math.max(1, Math.min(15, minutes));
+  }
+
+  // ===== LOCALSTORAGE SCHEMA V1 =====
+  var WISDOM_HUB_STORAGE_KEY = 'welvra.wisdomHub.v1';
+
+  function getDefaultWisdomHubState() {
+    return { schemaVersion: 1, readHistory: [], bookmarks: [], searchHistory: [], lastVisitedCategory: null };
+  }
+
+  function loadWisdomHubState() {
+    try {
+      var raw = localStorage.getItem(WISDOM_HUB_STORAGE_KEY);
+      if (!raw) {
+        // Migrate from old bookmark key
+        var oldSaved = [];
+        try { oldSaved = JSON.parse(localStorage.getItem('welvra_saved_articles') || '[]'); } catch(e){}
+        var state = getDefaultWisdomHubState();
+        if (oldSaved.length) {
+          var now = new Date().toISOString();
+          state.bookmarks = oldSaved.map(function(id) { return { articleId: id, savedAt: now }; });
+          try { localStorage.removeItem('welvra_saved_articles'); } catch(e){}
+        }
+        saveWisdomHubState(state);
+        return state;
+      }
+      var parsed = JSON.parse(raw);
+      if (!parsed || parsed.schemaVersion !== 1) {
+        console.warn('[Welvra] Wisdom Hub state schema mismatch, resetting');
+        var fresh = getDefaultWisdomHubState();
+        saveWisdomHubState(fresh);
+        return fresh;
+      }
+      return parsed;
+    } catch(e) {
+      console.warn('[Welvra] Failed to load Wisdom Hub state, using defaults', e);
+      return getDefaultWisdomHubState();
+    }
+  }
+
+  function saveWisdomHubState(state) {
+    try { localStorage.setItem(WISDOM_HUB_STORAGE_KEY, JSON.stringify(state)); }
+    catch(e) { console.warn('[Welvra] Failed to save Wisdom Hub state', e); }
+  }
+
+  function recordReadHistory(articleId) {
+    var state = loadWisdomHubState();
+    state.readHistory.unshift({ articleId: articleId, readAt: new Date().toISOString(), scrollDepth: 0 });
+    if (state.readHistory.length > 100) state.readHistory = state.readHistory.slice(0, 100);
+    saveWisdomHubState(state);
+    // PHASE 2E: surface read history
+  }
+
+  function recordSearchHistory(query) {
+    if (!query || query.length < 2) return;
+    var state = loadWisdomHubState();
+    state.searchHistory = state.searchHistory.filter(function(s) { return s.query !== query; });
+    state.searchHistory.unshift({ query: query, ranAt: new Date().toISOString() });
+    if (state.searchHistory.length > 20) state.searchHistory = state.searchHistory.slice(0, 20);
+    saveWisdomHubState(state);
+  }
+
+  // ===== ARTICLE DATA (populated in Phase 2C-B) =====
+  // WELVRA WISDOM HUB CONTENT DATABASE
+  // Curated by Editorial Lead. Each article uses structured ContentBlock schema.
   var WELVRA_ARTICLES = [
     // CATEGORY 1: KESEHATAN UMUM (10 articles)
     {id:'art-001',category:'kesehatan-umum',title:'Tujuh Hingga Delapan Jam: Bahasa Cinta Tubuhmu',summary:'Tidur bukan kemewahan, melainkan investasi. Telusuri sains di balik durasi tidur yang menyembuhkan setiap sel tubuhmu.',image:'https://images.unsplash.com/photo-1631157852700-ee61bd2bc91a?w=800&q=80&auto=format,compress&fit=crop',photoCredit:'Unsplash',readTime:6,featured:true,publishedAt:'2026-04-15',tags:['tidur','mental','wellness'],author:'Tim Welvra'},
@@ -11498,6 +11813,114 @@ window.meditToggleSection = meditToggleSection;
     "1495434942214-9b525bba74e9"
   ];
 
+  // ===== ARTICLE QUERY HELPERS =====
+  var _articleMap = null;
+  function _ensureArticleMap() {
+    if (_articleMap) return;
+    _articleMap = {};
+    for (var i = 0; i < WELVRA_ARTICLES.length; i++) {
+      _articleMap[WELVRA_ARTICLES[i].id] = WELVRA_ARTICLES[i];
+    }
+  }
+
+  function getArticleById(id) {
+    _ensureArticleMap();
+    return _articleMap[id] || null;
+  }
+
+  function getArticlesByCategory(categorySlug) {
+    return WELVRA_ARTICLES.filter(function(a) { return a.category === categorySlug; })
+      .sort(function(a, b) { return (b.publishedAt || '').localeCompare(a.publishedAt || ''); });
+  }
+
+  function getFeaturedArticles(limit) {
+    limit = limit || 3;
+    return WELVRA_ARTICLES.filter(function(a) { return a.featured; })
+      .sort(function(a, b) { return (b.trendingScore || 0) - (a.trendingScore || 0); })
+      .slice(0, limit);
+  }
+
+  function getTrendingArticles(limit) {
+    limit = limit || 6;
+    var featuredIds = {};
+    getFeaturedArticles(10).forEach(function(a) { featuredIds[a.id] = true; });
+    return WELVRA_ARTICLES.filter(function(a) { return !featuredIds[a.id]; })
+      .sort(function(a, b) { return (b.trendingScore || 0) - (a.trendingScore || 0); })
+      .slice(0, limit);
+  }
+
+  function getRecentArticles(limit) {
+    limit = limit || 8;
+    var pinned = WELVRA_ARTICLES.filter(function(a) { return a.pinned; });
+    var rest = WELVRA_ARTICLES.filter(function(a) { return !a.pinned; })
+      .sort(function(a, b) { return (b.publishedAt || '').localeCompare(a.publishedAt || ''); });
+    return pinned.concat(rest).slice(0, limit);
+  }
+
+  function searchArticles(query) {
+    if (!query || query.length < 2) return [];
+    var q = query.toLowerCase().trim().slice(0, 100);
+    var results = [];
+    for (var i = 0; i < WELVRA_ARTICLES.length; i++) {
+      var a = WELVRA_ARTICLES[i];
+      var score = 0;
+      if (a.title && a.title.toLowerCase().indexOf(q) !== -1) score += 3;
+      if (a.excerpt && a.excerpt.toLowerCase().indexOf(q) !== -1) score += 2;
+      if (a.tags) {
+        for (var t = 0; t < a.tags.length; t++) {
+          if (a.tags[t].toLowerCase().indexOf(q) !== -1) { score += 2; break; }
+        }
+      }
+      if (a.body) {
+        for (var b = 0; b < a.body.length; b++) {
+          if (a.body[b].text && a.body[b].text.toLowerCase().indexOf(q) !== -1) { score += 1; break; }
+        }
+      }
+      // Legacy fallback for summary field
+      if (!score && a.summary && a.summary.toLowerCase().indexOf(q) !== -1) score += 2;
+      if (score > 0) results.push({ article: a, score: score });
+    }
+    results.sort(function(a, b) { return b.score - a.score; });
+    return results.map(function(r) { return r.article; });
+  }
+
+  function getRelatedArticles(articleId, limit) {
+    limit = limit || 3;
+    var article = getArticleById(articleId);
+    if (!article) return [];
+    var related = [];
+    if (article.relatedArticleIds) {
+      for (var i = 0; i < article.relatedArticleIds.length && related.length < limit; i++) {
+        var rel = getArticleById(article.relatedArticleIds[i]);
+        if (rel) related.push(rel);
+      }
+    }
+    if (related.length < limit) {
+      var sameCat = getArticlesByCategory(article.category);
+      for (var j = 0; j < sameCat.length && related.length < limit; j++) {
+        if (sameCat[j].id !== articleId && related.indexOf(sameCat[j]) === -1) {
+          related.push(sameCat[j]);
+        }
+      }
+    }
+    return related;
+  }
+
+  // ===== CONTENT BLOCK RENDERER =====
+  function renderContentBlock(block) {
+    if (!block || !block.type) return '';
+    switch (block.type) {
+      case 'paragraph': return '<p class="wcb-paragraph">' + escHtml(block.text || '') + '</p>';
+      case 'heading': return '<h' + (block.level || 2) + ' class="wcb-heading">' + escHtml(block.text || '') + '</h' + (block.level || 2) + '>';
+      case 'blockquote': return '<blockquote class="wcb-blockquote"><p>' + escHtml(block.text || '') + '</p>' + (block.attribution ? '<cite>' + escHtml(block.attribution) + '</cite>' : '') + '</blockquote>';
+      case 'list': return '<' + (block.style === 'ordered' ? 'ol' : 'ul') + ' class="wcb-list">' + (block.items || []).map(function(item) { return '<li>' + escHtml(item) + '</li>'; }).join('') + '</' + (block.style === 'ordered' ? 'ol' : 'ul') + '>';
+      case 'callout': return '<div class="wcb-callout wcb-callout--' + (block.tone || 'calm') + '"><strong class="wcb-callout-title">' + escHtml(block.title || '') + '</strong><p>' + escHtml(block.text || '') + '</p></div>';
+      case 'image': return '<figure class="wcb-image"><img src="' + escHtml((block.asset && block.asset.url) || '') + '" alt="' + escHtml((block.asset && block.asset.alt) || '') + '" loading="lazy">' + (block.caption ? '<figcaption>' + escHtml(block.caption) + '</figcaption>' : '') + '</figure>';
+      case 'divider': return '<hr class="wcb-divider">';
+      default: return '';
+    }
+  }
+
   var wisdomLastFocusedElement = null;
   var wisdomSearchDebounceTimer = null;
 
@@ -11531,6 +11954,13 @@ window.meditToggleSection = meditToggleSection;
     pills.forEach(function(pill){
       pill.addEventListener('click', function(){
         welvraWisdomState.activeCategory = pill.dataset.category;
+        // Save last visited category for By Category section
+        var catId = pill.dataset.category;
+        if (catId && catId !== 'discover' && catId !== 'all' && catId !== 'saved') {
+          var hubState = loadWisdomHubState();
+          hubState.lastVisitedCategory = catId;
+          saveWisdomHubState(hubState);
+        }
         renderWisdomPills();
         renderWisdomContent();
         try { pill.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' }); } catch(e){}
@@ -11605,21 +12035,22 @@ window.meditToggleSection = meditToggleSection;
     });
   }
 
-  // ----- Bookmark / save -----
-  var SAVED_ARTICLES_KEY = 'welvra_saved_articles';
+  // ----- Bookmark / save (Phase 2C localStorage v1) -----
   function getSavedArticleIds(){
-    try { return JSON.parse(localStorage.getItem(SAVED_ARTICLES_KEY) || '[]'); }
-    catch(e){ return []; }
+    var state = loadWisdomHubState();
+    return state.bookmarks.map(function(b) { return b.articleId; });
   }
   function isBookmarked(articleId){ return getSavedArticleIds().indexOf(articleId) !== -1; }
   function toggleBookmark(articleId){
-    var ids = getSavedArticleIds();
-    var idx = ids.indexOf(articleId);
+    var state = loadWisdomHubState();
+    var idx = -1;
+    for (var i = 0; i < state.bookmarks.length; i++) {
+      if (state.bookmarks[i].articleId === articleId) { idx = i; break; }
+    }
     var saved;
-    if (idx === -1){ ids.push(articleId); saved = true; }
-    else { ids.splice(idx, 1); saved = false; }
-    try { localStorage.setItem(SAVED_ARTICLES_KEY, JSON.stringify(ids)); }
-    catch(e){ console.warn('Bookmark save failed', e); }
+    if (idx === -1){ state.bookmarks.push({ articleId: articleId, savedAt: new Date().toISOString() }); saved = true; }
+    else { state.bookmarks.splice(idx, 1); saved = false; }
+    saveWisdomHubState(state);
     document.querySelectorAll('.wisdom-card[data-article-id="'+articleId+'"] .wisdom-card-bookmark').forEach(function(btn){
       btn.dataset.saved = saved;
       btn.setAttribute('aria-pressed', saved);
@@ -11628,7 +12059,7 @@ window.meditToggleSection = meditToggleSection;
       if (svg) svg.setAttribute('fill', saved ? 'currentColor' : 'none');
     });
     if (typeof showToast === 'function'){
-      showToast(saved ? 'Artikel disimpan' : 'Dihapus dari simpanan');
+      showToast(saved ? 'Disimpan untuk dibaca nanti' : 'Dihapus dari simpanan');
     }
     if (welvraWisdomState.activeCategory === 'saved'){ renderWisdomContent(); }
   }
@@ -11640,24 +12071,58 @@ window.meditToggleSection = meditToggleSection;
   }
   function searchWisdomArticles(query){
     if (!query || query.length < 2) return WELVRA_ARTICLES;
-    var q = query.toLowerCase().trim();
-    return WELVRA_ARTICLES.filter(function(article){
-      return article.title.toLowerCase().indexOf(q) !== -1 ||
-             article.summary.toLowerCase().indexOf(q) !== -1 ||
-             (article.tags && article.tags.some(function(tag){ return tag.toLowerCase().indexOf(q) !== -1; })) ||
-             getCategoryLabel(article.category).toLowerCase().indexOf(q) !== -1;
-    });
+    var results = searchArticles(query);
+    if (results.length > 0) recordSearchHistory(query);
+    return results;
   }
 
   // ----- Render article card -----
+  function getArticleImage(article) {
+    if (article.heroImage && article.heroImage.url) return article.heroImage.url;
+    if (article.thumbnail && article.thumbnail.url) return article.thumbnail.url;
+    return article.image || '';
+  }
+  function getArticleImageAlt(article) {
+    if (article.heroImage && article.heroImage.alt) return article.heroImage.alt;
+    return article.title || '';
+  }
+  function getArticleDominantColor(article) {
+    if (article.heroImage && article.heroImage.dominantColor) return article.heroImage.dominantColor;
+    return '#E8E0D0';
+  }
+  function getArticleReadTime(article) {
+    return article.readingTimeMinutes || article.readTime || calculateReadingTime(article.body || []);
+  }
+  function getArticleExcerpt(article) {
+    return article.excerpt || article.summary || '';
+  }
+  function getArticleAuthor(article) {
+    if (article.author && typeof article.author === 'object') return article.author;
+    if (article.author && typeof article.author === 'string') {
+      return { id: 'auth_team', name: article.author, role: 'Tim Editorial', credentials: null, avatarUrl: '/avatars/dr_sly.svg', bio: '' };
+    }
+    return WELVRA_AUTHORS[0];
+  }
+
   function renderArticleCard(article, extraClass){
     var saved = isBookmarked(article.id);
     var cls = 'wisdom-card' + (extraClass ? ' ' + extraClass : '');
-    return '<article class="' + cls + '" data-article-id="' + escHtml(article.id) + '" tabindex="0" role="button"'
-      + ' aria-label="' + escHtml(article.title) + ', ' + article.readTime + ' menit baca">'
-      + '<div class="wisdom-card-image-wrap">'
-        + '<img class="wisdom-card-image" data-src="' + escHtml(article.image) + '"'
-        + ' alt="' + escHtml(article.title) + '" decoding="async" width="200" height="200">'
+    var imgUrl = getArticleImage(article);
+    var imgAlt = getArticleImageAlt(article);
+    var dominantColor = getArticleDominantColor(article);
+    var readTime = getArticleReadTime(article);
+    var excerpt = getArticleExcerpt(article);
+    var author = getArticleAuthor(article);
+
+    var html = '<article class="' + cls + '" data-article-id="' + escHtml(article.id) + '" tabindex="0" role="button"'
+      + ' aria-label="' + escHtml(article.title) + ', ' + readTime + ' menit baca">';
+
+    // Featured variant: hero image with gradient overlay
+    if (extraClass && extraClass.indexOf('wisdom-card--featured') !== -1) {
+      html += '<div class="wisdom-card-image-wrap" style="background:' + dominantColor + '">'
+        + '<img class="wisdom-card-image" data-src="' + escHtml(imgUrl) + '"'
+        + ' alt="' + escHtml(imgAlt) + '" decoding="async" width="400" height="300">'
+        + '<div class="wisdom-card-gradient" aria-hidden="true"></div>'
         + '<button class="wisdom-card-bookmark" aria-label="' + (saved ? 'Hapus dari simpanan' : 'Simpan artikel') + '"'
         + ' aria-pressed="' + saved + '" data-saved="' + saved + '" type="button">'
           + '<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor"'
@@ -11669,9 +12134,75 @@ window.meditToggleSection = meditToggleSection;
       + '<div class="wisdom-card-body">'
         + '<div class="wisdom-card-eyebrow">' + escHtml(getCategoryLabel(article.category)) + '</div>'
         + '<h3 class="wisdom-card-title">' + escHtml(article.title) + '</h3>'
-        + '<div class="wisdom-card-meta">' + article.readTime + ' min</div>'
+        + '<p class="wisdom-card-excerpt">' + escHtml(excerpt) + '</p>'
+        + '<div class="wisdom-card-footer">'
+          + '<div class="wisdom-card-author"><span class="wisdom-card-author-name">' + escHtml(author.name) + '</span></div>'
+          + '<span class="wisdom-card-meta">' + readTime + ' min</span>'
+        + '</div>'
+      + '</div>';
+    }
+    // Horizontal variant (trending)
+    else if (extraClass && extraClass.indexOf('wisdom-card--horizontal') !== -1) {
+      html += '<div class="wisdom-card-h-inner">'
+        + '<div class="wisdom-card-h-thumb" style="background:' + dominantColor + '">'
+          + '<img class="wisdom-card-image" data-src="' + escHtml(imgUrl) + '"'
+          + ' alt="' + escHtml(imgAlt) + '" decoding="async" width="96" height="96">'
+        + '</div>'
+        + '<div class="wisdom-card-h-content">'
+          + '<div class="wisdom-card-eyebrow">' + escHtml(getCategoryLabel(article.category)) + '</div>'
+          + '<h3 class="wisdom-card-title">' + escHtml(article.title) + '</h3>'
+          + '<p class="wisdom-card-excerpt">' + escHtml(excerpt) + '</p>'
+          + '<div class="wisdom-card-footer">'
+            + '<span class="wisdom-card-meta">' + readTime + ' min</span>'
+            + '<button class="wisdom-card-bookmark wisdom-card-bookmark--inline" aria-label="' + (saved ? 'Hapus dari simpanan' : 'Simpan artikel') + '"'
+            + ' aria-pressed="' + saved + '" data-saved="' + saved + '" type="button">'
+              + '<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor"'
+              + ' fill="' + (saved ? 'currentColor' : 'none') + '" stroke-width="2" aria-hidden="true">'
+                + '<path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>'
+              + '</svg>'
+            + '</button>'
+          + '</div>'
+        + '</div>'
+      + '</div>';
+    }
+    // List variant (recent)
+    else if (extraClass && extraClass.indexOf('wisdom-card--list') !== -1) {
+      html += '<div class="wisdom-card-l-inner">'
+        + '<div class="wisdom-card-l-thumb" style="background:' + dominantColor + '">'
+          + '<img class="wisdom-card-image" data-src="' + escHtml(imgUrl) + '"'
+          + ' alt="' + escHtml(imgAlt) + '" decoding="async" width="64" height="64">'
+        + '</div>'
+        + '<div class="wisdom-card-l-content">'
+          + '<h3 class="wisdom-card-title">' + escHtml(article.title) + '</h3>'
+          + '<div class="wisdom-card-l-meta">'
+            + '<span class="wisdom-card-meta">' + readTime + ' min</span>'
+            + '<span class="wisdom-card-cat-pill">' + escHtml(getCategoryLabel(article.category)) + '</span>'
+          + '</div>'
+        + '</div>'
+      + '</div>';
+    }
+    // Default / category-grid variant
+    else {
+      html += '<div class="wisdom-card-image-wrap" style="background:' + dominantColor + '">'
+        + '<img class="wisdom-card-image" data-src="' + escHtml(imgUrl) + '"'
+        + ' alt="' + escHtml(imgAlt) + '" decoding="async" width="200" height="200">'
+        + '<button class="wisdom-card-bookmark" aria-label="' + (saved ? 'Hapus dari simpanan' : 'Simpan artikel') + '"'
+        + ' aria-pressed="' + saved + '" data-saved="' + saved + '" type="button">'
+          + '<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor"'
+          + ' fill="' + (saved ? 'currentColor' : 'none') + '" stroke-width="2" aria-hidden="true">'
+            + '<path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>'
+          + '</svg>'
+        + '</button>'
       + '</div>'
-    + '</article>';
+      + '<div class="wisdom-card-body">'
+        + '<div class="wisdom-card-eyebrow">' + escHtml(getCategoryLabel(article.category)) + '</div>'
+        + '<h3 class="wisdom-card-title">' + escHtml(article.title) + '</h3>'
+        + '<div class="wisdom-card-meta">' + readTime + ' min</div>'
+      + '</div>';
+    }
+
+    html += '</article>';
+    return html;
   }
 
   // ----- Render section -----
@@ -11690,23 +12221,58 @@ window.meditToggleSection = meditToggleSection;
       + '</div></section>';
   }
 
-  // ----- Discover view -----
+  // ----- Discover view (Phase 2C: Featured, Trending, Recent, By Category) -----
   function renderDiscoverSections(){
     var content = $('wisdomContent');
     if (!content) return;
-    var featured = WELVRA_ARTICLES.filter(function(a){ return a.featured; }).slice(0, 6);
-    var recommended = WELVRA_ARTICLES.filter(function(a){ return !a.featured; }).slice(0, 8);
-    var topCategories = ['kesehatan-umum','wellness-mental','herbal-indonesia','lifestyle'];
+    var featured = getFeaturedArticles(3);
+    var trending = getTrendingArticles(6);
+    var recent = getRecentArticles(8);
     var html = '';
+
+    // Featured section
     if (featured.length > 0){
       html += renderSection({ title:'Pilihan Editor', eyebrow:null, articles:featured, cardClass:'wisdom-card--featured' });
     }
-    html += renderSection({ title:'Untukmu', eyebrow:'REKOMENDASI', articles:recommended, link:'Lihat Semua' });
-    topCategories.forEach(function(catId){
-      var catArticles = WELVRA_ARTICLES.filter(function(a){ return a.category === catId; }).slice(0, 6);
-      var catLabel = getCategoryLabel(catId);
-      html += renderSection({ title:catLabel, eyebrow:catLabel.toUpperCase(), articles:catArticles, link:'Lihat Semua', categoryId:catId });
-    });
+
+    // Trending section (horizontal cards)
+    if (trending.length > 0){
+      html += '<section class="wisdom-section"><div class="wisdom-section-header"><div>'
+        + '<div class="wisdom-section-eyebrow">TRENDING</div>'
+        + '<h2 class="wisdom-section-title">Sedang Hangat</h2></div></div>'
+        + '<div class="wisdom-trending-stack">'
+        + trending.map(function(a){ return renderArticleCard(a, 'wisdom-card--horizontal'); }).join('')
+        + '</div></section>';
+    }
+
+    // Recent section (list cards)
+    if (recent.length > 0){
+      html += '<section class="wisdom-section"><div class="wisdom-section-header"><div>'
+        + '<div class="wisdom-section-eyebrow">TERBARU</div>'
+        + '<h2 class="wisdom-section-title">Bacaan Terbaru</h2></div>'
+        + '<button class="wisdom-section-link" type="button" data-category="all">Lihat Semua &#8250;</button>'
+        + '</div>'
+        + '<div class="wisdom-recent-stack">'
+        + recent.map(function(a){ return renderArticleCard(a, 'wisdom-card--list'); }).join('')
+        + '</div></section>';
+    }
+
+    // By Category section (grid)
+    var hubState = loadWisdomHubState();
+    var lastCat = hubState.lastVisitedCategory || 'kesehatan-umum';
+    var catArticles = getArticlesByCategory(lastCat).slice(0, 6);
+    var catLabel = getCategoryLabel(lastCat);
+    if (catArticles.length > 0) {
+      html += '<section class="wisdom-section"><div class="wisdom-section-header"><div>'
+        + '<div class="wisdom-section-eyebrow">KATEGORI</div>'
+        + '<h2 class="wisdom-section-title">' + escHtml(catLabel) + '</h2></div>'
+        + '<button class="wisdom-section-link" type="button" data-category="' + escHtml(lastCat) + '">Lihat Semua &#8250;</button>'
+        + '</div>'
+        + '<div class="wisdom-cards-grid">'
+        + catArticles.map(function(a){ return renderArticleCard(a, 'wisdom-card--category-grid'); }).join('')
+        + '</div></section>';
+    }
+
     content.innerHTML = html;
     observeWisdomImages();
   }
@@ -11754,7 +12320,13 @@ window.meditToggleSection = meditToggleSection;
         return;
       }
       var card = e.target.closest('.wisdom-card');
-      if (card){ console.log('[Phase 2D will handle] Open article:', card.dataset.articleId); }
+      if (card){
+        var artId = card.dataset.articleId;
+        var article = getArticleById(artId);
+        recordReadHistory(artId);
+        // PHASE 2D: replace with detail view navigation
+        console.log('[Welvra] Article opened:', article || artId);
+      }
     });
     root.addEventListener('keydown', function(e){
       if (e.key === 'Enter' || e.key === ' '){
