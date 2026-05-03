@@ -649,6 +649,137 @@ html.dark .feat-tile::before{opacity:.32}
 }
 .home-section-link:hover{background:var(--primary-light)}
 
+/* ===== PHASE 3D: PERSONALIZED FEED ===== */
+.home-feed{margin-bottom:28px}
+.home-feed-label{
+  font-family:'Cormorant Garamond',serif;font-size:.82rem;font-weight:600;
+  color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;
+  margin:0 0 12px 4px;
+}
+.home-feed-hero{
+  position:relative;border-radius:16px;overflow:hidden;
+  aspect-ratio:4/5;max-height:320px;cursor:pointer;
+  background:var(--card-bg);
+  box-shadow:0 4px 20px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
+  -webkit-tap-highlight-color:transparent;
+}
+.home-feed-hero:active{transform:scale(.985);transition:transform .15s}
+.home-feed-hero__img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s cubic-bezier(.16,1,.3,1);
+  color:transparent;font-size:0;
+}
+.home-feed-hero:hover .home-feed-hero__img{transform:scale(1.03)}
+.home-feed-hero__overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(0,0,0,.65) 0%,rgba(0,0,0,.08) 50%,transparent 100%);
+  pointer-events:none;
+}
+.home-feed-hero__cat{
+  position:absolute;top:14px;left:14px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.65rem;font-weight:700;
+  color:var(--ivory);background:rgba(200,134,10,.85);
+  padding:4px 10px;border-radius:999px;letter-spacing:.5px;text-transform:uppercase;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.home-feed-hero__body{
+  position:absolute;bottom:0;left:0;right:0;padding:20px 16px;
+}
+.home-feed-hero__title{
+  font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;
+  color:#fff;line-height:1.25;margin:0 0 6px;
+  text-shadow:0 2px 8px rgba(0,0,0,.4);
+}
+.home-feed-hero__meta{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.68rem;
+  color:rgba(255,255,255,.75);display:flex;align-items:center;gap:8px;
+}
+.home-feed-hero__resume{
+  position:absolute;top:14px;right:14px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.62rem;font-weight:600;
+  color:var(--ivory);background:rgba(10,123,108,.85);
+  padding:4px 10px;border-radius:999px;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+/* Feed cards row */
+.home-feed-scroll{
+  display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;padding:14px 0 4px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.home-feed-scroll::-webkit-scrollbar{display:none}
+.home-feed-card{
+  flex:0 0 165px;scroll-snap-align:start;
+  border-radius:14px;overflow:hidden;cursor:pointer;
+  background:var(--card-bg);
+  box-shadow:0 2px 12px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.03);
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .2s,box-shadow .2s;
+}
+.home-feed-card:active{transform:scale(.97)}
+.home-feed-card__thumb{
+  position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;
+}
+.home-feed-card__img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .4s cubic-bezier(.16,1,.3,1);
+  color:transparent;font-size:0;
+}
+.home-feed-card:hover .home-feed-card__img{transform:scale(1.04)}
+.home-feed-card__resume{
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:rgba(200,134,10,.2);
+}
+.home-feed-card__resume-fill{
+  height:100%;background:var(--gold);transition:width .3s;
+}
+.home-feed-card__resume-badge{
+  position:absolute;top:8px;right:8px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.58rem;font-weight:600;
+  color:var(--ivory);background:rgba(10,123,108,.85);
+  padding:3px 8px;border-radius:999px;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.home-feed-card__body{padding:10px 12px 12px}
+.home-feed-card__cat{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.6rem;font-weight:600;
+  color:var(--gold);letter-spacing:.3px;text-transform:uppercase;margin-bottom:4px;
+}
+.home-feed-card__title{
+  font-family:'Cormorant Garamond',serif;font-size:.92rem;font-weight:600;
+  color:var(--text);line-height:1.3;margin:0;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.home-feed-card__meta{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.6rem;
+  color:var(--txt-secondary);margin-top:6px;
+}
+/* Skeleton loading */
+.home-feed-skeleton{animation:hfSkeleton 1.5s ease infinite;border-radius:16px}
+.home-feed-skeleton--hero{aspect-ratio:4/5;max-height:320px}
+.home-feed-skeleton--card{flex:0 0 165px;height:200px;border-radius:14px}
+@keyframes hfSkeleton{
+  0%,100%{background:rgba(200,134,10,.06)}
+  50%{background:rgba(200,134,10,.14)}
+}
+html.dark .home-feed-skeleton{animation-name:hfSkeletonDark}
+@keyframes hfSkeletonDark{
+  0%,100%{background:rgba(200,134,10,.08)}
+  50%{background:rgba(200,134,10,.2)}
+}
+/* "All read" state */
+.home-feed-done{
+  text-align:center;padding:32px 20px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;
+  color:var(--txt-secondary);line-height:1.6;
+}
+.home-feed-done__cta{
+  display:inline-block;margin-top:12px;
+  font-size:.72rem;font-weight:600;color:var(--primary);
+  background:var(--primary-light);padding:8px 16px;border-radius:999px;
+  border:none;cursor:pointer;transition:background .2s;
+}
+
 /* Section title with gold accent (stats only) */
 .stats-title{position:relative;padding-bottom:10px}
 .stats-title::after{
@@ -4127,8 +4258,8 @@ html.dark .wisdom-detail{background:#14140F}
 html.dark .wisdom-detail-article{background:#14140F}
 .wisdom-detail[data-open="true"]{display:flex;flex-direction:column;transform:translateY(0)}
 .wisdom-detail.closing{transform:translateY(100%);transition-duration:280ms}
-.wisdom-detail-progress{position:sticky;top:0;left:0;right:0;height:3px;background:rgba(200,134,10,.12);z-index:5;flex-shrink:0}
-.wisdom-detail-progress-fill{height:100%;background:var(--gold);width:0%;transition:width 100ms linear;transform-origin:left center}
+.wisdom-detail-progress{position:sticky;top:0;left:0;right:0;height:2px;background:rgba(10,123,108,.1);z-index:5;flex-shrink:0}
+.wisdom-detail-progress-fill{height:100%;background:var(--teal,#0A7B6C);width:0%;transition:width 100ms linear;transform-origin:left center}
 .wisdom-detail-header{
   position:sticky;top:3px;display:flex;justify-content:space-between;align-items:center;padding:8px 16px;
   background:rgba(250,250,247,.88);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);z-index:4;min-height:52px;flex-shrink:0;
@@ -4719,6 +4850,13 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <button class="home-section-link" onclick="openModal('history')" type="button">Lihat Semua &#x203A;</button>
       </div>
       <div id="home-activity-container"></div>
+    </div>
+
+    <!-- PHASE 3D: PERSONALIZED FEED -->
+    <div class="home-feed" id="homeFeedSection" style="display:none">
+      <div class="home-feed-label" id="homeFeedLabel">Untukmu hari ini</div>
+      <div id="homeFeedHero"></div>
+      <div class="home-feed-scroll" id="homeFeedCards"></div>
     </div>
 
     <!-- HEALTH TIP OF THE DAY -->
@@ -13961,9 +14099,357 @@ window.meditToggleSection = meditToggleSection;
     init();
   }
 
+  // ===== PHASE 3D: PERSONALIZED HOME FEED =====
+  // Scoring algorithm: ranks articles by relevance to user context
+  // Renders hero card + scrollable feed cards on beranda
+
+  var _feedRendered = false;
+  var _feedCacheKey = 'welvra.feedCache.v1';
+
+  // Pregnancy week mapping for kehamilan articles based on subcategory/tags
+  var _pregnancyWeekMap = {
+    'trimester-1': [1, 12],
+    'trimester-2': [13, 27],
+    'trimester-3': [28, 40],
+    'postpartum': [41, 52],
+    'persalinan': [35, 42],
+    'laktasi': [36, 52],
+    'olahraga': [1, 40],
+    'nutrisi': [1, 40],
+    'medis': [1, 40],
+    'body-image': [1, 40],
+    'support': [1, 40],
+    'hubungan': [1, 40]
+  };
+
+  function _getPregnancyWeekRange(article) {
+    if (article.category !== 'kehamilan') return null;
+    var sub = article.subcategory;
+    if (sub && _pregnancyWeekMap[sub]) return _pregnancyWeekMap[sub];
+    // Infer from tags
+    var tags = article.tags || [];
+    for (var i = 0; i < tags.length; i++) {
+      if (_pregnancyWeekMap[tags[i]]) return _pregnancyWeekMap[tags[i]];
+    }
+    return [1, 40]; // general kehamilan
+  }
+
+  function _getUserContext() {
+    var ctx = {
+      interests: [],
+      age: null,
+      gender: 'all',
+      readArticleIds: [],
+      partialReads: {},
+      pregnancyWeek: null
+    };
+
+    // From profile state (available after auth)
+    if (typeof profileState !== 'undefined' && profileState.current) {
+      ctx.interests = profileState.current.interests || [];
+      ctx.age = profileState.current.age;
+      ctx.gender = profileState.current.gender || 'all';
+    }
+
+    // Fallback: from onboarding localStorage
+    if (!ctx.interests.length) {
+      try {
+        var ob = JSON.parse(localStorage.getItem('welvra.onboarding.v1') || '{}');
+        if (ob && ob.data) {
+          ctx.interests = ob.data.interests || [];
+          if (!ctx.age) ctx.age = ob.data.age;
+          if (ctx.gender === 'all' || ctx.gender === 'not-specified') ctx.gender = ob.data.gender || 'all';
+        }
+      } catch (e) {}
+    }
+
+    // Read history
+    var state = loadWisdomHubState();
+    var readMap = {};
+    (state.readHistory || []).forEach(function(h) {
+      readMap[h.articleId] = h.scrollDepth || 0;
+      ctx.readArticleIds.push(h.articleId);
+    });
+    ctx.partialReads = readMap;
+
+    // Pregnancy week from localStorage health profile
+    try {
+      var hp = JSON.parse(localStorage.getItem('welvra_health_profile') || '{}');
+      if (hp && hp.pregnancyDueDate) {
+        var due = new Date(hp.pregnancyDueDate);
+        var now = new Date();
+        var totalDays = 280; // 40 weeks
+        var daysLeft = Math.floor((due - now) / 86400000);
+        var daysPregnant = totalDays - daysLeft;
+        if (daysPregnant > 0 && daysPregnant <= totalDays) {
+          ctx.pregnancyWeek = Math.ceil(daysPregnant / 7);
+        }
+      }
+    } catch (e) {}
+
+    return ctx;
+  }
+
+  function scoreArticle(article, ctx) {
+    var score = 50;
+
+    // Interest match (highest weight)
+    if (ctx.interests.indexOf(article.category) !== -1) {
+      score += 30;
+    }
+    var tags = article.tags || [];
+    for (var i = 0; i < tags.length; i++) {
+      if (ctx.interests.indexOf(tags[i]) !== -1) {
+        score += 15;
+        break;
+      }
+    }
+
+    // Pregnancy week relevance
+    if (ctx.pregnancyWeek) {
+      var range = _getPregnancyWeekRange(article);
+      if (range && range[0] <= ctx.pregnancyWeek && range[1] >= ctx.pregnancyWeek) {
+        score += 40;
+      } else if (article.category === 'kehamilan') {
+        score += 10;
+      }
+    }
+
+    // Gender relevance
+    if (ctx.gender && ctx.gender !== 'all' && ctx.gender !== 'not-specified') {
+      // Penalize clearly gender-specific content for wrong gender
+      var genderCats = {
+        'kesehatan-reproduksi': 'female',
+        'kehamilan': 'female'
+      };
+      var expectedGender = genderCats[article.category];
+      if (expectedGender && expectedGender !== ctx.gender) {
+        score -= 20;
+      }
+    }
+
+    // Already fully read penalty
+    var depth = ctx.partialReads[article.id];
+    if (depth !== undefined) {
+      if (depth >= 80) {
+        score -= 30; // Fully read
+      } else if (depth > 0) {
+        score += 15; // Partial read = boost for "lanjut baca"
+      }
+    }
+
+    // Featured boost
+    if (article.featured) {
+      score += 10;
+    }
+
+    // Trending score influence (0-100 mapped to 0-5)
+    score += Math.round((article.trendingScore || 50) / 20);
+
+    // Recency boost (published within 7 days)
+    if (article.publishedAt) {
+      var daysSince = Math.floor((Date.now() - new Date(article.publishedAt).getTime()) / 86400000);
+      if (daysSince <= 7) score += 8;
+      else if (daysSince <= 14) score += 4;
+    }
+
+    return Math.max(0, Math.min(100, score));
+  }
+
+  function _buildFeed() {
+    var ctx = _getUserContext();
+    var scored = [];
+    for (var i = 0; i < WELVRA_ARTICLES.length; i++) {
+      var a = WELVRA_ARTICLES[i];
+      scored.push({ article: a, score: scoreArticle(a, ctx), ctx: ctx });
+    }
+    scored.sort(function(a, b) { return b.score - a.score; });
+
+    // Hero = top 1
+    var hero = scored.length > 0 ? scored[0] : null;
+
+    // Next 4 for cards
+    var cards = scored.slice(1, 5);
+
+    // Add 1 serendipity card from a category user hasn't engaged with
+    var engagedCats = {};
+    ctx.interests.forEach(function(c) { engagedCats[c] = true; });
+    ctx.readArticleIds.forEach(function(id) {
+      var a = getArticleById(id);
+      if (a) engagedCats[a.category] = true;
+    });
+    var serendipity = null;
+    for (var j = 5; j < scored.length; j++) {
+      if (!engagedCats[scored[j].article.category]) {
+        serendipity = scored[j];
+        break;
+      }
+    }
+    if (serendipity) cards.push(serendipity);
+
+    return { hero: hero, cards: cards, ctx: ctx };
+  }
+
+  function _renderFeedHero(heroData, ctx) {
+    var container = document.getElementById('homeFeedHero');
+    if (!container || !heroData) return;
+    var a = heroData.article;
+    var img = getArticleImage(a);
+    var dc = getArticleDominantColor(a);
+    var catLabel = getCategoryLabel(a.category);
+    var depth = ctx.partialReads[a.id];
+    var resumeHtml = '';
+    if (depth !== undefined && depth > 0 && depth < 80) {
+      resumeHtml = '<div class="home-feed-hero__resume">Lanjut baca ' + depth + '%</div>';
+    }
+    container.innerHTML =
+      '<div class="home-feed-hero" data-article-id="' + escHtml(a.id) + '" style="background:' + dc + '">' +
+        '<img class="home-feed-hero__img welvra-img__photo" data-src="' + escHtml(img) + '" alt="' + escHtml(a.title) + '" loading="lazy">' +
+        '<div class="home-feed-hero__overlay"></div>' +
+        '<div class="home-feed-hero__cat">' + escHtml(catLabel) + '</div>' +
+        resumeHtml +
+        '<div class="home-feed-hero__body">' +
+          '<h3 class="home-feed-hero__title">' + escHtml(a.title) + '</h3>' +
+          '<div class="home-feed-hero__meta">' +
+            '<span>' + (a.readingTimeMinutes || 5) + ' menit baca</span>' +
+            '<span>&#183;</span>' +
+            '<span>' + escHtml(a.author ? (a.author.name || 'Tim Welvra') : 'Tim Welvra') + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function _renderFeedCards(cardsData, ctx) {
+    var container = document.getElementById('homeFeedCards');
+    if (!container || !cardsData || !cardsData.length) { if (container) container.innerHTML = ''; return; }
+    container.innerHTML = cardsData.map(function(item) {
+      var a = item.article;
+      var img = getArticleImage(a);
+      var dc = getArticleDominantColor(a);
+      var catLabel = getCategoryLabel(a.category);
+      var depth = ctx.partialReads[a.id];
+      var resumeHtml = '';
+      var progressHtml = '';
+      if (depth !== undefined && depth > 0 && depth < 80) {
+        resumeHtml = '<div class="home-feed-card__resume-badge">Lanjut ' + depth + '%</div>';
+        progressHtml = '<div class="home-feed-card__resume"><div class="home-feed-card__resume-fill" style="width:' + depth + '%"></div></div>';
+      }
+      return '<article class="home-feed-card" data-article-id="' + escHtml(a.id) + '">' +
+        '<div class="home-feed-card__thumb" style="background:' + dc + '">' +
+          '<img class="home-feed-card__img welvra-img__photo" data-src="' + escHtml(img) + '" alt="' + escHtml(a.title) + '" loading="lazy">' +
+          resumeHtml +
+          progressHtml +
+        '</div>' +
+        '<div class="home-feed-card__body">' +
+          '<div class="home-feed-card__cat">' + escHtml(catLabel) + '</div>' +
+          '<h4 class="home-feed-card__title">' + escHtml(a.title) + '</h4>' +
+          '<div class="home-feed-card__meta">' + (a.readingTimeMinutes || 5) + ' menit baca</div>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+  }
+
+  function _renderFeedSkeleton() {
+    var section = document.getElementById('homeFeedSection');
+    if (!section) return;
+    section.style.display = '';
+    document.getElementById('homeFeedHero').innerHTML = '<div class="home-feed-skeleton home-feed-skeleton--hero"></div>';
+    document.getElementById('homeFeedCards').innerHTML =
+      '<div class="home-feed-skeleton home-feed-skeleton--card"></div>' +
+      '<div class="home-feed-skeleton home-feed-skeleton--card"></div>' +
+      '<div class="home-feed-skeleton home-feed-skeleton--card"></div>';
+  }
+
+  function renderPersonalizedFeed() {
+    var section = document.getElementById('homeFeedSection');
+    if (!section) return;
+
+    // Show skeleton briefly
+    if (!_feedRendered) {
+      _renderFeedSkeleton();
+    }
+
+    // Small delay to let skeleton paint
+    setTimeout(function() {
+      var feed = _buildFeed();
+      if (!feed.hero) {
+        section.style.display = 'none';
+        return;
+      }
+
+      section.style.display = '';
+      _renderFeedHero(feed.hero, feed.ctx);
+      _renderFeedCards(feed.cards, feed.ctx);
+      _feedRendered = true;
+
+      // Lazy load images
+      if (typeof observeWisdomImages === 'function') observeWisdomImages();
+      // Also manual fallback for images with data-src
+      section.querySelectorAll('img[data-src]').forEach(function(img) {
+        if (!img.src || img.src === '') {
+          img.src = img.dataset.src;
+        }
+      });
+
+      // Bind click handlers
+      section.querySelectorAll('[data-article-id]').forEach(function(el) {
+        el.onclick = function(e) {
+          e.preventDefault();
+          var artId = el.dataset.articleId;
+          if (typeof openWisdomDetail === 'function') {
+            var depth = feed.ctx.partialReads[artId];
+            openWisdomDetail(artId, depth > 0 && depth < 80 ? { resumeFromDepth: depth } : {});
+          }
+        };
+      });
+
+      // Update label based on context
+      var label = document.getElementById('homeFeedLabel');
+      if (label) {
+        if (feed.ctx.pregnancyWeek) {
+          label.textContent = 'Minggu ke-' + feed.ctx.pregnancyWeek + ' kehamilanmu';
+        } else if (feed.ctx.interests.length > 0) {
+          label.textContent = 'Untukmu hari ini';
+        } else {
+          label.textContent = 'Bacaan pilihan';
+        }
+      }
+    }, _feedRendered ? 0 : 80);
+  }
+
+  // Hook into homeRefresh if available
+  var _origHomeRefresh = window.homeRefresh;
+  window.homeRefresh = function() {
+    if (_origHomeRefresh) _origHomeRefresh();
+    renderPersonalizedFeed();
+  };
+
+  // Also render on auth state change (profile data becomes available)
+  if (typeof welvraAuth !== 'undefined' && welvraAuth.onAuthChange) {
+    welvraAuth.onAuthChange(function(ev, session) {
+      if (session) {
+        // Delay to let profile data load
+        setTimeout(renderPersonalizedFeed, 2000);
+      }
+    });
+  }
+
+  // Initial render after DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(renderPersonalizedFeed, 300);
+    });
+  } else {
+    setTimeout(renderPersonalizedFeed, 300);
+  }
+
+  // Expose for external use
+  window.renderPersonalizedFeed = renderPersonalizedFeed;
+
   // Expose
   window.openWisdomPanel = openWisdomPanel;
   window.closeWisdomPanel = closeWisdomPanel;
+  window.openWisdomDetail = openWisdomDetail;
 })();
 </script>
 </body>
