@@ -4360,6 +4360,105 @@ html.dark .welvra-onboarding-chip.active{background:var(--gold);border-color:var
 .welvra-onboarding-success-icon{display:flex;justify-content:center;color:var(--gold);margin-bottom:8px;animation:welvraOBSuccessIn 600ms cubic-bezier(.34,1.56,.64,1)}
 @keyframes welvraOBSuccessIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
 
+/* ===== PHASE 3A.4: PROFILE SCREEN ===== */
+.welvra-profile-screen{position:fixed;inset:0;z-index:955;background:#FAFAF7;display:none;flex-direction:column;overflow:hidden;transform:translateX(100%);transition:transform 360ms cubic-bezier(.16,1,.3,1)}
+.welvra-profile-screen:not([hidden]){display:flex}
+.welvra-profile-screen.visible{transform:translateX(0)}
+html.dark .welvra-profile-screen{background:#14140F}
+.welvra-profile-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(250,250,247,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid rgba(200,134,10,.08);flex-shrink:0;min-height:56px}
+html.dark .welvra-profile-header{background:rgba(20,20,18,.92)}
+.welvra-profile-back{width:40px;height:40px;border-radius:50%;border:none;background:rgba(200,134,10,.08);color:var(--teal);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.welvra-profile-back:active{transform:scale(.92)}
+html.dark .welvra-profile-back{background:rgba(200,134,10,.12);color:var(--gold)}
+.welvra-profile-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--teal);margin:0}
+html.dark .welvra-profile-title{color:#F0EDE8}
+.welvra-profile-edit{padding:8px 16px;border:none;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;color:var(--gold);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.welvra-profile-content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:40px}
+.welvra-profile-hero{display:flex;flex-direction:column;align-items:center;padding:32px 24px 24px;text-align:center}
+.welvra-profile-photo-wrap{position:relative;margin-bottom:16px}
+.welvra-profile-photo{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--sage));display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 4px 16px rgba(10,123,108,.2)}
+.welvra-profile-photo-placeholder{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:500;color:white}
+.welvra-profile-photo-img{width:100%;height:100%;object-fit:cover}
+.welvra-profile-photo-edit{position:absolute;bottom:0;right:0;width:32px;height:32px;border-radius:50%;background:var(--gold);color:white;border:2px solid #FAFAF7;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+html.dark .welvra-profile-photo-edit{border-color:#14140F}
+.welvra-profile-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--teal);margin:0 0 4px}
+html.dark .welvra-profile-name{color:#F0EDE8}
+.welvra-profile-email{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary);margin:0}
+.welvra-profile-section{padding:16px 24px;border-top:1px solid rgba(200,134,10,.08)}
+.welvra-profile-field{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(200,134,10,.06)}
+.welvra-profile-field:last-child{border-bottom:none}
+.welvra-profile-field-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary);flex-shrink:0}
+.welvra-profile-field-value{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;color:var(--teal);text-align:right}
+html.dark .welvra-profile-field-value{color:#F0EDE8}
+.welvra-profile-field-interests{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.welvra-profile-interest-pill{padding:4px 10px;border-radius:999px;background:rgba(200,134,10,.1);font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;color:var(--gold)}
+.welvra-profile-meta{background:rgba(107,158,120,.04)}
+.welvra-profile-meta-item{display:flex;justify-content:space-between;padding:12px 0}
+.welvra-profile-meta-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary)}
+.welvra-profile-meta-value{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--sage);font-weight:500}
+.welvra-profile-signout{width:100%;padding:14px;border:none;border-radius:12px;background:rgba(200,75,75,.08);color:#C84B4B;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background 200ms}
+.welvra-profile-signout:active{background:rgba(200,75,75,.15)}
+/* Edit modal */
+.welvra-profile-edit-modal{position:fixed;inset:0;z-index:960;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.4)}
+.welvra-profile-edit-modal:not([hidden]){display:flex}
+.welvra-profile-edit-modal.visible .welvra-profile-edit-modal-inner{transform:translateY(0)}
+.welvra-profile-edit-modal-inner{width:100%;max-width:480px;max-height:85vh;background:#FAFAF7;border-radius:24px 24px 0 0;padding:0 0 32px;overflow-y:auto;transform:translateY(100%);transition:transform 320ms cubic-bezier(.16,1,.3,1)}
+html.dark .welvra-profile-edit-modal-inner{background:#1A1A16}
+.welvra-profile-edit-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;position:sticky;top:0;background:inherit;z-index:2}
+.welvra-profile-edit-cancel,.welvra-profile-edit-save{padding:8px 16px;border:none;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.welvra-profile-edit-cancel{color:var(--txt-secondary)}
+.welvra-profile-edit-save{color:var(--gold)}
+.welvra-profile-edit-save:disabled{opacity:.4;cursor:not-allowed}
+.welvra-profile-edit-modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--teal);margin:0}
+html.dark .welvra-profile-edit-modal-title{color:#F0EDE8}
+.welvra-profile-edit-form{padding:0 20px}
+.welvra-profile-edit-field-label{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--sage);margin:16px 0 8px}
+.welvra-profile-edit-input{width:100%;padding:14px 16px;border:1.5px solid rgba(200,134,10,.2);border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;background:white;color:var(--ink);-webkit-appearance:none;appearance:none;box-sizing:border-box}
+.welvra-profile-edit-input:focus{outline:none;border-color:var(--gold)}
+html.dark .welvra-profile-edit-input{background:#1F1F1A;color:#F0EDE8;border-color:rgba(200,134,10,.25)}
+.welvra-profile-edit-chips{display:flex;flex-wrap:wrap;gap:8px}
+.welvra-profile-edit-chip{padding:10px 16px;border:1.5px solid rgba(200,134,10,.2);border-radius:999px;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.welvra-profile-edit-chip.active{background:var(--teal);color:white;border-color:var(--teal)}
+html.dark .welvra-profile-edit-chip.active{background:var(--gold);border-color:var(--gold);color:#1A1A16}
+.welvra-profile-edit-interests{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.welvra-profile-edit-interest-chip{padding:10px 14px;border:1.5px solid rgba(200,134,10,.2);border-radius:999px;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--txt-secondary);cursor:pointer}
+.welvra-profile-edit-interest-chip.active{background:rgba(200,134,10,.12);border-color:var(--gold);color:var(--gold)}
+/* Info modals */
+.welvra-info-modal{position:fixed;inset:0;z-index:970;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.4)}
+.welvra-info-modal:not([hidden]){display:flex}
+.welvra-info-modal.visible .welvra-info-modal-inner{transform:translateY(0)}
+.welvra-info-modal-inner{width:100%;max-width:480px;max-height:85vh;background:#FAFAF7;border-radius:24px 24px 0 0;overflow-y:auto;transform:translateY(100%);transition:transform 320ms cubic-bezier(.16,1,.3,1)}
+html.dark .welvra-info-modal-inner{background:#1A1A16}
+.welvra-info-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;position:sticky;top:0;background:inherit;z-index:2;border-bottom:1px solid rgba(200,134,10,.08)}
+.welvra-info-modal-close{width:40px;height:40px;border-radius:50%;border:none;background:rgba(200,134,10,.08);color:var(--teal);cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+html.dark .welvra-info-modal-close{background:rgba(200,134,10,.12);color:var(--gold)}
+.welvra-info-modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--teal);margin:0}
+html.dark .welvra-info-modal-title{color:#F0EDE8}
+.welvra-info-modal-spacer{width:40px}
+.welvra-info-modal-content{padding:24px 20px 40px}
+.welvra-info-emblem{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:16px;color:var(--gold)}
+.welvra-info-tagline{text-align:center;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--sage);margin:0 0 24px}
+.welvra-info-section{margin-bottom:20px}
+.welvra-info-section h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;color:var(--teal);margin:0 0 8px}
+html.dark .welvra-info-section h3{color:#F0EDE8}
+.welvra-info-section p{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.7;color:var(--txt-secondary);margin:0}
+.welvra-info-meta{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:24px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--sage)}
+.welvra-info-updated{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--sage);margin:0 0 20px;font-style:italic}
+.welvra-faq-item{margin-bottom:20px}
+.welvra-faq-item h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;color:var(--teal);margin:0 0 6px}
+html.dark .welvra-faq-item h3{color:#F0EDE8}
+.welvra-faq-item p{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.7;color:var(--txt-secondary);margin:0}
+.welvra-info-contact a{color:var(--gold);text-decoration:none}
+/* Drawer auth header */
+.drawer-auth-info{display:flex;align-items:center;gap:12px;padding:8px 0}
+.drawer-auth-photo{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.drawer-auth-initial{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--sage));color:white;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;flex-shrink:0}
+.drawer-auth-text{min-width:0}
+.drawer-auth-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;color:var(--teal);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html.dark .drawer-auth-name{color:#F0EDE8}
+.drawer-auth-email{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--txt-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.drawer-auth-signin{width:100%;padding:12px;border:1.5px solid var(--gold);border-radius:999px;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;color:var(--gold);cursor:pointer;-webkit-tap-highlight-color:transparent}
+
 /* ----- Reduced motion ----- */
 @media (prefers-reduced-motion:reduce){
   .wisdom-panel{transition:none}
@@ -4384,6 +4483,7 @@ html.dark .welvra-onboarding-chip.active{background:var(--gold);border-color:var
   .welvra-spinner::before{animation-duration:3s}
   .welvra-onboarding,.welvra-onboarding-progress-fill{transition:none}
   .welvra-onboarding-success-icon{animation:none}
+  .welvra-profile-screen,.welvra-profile-edit-modal-inner,.welvra-info-modal-inner{transition:none}
 }
 
 </style>
@@ -5355,11 +5455,11 @@ html.dark .welvra-onboarding-chip.active{background:var(--gold);border-color:var
   </div>
 
   <span class="drawer-section-label">Profil &amp; Riwayat</span>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){openProfilePanel()},290)">
+  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.openProfileScreen)openProfileScreen();else openProfilePanel()},290)">
     <span class="drawer-menu-icon" data-color="gold">
-      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2.5"/><line x1="14" y1="10" x2="18" y2="10"/><line x1="14" y1="13" x2="17.5" y2="13"/><path d="M5.5 17.5 C6 15.5 7.5 14.5 9 14.5 C10.5 14.5 12 15.5 12.5 17.5"/></svg>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 22a8 8 0 0116 0" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
     </span>
-    <span class="drawer-menu-label">Profil &amp; Data Kesehatan</span>
+    <span class="drawer-menu-label">Profil Saya</span>
     <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
   </button>
   <button class="drawer-menu-item" onclick="showWelvraToast('Analitik Kesehatan segera hadir')">
@@ -5461,21 +5561,21 @@ html.dark .welvra-onboarding-chip.active{background:var(--gold);border-color:var
     <span class="drawer-menu-label">Beri Masukan</span>
     <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
   </button>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Pusat Bantuan segera hadir')">
+  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.openInfoModal)openInfoModal('helpModal')},290)">
     <span class="drawer-menu-icon" data-color="teal">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9 C9.5 7.5 10.7 6.5 12 6.5 C13.3 6.5 14.5 7.5 14.5 8.8 C14.5 10.5 12 11 12 12.5"/><circle cx="12" cy="16.5" r=".7" fill="currentColor"/></svg>
     </span>
     <span class="drawer-menu-label">Pusat Bantuan</span>
     <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
   </button>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Welvra v2.0 &mdash; Sahabat sehatmu')">
+  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.openInfoModal)openInfoModal('aboutWelvraModal')},290)">
     <span class="drawer-menu-icon" data-color="teal">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="8" r=".8" fill="currentColor"/></svg>
     </span>
     <span class="drawer-menu-label">Tentang Welvra</span>
     <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
   </button>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Kebijakan Privasi segera hadir')">
+  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.openInfoModal)openInfoModal('privacyModal')},290)">
     <span class="drawer-menu-icon" data-color="teal">
       <svg viewBox="0 0 24 24"><path d="M12 3 L20 6 V12 C20 17 16 20 12 21 C8 20 4 17 4 12 V6 Z"/><polyline points="9 12 11 14 15 10"/></svg>
     </span>
@@ -11955,7 +12055,8 @@ window.meditToggleSection = meditToggleSection;
     state.readHistory.unshift({ articleId: articleId, readAt: new Date().toISOString(), scrollDepth: 0 });
     if (state.readHistory.length > 100) state.readHistory = state.readHistory.slice(0, 100);
     saveWisdomHubState(state);
-    // PHASE 2E: surface read history
+    // Phase 3A.5: Cloud sync
+    if (typeof syncHistoryToCloud === 'function') syncHistoryToCloud(articleId, 0);
   }
 
   function recordSearchHistory(query) {
@@ -12480,6 +12581,8 @@ window.meditToggleSection = meditToggleSection;
       showToast(saved ? 'Disimpan untuk dibaca nanti' : 'Dihapus dari simpanan');
     }
     if (welvraWisdomState.activeCategory === 'saved'){ renderWisdomContent(); }
+    // Phase 3A.5: Cloud sync
+    if (typeof syncBookmarkToCloud === 'function') syncBookmarkToCloud(articleId, saved ? 'add' : 'remove');
   }
 
   // ----- Search & helpers -----
@@ -13322,6 +13425,8 @@ window.meditToggleSection = meditToggleSection;
       }
     }
     saveWisdomHubState(state);
+    // Phase 3A.5: Cloud sync scroll depth
+    if (typeof syncHistoryToCloud === 'function') syncHistoryToCloud(detailState.currentArticleId, detailState.scrollDepth);
   }
 
   // --- Detail events ---
@@ -13544,6 +13649,155 @@ window.meditToggleSection = meditToggleSection;
   }
   window.openHistoryPanel=openHistoryPanel;
 
+  // ===== PHASE 3A.4: PROFILE SCREEN + PHOTO UPLOAD =====
+  // Audit: drawer Profil item at ~line 5358, openProfilePanel at ~7576
+  // Bookmarks: welvra.wisdomHub.v1.bookmarks = [{articleId, savedAt}]
+  // ReadHistory: welvra.wisdomHub.v1.readHistory = [{articleId, readAt, scrollDepth}]
+  // Drawer close: closeWelvraDrawer()
+  var profileState={isOpen:false,isEditMode:false,domBuilt:false,current:{id:null,name:'',age:null,gender:'not-specified',interests:[],photo_url:null,email:'',created_at:null},pending:null};
+  function ensureProfileScreenDom(){
+    if(profileState.domBuilt)return;profileState.domBuilt=true;
+    var el=document.createElement('div');el.className='welvra-profile-screen';el.id='welvraProfileScreen';el.hidden=true;
+    el.innerHTML='<header class="welvra-profile-header"><button class="welvra-profile-back" id="profileBackBtn" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><h1 class="welvra-profile-title">Profil saya</h1><button class="welvra-profile-edit" id="profileEditBtn" type="button">Edit</button></header>'
+      +'<div class="welvra-profile-content"><section class="welvra-profile-hero"><div class="welvra-profile-photo-wrap"><div class="welvra-profile-photo" id="profilePhotoDisplay"><span class="welvra-profile-photo-placeholder" id="profilePhotoInitials">-</span><img class="welvra-profile-photo-img" id="profilePhotoImg" alt="" hidden/></div><button class="welvra-profile-photo-edit" id="profilePhotoEditBtn" type="button" aria-label="Ubah foto"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></button><input type="file" class="welvra-profile-photo-input" id="profilePhotoInput" accept="image/jpeg,image/png,image/webp" hidden/></div><h2 class="welvra-profile-name" id="profileNameDisplay">-</h2><p class="welvra-profile-email" id="profileEmailDisplay">-</p></section>'
+      +'<section class="welvra-profile-section"><div class="welvra-profile-field"><label class="welvra-profile-field-label">Nama</label><div class="welvra-profile-field-value" id="profileFieldName">-</div></div><div class="welvra-profile-field"><label class="welvra-profile-field-label">Usia</label><div class="welvra-profile-field-value" id="profileFieldAge">-</div></div><div class="welvra-profile-field"><label class="welvra-profile-field-label">Gender</label><div class="welvra-profile-field-value" id="profileFieldGender">-</div></div><div class="welvra-profile-field"><label class="welvra-profile-field-label">Minat</label><div class="welvra-profile-field-value welvra-profile-field-interests" id="profileFieldInterests">-</div></div></section>'
+      +'<section class="welvra-profile-section welvra-profile-meta"><div class="welvra-profile-meta-item"><span class="welvra-profile-meta-label">Bergabung sejak</span><span class="welvra-profile-meta-value" id="profileJoinedDate">-</span></div></section>'
+      +'<section class="welvra-profile-section"><button class="welvra-profile-signout" id="profileSignOutBtn" type="button">Keluar dari akun</button></section></div>'
+      +'<div class="welvra-profile-edit-modal" id="profileEditModal" hidden><div class="welvra-profile-edit-modal-inner"><header class="welvra-profile-edit-modal-header"><button class="welvra-profile-edit-cancel" id="profileEditCancel" type="button">Batal</button><h2 class="welvra-profile-edit-modal-title">Edit profil</h2><button class="welvra-profile-edit-save" id="profileEditSave" type="button">Simpan</button></header><div class="welvra-profile-edit-form"><label class="welvra-profile-edit-field-label">Nama</label><input type="text" class="welvra-profile-edit-input" id="profileEditNameInput" maxlength="60"/><label class="welvra-profile-edit-field-label">Usia</label><input type="number" class="welvra-profile-edit-input" id="profileEditAgeInput" min="13" max="120"/><label class="welvra-profile-edit-field-label">Gender</label><div class="welvra-profile-edit-chips" id="profileEditGenderChips"><button class="welvra-profile-edit-chip" data-gender="male" type="button">Pria</button><button class="welvra-profile-edit-chip" data-gender="female" type="button">Wanita</button><button class="welvra-profile-edit-chip" data-gender="non-binary" type="button">Non-biner</button><button class="welvra-profile-edit-chip" data-gender="not-specified" type="button">Tidak ingin sebut</button></div><label class="welvra-profile-edit-field-label">Minat</label><div class="welvra-profile-edit-interests" id="profileEditInterestsGrid"></div></div></div></div>';
+    document.body.appendChild(el);
+    bindProfileScreenEvents();
+  }
+  function genderLabel(g){return({male:'Pria',female:'Wanita','non-binary':'Non-biner','not-specified':'Tidak disebutkan'})[g]||'-';}
+  function interestLabel(s){return({'kesehatan-umum':'Kesehatan Umum','kesehatan-reproduksi':'Reproduksi',kehamilan:'Kehamilan','panduan-orangtua':'Orangtua','wellness-mental':'Wellness Mental','nutrisi-gizi':'Nutrisi',kebugaran:'Kebugaran','herbal-indonesia':'Herbal',lifestyle:'Lifestyle','isu-sosial':'Isu Sosial'})[s]||s;}
+  function openProfileScreen(){
+    if(!welvraAuth.isAuthenticated()){if(typeof openOnboarding==='function'){try{var ob=JSON.parse(localStorage.getItem('welvra.onboarding.v1')||'{}');ob.currentSlide=4;ob.completed=false;localStorage.setItem('welvra.onboarding.v1',JSON.stringify(ob));}catch(e){}openOnboarding();}return;}
+    ensureProfileScreenDom();
+    fetchProfileData().then(function(){profileState.isOpen=true;var el=document.getElementById('welvraProfileScreen');if(el){el.hidden=false;requestAnimationFrame(function(){el.classList.add('visible');});}document.body.style.overflow='hidden';renderProfileScreen();});
+  }
+  function closeProfileScreen(){if(!profileState.isOpen)return;profileState.isOpen=false;var el=document.getElementById('welvraProfileScreen');if(el){el.classList.remove('visible');setTimeout(function(){el.hidden=true;},320);}document.body.style.overflow='';}
+  function fetchProfileData(){
+    var c=welvraAuth.getClient();var user=welvraAuth.getUser();if(!c||!user)return Promise.resolve();
+    profileState.current.id=user.id;profileState.current.email=user.email||'';profileState.current.created_at=user.created_at;
+    return c.from('profiles').select('*').eq('id',user.id).single().then(function(r){if(!r.error&&r.data){profileState.current.name=r.data.name||'';profileState.current.age=r.data.age;profileState.current.gender=r.data.gender||'not-specified';profileState.current.interests=r.data.interests||[];profileState.current.photo_url=r.data.photo_url;}});
+  }
+  function renderProfileScreen(){
+    var p=profileState.current;var ini=(p.name||p.email||'?').trim().charAt(0).toUpperCase();
+    document.getElementById('profilePhotoInitials').textContent=ini;
+    var img=document.getElementById('profilePhotoImg'),iniEl=document.getElementById('profilePhotoInitials');
+    if(p.photo_url){img.src=p.photo_url;img.hidden=false;iniEl.style.display='none';}else{img.hidden=true;iniEl.style.display='';}
+    document.getElementById('profileNameDisplay').textContent=p.name||'-';
+    document.getElementById('profileEmailDisplay').textContent=p.email||'-';
+    document.getElementById('profileFieldName').textContent=p.name||'-';
+    document.getElementById('profileFieldAge').textContent=p.age!=null?p.age+' tahun':'-';
+    document.getElementById('profileFieldGender').textContent=genderLabel(p.gender);
+    var ie=document.getElementById('profileFieldInterests');
+    if(p.interests&&p.interests.length){ie.innerHTML=p.interests.map(function(s){return '<span class="welvra-profile-interest-pill">'+escHtml(interestLabel(s))+'</span>';}).join('');}else{ie.textContent='Belum dipilih';}
+    var je=document.getElementById('profileJoinedDate');
+    if(p.created_at){var d=new Date(p.created_at);je.textContent=d.toLocaleDateString('id-ID',{year:'numeric',month:'long',day:'numeric'});}else{je.textContent='-';}
+  }
+  function openProfileEditModal(){
+    profileState.pending=JSON.parse(JSON.stringify(profileState.current));
+    document.getElementById('profileEditNameInput').value=profileState.pending.name||'';
+    document.getElementById('profileEditAgeInput').value=profileState.pending.age||'';
+    document.querySelectorAll('#profileEditGenderChips .welvra-profile-edit-chip').forEach(function(c){var a=c.dataset.gender===profileState.pending.gender;c.classList.toggle('active',a);});
+    renderProfileEditInterests();
+    var m=document.getElementById('profileEditModal');m.hidden=false;requestAnimationFrame(function(){m.classList.add('visible');});profileState.isEditMode=true;
+  }
+  function closeProfileEditModal(){var m=document.getElementById('profileEditModal');m.classList.remove('visible');setTimeout(function(){m.hidden=true;},320);profileState.isEditMode=false;profileState.pending=null;}
+  function renderProfileEditInterests(){
+    var g=document.getElementById('profileEditInterestsGrid');if(!g)return;
+    var cats=[{slug:'kesehatan-umum',label:'Kesehatan Umum'},{slug:'kesehatan-reproduksi',label:'Reproduksi'},{slug:'kehamilan',label:'Kehamilan'},{slug:'panduan-orangtua',label:'Orangtua'},{slug:'wellness-mental',label:'Wellness Mental'},{slug:'nutrisi-gizi',label:'Nutrisi'},{slug:'kebugaran',label:'Kebugaran'},{slug:'herbal-indonesia',label:'Herbal'},{slug:'lifestyle',label:'Lifestyle'},{slug:'isu-sosial',label:'Isu Sosial'}];
+    var sel=profileState.pending.interests||[];
+    g.innerHTML=cats.map(function(c){var a=sel.indexOf(c.slug)!==-1;return '<button class="welvra-profile-edit-interest-chip'+(a?' active':'')+'" data-interest="'+c.slug+'" type="button">'+escHtml(c.label)+'</button>';}).join('');
+  }
+  function saveProfileEdits(){
+    var p=profileState.pending;if(!p)return;var name=(document.getElementById('profileEditNameInput').value||'').trim();var ageStr=document.getElementById('profileEditAgeInput').value;var age=ageStr?parseInt(ageStr,10):null;
+    if(!name){showToast('Nama tidak boleh kosong');return;}if(age!==null&&(age<13||age>120)){showToast('Usia harus antara 13 dan 120');return;}
+    var c=welvraAuth.getClient();var user=welvraAuth.getUser();if(!c||!user){showToast('Gagal menyimpan');return;}
+    var btn=document.getElementById('profileEditSave');btn.disabled=true;btn.textContent='Menyimpan...';
+    c.from('profiles').update({name:name,age:age,gender:p.gender,interests:p.interests}).eq('id',user.id).then(function(r){
+      if(r.error){showToast('Gagal: '+r.error.message);btn.disabled=false;btn.textContent='Simpan';return;}
+      profileState.current.name=name;profileState.current.age=age;profileState.current.gender=p.gender;profileState.current.interests=p.interests;
+      try{localStorage.setItem('welvra_username',name);}catch(e){}if(typeof setGreeting==='function')setGreeting();
+      renderProfileScreen();closeProfileEditModal();showToast('Profil tersimpan');btn.disabled=false;btn.textContent='Simpan';
+    });
+  }
+  function handlePhotoSelect(e){
+    var file=e.target.files&&e.target.files[0];if(!file)return;
+    if(file.size>5*1024*1024){showToast('Foto terlalu besar (maks 5MB)');return;}
+    if(['image/jpeg','image/png','image/webp'].indexOf(file.type)===-1){showToast('Format foto tidak didukung');return;}
+    var reader=new FileReader();reader.onload=function(ev){var img=document.getElementById('profilePhotoImg');var ini=document.getElementById('profilePhotoInitials');img.src=ev.target.result;img.hidden=false;ini.style.display='none';};reader.readAsDataURL(file);
+    resizeImageFile(file,512,0.85).then(function(blob){return uploadProfilePhoto(blob);}).then(function(url){profileState.current.photo_url=url;showToast('Foto tersimpan');}).catch(function(err){showToast('Gagal upload foto');renderProfileScreen();});
+  }
+  function resizeImageFile(file,maxDim,quality){return new Promise(function(resolve,reject){var img=new Image();var url=URL.createObjectURL(file);img.onload=function(){var canvas=document.createElement('canvas');var w=img.width,h=img.height,s=Math.min(maxDim/w,maxDim/h,1);canvas.width=Math.round(w*s);canvas.height=Math.round(h*s);canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);canvas.toBlob(function(b){URL.revokeObjectURL(url);b?resolve(b):reject(new Error('Resize gagal'));},'image/jpeg',quality);};img.onerror=function(){URL.revokeObjectURL(url);reject(new Error('Gambar tidak valid'));};img.src=url;});}
+  function uploadProfilePhoto(blob){var c=welvraAuth.getClient();var user=welvraAuth.getUser();if(!c||!user)return Promise.reject(new Error('Tidak masuk'));var path=user.id+'/photo.jpg';return c.storage.from('profile-photos').upload(path,blob,{contentType:'image/jpeg',upsert:true}).then(function(r){if(r.error)throw r.error;return c.storage.from('profile-photos').createSignedUrl(path,365*24*60*60);}).then(function(r){if(r.error)throw r.error;return c.from('profiles').update({photo_url:r.data.signedUrl}).eq('id',user.id).then(function(){return r.data.signedUrl;});});}
+  function handleProfileSignOut(){if(!confirm('Yakin keluar dari akun?'))return;welvraAuth.signOut().then(function(){closeProfileScreen();showToast('Berhasil keluar');setTimeout(function(){if(typeof setGreeting==='function')setGreeting();},100);});}
+  function bindProfileScreenEvents(){
+    document.getElementById('profileBackBtn').addEventListener('click',closeProfileScreen);
+    document.getElementById('profileEditBtn').addEventListener('click',openProfileEditModal);
+    document.getElementById('profileEditCancel').addEventListener('click',closeProfileEditModal);
+    document.getElementById('profileEditSave').addEventListener('click',saveProfileEdits);
+    document.getElementById('profileSignOutBtn').addEventListener('click',handleProfileSignOut);
+    document.getElementById('profilePhotoEditBtn').addEventListener('click',function(){document.getElementById('profilePhotoInput').click();});
+    document.getElementById('profilePhotoInput').addEventListener('change',handlePhotoSelect);
+    document.getElementById('profileEditGenderChips').addEventListener('click',function(e){var chip=e.target.closest('[data-gender]');if(!chip||!profileState.pending)return;document.querySelectorAll('#profileEditGenderChips .welvra-profile-edit-chip').forEach(function(c){c.classList.remove('active');});chip.classList.add('active');profileState.pending.gender=chip.dataset.gender;});
+    document.getElementById('profileEditInterestsGrid').addEventListener('click',function(e){var btn=e.target.closest('[data-interest]');if(!btn||!profileState.pending)return;var slug=btn.dataset.interest;var arr=profileState.pending.interests;var idx=arr.indexOf(slug);if(idx===-1)arr.push(slug);else arr.splice(idx,1);btn.classList.toggle('active');});
+  }
+  window.openProfileScreen=openProfileScreen;
+
+  // ===== PHASE 3A.5: CLOUD SYNC =====
+  var syncState={bookmarkTimer:null,historyTimer:null};
+  function syncBookmarkToCloud(articleId,action){
+    if(!welvraAuth.isAuthenticated())return;clearTimeout(syncState.bookmarkTimer);
+    syncState.bookmarkTimer=setTimeout(function(){var c=welvraAuth.getClient();var u=welvraAuth.getUser();if(!c||!u)return;
+      if(action==='add'){c.from('bookmarks').upsert({user_id:u.id,article_id:articleId,saved_at:new Date().toISOString()},{onConflict:'user_id,article_id'}).then(function(r){if(r.error)console.warn('[Welvra] Bookmark sync:',r.error.message);});}
+      else{c.from('bookmarks').delete().eq('user_id',u.id).eq('article_id',articleId).then(function(r){if(r.error)console.warn('[Welvra] Bookmark delete:',r.error.message);});}
+    },500);
+  }
+  function syncHistoryToCloud(articleId,scrollDepth){
+    if(!welvraAuth.isAuthenticated())return;clearTimeout(syncState.historyTimer);
+    syncState.historyTimer=setTimeout(function(){var c=welvraAuth.getClient();var u=welvraAuth.getUser();if(!c||!u)return;
+      c.from('read_history').upsert({user_id:u.id,article_id:articleId,scroll_depth:scrollDepth||0,read_at:new Date().toISOString()},{onConflict:'user_id,article_id'}).then(function(r){if(r.error)console.warn('[Welvra] History sync:',r.error.message);});
+    },500);
+  }
+  function migrateLocalToCloud(){
+    if(!welvraAuth.isAuthenticated())return Promise.resolve();
+    var c=welvraAuth.getClient();var u=welvraAuth.getUser();if(!c||!u)return Promise.resolve();
+    var state=loadWisdomHubState();var promises=[];
+    if(state.bookmarks&&state.bookmarks.length){var rows=state.bookmarks.map(function(b){return{user_id:u.id,article_id:b.articleId,saved_at:b.savedAt||new Date().toISOString()};});promises.push(c.from('bookmarks').upsert(rows,{onConflict:'user_id,article_id'}));}
+    if(state.readHistory&&state.readHistory.length){var hrows=state.readHistory.map(function(h){return{user_id:u.id,article_id:h.articleId,scroll_depth:h.scrollDepth||0,read_at:h.readAt||new Date().toISOString()};});promises.push(c.from('read_history').upsert(hrows,{onConflict:'user_id,article_id'}));}
+    return Promise.all(promises).then(function(){if(state.bookmarks.length||state.readHistory.length)showToast('Data disinkronkan');}).catch(function(e){console.warn('[Welvra] Migration:',e);});
+  }
+  function fetchCloudDataOnLogin(){
+    if(!welvraAuth.isAuthenticated())return Promise.resolve();
+    var c=welvraAuth.getClient();var u=welvraAuth.getUser();if(!c||!u)return Promise.resolve();
+    return Promise.all([c.from('bookmarks').select('article_id,saved_at').eq('user_id',u.id),c.from('read_history').select('article_id,scroll_depth,read_at').eq('user_id',u.id)]).then(function(results){
+      var state=loadWisdomHubState();
+      if(!results[0].error&&results[0].data){state.bookmarks=results[0].data.map(function(r){return{articleId:r.article_id,savedAt:r.saved_at};});}
+      if(!results[1].error&&results[1].data){state.readHistory=results[1].data.map(function(r){return{articleId:r.article_id,scrollDepth:r.scroll_depth||0,readAt:r.read_at};});}
+      saveWisdomHubState(state);
+    }).catch(function(e){console.warn('[Welvra] Cloud fetch:',e);});
+  }
+  function initCloudSync(){
+    welvraAuth.onAuthChange(function(ev,session){
+      if(ev==='SIGNED_IN'&&session){setTimeout(function(){migrateLocalToCloud().then(fetchCloudDataOnLogin);},1500);}
+    });
+  }
+
+  // ===== PHASE 3A.6: INFO MODALS (Tentang, Kebijakan, Bantuan) =====
+  function ensureInfoModalsDom(){
+    if(document.getElementById('aboutWelvraModal'))return;
+    var html='<div class="welvra-info-modal" id="aboutWelvraModal" hidden><div class="welvra-info-modal-inner"><header class="welvra-info-modal-header"><button class="welvra-info-modal-close" data-close-info="aboutWelvraModal" aria-label="Tutup"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6l-12 12"/></svg></button><h2 class="welvra-info-modal-title">Tentang Welvra</h2><span class="welvra-info-modal-spacer"></span></header><div class="welvra-info-modal-content"><div class="welvra-info-emblem"><span class="welvra-onboarding-diamond">&#9670;</span><span class="welvra-onboarding-emblem-text">Welvra</span><span class="welvra-onboarding-diamond">&#9670;</span></div><p class="welvra-info-tagline">Petik kebijaksanaan, setiap hari.</p><div class="welvra-info-section"><h3>Misi kami</h3><p>Welvra hadir sebagai teman setia dalam perjalanan kesehatan dan kesejahteraanmu. Kami percaya bahwa kebijaksanaan untuk merawat tubuh dan pikiran sebaiknya mudah diakses, hangat, dan personal.</p></div><div class="welvra-info-section"><h3>Apa yang Welvra tawarkan</h3><p>Bacaan kesehatan dari sumber terpercaya, panduan herbal Indonesia yang sudah teruji turun-temurun, ruang konsultasi dengan Dr. Sly untuk pertanyaan kesehatan harianmu, dan teman setia untuk kebiasaan kecil yang membentuk hidup yang lebih baik.</p></div><div class="welvra-info-section"><h3>Tim di balik Welvra</h3><p>Dibangun di Indonesia, untuk keluarga Indonesia. Tim kami terdiri dari profesional kesehatan, penulis, dan pengembang yang peduli dengan kesehatan masyarakat.</p></div><div class="welvra-info-meta"><span>Versi 1.0</span><span>&#183;</span><span>welvra-health.com</span></div></div></div></div>'
+      +'<div class="welvra-info-modal" id="privacyModal" hidden><div class="welvra-info-modal-inner"><header class="welvra-info-modal-header"><button class="welvra-info-modal-close" data-close-info="privacyModal" aria-label="Tutup"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6l-12 12"/></svg></button><h2 class="welvra-info-modal-title">Kebijakan Privasi</h2><span class="welvra-info-modal-spacer"></span></header><div class="welvra-info-modal-content"><p class="welvra-info-updated">Diperbarui Mei 2026</p><div class="welvra-info-section"><h3>Data yang kami kumpulkan</h3><p>Welvra menyimpan data minimal: alamat email, nama, usia opsional, gender opsional, minat bacaan, dan foto profil opsional.</p></div><div class="welvra-info-section"><h3>Data yang TIDAK kami kumpulkan</h3><p>Kami tidak melacak lokasi, kontak telepon, riwayat browsing di luar Welvra, atau identitas pribadi lainnya. Kami juga tidak menjual data kamu kepada pihak manapun.</p></div><div class="welvra-info-section"><h3>Bagaimana data digunakan</h3><p>Data kamu dipakai untuk: menyajikan bacaan yang relevan, menyimpan riwayat baca dan bookmark lintas perangkat, dan memberikan respons konsultasi yang dipersonalisasi dari Dr. Sly.</p></div><div class="welvra-info-section"><h3>Hakmu</h3><p>Kamu berhak meminta penghapusan akun dan semua datanya kapan saja melalui menu Bantuan.</p></div><div class="welvra-info-section"><h3>Keamanan</h3><p>Data kamu disimpan terenkripsi di server cloud Supabase. Akses ke data hanya dimungkinkan setelah autentikasi via tautan masuk.</p></div></div></div></div>'
+      +'<div class="welvra-info-modal" id="helpModal" hidden><div class="welvra-info-modal-inner"><header class="welvra-info-modal-header"><button class="welvra-info-modal-close" data-close-info="helpModal" aria-label="Tutup"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6l-12 12"/></svg></button><h2 class="welvra-info-modal-title">Bantuan</h2><span class="welvra-info-modal-spacer"></span></header><div class="welvra-info-modal-content"><div class="welvra-faq-item"><h3>Bagaimana cara masuk ke Welvra?</h3><p>Welvra menggunakan tautan masuk via email. Masukkan emailmu, kami kirim tautan, klik tautan tersebut, dan kamu langsung masuk. Tidak perlu password.</p></div><div class="welvra-faq-item"><h3>Apakah Welvra gratis?</h3><p>Saat ini semua fitur Welvra tersedia gratis untuk semua pengguna.</p></div><div class="welvra-faq-item"><h3>Tautan masuk tidak datang?</h3><p>Cek folder Spam atau Promosi di emailmu. Jika setelah 5 menit belum datang, coba kirim ulang.</p></div><div class="welvra-faq-item"><h3>Siapa Dr. Sly?</h3><p>Dr. Sly adalah konsultan kesehatan virtual Welvra yang siap membantu menjawab pertanyaan kesehatan harianmu.</p></div><div class="welvra-faq-item"><h3>Bagaimana menghapus akun?</h3><p>Kirim email ke <strong>halo@welvra-health.com</strong> dengan subject "Hapus Akun".</p></div><div class="welvra-info-section welvra-info-contact"><h3>Kontak</h3><p>Email: <a href="mailto:halo@welvra-health.com">halo@welvra-health.com</a></p></div></div></div></div>';
+    var container=document.createElement('div');container.innerHTML=html;
+    while(container.firstChild)document.body.appendChild(container.firstChild);
+    document.addEventListener('click',function(e){var btn=e.target.closest('[data-close-info]');if(btn)closeInfoModal(btn.dataset.closeInfo);});
+  }
+  function openInfoModal(modalId){ensureInfoModalsDom();var m=document.getElementById(modalId);if(!m)return;m.hidden=false;requestAnimationFrame(function(){m.classList.add('visible');});document.body.style.overflow='hidden';}
+  function closeInfoModal(modalId){var m=document.getElementById(modalId);if(!m)return;m.classList.remove('visible');setTimeout(function(){m.hidden=true;document.body.style.overflow='';},320);}
+  window.openInfoModal=openInfoModal;
+
   // ===== PHASE 3A.2: ONBOARDING 5-SLIDE FLOW =====
   var onboardingState={isOpen:false,currentSlide:0,totalSlides:5,data:{name:'',age:null,gender:'not-specified',interests:[]},domBuilt:false};
   function loadOnboardingState(){try{var r=localStorage.getItem('welvra.onboarding.v1');if(r){var s=JSON.parse(r);if(s&&s.data)Object.keys(s.data).forEach(function(k){onboardingState.data[k]=s.data[k];});if(s.currentSlide)onboardingState.currentSlide=s.currentSlide;}}catch(e){}}
@@ -13698,6 +13952,7 @@ window.meditToggleSection = meditToggleSection;
     bindStickySearchIcon();
     checkDetailDeepLink();
     handleMagicLinkCallback();
+    initCloudSync();
     maybeShowOnboarding();
   }
   if (document.readyState === 'loading'){
