@@ -4321,6 +4321,45 @@ html.dark .welvra-toast{background:var(--gold);color:#1A1A16}
 .welvra-spinner::before{content:'';position:absolute;inset:0;border:2px solid rgba(200,134,10,.15);border-top-color:var(--gold);border-radius:50%;animation:welvra-spin 1.2s linear infinite}
 @keyframes welvra-spin{to{transform:rotate(360deg)}}
 
+/* ===== PHASE 3A: ONBOARDING ===== */
+.welvra-onboarding{position:fixed;inset:0;z-index:990;background:#FAFAF7;display:none;flex-direction:column;opacity:0;transition:opacity 320ms ease}
+.welvra-onboarding[hidden]{display:none !important}
+.welvra-onboarding:not([hidden]){display:flex}
+.welvra-onboarding.visible{opacity:1}
+html.dark .welvra-onboarding{background:#14140F}
+.welvra-onboarding-progress{height:3px;background:rgba(200,134,10,.12);flex-shrink:0}
+.welvra-onboarding-progress-fill{height:100%;background:linear-gradient(to right,var(--gold),#8B5E06);width:0%;transition:width 320ms cubic-bezier(.16,1,.3,1)}
+.welvra-onboarding-skip{position:absolute;top:16px;right:16px;padding:8px 16px;border:none;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary);cursor:pointer;border-radius:999px;z-index:5;-webkit-tap-highlight-color:transparent}
+.welvra-onboarding-slides{flex:1;position:relative;overflow:hidden}
+.welvra-onboarding-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.welvra-onboarding-slide[hidden]{display:none}
+.welvra-onboarding-slide-inner{width:100%;max-width:380px;display:flex;flex-direction:column;align-items:stretch;text-align:center;gap:16px}
+.welvra-onboarding-emblem{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;color:var(--gold);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:4px;text-transform:uppercase}
+.welvra-onboarding-diamond{font-size:14px;opacity:.8}
+.welvra-onboarding-emblem-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;letter-spacing:2px;color:var(--teal)}
+html.dark .welvra-onboarding-emblem-text{color:var(--gold)}
+.welvra-onboarding-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;line-height:1.15;color:var(--teal);margin:0 0 4px;letter-spacing:-.5px}
+html.dark .welvra-onboarding-title{color:#F0EDE8}
+.welvra-onboarding-subtitle{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;line-height:1.6;color:var(--txt-secondary);margin:0 0 16px}
+.welvra-onboarding-input{width:100%;padding:14px 16px;border:1.5px solid rgba(200,134,10,.2);border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;background:white;color:var(--ink);transition:border-color 200ms;-webkit-appearance:none;appearance:none;box-sizing:border-box}
+.welvra-onboarding-input:focus{outline:none;border-color:var(--gold)}
+html.dark .welvra-onboarding-input{background:#1F1F1A;color:#F0EDE8;border-color:rgba(200,134,10,.25)}
+.welvra-onboarding-field-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--sage);text-align:left;margin:8px 0 -8px}
+.welvra-onboarding-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.welvra-onboarding-chip{padding:10px 16px;border:1.5px solid rgba(200,134,10,.2);border-radius:999px;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary);cursor:pointer;transition:all 200ms;-webkit-tap-highlight-color:transparent}
+.welvra-onboarding-chip.active{background:var(--teal);color:white;border-color:var(--teal)}
+html.dark .welvra-onboarding-chip.active{background:var(--gold);border-color:var(--gold);color:#1A1A16}
+.welvra-onboarding-interests{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0 16px}
+.welvra-onboarding-interest-chip{padding:10px 14px;border:1.5px solid rgba(200,134,10,.2);border-radius:999px;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--txt-secondary);cursor:pointer;transition:all 200ms;-webkit-tap-highlight-color:transparent}
+.welvra-onboarding-interest-chip.active{background:rgba(200,134,10,.12);border-color:var(--gold);color:var(--gold)}
+.welvra-onboarding-primary{width:100%;padding:16px;border:none;border-radius:999px;background:linear-gradient(135deg,var(--gold),#8B5E06);color:white;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(200,134,10,.3);transition:transform 150ms,opacity 200ms;-webkit-tap-highlight-color:transparent;margin-top:8px}
+.welvra-onboarding-primary:active{transform:scale(.98)}
+.welvra-onboarding-primary:disabled{opacity:.4;cursor:not-allowed;background:var(--txt-secondary);box-shadow:none}
+.welvra-onboarding-secondary{width:100%;padding:14px;border:none;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--txt-secondary);cursor:pointer;border-radius:12px;-webkit-tap-highlight-color:transparent}
+.welvra-onboarding-help{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:#C84B4B;margin:0;text-align:center}
+.welvra-onboarding-success-icon{display:flex;justify-content:center;color:var(--gold);margin-bottom:8px;animation:welvraOBSuccessIn 600ms cubic-bezier(.34,1.56,.64,1)}
+@keyframes welvraOBSuccessIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+
 /* ----- Reduced motion ----- */
 @media (prefers-reduced-motion:reduce){
   .wisdom-panel{transition:none}
@@ -4343,6 +4382,8 @@ html.dark .welvra-toast{background:var(--gold);color:#1A1A16}
   .welvra-share-panel,.welvra-share-backdrop{transition:none}
   .bookmarks-panel,.history-panel{transition:none}
   .welvra-spinner::before{animation-duration:3s}
+  .welvra-onboarding,.welvra-onboarding-progress-fill{transition:none}
+  .welvra-onboarding-success-icon{animation:none}
 }
 
 </style>
@@ -13503,6 +13544,136 @@ window.meditToggleSection = meditToggleSection;
   }
   window.openHistoryPanel=openHistoryPanel;
 
+  // ===== PHASE 3A.2: ONBOARDING 5-SLIDE FLOW =====
+  var onboardingState={isOpen:false,currentSlide:0,totalSlides:5,data:{name:'',age:null,gender:'not-specified',interests:[]},domBuilt:false};
+  function loadOnboardingState(){try{var r=localStorage.getItem('welvra.onboarding.v1');if(r){var s=JSON.parse(r);if(s&&s.data)Object.keys(s.data).forEach(function(k){onboardingState.data[k]=s.data[k];});if(s.currentSlide)onboardingState.currentSlide=s.currentSlide;}}catch(e){}}
+  function saveOnboardingState(completed){try{localStorage.setItem('welvra.onboarding.v1',JSON.stringify({completed:!!completed,currentSlide:onboardingState.currentSlide,data:onboardingState.data,lastSlideAt:Date.now()}));}catch(e){}}
+  function maybeShowOnboarding(){try{var r=localStorage.getItem('welvra.onboarding.v1');if(r){var s=JSON.parse(r);if(s&&s.completed)return;}}catch(e){}if(welvraAuth&&welvraAuth.isAuthenticated())return;setTimeout(openOnboarding,800);}
+  function ensureOnboardingDom(){
+    if(onboardingState.domBuilt)return;onboardingState.domBuilt=true;
+    var el=document.createElement('div');el.className='welvra-onboarding';el.id='welvraOnboarding';el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');el.setAttribute('aria-label','Selamat datang di Welvra');el.hidden=true;
+    el.innerHTML='<div class="welvra-onboarding-progress" aria-hidden="true"><div class="welvra-onboarding-progress-fill" id="onboardingProgressFill"></div></div>'
+      +'<button class="welvra-onboarding-skip" id="onboardingSkip" type="button" style="display:none">Lewati</button>'
+      +'<div class="welvra-onboarding-slides" id="onboardingSlides">'
+      // Slide 0: Welcome
+      +'<section class="welvra-onboarding-slide" data-slide="0"><div class="welvra-onboarding-slide-inner">'
+        +'<div class="welvra-onboarding-emblem"><span class="welvra-onboarding-diamond">&#9670;</span><span class="welvra-onboarding-emblem-text">Welvra</span><span class="welvra-onboarding-diamond">&#9670;</span></div>'
+        +'<h1 class="welvra-onboarding-title">Selamat datang</h1>'
+        +'<p class="welvra-onboarding-subtitle">Tempat untuk merawat tubuh dan pikiran, setiap hari.</p>'
+        +'<button class="welvra-onboarding-primary" id="onboardingNext1" type="button">Mulai</button>'
+      +'</div></section>'
+      // Slide 1: Name
+      +'<section class="welvra-onboarding-slide" data-slide="1" hidden><div class="welvra-onboarding-slide-inner">'
+        +'<h1 class="welvra-onboarding-title">Bagaimana kami menyapamu?</h1>'
+        +'<p class="welvra-onboarding-subtitle">Nama yang ingin kamu pakai di Welvra.</p>'
+        +'<input type="text" class="welvra-onboarding-input" id="onboardingNameInput" placeholder="Namamu" maxlength="60" autocomplete="given-name"/>'
+        +'<button class="welvra-onboarding-primary" id="onboardingNext2" type="button" disabled>Lanjut</button>'
+      +'</div></section>'
+      // Slide 2: Age + Gender
+      +'<section class="welvra-onboarding-slide" data-slide="2" hidden><div class="welvra-onboarding-slide-inner">'
+        +'<h1 class="welvra-onboarding-title">Sedikit tentangmu</h1>'
+        +'<p class="welvra-onboarding-subtitle">Bantu kami menyajikan bacaan yang sesuai. Bisa dilewati.</p>'
+        +'<label class="welvra-onboarding-field-label">Usia (opsional)</label>'
+        +'<input type="number" class="welvra-onboarding-input" id="onboardingAgeInput" placeholder="Misal: 32" min="13" max="120"/>'
+        +'<label class="welvra-onboarding-field-label">Gender (opsional)</label>'
+        +'<div class="welvra-onboarding-chips" role="radiogroup">'
+          +'<button class="welvra-onboarding-chip" data-gender="male" role="radio" aria-checked="false" type="button">Pria</button>'
+          +'<button class="welvra-onboarding-chip" data-gender="female" role="radio" aria-checked="false" type="button">Wanita</button>'
+          +'<button class="welvra-onboarding-chip" data-gender="non-binary" role="radio" aria-checked="false" type="button">Non-biner</button>'
+          +'<button class="welvra-onboarding-chip" data-gender="not-specified" role="radio" aria-checked="false" type="button">Tidak ingin sebut</button>'
+        +'</div>'
+        +'<button class="welvra-onboarding-primary" id="onboardingNext3" type="button">Lanjut</button>'
+      +'</div></section>'
+      // Slide 3: Interests
+      +'<section class="welvra-onboarding-slide" data-slide="3" hidden><div class="welvra-onboarding-slide-inner">'
+        +'<h1 class="welvra-onboarding-title">Apa yang menarik buatmu?</h1>'
+        +'<p class="welvra-onboarding-subtitle">Pilih beberapa, kami akan rekomendasikan bacaan yang sesuai.</p>'
+        +'<div class="welvra-onboarding-interests" id="onboardingInterestsGrid"></div>'
+        +'<button class="welvra-onboarding-primary" id="onboardingNext4" type="button">Lanjut</button>'
+      +'</div></section>'
+      // Slide 4: Sign-in
+      +'<section class="welvra-onboarding-slide" data-slide="4" hidden><div class="welvra-onboarding-slide-inner">'
+        +'<h1 class="welvra-onboarding-title">Simpan progressmu</h1>'
+        +'<p class="welvra-onboarding-subtitle">Kami akan kirim tautan masuk ke emailmu. Tidak perlu password.</p>'
+        +'<input type="email" class="welvra-onboarding-input" id="onboardingEmailInput" placeholder="email@kamu.com" autocomplete="email" inputmode="email"/>'
+        +'<button class="welvra-onboarding-primary" id="onboardingSubmit" type="button" disabled>Kirim Tautan Masuk</button>'
+        +'<p class="welvra-onboarding-help" id="onboardingHelp" hidden></p>'
+        +'<button class="welvra-onboarding-secondary" id="onboardingSkipFinal" type="button">Lewati untuk sekarang</button>'
+      +'</div></section>'
+      // Slide 5: Success
+      +'<section class="welvra-onboarding-slide" data-slide="5" hidden><div class="welvra-onboarding-slide-inner">'
+        +'<div class="welvra-onboarding-success-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="28"/><path d="M20 32l8 8 16-16"/></svg></div>'
+        +'<h1 class="welvra-onboarding-title">Cek emailmu</h1>'
+        +'<p class="welvra-onboarding-subtitle">Kami baru saja mengirim tautan masuk ke <strong id="onboardingSentTo"></strong>. Klik tautan untuk masuk.</p>'
+        +'<button class="welvra-onboarding-primary" id="onboardingFinish" type="button">Selesai</button>'
+      +'</div></section>'
+      +'</div>';
+    document.body.appendChild(el);
+    bindOnboardingEvents();
+  }
+  function renderOnboardingInterests(){
+    var grid=document.getElementById('onboardingInterestsGrid');if(!grid)return;
+    var cats=[{slug:'kesehatan-umum',label:'Kesehatan Umum'},{slug:'kesehatan-reproduksi',label:'Reproduksi'},{slug:'kehamilan',label:'Kehamilan'},{slug:'panduan-orangtua',label:'Orangtua'},{slug:'wellness-mental',label:'Wellness Mental'},{slug:'nutrisi-gizi',label:'Nutrisi'},{slug:'kebugaran',label:'Kebugaran'},{slug:'herbal-indonesia',label:'Herbal'},{slug:'lifestyle',label:'Lifestyle'},{slug:'isu-sosial',label:'Isu Sosial'}];
+    var sel=onboardingState.data.interests||[];
+    grid.innerHTML=cats.map(function(c){var a=sel.indexOf(c.slug)!==-1;return '<button class="welvra-onboarding-interest-chip'+(a?' active':'')+'" data-interest="'+c.slug+'" aria-pressed="'+a+'" type="button">'+escHtml(c.label)+'</button>';}).join('');
+  }
+  function openOnboarding(){ensureOnboardingDom();loadOnboardingState();onboardingState.isOpen=true;var el=document.getElementById('welvraOnboarding');if(el){el.hidden=false;requestAnimationFrame(function(){el.classList.add('visible');});}document.body.style.overflow='hidden';showOnboardingSlide(onboardingState.currentSlide);document.addEventListener('keydown',handleOnboardingEsc);}
+  function closeOnboarding(completed){if(!onboardingState.isOpen)return;onboardingState.isOpen=false;saveOnboardingState(completed);var el=document.getElementById('welvraOnboarding');if(el){el.classList.remove('visible');setTimeout(function(){el.hidden=true;},320);}document.body.style.overflow='';document.removeEventListener('keydown',handleOnboardingEsc);
+    // Also save name to legacy localStorage for existing greeting
+    if(onboardingState.data.name){try{localStorage.setItem('welvra_username',onboardingState.data.name);if(typeof setGreeting==='function')setGreeting();}catch(e){}}
+  }
+  function showOnboardingSlide(idx){
+    if(idx<0||idx>5)return;onboardingState.currentSlide=idx;
+    document.querySelectorAll('.welvra-onboarding-slide').forEach(function(s){s.hidden=parseInt(s.dataset.slide,10)!==idx;});
+    var progress=idx<=4?((idx+1)/5)*100:100;var fill=document.getElementById('onboardingProgressFill');if(fill)fill.style.width=progress+'%';
+    var skip=document.getElementById('onboardingSkip');if(skip)skip.style.display=(idx===0||idx>=4)?'none':'block';
+    setTimeout(function(){var slide=document.querySelector('.welvra-onboarding-slide[data-slide="'+idx+'"]:not([hidden])');if(slide){var fi=slide.querySelector('input,.welvra-onboarding-primary');if(fi)try{fi.focus({preventScroll:true});}catch(e){}}},320);
+    saveOnboardingState(false);
+  }
+  function nextOnboardingSlide(){if(onboardingState.currentSlide<4)showOnboardingSlide(onboardingState.currentSlide+1);}
+  function handleOnboardingEsc(e){if(e.key==='Escape'&&onboardingState.isOpen){if(confirm('Lewati onboarding? Kamu bisa mengisi profilmu nanti.')){closeOnboarding(true);}}}
+  function bindOnboardingEvents(){
+    var n1=document.getElementById('onboardingNext1');if(n1)n1.addEventListener('click',nextOnboardingSlide);
+    var ni=document.getElementById('onboardingNameInput'),n2=document.getElementById('onboardingNext2');
+    if(ni&&n2){ni.addEventListener('input',function(){var v=(ni.value||'').trim();n2.disabled=!v;onboardingState.data.name=v;});n2.addEventListener('click',function(){if((ni.value||'').trim()){onboardingState.data.name=(ni.value||'').trim();nextOnboardingSlide();}});}
+    var ai=document.getElementById('onboardingAgeInput');if(ai)ai.addEventListener('input',function(){var v=parseInt(ai.value,10);onboardingState.data.age=(v>=13&&v<=120)?v:null;});
+    document.querySelectorAll('.welvra-onboarding-chip[data-gender]').forEach(function(chip){chip.addEventListener('click',function(){document.querySelectorAll('.welvra-onboarding-chip[data-gender]').forEach(function(c){c.classList.remove('active');c.setAttribute('aria-checked','false');});chip.classList.add('active');chip.setAttribute('aria-checked','true');onboardingState.data.gender=chip.dataset.gender;});});
+    var n3=document.getElementById('onboardingNext3');if(n3)n3.addEventListener('click',function(){nextOnboardingSlide();renderOnboardingInterests();});
+    var ig=document.getElementById('onboardingInterestsGrid');if(ig)ig.addEventListener('click',function(e){var btn=e.target.closest('[data-interest]');if(!btn)return;var slug=btn.dataset.interest;var arr=onboardingState.data.interests;var idx=arr.indexOf(slug);if(idx===-1)arr.push(slug);else arr.splice(idx,1);btn.classList.toggle('active');btn.setAttribute('aria-pressed',idx===-1?'true':'false');});
+    var n4=document.getElementById('onboardingNext4');if(n4)n4.addEventListener('click',nextOnboardingSlide);
+    var ei=document.getElementById('onboardingEmailInput'),sub=document.getElementById('onboardingSubmit');
+    if(ei&&sub){ei.addEventListener('input',function(){sub.disabled=!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((ei.value||'').trim()));});sub.addEventListener('click',handleMagicLinkSubmit);}
+    var sf=document.getElementById('onboardingSkipFinal');if(sf)sf.addEventListener('click',function(){closeOnboarding(true);showToast('Profil disimpan');});
+    var fin=document.getElementById('onboardingFinish');if(fin)fin.addEventListener('click',function(){closeOnboarding(true);});
+    var skip=document.getElementById('onboardingSkip');if(skip)skip.addEventListener('click',function(){if(confirm('Lewati onboarding? Kamu bisa mengisi profilmu nanti.')){closeOnboarding(true);}});
+  }
+  function handleMagicLinkSubmit(){
+    var ei=document.getElementById('onboardingEmailInput'),sub=document.getElementById('onboardingSubmit'),help=document.getElementById('onboardingHelp');
+    if(!ei||!sub)return;var email=(ei.value||'').trim().toLowerCase();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){if(help){help.textContent='Email tidak valid.';help.hidden=false;}return;}
+    sub.disabled=true;sub.textContent='Mengirim...';if(help)help.hidden=true;
+    welvraAuth.signInWithMagicLink(email).then(function(result){
+      if(result&&result.error){if(help){help.textContent='Gagal mengirim. Coba lagi.';help.hidden=false;}sub.disabled=false;sub.textContent='Kirim Tautan Masuk';return;}
+      var sentTo=document.getElementById('onboardingSentTo');if(sentTo)sentTo.textContent=email;
+      onboardingState.data.email=email;saveOnboardingState(true);showOnboardingSlide(5);
+    }).catch(function(err){if(help){help.textContent='Terjadi kesalahan: '+(err.message||'tidak diketahui');help.hidden=false;}sub.disabled=false;sub.textContent='Kirim Tautan Masuk';});
+  }
+
+  // ===== PHASE 3A.3: MAGIC LINK CALLBACK =====
+  function handleMagicLinkCallback(){
+    welvraAuth.onAuthChange(function(event,session){
+      if(event==='SIGNED_IN'&&session){
+        try{var r=localStorage.getItem('welvra.onboarding.v1');if(r){var ob=JSON.parse(r);if(ob&&ob.data&&(ob.data.name||ob.data.age||(ob.data.interests||[]).length>0)){saveOnboardingDataToProfile(session.user.id,ob.data);}}}catch(e){}
+        showToast('Selamat datang'+(session.user.email?', '+session.user.email.split('@')[0]:'')+' !');
+        if(location.hash&&location.hash.indexOf('access_token')!==-1){history.replaceState(null,'',location.pathname+location.search);}
+      }
+    });
+  }
+  function saveOnboardingDataToProfile(userId,data){
+    var c=welvraAuth.getClient();if(!c)return;
+    c.from('profiles').update({name:data.name||'',age:data.age,gender:data.gender||'not-specified',interests:data.interests||[]}).eq('id',userId).then(function(r){if(r.error)console.warn('[Welvra] Profile update failed:',r.error.message);});
+  }
+
   // --- Hash-based deep link ---
   function checkDetailDeepLink(){
     var hash = location.hash;
@@ -13526,6 +13697,8 @@ window.meditToggleSection = meditToggleSection;
     setupHeroCollapse();
     bindStickySearchIcon();
     checkDetailDeepLink();
+    handleMagicLinkCallback();
+    maybeShowOnboarding();
   }
   if (document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', init);
