@@ -4350,6 +4350,8 @@ html.dark .welvra-toast{background:var(--gold);color:#1A1A16}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>if(window.pdfjsLib){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';}</script>
+<!-- Supabase JS Client (Phase 3A) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
@@ -5567,6 +5569,36 @@ html.dark .welvra-toast{background:var(--gold);color:#1A1A16}
 </aside>
 
 <script>
+// ===== PHASE 3A: SUPABASE AUTH =====
+window.welvraAuth = (function(){
+  'use strict';
+  var SUPABASE_URL='https://jysrycmufowpoikvbmpz.supabase.co';
+  var SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5c3J5Y211Zm93cG9pa3ZibXB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3ODQ0NjMsImV4cCI6MjA5MzM2MDQ2M30.c70eCoBURtBejyWmwozmW3gvP1oWvufAyvMoZLj-amk';
+  var client=null,currentSession=null,currentUser=null,listeners=[];
+  function init(){
+    if(typeof window.supabase==='undefined'){console.warn('[Welvra Auth] Supabase library not loaded');return null;}
+    if(client)return client;
+    client=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.localStorage,storageKey:'welvra.supabase.auth.v1'}});
+    client.auth.onAuthStateChange(function(event,session){
+      currentSession=session;currentUser=session?session.user:null;
+      notifyListeners(event,session);
+      try{if(session){localStorage.setItem('welvra.authState.v1',JSON.stringify({isAuthenticated:true,userId:session.user.id,email:session.user.email,updatedAt:Date.now()}));}else{localStorage.removeItem('welvra.authState.v1');}}catch(e){}
+    });
+    client.auth.getSession().then(function(r){if(r.data&&r.data.session){currentSession=r.data.session;currentUser=r.data.session.user;notifyListeners('INITIAL_SESSION',currentSession);}});
+    return client;
+  }
+  function getClient(){return client||init();}
+  function getSession(){return currentSession;}
+  function getUser(){return currentUser;}
+  function isAuthenticated(){return !!currentSession&&!!currentUser;}
+  function onAuthChange(cb){if(typeof cb!=='function')return function(){};listeners.push(cb);if(currentSession)cb('CURRENT_STATE',currentSession);return function(){var i=listeners.indexOf(cb);if(i!==-1)listeners.splice(i,1);};}
+  function notifyListeners(ev,s){listeners.forEach(function(cb){try{cb(ev,s);}catch(e){console.error('[Welvra Auth] listener error',e);}});}
+  function signInWithMagicLink(email){var c=getClient();if(!c)return Promise.reject(new Error('Supabase not ready'));if(!email||typeof email!=='string'||email.indexOf('@')===-1)return Promise.reject(new Error('Email tidak valid'));return c.auth.signInWithOtp({email:email.trim().toLowerCase(),options:{emailRedirectTo:location.origin+location.pathname,shouldCreateUser:true}});}
+  function signOut(){var c=getClient();if(!c)return Promise.reject(new Error('Supabase not ready'));return c.auth.signOut();}
+  init();
+  return{getClient:getClient,getSession:getSession,getUser:getUser,isAuthenticated:isAuthenticated,onAuthChange:onAuthChange,signInWithMagicLink:signInWithMagicLink,signOut:signOut};
+})();
+
 // ===== STATE =====
 var imageData = { foto: null, lab: null };
 var chatHistory = [];
