@@ -11476,7 +11476,13 @@ function fpStartAnalysis(){
   })
   .then(function(r){
     clearTimeout(timeout);
-    if (!r.ok) throw new Error('HTTP ' + r.status);
+    if (!r.ok){
+      return r.json().catch(function(){ return null; }).then(function(body){
+        var e = new Error(body && body.error ? body.error : 'HTTP ' + r.status);
+        e.httpStatus = r.status;
+        throw e;
+      });
+    }
     return r.json();
   })
   .then(function(data){
@@ -11494,7 +11500,12 @@ function fpStartAnalysis(){
   .catch(function(err){
     clearTimeout(timeout);
     clearInterval(progressIv);
-    if (window.showWelvraToast) window.showWelvraToast('Maaf, pemeriksaan gagal. Coba lagi sebentar.');
+    console.error('Faceprint analyze error:', err);
+    var msg = err.message || 'Maaf, pemeriksaan gagal. Coba lagi sebentar.';
+    if (err.name === 'AbortError') msg = 'Pemeriksaan terlalu lama. Coba foto lebih kecil.';
+    else if (err.httpStatus === 413) msg = 'Foto terlalu besar. Coba resolusi lebih rendah.';
+    else if (msg.indexOf('HTTP') === 0) msg = 'Sistem sedang bermasalah. Coba lagi sebentar.';
+    if (window.showWelvraToast) window.showWelvraToast(msg);
     fpShowStep('tips');
   });
 }

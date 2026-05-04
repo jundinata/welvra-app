@@ -73,7 +73,24 @@ AVOID: retinoid (all forms), salicylic acid >2%, hydroquinone, benzoyl peroxide,
 SAFE: hyaluronic acid, glycerin, ceramides, niacinamide (low %), vitamin C, azelaic acid, lactic acid (low %), mandelic acid, kojic acid, alpha arbutin, mineral sunscreen (zinc oxide, titanium dioxide)
 Mark each recommendation with pregnancy_safe boolean.
 
-OUTPUT: Selalu return JSON valid tanpa markdown code fence atau teks tambahan di luar JSON.`;
+OUTPUT FORMAT — KRITIS:
+- Return HANYA JSON object murni
+- TIDAK BOLEH ada markdown code fence (no \`\`\`json ... \`\`\`)
+- TIDAK BOLEH ada teks penjelasan sebelum atau sesudah JSON
+- Output HARUS dimulai dengan { dan diakhiri dengan }
+- Jika ada field yang tidak bisa diisi, isi dengan array kosong [] atau string kosong, JANGAN skip field`;
+
+function extractJSON(text) {
+  if (!text) return null;
+  let cleaned = text.trim();
+  cleaned = cleaned.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+  const firstBrace = cleaned.indexOf("{");
+  const lastBrace = cleaned.lastIndexOf("}");
+  if (firstBrace !== -1 && lastBrace > firstBrace) {
+    cleaned = cleaned.slice(firstBrace, lastBrace + 1);
+  }
+  return cleaned;
+}
 
 exports.handler = async (event) => {
   // Handle OPTIONS preflight
@@ -192,7 +209,7 @@ Berikan response dalam format JSON valid berikut:
         temperature: 0.4,
         topK: 40,
         topP: 0.95,
-        maxOutputTokens: 6000,
+        maxOutputTokens: 8000,
         responseMimeType: "application/json",
       },
     };
@@ -254,12 +271,14 @@ Berikan response dalam format JSON valid berikut:
       return errResponse(500, "Hasil pemeriksaan tidak valid. Coba lagi.");
     }
 
-    // Parse JSON from Gemini output
+    // Parse JSON from Gemini output (defensively strip markdown fences)
     let analysis;
     try {
-      analysis = JSON.parse(rawText);
+      const cleaned = extractJSON(rawText);
+      analysis = JSON.parse(cleaned);
     } catch (parseErr) {
-      console.error("JSON parse error. Raw text:", rawText.substring(0, 500));
+      console.error("JSON parse error. Raw text (first 1000 chars):", rawText.substring(0, 1000));
+      console.error("Parse error:", parseErr.message);
       return errResponse(500, "Hasil pemeriksaan tidak valid. Coba lagi.");
     }
 
