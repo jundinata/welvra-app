@@ -4673,6 +4673,9 @@ html.dark .welvra-profile-photo-edit{border-color:#14140F}
 .welvra-profile-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--teal);margin:0 0 4px}
 html.dark .welvra-profile-name{color:#F0EDE8}
 .welvra-profile-email{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary);margin:0}
+.welvra-profile-local-notice{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--txt-tertiary);margin:8px 0 0;letter-spacing:.01em}
+.welvra-profile-local-link{background:none;border:none;padding:0;font:inherit;color:var(--gold);font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent;text-decoration:underline;text-underline-offset:2px}
+.welvra-profile-local-link:hover{color:var(--gold-dark)}
 .welvra-profile-section{padding:16px 24px;border-top:1px solid rgba(200,134,10,.08)}
 .welvra-profile-field{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(200,134,10,.06)}
 .welvra-profile-field:last-child{border-bottom:none}
@@ -14010,15 +14013,67 @@ window.meditToggleSection = meditToggleSection;
   // Bookmarks: welvra.wisdomHub.v1.bookmarks = [{articleId, savedAt}]
   // ReadHistory: welvra.wisdomHub.v1.readHistory = [{articleId, readAt, scrollDepth}]
   // Drawer close: closeWelvraDrawer()
-  var profileState={isOpen:false,isEditMode:false,domBuilt:false,current:{id:null,name:'',age:null,gender:'not-specified',interests:[],photo_url:null,email:'',created_at:null},pending:null};
+  var profileState={isOpen:false,isEditMode:false,domBuilt:false,isAnonymous:true,current:{id:null,name:'',age:null,gender:'not-specified',interests:[],photo_url:null,photo_data_url:null,email:'',created_at:null},pending:null};
+
+  // ===== LOCAL PROFILE STORE (anonymous mode) =====
+  var LOCAL_PROFILE_KEY='welvra.profile.local.v1';
+  function loadLocalProfile(){
+    try{
+      var raw=localStorage.getItem(LOCAL_PROFILE_KEY);
+      if(raw){var p=JSON.parse(raw);if(p&&typeof p==='object')return p;}
+    }catch(e){}
+    // Seed from onboarding state on first read so what the user typed earlier shows up.
+    try{
+      var ob=JSON.parse(localStorage.getItem('welvra.onboarding.v1')||'{}');
+      if(ob&&ob.data&&(ob.data.name||ob.data.age||(ob.data.interests||[]).length>0)){
+        var seed={name:ob.data.name||'',age:ob.data.age||null,gender:ob.data.gender||'not-specified',interests:ob.data.interests||[],photo_data_url:null,created_at:new Date().toISOString(),updated_at:new Date().toISOString()};
+        try{localStorage.setItem(LOCAL_PROFILE_KEY,JSON.stringify(seed));}catch(e){}
+        return seed;
+      }
+    }catch(e){}
+    return {name:'',age:null,gender:'not-specified',interests:[],photo_data_url:null,created_at:null,updated_at:null};
+  }
+  function saveLocalProfile(data){
+    var now=new Date().toISOString();
+    var existing=loadLocalProfile();
+    var merged={
+      name:data.name!==undefined?data.name:(existing.name||''),
+      age:data.age!==undefined?data.age:(existing.age||null),
+      gender:data.gender!==undefined?data.gender:(existing.gender||'not-specified'),
+      interests:data.interests!==undefined?data.interests:(existing.interests||[]),
+      photo_data_url:data.photo_data_url!==undefined?data.photo_data_url:(existing.photo_data_url||null),
+      created_at:existing.created_at||now,
+      updated_at:now
+    };
+    try{localStorage.setItem(LOCAL_PROFILE_KEY,JSON.stringify(merged));}catch(e){console.warn('[Welvra] Local profile save failed:',e.message);}
+    return merged;
+  }
+  function clearLocalProfile(){try{localStorage.removeItem(LOCAL_PROFILE_KEY);}catch(e){}}
+  function resizeImageToDataUrl(file,size,quality){
+    return new Promise(function(resolve,reject){
+      var img=new Image();var url=URL.createObjectURL(file);
+      img.onload=function(){
+        var canvas=document.createElement('canvas');canvas.width=size;canvas.height=size;
+        var ctx=canvas.getContext('2d');
+        // Center-crop square
+        var s=Math.min(img.width,img.height);
+        var sx=(img.width-s)/2,sy=(img.height-s)/2;
+        ctx.drawImage(img,sx,sy,s,s,0,0,size,size);
+        URL.revokeObjectURL(url);
+        try{resolve(canvas.toDataURL('image/jpeg',quality));}catch(e){reject(e);}
+      };
+      img.onerror=function(){URL.revokeObjectURL(url);reject(new Error('Gambar tidak valid'));};
+      img.src=url;
+    });
+  }
   function ensureProfileScreenDom(){
     if(profileState.domBuilt)return;profileState.domBuilt=true;
     var el=document.createElement('div');el.className='welvra-profile-screen';el.id='welvraProfileScreen';el.hidden=true;
     el.innerHTML='<header class="welvra-profile-header"><button class="welvra-profile-back" id="profileBackBtn" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><h1 class="welvra-profile-title">Profil saya</h1><button class="welvra-profile-edit" id="profileEditBtn" type="button">Edit</button></header>'
-      +'<div class="welvra-profile-content"><section class="welvra-profile-hero"><div class="welvra-profile-photo-wrap"><div class="welvra-profile-photo" id="profilePhotoDisplay"><span class="welvra-profile-photo-placeholder" id="profilePhotoInitials">-</span><img class="welvra-profile-photo-img" id="profilePhotoImg" alt="" hidden/></div><button class="welvra-profile-photo-edit" id="profilePhotoEditBtn" type="button" aria-label="Ubah foto"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></button><input type="file" class="welvra-profile-photo-input" id="profilePhotoInput" accept="image/jpeg,image/png,image/webp" hidden/></div><h2 class="welvra-profile-name" id="profileNameDisplay">-</h2><p class="welvra-profile-email" id="profileEmailDisplay">-</p></section>'
+      +'<div class="welvra-profile-content"><section class="welvra-profile-hero"><div class="welvra-profile-photo-wrap"><div class="welvra-profile-photo" id="profilePhotoDisplay"><span class="welvra-profile-photo-placeholder" id="profilePhotoInitials">-</span><img class="welvra-profile-photo-img" id="profilePhotoImg" alt="" hidden/></div><button class="welvra-profile-photo-edit" id="profilePhotoEditBtn" type="button" aria-label="Ubah foto"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></button><input type="file" class="welvra-profile-photo-input" id="profilePhotoInput" accept="image/jpeg,image/png,image/webp" hidden/></div><h2 class="welvra-profile-name" id="profileNameDisplay">-</h2><p class="welvra-profile-email" id="profileEmailDisplay">-</p><p class="welvra-profile-local-notice" id="profileLocalNotice" hidden>Data tersimpan di perangkat ini &middot; <button type="button" class="welvra-profile-local-link" id="profileSignInLink">Masuk untuk sync ke cloud</button></p></section>'
       +'<section class="welvra-profile-section"><div class="welvra-profile-field"><label class="welvra-profile-field-label">Nama</label><div class="welvra-profile-field-value" id="profileFieldName">-</div></div><div class="welvra-profile-field"><label class="welvra-profile-field-label">Usia</label><div class="welvra-profile-field-value" id="profileFieldAge">-</div></div><div class="welvra-profile-field"><label class="welvra-profile-field-label">Gender</label><div class="welvra-profile-field-value" id="profileFieldGender">-</div></div><div class="welvra-profile-field"><label class="welvra-profile-field-label">Minat</label><div class="welvra-profile-field-value welvra-profile-field-interests" id="profileFieldInterests">-</div></div></section>'
       +'<section class="welvra-profile-section welvra-profile-meta"><div class="welvra-profile-meta-item"><span class="welvra-profile-meta-label">Bergabung sejak</span><span class="welvra-profile-meta-value" id="profileJoinedDate">-</span></div></section>'
-      +'<section class="welvra-profile-section"><button class="welvra-profile-signout" id="profileSignOutBtn" type="button">Keluar dari akun</button></section></div>'
+      +'<section class="welvra-profile-section" id="profileSignOutSection"><button class="welvra-profile-signout" id="profileSignOutBtn" type="button">Keluar dari akun</button></section></div>'
       +'<div class="welvra-profile-edit-modal" id="profileEditModal" hidden><div class="welvra-profile-edit-modal-inner"><header class="welvra-profile-edit-modal-header"><button class="welvra-profile-edit-cancel" id="profileEditCancel" type="button">Batal</button><h2 class="welvra-profile-edit-modal-title">Edit profil</h2><button class="welvra-profile-edit-save" id="profileEditSave" type="button">Simpan</button></header><div class="welvra-profile-edit-form"><label class="welvra-profile-edit-field-label">Nama</label><input type="text" class="welvra-profile-edit-input" id="profileEditNameInput" maxlength="60"/><label class="welvra-profile-edit-field-label">Usia</label><input type="number" class="welvra-profile-edit-input" id="profileEditAgeInput" min="13" max="120"/><label class="welvra-profile-edit-field-label">Gender</label><div class="welvra-profile-edit-chips" id="profileEditGenderChips"><button class="welvra-profile-edit-chip" data-gender="male" type="button">Pria</button><button class="welvra-profile-edit-chip" data-gender="female" type="button">Wanita</button><button class="welvra-profile-edit-chip" data-gender="non-binary" type="button">Non-biner</button><button class="welvra-profile-edit-chip" data-gender="not-specified" type="button">Tidak ingin sebut</button></div><label class="welvra-profile-edit-field-label">Minat</label><div class="welvra-profile-edit-interests" id="profileEditInterestsGrid"></div></div></div></div>';
     document.body.appendChild(el);
     bindProfileScreenEvents();
@@ -14026,23 +14081,38 @@ window.meditToggleSection = meditToggleSection;
   function genderLabel(g){return({male:'Pria',female:'Wanita','non-binary':'Non-biner','not-specified':'Tidak disebutkan'})[g]||'-';}
   function interestLabel(s){return({'kesehatan-umum':'Kesehatan Umum','kesehatan-reproduksi':'Reproduksi',kehamilan:'Kehamilan','panduan-orangtua':'Orangtua','wellness-mental':'Wellness Mental','nutrisi-gizi':'Nutrisi',kebugaran:'Kebugaran','herbal-indonesia':'Herbal',lifestyle:'Lifestyle','isu-sosial':'Isu Sosial'})[s]||s;}
   function openProfileScreen(){
-    if(!welvraAuth.isAuthenticated()){if(typeof openOnboarding==='function'){try{var ob=JSON.parse(localStorage.getItem('welvra.onboarding.v1')||'{}');ob.currentSlide=4;ob.completed=false;localStorage.setItem('welvra.onboarding.v1',JSON.stringify(ob));}catch(e){}openOnboarding();}return;}
     ensureProfileScreenDom();
     fetchProfileData().then(function(){profileState.isOpen=true;var el=document.getElementById('welvraProfileScreen');if(el){el.hidden=false;requestAnimationFrame(function(){el.classList.add('visible');});}document.body.style.overflow='hidden';renderProfileScreen();});
   }
   function closeProfileScreen(){if(!profileState.isOpen)return;profileState.isOpen=false;var el=document.getElementById('welvraProfileScreen');if(el){el.classList.remove('visible');setTimeout(function(){el.hidden=true;},320);}document.body.style.overflow='';}
   function fetchProfileData(){
-    var c=welvraAuth.getClient();var user=welvraAuth.getUser();if(!c||!user)return Promise.resolve();
-    profileState.current.id=user.id;profileState.current.email=user.email||'';profileState.current.created_at=user.created_at;
-    return c.from('profiles').select('*').eq('id',user.id).single().then(function(r){if(!r.error&&r.data){profileState.current.name=r.data.name||'';profileState.current.age=r.data.age;profileState.current.gender=r.data.gender||'not-specified';profileState.current.interests=r.data.interests||[];profileState.current.photo_url=r.data.photo_url;}});
+    if(welvraAuth.isAuthenticated()){
+      profileState.isAnonymous=false;
+      var c=welvraAuth.getClient();var user=welvraAuth.getUser();if(!c||!user)return Promise.resolve();
+      profileState.current.id=user.id;profileState.current.email=user.email||'';profileState.current.created_at=user.created_at;profileState.current.photo_data_url=null;
+      return c.from('profiles').select('*').eq('id',user.id).single().then(function(r){if(!r.error&&r.data){profileState.current.name=r.data.name||'';profileState.current.age=r.data.age;profileState.current.gender=r.data.gender||'not-specified';profileState.current.interests=r.data.interests||[];profileState.current.photo_url=r.data.photo_url;}});
+    }
+    // Anonymous mode — read from localStorage.
+    profileState.isAnonymous=true;
+    var lp=loadLocalProfile();
+    profileState.current.id=null;profileState.current.email='';
+    profileState.current.name=lp.name||'';profileState.current.age=lp.age||null;
+    profileState.current.gender=lp.gender||'not-specified';profileState.current.interests=lp.interests||[];
+    profileState.current.photo_url=null;profileState.current.photo_data_url=lp.photo_data_url||null;
+    profileState.current.created_at=lp.created_at||null;
+    return Promise.resolve();
   }
   function renderProfileScreen(){
     var p=profileState.current;var ini=(p.name||p.email||'?').trim().charAt(0).toUpperCase();
     document.getElementById('profilePhotoInitials').textContent=ini;
     var img=document.getElementById('profilePhotoImg'),iniEl=document.getElementById('profilePhotoInitials');
-    if(p.photo_url){img.src=p.photo_url;img.hidden=false;iniEl.style.display='none';}else{img.hidden=true;iniEl.style.display='';}
+    var photoSrc=p.photo_data_url||p.photo_url||null;
+    if(photoSrc){img.src=photoSrc;img.hidden=false;iniEl.style.display='none';}else{img.hidden=true;iniEl.style.display='';}
     document.getElementById('profileNameDisplay').textContent=p.name||'-';
-    document.getElementById('profileEmailDisplay').textContent=p.email||'-';
+    var emailEl=document.getElementById('profileEmailDisplay');
+    if(profileState.isAnonymous){emailEl.textContent='Belum masuk';}else{emailEl.textContent=p.email||'-';}
+    var notice=document.getElementById('profileLocalNotice');if(notice)notice.hidden=!profileState.isAnonymous;
+    var signOutSection=document.getElementById('profileSignOutSection');if(signOutSection)signOutSection.style.display=profileState.isAnonymous?'none':'';
     document.getElementById('profileFieldName').textContent=p.name||'-';
     document.getElementById('profileFieldAge').textContent=p.age!=null?p.age+' tahun':'-';
     document.getElementById('profileFieldGender').textContent=genderLabel(p.gender);
@@ -14069,20 +14139,38 @@ window.meditToggleSection = meditToggleSection;
   function saveProfileEdits(){
     var p=profileState.pending;if(!p)return;var name=(document.getElementById('profileEditNameInput').value||'').trim();var ageStr=document.getElementById('profileEditAgeInput').value;var age=ageStr?parseInt(ageStr,10):null;
     if(!name){showToast('Nama tidak boleh kosong');return;}if(age!==null&&(age<13||age>120)){showToast('Usia harus antara 13 dan 120');return;}
-    var c=welvraAuth.getClient();var user=welvraAuth.getUser();if(!c||!user){showToast('Gagal menyimpan');return;}
     var btn=document.getElementById('profileEditSave');btn.disabled=true;btn.textContent='Menyimpan...';
-    c.from('profiles').update({name:name,age:age,gender:p.gender,interests:p.interests}).eq('id',user.id).then(function(r){
-      if(r.error){showToast('Gagal: '+r.error.message);btn.disabled=false;btn.textContent='Simpan';return;}
+    var afterSave=function(){
       profileState.current.name=name;profileState.current.age=age;profileState.current.gender=p.gender;profileState.current.interests=p.interests;
       try{localStorage.setItem('welvra_username',name);}catch(e){}if(typeof setGreeting==='function')setGreeting();
       renderProfileScreen();closeProfileEditModal();showToast('Profil tersimpan');btn.disabled=false;btn.textContent='Simpan';
+    };
+    if(profileState.isAnonymous){
+      saveLocalProfile({name:name,age:age,gender:p.gender,interests:p.interests});
+      var lp=loadLocalProfile();if(lp&&lp.created_at)profileState.current.created_at=lp.created_at;
+      afterSave();return;
+    }
+    var c=welvraAuth.getClient();var user=welvraAuth.getUser();if(!c||!user){showToast('Gagal menyimpan');btn.disabled=false;btn.textContent='Simpan';return;}
+    c.from('profiles').update({name:name,age:age,gender:p.gender,interests:p.interests}).eq('id',user.id).then(function(r){
+      if(r.error){showToast('Gagal: '+r.error.message);btn.disabled=false;btn.textContent='Simpan';return;}
+      afterSave();
     });
   }
   function handlePhotoSelect(e){
     var file=e.target.files&&e.target.files[0];if(!file)return;
     if(file.size>5*1024*1024){showToast('Foto terlalu besar (maks 5MB)');return;}
     if(['image/jpeg','image/png','image/webp'].indexOf(file.type)===-1){showToast('Format foto tidak didukung');return;}
-    var reader=new FileReader();reader.onload=function(ev){var img=document.getElementById('profilePhotoImg');var ini=document.getElementById('profilePhotoInitials');img.src=ev.target.result;img.hidden=false;ini.style.display='none';};reader.readAsDataURL(file);
+    var imgEl=document.getElementById('profilePhotoImg');var iniEl=document.getElementById('profilePhotoInitials');
+    var reader=new FileReader();reader.onload=function(ev){imgEl.src=ev.target.result;imgEl.hidden=false;iniEl.style.display='none';};reader.readAsDataURL(file);
+    if(profileState.isAnonymous){
+      resizeImageToDataUrl(file,200,0.8).then(function(dataUrl){
+        if(dataUrl.length>500*1024){showToast('Foto terlalu besar setelah dikompres');return;}
+        saveLocalProfile({photo_data_url:dataUrl});
+        profileState.current.photo_data_url=dataUrl;
+        imgEl.src=dataUrl;showToast('Foto tersimpan di perangkat');
+      }).catch(function(){showToast('Gagal memproses foto');renderProfileScreen();});
+      return;
+    }
     resizeImageFile(file,512,0.85).then(function(blob){return uploadProfilePhoto(blob);}).then(function(url){profileState.current.photo_url=url;showToast('Foto tersimpan');}).catch(function(err){showToast('Gagal upload foto');renderProfileScreen();});
   }
   function resizeImageFile(file,maxDim,quality){return new Promise(function(resolve,reject){var img=new Image();var url=URL.createObjectURL(file);img.onload=function(){var canvas=document.createElement('canvas');var w=img.width,h=img.height,s=Math.min(maxDim/w,maxDim/h,1);canvas.width=Math.round(w*s);canvas.height=Math.round(h*s);canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);canvas.toBlob(function(b){URL.revokeObjectURL(url);b?resolve(b):reject(new Error('Resize gagal'));},'image/jpeg',quality);};img.onerror=function(){URL.revokeObjectURL(url);reject(new Error('Gambar tidak valid'));};img.src=url;});}
@@ -14096,6 +14184,14 @@ window.meditToggleSection = meditToggleSection;
     document.getElementById('profileSignOutBtn').addEventListener('click',handleProfileSignOut);
     document.getElementById('profilePhotoEditBtn').addEventListener('click',function(){document.getElementById('profilePhotoInput').click();});
     document.getElementById('profilePhotoInput').addEventListener('change',handlePhotoSelect);
+    var signInLink=document.getElementById('profileSignInLink');
+    if(signInLink)signInLink.addEventListener('click',function(){
+      // Open onboarding email screen as the sign-in entry point.
+      if(typeof openOnboarding==='function'){
+        try{var ob=JSON.parse(localStorage.getItem('welvra.onboarding.v1')||'{}');ob.currentSlide=4;ob.completed=false;localStorage.setItem('welvra.onboarding.v1',JSON.stringify(ob));}catch(e){}
+        openOnboarding();
+      }
+    });
     document.getElementById('profileEditGenderChips').addEventListener('click',function(e){var chip=e.target.closest('[data-gender]');if(!chip||!profileState.pending)return;document.querySelectorAll('#profileEditGenderChips .welvra-profile-edit-chip').forEach(function(c){c.classList.remove('active');});chip.classList.add('active');profileState.pending.gender=chip.dataset.gender;});
     document.getElementById('profileEditInterestsGrid').addEventListener('click',function(e){var btn=e.target.closest('[data-interest]');if(!btn||!profileState.pending)return;var slug=btn.dataset.interest;var arr=profileState.pending.interests;var idx=arr.indexOf(slug);if(idx===-1)arr.push(slug);else arr.splice(idx,1);btn.classList.toggle('active');});
   }
@@ -14276,12 +14372,38 @@ window.meditToggleSection = meditToggleSection;
         try{var r=localStorage.getItem('welvra.onboarding.v1');if(r){var ob=JSON.parse(r);if(ob&&ob.data&&(ob.data.name||ob.data.age||(ob.data.interests||[]).length>0)){saveOnboardingDataToProfile(session.user.id,ob.data);}}}catch(e){}
         showToast('Selamat datang'+(session.user.email?', '+session.user.email.split('@')[0]:'')+' !');
         if(location.hash&&location.hash.indexOf('access_token')!==-1){history.replaceState(null,'',location.pathname+location.search);}
+        // Offer to migrate any anonymous profile data into the cloud account.
+        setTimeout(function(){maybeMigrateLocalProfile(session.user.id);},800);
       }
     });
   }
   function saveOnboardingDataToProfile(userId,data){
     var c=welvraAuth.getClient();if(!c)return;
     c.from('profiles').update({name:data.name||'',age:data.age,gender:data.gender||'not-specified',interests:data.interests||[]}).eq('id',userId).then(function(r){if(r.error)console.warn('[Welvra] Profile update failed:',r.error.message);});
+  }
+  function maybeMigrateLocalProfile(userId){
+    var lp=loadLocalProfile();
+    var hasContent=lp&&(lp.name||lp.age||(lp.interests&&lp.interests.length)||lp.photo_data_url);
+    if(!hasContent)return;
+    if(!confirm('Pindahkan data profil yang sudah kamu isi ke akun?'))return;
+    var c=welvraAuth.getClient();if(!c)return;
+    var update={name:lp.name||'',age:lp.age||null,gender:lp.gender||'not-specified',interests:lp.interests||[]};
+    c.from('profiles').update(update).eq('id',userId).then(function(r){
+      if(r.error){console.warn('[Welvra] Migrate failed:',r.error.message);showToast('Gagal memindahkan data');return;}
+      // Photo: re-upload data URL as JPEG blob if present.
+      if(lp.photo_data_url){
+        try{
+          var byteString=atob(lp.photo_data_url.split(',')[1]);
+          var arr=new Uint8Array(byteString.length);
+          for(var i=0;i<byteString.length;i++){arr[i]=byteString.charCodeAt(i);}
+          var blob=new Blob([arr],{type:'image/jpeg'});
+          uploadProfilePhoto(blob).catch(function(err){console.warn('[Welvra] Photo migrate failed:',err.message);});
+        }catch(e){console.warn('[Welvra] Photo decode failed:',e.message);}
+      }
+      clearLocalProfile();
+      showToast('Data profil berhasil dipindahkan');
+      if(profileState.isOpen){fetchProfileData().then(renderProfileScreen);}
+    });
   }
 
   // --- Hash-based deep link ---
