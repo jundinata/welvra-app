@@ -3107,6 +3107,115 @@ html.dark .fp-rstep__name{color:#F0EDE8}
 html.dark .fp-result__actions{background:linear-gradient(transparent,rgba(20,24,32,.95) 30%)}
 .fp-result__disclaimer{font-size:11px;font-style:italic;color:rgba(200,134,10,.6);margin-top:12px;line-height:1.5}
 
+/* ======================================================================= */
+/* =================== FACEPRINT PHASE 3 — HISTORY/COMPARE/SHARE ======== */
+/* ======================================================================= */
+/* History list */
+.fp-history{padding:20px 16px;text-align:left}
+.fp-history__header{margin-bottom:16px}
+.fp-history__title{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:28px;color:var(--teal,#0A7B6C);margin:0 0 4px}
+.fp-history__sub{font-size:13px;color:var(--txt-secondary,#6B6661)}
+.fp-history__actions{display:flex;gap:8px;margin-bottom:16px}
+.fp-history__actions .fp-btn{flex:1;padding:12px;font-size:13px}
+.fp-hcard{display:flex;align-items:center;gap:12px;padding:12px;margin-bottom:8px;border-radius:16px;cursor:pointer;
+  background:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border:1px solid rgba(200,134,10,.12);transition:transform .15s,box-shadow .15s;min-height:72px}
+html.dark .fp-hcard{background:rgba(255,255,255,.06);border-color:rgba(200,134,10,.2)}
+.fp-hcard:active{transform:scale(.98)}
+.fp-hcard.selected{border-color:var(--teal,#0A7B6C);box-shadow:0 0 0 2px rgba(10,123,108,.2)}
+.fp-hcard__thumb{flex-shrink:0;width:56px;height:56px;border-radius:12px;object-fit:cover;background:rgba(10,123,108,.06)}
+.fp-hcard__placeholder{flex-shrink:0;width:56px;height:56px;border-radius:12px;background:rgba(10,123,108,.06);display:flex;align-items:center;justify-content:center}
+.fp-hcard__placeholder svg{width:28px;height:28px;color:var(--teal,#0A7B6C);opacity:.4}
+.fp-hcard__body{flex:1;min-width:0}
+.fp-hcard__date{font-size:12px;color:var(--txt-secondary,#6B6661);margin-bottom:2px}
+.fp-hcard__concern{font-size:13px;font-weight:500;color:var(--txt-primary,#2D2A26);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html.dark .fp-hcard__concern{color:#F0EDE8}
+.fp-hcard__score{flex-shrink:0;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--teal,#0A7B6C);
+  background:rgba(10,123,108,.08);border:1px solid rgba(10,123,108,.15)}
+/* History empty state */
+.fp-history__empty{text-align:center;padding:48px 24px}
+.fp-history__empty svg{width:64px;height:64px;color:var(--teal,#0A7B6C);opacity:.3;margin-bottom:16px}
+.fp-history__empty h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--teal,#0A7B6C);margin:0 0 8px}
+.fp-history__empty p{font-size:14px;color:var(--txt-secondary,#6B6661);margin:0 0 20px;line-height:1.6}
+/* History detail header */
+.fp-hdetail__bar{display:flex;align-items:center;justify-content:space-between;padding:12px 0;margin-bottom:8px;border-bottom:1px solid rgba(200,134,10,.08)}
+.fp-hdetail__back{background:none;border:none;cursor:pointer;font-size:14px;font-weight:500;color:var(--teal,#0A7B6C);padding:8px 0;display:flex;align-items:center;gap:4px}
+.fp-hdetail__back svg{width:16px;height:16px}
+.fp-hdetail__date{font-size:13px;color:var(--txt-secondary,#6B6661)}
+.fp-hdetail__menu{background:none;border:none;cursor:pointer;padding:8px;color:var(--txt-secondary,#6B6661)}
+.fp-hdetail__menu svg{width:20px;height:20px}
+.fp-hdetail__dropdown{position:absolute;right:16px;top:48px;z-index:10;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+  border:1px solid rgba(200,134,10,.15);border-radius:14px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.1);min-width:180px}
+html.dark .fp-hdetail__dropdown{background:rgba(30,34,42,.92);border-color:rgba(200,134,10,.25)}
+.fp-hdetail__dropdown button{display:block;width:100%;padding:10px 14px;border:none;background:none;cursor:pointer;text-align:left;
+  font-size:13px;color:var(--txt-primary,#2D2A26);border-radius:10px}
+html.dark .fp-hdetail__dropdown button{color:#F0EDE8}
+.fp-hdetail__dropdown button:hover{background:rgba(10,123,108,.06)}
+/* Compare */
+.fp-compare{padding:20px 16px;text-align:left}
+.fp-compare__header{text-align:center;margin-bottom:16px}
+.fp-compare__title{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:26px;color:var(--teal,#0A7B6C);margin:0 0 4px}
+.fp-compare__range{font-size:12px;color:var(--txt-secondary,#6B6661)}
+.fp-compare__photos{display:flex;justify-content:center;gap:24px;margin-bottom:16px}
+.fp-compare__photo-col{text-align:center}
+.fp-compare__photo-col img,.fp-compare__photo-col .fp-hcard__placeholder{width:56px;height:56px;border-radius:12px;object-fit:cover;margin:0 auto 4px;display:block}
+.fp-compare__photo-date{font-size:11px;color:var(--txt-secondary,#6B6661)}
+.fp-compare__arrow{display:flex;align-items:center;color:var(--gold,#C8860A)}
+.fp-compare__arrow svg{width:20px;height:20px}
+.fp-compare__overall{padding:20px;border-radius:20px;text-align:center;margin-bottom:16px;
+  background:linear-gradient(135deg,rgba(10,123,108,.06),rgba(200,134,10,.06));border:1px solid rgba(200,134,10,.12)}
+.fp-compare__scores{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:var(--teal,#0A7B6C)}
+.fp-compare__delta{display:inline-block;padding:4px 12px;border-radius:10px;font-size:13px;font-weight:600;margin-top:6px}
+.fp-compare__delta--up{background:rgba(107,158,120,.12);color:var(--sage,#6B9E78)}
+.fp-compare__delta--down{background:rgba(212,160,85,.12);color:#B8860B}
+.fp-compare__delta--flat{background:rgba(10,123,108,.08);color:var(--teal,#0A7B6C)}
+.fp-compare__metric{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid rgba(200,134,10,.06)}
+.fp-compare__metric:last-child{border-bottom:none}
+.fp-compare__metric-icon{flex-shrink:0;width:22px;height:22px;color:var(--gold,#C8860A)}
+.fp-compare__metric-name{font-size:13px;font-weight:500;color:var(--txt-primary,#2D2A26);flex:1;min-width:0}
+html.dark .fp-compare__metric-name{color:#F0EDE8}
+.fp-compare__metric-scores{font-size:13px;color:var(--txt-secondary,#6B6661);white-space:nowrap}
+.fp-compare__metric-delta{flex-shrink:0;min-width:36px;text-align:right;font-size:12px;font-weight:600}
+.fp-compare__notes{margin-top:16px}
+.fp-compare__note{font-size:13px;line-height:1.6;color:var(--txt-secondary,#6B6661);margin-bottom:8px}
+/* Compare select mode banner */
+.fp-history__select-banner{padding:12px 16px;border-radius:14px;margin-bottom:12px;text-align:center;
+  background:rgba(10,123,108,.06);border:1px solid rgba(10,123,108,.12);font-size:13px;color:var(--teal,#0A7B6C)}
+/* Share modal */
+.fp-share{position:fixed;inset:0;z-index:10001;display:none;align-items:flex-end;justify-content:center}
+.fp-share.open{display:flex}
+.fp-share__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.fp-share__sheet{position:relative;z-index:1;width:100%;max-width:420px;max-height:80vh;overflow-y:auto;padding:24px;
+  background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
+  border-radius:24px 24px 0 0;border-top:1px solid rgba(200,134,10,.18);
+  box-shadow:0 -8px 32px rgba(0,0,0,.1);animation:fpSheetUp .35s cubic-bezier(.16,1,.3,1)}
+html.dark .fp-share__sheet{background:rgba(30,34,42,.92);border-color:rgba(200,134,10,.25)}
+@keyframes fpSheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.fp-share__sheet{animation:none}}
+.fp-share__header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.fp-share__title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--teal,#0A7B6C)}
+.fp-share__close{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.06);color:var(--txt-secondary,#6B6661)}
+html.dark .fp-share__close{background:rgba(255,255,255,.08);color:#E0DDD8}
+.fp-share__preview{width:100%;max-width:320px;aspect-ratio:1;margin:0 auto 16px;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.fp-share__preview canvas{width:100%;height:100%;display:block}
+.fp-share__text-box{background:rgba(0,0,0,.03);border:1px solid rgba(200,134,10,.1);border-radius:12px;padding:14px;font-family:monospace;
+  font-size:12px;line-height:1.6;color:var(--txt-secondary,#6B6661);white-space:pre-wrap;margin-bottom:12px;max-height:200px;overflow-y:auto}
+html.dark .fp-share__text-box{background:rgba(255,255,255,.04);border-color:rgba(200,134,10,.2)}
+.fp-share__btns{display:flex;gap:8px}
+.fp-share__btns .fp-btn{flex:1;padding:14px;font-size:13px}
+/* Delete confirm */
+.fp-delete-modal{position:fixed;inset:0;z-index:10002;display:none;align-items:center;justify-content:center}
+.fp-delete-modal.open{display:flex}
+.fp-delete-modal__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.fp-delete-modal__card{position:relative;z-index:1;width:calc(100% - 48px);max-width:340px;padding:28px 24px;text-align:center;
+  background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);
+  border-radius:24px;border:1px solid rgba(200,134,10,.15);box-shadow:0 16px 48px rgba(0,0,0,.15)}
+html.dark .fp-delete-modal__card{background:rgba(30,34,42,.92);border-color:rgba(200,134,10,.25)}
+.fp-delete-modal__card h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--teal,#0A7B6C);margin:0 0 8px}
+.fp-delete-modal__card p{font-size:14px;color:var(--txt-secondary,#6B6661);margin:0 0 20px;line-height:1.5}
+
 /* ============================================================ */
 /* PHASE 2A — DRAWER + BOTTOM NAV (luxury layer)                */
 /* ============================================================ */
@@ -5949,7 +6058,7 @@ html.dark .drawer-auth-name{color:#F0EDE8}
     <span class="drawer-menu-label">Riwayat Konsultasi</span>
     <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
   </button>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.openFaceprint)openFaceprint()},290)">
+  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.fpOpenHistory)fpOpenHistory();else if(window.openFaceprint)openFaceprint()},290)">
     <span class="drawer-menu-icon" data-color="gold">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 9.5a1 1 0 1 1 0-.01" fill="currentColor"/><path d="M15 9.5a1 1 0 1 1 0-.01" fill="currentColor"/><path d="M9.5 12.5c1 1.2 3.5 1.2 5 0" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M12 16v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
     </span>
@@ -10950,14 +11059,19 @@ function aktivShowToast(msg) {
 /* ---------- STATE ---------- */
 var fpState = {
   isOpen: false,
-  currentStep: 'welcome', /* welcome | tips | privacy | capture | loading | result */
+  currentStep: 'welcome', /* welcome | tips | privacy | capture | loading | result | history | history-detail | compare */
   captureMode: 'camera',  /* camera | gallery */
   capturedImage: null,
   analysisResult: null,
   privacyAcknowledged: false,
   domBuilt: false,
   cameraStream: null,
-  facingMode: 'user'
+  facingMode: 'user',
+  historyMode: false,
+  compareMode: false,
+  compareSelection: [],
+  currentHistoryDetail: null,
+  historyScrollTop: 0
 };
 
 /* ---------- HELPERS ---------- */
@@ -10977,6 +11091,24 @@ var FP_PRIVACY_KEY = 'welvra.faceprint.privacy.acknowledged.v1';
 function fpSaveAnalysis(data){
   try {
     var arr = JSON.parse(localStorage.getItem(FP_HISTORY_KEY) || '[]');
+    /* Generate thumbnail from captured image */
+    var thumb = null;
+    if (fpState.capturedImage){
+      try {
+        var tCanvas = document.createElement('canvas');
+        var tImg = new Image();
+        tImg.src = fpState.capturedImage;
+        var tw = tImg.naturalWidth || 200, th = tImg.naturalHeight || 200;
+        var tMax = 200;
+        if (tw > tMax || th > tMax){
+          if (tw > th){ th = Math.round(th * tMax / tw); tw = tMax; }
+          else { tw = Math.round(tw * tMax / th); th = tMax; }
+        }
+        tCanvas.width = tw; tCanvas.height = th;
+        tCanvas.getContext('2d').drawImage(tImg, 0, 0, tw, th);
+        thumb = tCanvas.toDataURL('image/jpeg', 0.7);
+      } catch(te){ thumb = null; }
+    }
     var item = {
       id: Date.now().toString(),
       created_at: new Date().toISOString(),
@@ -10990,11 +11122,18 @@ function fpSaveAnalysis(data){
       recommendations: data.recommendations || [],
       daily_routine: data.daily_routine || null,
       primary_concern: data.primary_concern || (data.primary_concerns && data.primary_concerns[0] ? data.primary_concerns[0].title : ''),
-      photo_data_url: null
+      photo_data_url: thumb
     };
     arr.unshift(item);
     if (arr.length > 30) arr = arr.slice(0, 30);
-    localStorage.setItem(FP_HISTORY_KEY, JSON.stringify(arr));
+    try {
+      localStorage.setItem(FP_HISTORY_KEY, JSON.stringify(arr));
+    } catch(qe){
+      /* QuotaExceededError — retry without thumbnail */
+      item.photo_data_url = null;
+      arr[0] = item;
+      localStorage.setItem(FP_HISTORY_KEY, JSON.stringify(arr));
+    }
 
     /* Supabase save if authenticated */
     fpSaveToSupabase(item);
@@ -11092,7 +11231,7 @@ function fpEnsureDom(){
         '<p class="fp-desc">Pemeriksaan menyeluruh hidrasi, jerawat, pori, kerutan, hiperpigmentasi, dan kemerahan. Hasil personal berdasarkan profilmu.</p>' +
         '<p class="fp-disclaimer">Hanya untuk panduan dan edukasi. Bukan diagnosis medis.</p>' +
         '<button class="fp-btn" onclick="fpGoStep(\'tips\')">Mulai Pemeriksaan</button>' +
-        (hasHistory ? '<button class="fp-btn fp-btn--secondary" onclick="fpGoStep(\'welcome\')">Lihat Riwayat</button>' : '') +
+        (hasHistory ? '<button class="fp-btn fp-btn--secondary" onclick="fpRenderHistoryList();fpShowStep(\'history\')">Lihat Riwayat</button>' : '') +
       '</div>' +
 
       /* TIPS */
@@ -11216,14 +11355,83 @@ function fpEnsureDom(){
         /* Footer */
         '<div class="fp-result__actions">' +
           '<button class="fp-btn" onclick="fpSaveResult()">Simpan Hasil</button>' +
+          '<button class="fp-btn fp-btn--secondary" onclick="fpOpenShareModal()">Bagikan</button>' +
           '<button class="fp-btn fp-btn--secondary" onclick="closeFaceprint()">Cek Lagi Nanti</button>' +
         '</div>' +
         '<div class="fp-result__disclaimer">Hanya untuk edukasi dan panduan. Bukan diagnosis medis. Konsultasi dermatologist untuk concern serius.</div>' +
       '</div>' +
 
+      /* HISTORY LIST */
+      '<div class="fp-step fp-history" data-step="history" id="fp-history-view"></div>' +
+
+      /* HISTORY DETAIL */
+      '<div class="fp-step fp-result" data-step="history-detail">' +
+        '<div id="fp-hdetail-bar" style="position:relative"></div>' +
+        '<img class="fp-result__photo" id="fp-hdetail-photo" alt="Foto wajah">' +
+        '<svg class="fp-gauge" id="fp-hdetail-gauge" width="200" height="200" viewBox="0 0 200 200">' +
+          '<defs><linearGradient id="fp-grad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0A7B6C"/><stop offset="100%" stop-color="#C8860A"/></linearGradient></defs>' +
+          '<circle cx="100" cy="100" r="85" fill="none" stroke="rgba(10,123,108,.15)" stroke-width="8"/>' +
+          '<circle id="fp-hdetail-ring" cx="100" cy="100" r="85" fill="none" stroke="url(#fp-grad2)" stroke-width="8" stroke-linecap="round" transform="rotate(-90 100 100)" stroke-dasharray="0 534"/>' +
+          '<text class="fp-gauge__score" id="fp-hdetail-score" x="100" y="108" text-anchor="middle">0</text>' +
+          '<text class="fp-gauge__label" id="fp-hdetail-label" x="100" y="135" text-anchor="middle"></text>' +
+        '</svg>' +
+        '<div class="fp-summary"><p class="fp-summary__text" id="fp-hdetail-summary"></p></div>' +
+        '<div class="fp-encouragement" id="fp-hdetail-encouragement"></div>' +
+        '<div class="fp-section" id="fp-hdetail-skintype"></div>' +
+        '<div class="fp-section" id="fp-hdetail-metrics"></div>' +
+        '<div class="fp-section" id="fp-hdetail-concerns"></div>' +
+        '<div class="fp-section" id="fp-hdetail-recs"></div>' +
+        '<div class="fp-section" id="fp-hdetail-routines"></div>' +
+        '<div class="fp-result__actions">' +
+          '<button class="fp-btn" onclick="fpOpenShareModal()">Bagikan</button>' +
+          '<button class="fp-btn fp-btn--secondary" onclick="fpExitHistoryDetail()">Kembali ke Riwayat</button>' +
+        '</div>' +
+      '</div>' +
+
+      /* COMPARE */
+      '<div class="fp-step fp-compare" data-step="compare" id="fp-compare-view"></div>' +
+
     '</div>';
 
   document.body.appendChild(modal);
+
+  /* Share bottom sheet */
+  var shareEl = document.createElement('div');
+  shareEl.className = 'fp-share';
+  shareEl.id = 'fp-share-modal';
+  shareEl.innerHTML =
+    '<div class="fp-share__backdrop" onclick="fpCloseShareModal()"></div>' +
+    '<div class="fp-share__sheet">' +
+      '<div class="fp-share__header">' +
+        '<span class="fp-share__title">Bagikan Hasil</span>' +
+        '<button class="fp-share__close" onclick="fpCloseShareModal()" aria-label="Tutup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>' +
+      '</div>' +
+      '<div class="fp-share__preview" id="fp-share-preview"></div>' +
+      '<div class="fp-share__btns" id="fp-share-img-btns">' +
+        '<button class="fp-btn" onclick="fpDownloadShareImage()">Unduh</button>' +
+        '<button class="fp-btn fp-btn--secondary" id="fp-share-native-btn" onclick="fpShareViaWebAPI()" style="display:none">Bagikan</button>' +
+      '</div>' +
+      '<div style="margin-top:16px"><div class="fp-eyebrow" style="margin-bottom:8px">SALIN RINGKASAN</div>' +
+        '<div class="fp-share__text-box" id="fp-share-text"></div>' +
+        '<button class="fp-btn fp-btn--secondary" onclick="fpCopyShareText()" style="width:100%">Salin ke Clipboard</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(shareEl);
+
+  /* Delete confirm modal */
+  var delEl = document.createElement('div');
+  delEl.className = 'fp-delete-modal';
+  delEl.id = 'fp-delete-modal';
+  delEl.innerHTML =
+    '<div class="fp-delete-modal__backdrop" onclick="fpCancelDelete()"></div>' +
+    '<div class="fp-delete-modal__card">' +
+      '<h3>Hapus Hasil Pemeriksaan?</h3>' +
+      '<p>Tindakan ini tidak bisa dibatalkan.</p>' +
+      '<button class="fp-btn" onclick="fpCancelDelete()">Batal</button>' +
+      '<button class="fp-btn fp-btn--secondary" id="fp-delete-confirm-btn" onclick="fpConfirmDelete()" style="color:#B8860B;margin-top:4px">Hapus</button>' +
+    '</div>';
+  document.body.appendChild(delEl);
+
   fpBindEvents();
 }
 
@@ -11799,8 +12007,683 @@ function fpSwitchRoutine(panel, btn){
 function fpSaveResult(){
   if (!fpState.analysisResult) return;
   var saved = fpSaveAnalysis(fpState.analysisResult);
-  if (saved && window.showWelvraToast) window.showWelvraToast('Hasil pemeriksaan tersimpan');
+  if (saved && window.showWelvraToast) window.showWelvraToast('Tersimpan ke riwayat');
   closeFaceprint();
+}
+
+/* ======================================================================= */
+/* ==================== PHASE 3 — HISTORY / COMPARE / SHARE ============= */
+/* ======================================================================= */
+
+var FP_MONTHS = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+var FP_PLACEHOLDER_SVG = '<svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".35"><circle cx="28" cy="20" r="10"/><path d="M10 46c0-8 8-14 18-14s18 6 18 14"/></svg>';
+
+function fpFormatDate(iso){
+  if (!iso) return '';
+  var d = new Date(iso);
+  var now = new Date();
+  var diff = Math.floor((now - d) / 86400000);
+  if (diff === 0) return 'Hari ini';
+  if (diff === 1) return 'Kemarin';
+  if (diff < 7) return diff + ' hari lalu';
+  if (diff < 30) return Math.floor(diff / 7) + ' minggu lalu';
+  return d.getDate() + ' ' + FP_MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function fpFormatDateShort(iso){
+  if (!iso) return '';
+  var d = new Date(iso);
+  return d.getDate() + ' ' + FP_MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function fpMetricScore(m){
+  return typeof m === 'object' ? Math.max(0, Math.min(10, m.score || 0)) : Math.max(0, Math.min(10, m || 0));
+}
+
+/* ---------- HISTORY ---------- */
+function fpOpenHistory(){
+  fpEnsureDom();
+  fpState.isOpen = true;
+  fpState.historyMode = true;
+  fpState.compareMode = false;
+  fpState.compareSelection = [];
+  fpState.currentHistoryDetail = null;
+  var modal = document.getElementById('welvraFaceprintModal');
+  if (modal) modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  fpRenderHistoryList();
+  fpShowStep('history');
+}
+
+function fpRenderHistoryList(){
+  var el = document.getElementById('fp-history-view');
+  if (!el) return;
+  var entries = fpLoadHistory();
+  var html = '';
+
+  /* Header */
+  html += '<div class="fp-history__header">';
+  html += '<h2 class="fp-history__title">Riwayat Faceprint</h2>';
+  html += '<p class="fp-history__sub">Lihat perjalanan kulitmu</p>';
+  html += '</div>';
+
+  /* Actions */
+  html += '<div class="fp-history__actions">';
+  if (fpState.compareMode){
+    html += '<button class="fp-btn fp-btn--secondary" onclick="fpExitCompareMode()">Batal Pilih</button>';
+    html += '<button class="fp-btn" id="fp-compare-go-btn" onclick="fpRunCompare()"' + (fpState.compareSelection.length < 2 ? ' disabled style="opacity:.5;pointer-events:none"' : '') + '>Bandingkan (' + fpState.compareSelection.length + '/2)</button>';
+  } else {
+    html += '<button class="fp-btn fp-btn--secondary" onclick="fpEnterCompareMode()"' + (entries.length < 2 ? ' disabled style="opacity:.5" title="Butuh 2 hasil untuk bandingkan"' : '') + '>Bandingkan</button>';
+    html += '<button class="fp-btn" onclick="fpGoStep(\'welcome\');fpState.historyMode=false">Pemeriksaan Baru</button>';
+  }
+  html += '</div>';
+
+  /* Compare mode banner */
+  if (fpState.compareMode){
+    html += '<div class="fp-history__select-banner">Tap 2 hasil untuk dibandingkan</div>';
+  }
+
+  /* Entries or empty state */
+  if (!entries.length){
+    html += '<div class="fp-history__empty">';
+    html += '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="32" cy="22" r="14"/><path d="M12 56c0-10 8-18 20-18s20 8 20 18"/></svg>';
+    html += '<h3>Belum ada riwayat</h3>';
+    html += '<p>Mulai pemeriksaan pertamamu untuk melihat progress kulit dari waktu ke waktu</p>';
+    html += '<button class="fp-btn" onclick="fpGoStep(\'welcome\');fpState.historyMode=false">Mulai Pemeriksaan</button>';
+    html += '</div>';
+  } else {
+    html += '<ul role="list" style="list-style:none;padding:0;margin:0">';
+    for (var i = 0; i < entries.length; i++){
+      var e = entries[i];
+      var isSelected = fpState.compareSelection.indexOf(e.id) !== -1;
+      html += '<li role="listitem">';
+      html += '<div class="fp-hcard' + (isSelected ? ' selected' : '') + '" tabindex="0" data-entry-id="' + fpEsc(e.id) + '">';
+      if (e.photo_data_url){
+        html += '<img class="fp-hcard__thumb" src="' + fpEsc(e.photo_data_url) + '" alt="" loading="lazy">';
+      } else {
+        html += '<div class="fp-hcard__placeholder">' + FP_PLACEHOLDER_SVG + '</div>';
+      }
+      html += '<div class="fp-hcard__body">';
+      html += '<div class="fp-hcard__date">' + fpEsc(fpFormatDate(e.created_at)) + '</div>';
+      html += '<div class="fp-hcard__concern">' + fpEsc(e.primary_concern || e.summary || '') + '</div>';
+      html += '</div>';
+      html += '<div class="fp-hcard__score">' + (e.overall_score || 0) + '</div>';
+      html += '</div></li>';
+    }
+    html += '</ul>';
+  }
+  el.innerHTML = html;
+
+  /* Bind card events */
+  var cards = el.querySelectorAll('.fp-hcard');
+  for (var j = 0; j < cards.length; j++){
+    (function(card){
+      var eid = card.getAttribute('data-entry-id');
+      var pressTimer = null;
+      card.addEventListener('mousedown', function(){ pressTimer = setTimeout(function(){ fpShowDeleteModal(eid); }, 600); });
+      card.addEventListener('touchstart', function(){ pressTimer = setTimeout(function(){ fpShowDeleteModal(eid); }, 600); }, {passive:true});
+      card.addEventListener('mouseup', function(){ clearTimeout(pressTimer); });
+      card.addEventListener('mouseleave', function(){ clearTimeout(pressTimer); });
+      card.addEventListener('touchend', function(){ clearTimeout(pressTimer); });
+      card.addEventListener('touchcancel', function(){ clearTimeout(pressTimer); });
+      card.addEventListener('click', function(){
+        if (fpState.compareMode) fpToggleCompareSelect(eid);
+        else fpOpenHistoryDetail(eid);
+      });
+      card.addEventListener('keydown', function(ev){
+        if (ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); card.click(); }
+      });
+    })(cards[j]);
+  }
+}
+
+function fpOpenHistoryDetail(id){
+  var entries = fpLoadHistory();
+  var entry = null;
+  for (var i = 0; i < entries.length; i++){ if (entries[i].id === id){ entry = entries[i]; break; } }
+  if (!entry) return;
+  fpState.currentHistoryDetail = id;
+  fpShowStep('history-detail');
+
+  /* Render header bar */
+  var bar = document.getElementById('fp-hdetail-bar');
+  if (bar){
+    bar.innerHTML =
+      '<div class="fp-hdetail__bar">' +
+        '<button class="fp-hdetail__back" onclick="fpExitHistoryDetail()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg> Riwayat</button>' +
+        '<span class="fp-hdetail__date">' + fpEsc(fpFormatDateShort(entry.created_at)) + '</span>' +
+        '<button class="fp-hdetail__menu" onclick="fpToggleDetailMenu()" aria-label="Menu"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button>' +
+      '</div>' +
+      '<div class="fp-hdetail__dropdown" id="fp-hdetail-dropdown" style="display:none">' +
+        '<button onclick="fpDetailAction(\'compare\')">Bandingkan dengan...</button>' +
+        '<button onclick="fpDetailAction(\'share\')">Bagikan</button>' +
+        '<button onclick="fpDetailAction(\'delete\')">Hapus</button>' +
+      '</div>';
+  }
+
+  /* Render Phase 2 result sections using detail-specific IDs */
+  var photo = document.getElementById('fp-hdetail-photo');
+  if (photo) photo.src = entry.photo_data_url || 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#D4B89C" width="200" height="200" rx="24"/></svg>');
+
+  var score = Math.max(0, Math.min(100, entry.overall_score || 0));
+  var circ = 2 * Math.PI * 85;
+  var ring = document.getElementById('fp-hdetail-ring');
+  if (ring) ring.setAttribute('stroke-dasharray', ((score/100)*circ) + ' ' + circ);
+  var scoreEl = document.getElementById('fp-hdetail-score');
+  if (scoreEl) scoreEl.textContent = score;
+  var labelEl = document.getElementById('fp-hdetail-label');
+  if (labelEl) labelEl.textContent = fpGetScoreLabel(score);
+  var sumEl = document.getElementById('fp-hdetail-summary');
+  if (sumEl) sumEl.textContent = entry.summary || '';
+  var encEl = document.getElementById('fp-hdetail-encouragement');
+  if (encEl) encEl.textContent = entry.encouragement || '';
+
+  /* Reuse existing Phase 2 renderers on detail-specific containers */
+  fpRenderSkinTypeInto('fp-hdetail-skintype', entry);
+  fpRenderMetricsInto('fp-hdetail-metrics', entry.metrics);
+  fpRenderConcernsInto('fp-hdetail-concerns', entry.primary_concerns);
+  fpRenderRecsInto('fp-hdetail-recs', entry.recommendations);
+  fpRenderRoutinesInto('fp-hdetail-routines', entry.daily_routine);
+}
+
+/* Parameterized renderers that target a specific container ID */
+function fpRenderSkinTypeInto(containerId, data){
+  var el = document.getElementById(containerId);
+  if (!el || !data.skin_type){ if(el) el.innerHTML=''; return; }
+  el.innerHTML = '<h3 class="fp-section__heading">Tipe Kulit</h3><div class="fp-skintype"><div class="fp-skintype__type">' + fpEsc(FP_SKIN_TYPE_MAP[data.skin_type] || data.skin_type) + '</div><div class="fp-skintype__explain">' + fpEsc(data.skin_type_explanation || '') + '</div></div>';
+}
+function fpRenderMetricsInto(containerId, metrics){
+  var el = document.getElementById(containerId);
+  if (!el || !metrics){ if(el) el.innerHTML=''; return; }
+  var keys = ['hydration','acne','pores','wrinkles','pigmentation','redness'];
+  var html = '<h3 class="fp-section__heading">Detail Pemeriksaan</h3>';
+  for (var i = 0; i < keys.length; i++){
+    var k = keys[i], m = metrics[k]; if (!m) continue;
+    var s = fpMetricScore(m);
+    var label = typeof m === 'object' ? (m.label || '') : '';
+    var obs = typeof m === 'object' ? (m.observation || '') : '';
+    html += '<div class="fp-metric"><div class="fp-metric__icon">' + (FP_METRIC_ICONS[k]||'') + '</div><div class="fp-metric__body"><div class="fp-metric__header"><span class="fp-metric__name">' + fpEsc(FP_METRIC_NAMES[k]||k) + '</span><span class="fp-metric__score">' + s + '/10</span></div><div class="fp-metric__bar"><div class="fp-metric__bar-fill ' + fpBarClass(s) + '" style="width:' + (s*10) + '%"></div></div>' + (label ? '<div class="fp-metric__label">' + fpEsc(label) + '</div>' : '') + (obs ? '<div class="fp-metric__obs">' + fpEsc(obs) + '</div>' : '') + '</div></div>';
+  }
+  el.innerHTML = html;
+}
+function fpRenderConcernsInto(cid, concerns){
+  var el = document.getElementById(cid);
+  if (!el || !concerns || !concerns.length){ if(el) el.innerHTML=''; return; }
+  var html = '<h3 class="fp-section__heading">Yang Perlu Kamu Tahu</h3>';
+  for (var i = 0; i < Math.min(concerns.length,3); i++){
+    var c = concerns[i];
+    html += '<div class="fp-concern"><span class="fp-concern__sev fp-concern__sev--' + fpEsc(c.severity||'ringan') + '">' + fpEsc(c.severity||'ringan') + '</span><div class="fp-concern__title">' + fpEsc(c.title||'') + '</div><div class="fp-concern__text">' + fpEsc(c.explanation||'') + '</div>' + (c.approach ? '<div class="fp-concern__text">' + fpEsc(c.approach) + '</div>' : '') + (c.patience_note ? '<div class="fp-concern__patience">' + fpEsc(c.patience_note) + '</div>' : '') + '</div>';
+  }
+  el.innerHTML = html;
+}
+function fpRenderRecsInto(cid, recs){
+  var el = document.getElementById(cid);
+  if (!el || !recs || !recs.length){ if(el) el.innerHTML=''; return; }
+  var html = '<h3 class="fp-section__heading">Rekomendasi Untukmu</h3>';
+  var sorted = recs.slice().sort(function(a,b){ return fpPriorityWeight(a.priority) - fpPriorityWeight(b.priority); });
+  for (var i = 0; i < sorted.length; i++){
+    var r = sorted[i];
+    html += '<div class="fp-rec"><div class="fp-rec__head"><span class="fp-rec__priority fp-rec__priority--' + fpEsc(r.priority||'medium') + '">' + fpEsc(r.priority||'medium') + '</span><span class="fp-rec__title">' + fpEsc(r.title||'') + '</span></div>';
+    if (r.why) html += '<div class="fp-rec__why">' + fpEsc(r.why) + '</div>';
+    if (r.ingredients_to_look_for && r.ingredients_to_look_for.length){ html += '<div class="fp-rec__sub">Cari bahan ini:</div><div class="fp-chips">'; for (var j=0;j<r.ingredients_to_look_for.length;j++) html += '<span class="fp-chip">' + fpEsc(r.ingredients_to_look_for[j]) + '</span>'; html += '</div>'; }
+    if (r.ingredients_to_avoid && r.ingredients_to_avoid.length){ html += '<div class="fp-rec__sub">Hindari:</div><div class="fp-chips">'; for (var j=0;j<r.ingredients_to_avoid.length;j++) html += '<span class="fp-chip fp-chip--avoid">' + fpEsc(r.ingredients_to_avoid[j]) + '</span>'; html += '</div>'; }
+    if (r.how_to_use) html += '<div class="fp-rec__how">' + fpEsc(r.how_to_use) + '</div>';
+    if (r.example_brands && r.example_brands.length){ html += '<div class="fp-chips">'; for (var j=0;j<r.example_brands.length;j++) html += '<span class="fp-chip fp-chip--brand">' + fpEsc(r.example_brands[j]) + '</span>'; html += '</div>'; }
+    if (r.patience_timeline) html += '<div class="fp-rec__timeline">' + fpEsc(r.patience_timeline) + '</div>';
+    if (r.pregnancy_safe) html += '<div class="fp-rec__safe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg> Aman untuk kehamilan</div>';
+    html += '</div>';
+  }
+  el.innerHTML = html;
+}
+function fpRenderRoutinesInto(cid, routine){
+  var el = document.getElementById(cid);
+  if (!el || !routine){ if(el) el.innerHTML=''; return; }
+  el.innerHTML = '<h3 class="fp-section__heading">Rutinitas Harian</h3><div class="fp-routine-tabs"><button class="fp-routine-tab active" onclick="fpSwitchRoutineIn(\'' + cid + '\',\'morning\',this)">Pagi</button><button class="fp-routine-tab" onclick="fpSwitchRoutineIn(\'' + cid + '\',\'evening\',this)">Malam</button></div>' + fpBuildRoutinePanel('morning', routine.morning, true) + fpBuildRoutinePanel('evening', routine.evening, false);
+}
+function fpSwitchRoutineIn(cid, panel, btn){
+  var sec = document.getElementById(cid);
+  if (!sec) return;
+  var tabs = sec.querySelectorAll('.fp-routine-tab');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+  if (btn) btn.classList.add('active');
+  var panels = sec.querySelectorAll('.fp-routine-panel');
+  for (var i = 0; i < panels.length; i++) panels[i].classList.toggle('active', panels[i].getAttribute('data-routine') === panel);
+}
+
+function fpExitHistoryDetail(){
+  fpState.currentHistoryDetail = null;
+  fpRenderHistoryList();
+  fpShowStep('history');
+}
+
+function fpToggleDetailMenu(){
+  var dd = document.getElementById('fp-hdetail-dropdown');
+  if (dd) dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+}
+
+function fpDetailAction(action){
+  var dd = document.getElementById('fp-hdetail-dropdown');
+  if (dd) dd.style.display = 'none';
+  var id = fpState.currentHistoryDetail;
+  if (action === 'share') fpOpenShareModal();
+  else if (action === 'delete') fpShowDeleteModal(id);
+  else if (action === 'compare'){
+    fpState.compareSelection = [id];
+    fpState.compareMode = true;
+    fpRenderHistoryList();
+    fpShowStep('history');
+  }
+}
+
+/* ---------- DELETE ---------- */
+var _fpDeleteTarget = null;
+function fpShowDeleteModal(id){
+  _fpDeleteTarget = id;
+  var m = document.getElementById('fp-delete-modal');
+  if (m) m.classList.add('open');
+}
+function fpCancelDelete(){
+  _fpDeleteTarget = null;
+  var m = document.getElementById('fp-delete-modal');
+  if (m) m.classList.remove('open');
+}
+function fpConfirmDelete(){
+  if (_fpDeleteTarget){
+    fpDeleteAnalysis(_fpDeleteTarget);
+    fpState.compareSelection = fpState.compareSelection.filter(function(x){ return x !== _fpDeleteTarget; });
+    if (fpState.currentHistoryDetail === _fpDeleteTarget) fpState.currentHistoryDetail = null;
+  }
+  fpCancelDelete();
+  fpRenderHistoryList();
+  if (fpState.currentHistoryDetail === null && fpState.currentStep === 'history-detail') fpShowStep('history');
+  if (window.showWelvraToast) window.showWelvraToast('Hasil pemeriksaan dihapus');
+}
+
+/* ---------- COMPARE ---------- */
+function fpEnterCompareMode(){
+  fpState.compareMode = true;
+  fpState.compareSelection = [];
+  fpRenderHistoryList();
+}
+function fpExitCompareMode(){
+  fpState.compareMode = false;
+  fpState.compareSelection = [];
+  fpRenderHistoryList();
+}
+function fpToggleCompareSelect(id){
+  var idx = fpState.compareSelection.indexOf(id);
+  if (idx !== -1) fpState.compareSelection.splice(idx, 1);
+  else if (fpState.compareSelection.length < 2) fpState.compareSelection.push(id);
+  fpRenderHistoryList();
+}
+function fpRunCompare(){
+  if (fpState.compareSelection.length !== 2) return;
+  var entries = fpLoadHistory();
+  var a = null, b = null;
+  for (var i = 0; i < entries.length; i++){
+    if (entries[i].id === fpState.compareSelection[0]) a = entries[i];
+    if (entries[i].id === fpState.compareSelection[1]) b = entries[i];
+  }
+  if (!a || !b) return;
+  /* Ensure chronological: a=older, b=newer */
+  if (new Date(a.created_at) > new Date(b.created_at)){ var tmp = a; a = b; b = tmp; }
+  fpRenderCompare(a, b);
+  fpShowStep('compare');
+}
+
+function fpComputeMetricDelta(prev, curr){
+  var ps = fpMetricScore(prev), cs = fpMetricScore(curr);
+  var d = cs - ps;
+  var cat, label;
+  if (d >= 2){ cat = 'major-improvement'; label = 'Membaik signifikan'; }
+  else if (d >= 0.5){ cat = 'minor-improvement'; label = 'Sedikit membaik'; }
+  else if (d <= -2){ cat = 'major-regression'; label = 'Mundur signifikan'; }
+  else if (d <= -0.5){ cat = 'minor-regression'; label = 'Sedikit mundur'; }
+  else { cat = 'stable'; label = 'Stabil'; }
+  return { delta: d, category: cat, label: label, prevScore: ps, currScore: cs };
+}
+
+function fpGenerateCompareSummary(prev, curr){
+  var sentences = [];
+  var overallDelta = (curr.overall_score || 0) - (prev.overall_score || 0);
+  var dateStr = fpFormatDateShort(prev.created_at);
+  if (overallDelta > 0) sentences.push('Skor keseluruhan naik ' + overallDelta + ' poin sejak ' + dateStr + '. Pelan tapi pasti.');
+  else if (overallDelta < 0) sentences.push('Skor keseluruhan turun ' + Math.abs(overallDelta) + ' poin sejak ' + dateStr + '. Tidak apa-apa, kulit kita dinamis.');
+  else sentences.push('Skor keseluruhan stabil sejak ' + dateStr + '. Kulitmu konsisten.');
+
+  var keys = ['hydration','acne','pores','wrinkles','pigmentation','redness'];
+  var deltas = [];
+  for (var i = 0; i < keys.length; i++){
+    var k = keys[i];
+    var pm = prev.metrics ? prev.metrics[k] : 0;
+    var cm = curr.metrics ? curr.metrics[k] : 0;
+    var d = fpComputeMetricDelta(pm, cm);
+    d.key = k;
+    d.name = FP_METRIC_NAMES[k] || k;
+    if (Math.abs(d.delta) >= 0.5) deltas.push(d);
+  }
+  deltas.sort(function(a,b){ return Math.abs(b.delta) - Math.abs(a.delta); });
+
+  /* Positive first */
+  var pos = deltas.filter(function(d){ return d.delta > 0; });
+  var neg = deltas.filter(function(d){ return d.delta < 0; });
+
+  for (var i = 0; i < Math.min(pos.length, 2); i++){
+    var p = pos[i];
+    sentences.push(p.name + ' membaik (+' + p.delta + ') — kerja konsistenmu kelihatan.');
+  }
+  for (var i = 0; i < Math.min(neg.length, 1); i++){
+    var n = neg[i];
+    if (n.key === 'pigmentation') sentences.push('Pigmentasi sedikit mundur. Mungkin paparan UV lebih banyak akhir-akhir ini? Sunscreen tetap kunci.');
+    else if (n.key === 'hydration') sentences.push('Hidrasi agak turun. Cek apakah cuaca atau AC berubah belakangan ini.');
+    else sentences.push(n.name + ' sedikit mundur (' + n.delta + '). Perhatikan rutinitas di area ini.');
+  }
+  if (!deltas.length) sentences.push('Semua metrik stabil — itu fondasi yang baik untuk lanjutkan rutinitas.');
+  return sentences;
+}
+
+function fpRenderCompare(prev, curr){
+  var el = document.getElementById('fp-compare-view');
+  if (!el) return;
+  var html = '';
+  /* Header */
+  html += '<div class="fp-compare__header"><h2 class="fp-compare__title">Perbandingan</h2>';
+  html += '<p class="fp-compare__range">' + fpEsc(fpFormatDateShort(prev.created_at)) + ' &rarr; ' + fpEsc(fpFormatDateShort(curr.created_at)) + '</p></div>';
+
+  /* Photos */
+  html += '<div class="fp-compare__photos">';
+  html += '<div class="fp-compare__photo-col">' + (prev.photo_data_url ? '<img src="' + fpEsc(prev.photo_data_url) + '" alt="">' : '<div class="fp-hcard__placeholder" style="width:56px;height:56px;margin:0 auto">' + FP_PLACEHOLDER_SVG + '</div>') + '<div class="fp-compare__photo-date">' + fpEsc(fpFormatDateShort(prev.created_at)) + '</div></div>';
+  html += '<div class="fp-compare__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>';
+  html += '<div class="fp-compare__photo-col">' + (curr.photo_data_url ? '<img src="' + fpEsc(curr.photo_data_url) + '" alt="">' : '<div class="fp-hcard__placeholder" style="width:56px;height:56px;margin:0 auto">' + FP_PLACEHOLDER_SVG + '</div>') + '<div class="fp-compare__photo-date">' + fpEsc(fpFormatDateShort(curr.created_at)) + '</div></div>';
+  html += '</div>';
+
+  /* Overall delta */
+  var od = (curr.overall_score || 0) - (prev.overall_score || 0);
+  var odClass = od > 0 ? 'up' : od < 0 ? 'down' : 'flat';
+  var odLabel = od > 0 ? '+' + od + ' Membaik' : od < 0 ? od + ' Mundur' : 'Stabil';
+  html += '<div class="fp-compare__overall"><div class="fp-compare__scores">' + (prev.overall_score||0) + ' &rarr; ' + (curr.overall_score||0) + '</div>';
+  html += '<div class="fp-compare__delta fp-compare__delta--' + odClass + '">' + fpEsc(odLabel) + '</div></div>';
+
+  /* Metrics */
+  var keys = ['hydration','acne','pores','wrinkles','pigmentation','redness'];
+  for (var i = 0; i < keys.length; i++){
+    var k = keys[i];
+    var pm = prev.metrics ? prev.metrics[k] : 0;
+    var cm = curr.metrics ? curr.metrics[k] : 0;
+    var d = fpComputeMetricDelta(pm, cm);
+    var dClass = d.delta > 0 ? 'up' : d.delta < 0 ? 'down' : 'flat';
+    var dText = d.delta > 0 ? '+' + d.delta : d.delta === 0 ? '0' : '' + d.delta;
+    html += '<div class="fp-compare__metric">';
+    html += '<div class="fp-compare__metric-icon">' + (FP_METRIC_ICONS[k] || '') + '</div>';
+    html += '<span class="fp-compare__metric-name">' + fpEsc(FP_METRIC_NAMES[k]||k) + '</span>';
+    html += '<span class="fp-compare__metric-scores">' + d.prevScore + ' &rarr; ' + d.currScore + '</span>';
+    html += '<span class="fp-compare__metric-delta fp-compare__delta--' + dClass + '">' + dText + '</span>';
+    html += '</div>';
+  }
+
+  /* Summary notes */
+  var notes = fpGenerateCompareSummary(prev, curr);
+  html += '<div class="fp-compare__notes"><h3 class="fp-section__heading" style="font-size:20px">Catatan Progress</h3>';
+  for (var i = 0; i < notes.length; i++) html += '<p class="fp-compare__note">' + fpEsc(notes[i]) + '</p>';
+  html += '</div>';
+
+  /* Footer */
+  html += '<div style="padding:16px 0"><button class="fp-btn" onclick="fpOpenShareModal(\'compare\')">Bagikan Progress</button>';
+  html += '<button class="fp-btn fp-btn--secondary" onclick="fpExitCompare()">Kembali</button></div>';
+
+  el.innerHTML = html;
+  /* Store compare data for sharing */
+  fpState._compareData = { prev: prev, curr: curr };
+}
+
+function fpExitCompare(){
+  fpState.compareMode = false;
+  fpState.compareSelection = [];
+  fpState._compareData = null;
+  fpRenderHistoryList();
+  fpShowStep('history');
+}
+
+/* ---------- SHARE ---------- */
+function fpOpenShareModal(type){
+  fpEnsureDom();
+  var modal = document.getElementById('fp-share-modal');
+  if (!modal) return;
+  modal.classList.add('open');
+
+  /* Determine data */
+  var entry = null;
+  var isCompare = type === 'compare' && fpState._compareData;
+  if (isCompare){
+    entry = fpState._compareData;
+  } else {
+    /* Find current entry from history detail or latest result */
+    if (fpState.currentHistoryDetail){
+      var entries = fpLoadHistory();
+      for (var i = 0; i < entries.length; i++){ if (entries[i].id === fpState.currentHistoryDetail){ entry = entries[i]; break; } }
+    }
+    if (!entry && fpState.analysisResult) entry = fpState.analysisResult;
+  }
+  if (!entry) return;
+
+  /* Generate share text */
+  var text = isCompare ? fpGenerateCompareShareText(entry.prev, entry.curr) : fpGenerateShareText(entry);
+  var textBox = document.getElementById('fp-share-text');
+  if (textBox) textBox.textContent = text;
+
+  /* Generate share image */
+  var previewEl = document.getElementById('fp-share-preview');
+  if (previewEl){
+    previewEl.innerHTML = '';
+    fpGenerateShareImage(entry, isCompare ? 'compare' : 'single', function(canvas){
+      previewEl.appendChild(canvas);
+    });
+  }
+
+  /* Show native share button if supported */
+  var nativeBtn = document.getElementById('fp-share-native-btn');
+  if (nativeBtn) nativeBtn.style.display = (navigator.canShare) ? '' : 'none';
+}
+
+function fpCloseShareModal(){
+  var modal = document.getElementById('fp-share-modal');
+  if (modal) modal.classList.remove('open');
+}
+
+function fpGenerateShareText(entry){
+  var lines = [];
+  lines.push('Welvra Faceprint');
+  lines.push('Skor: ' + (entry.overall_score || 0) + '/100 -- ' + fpGetScoreLabel(entry.overall_score || 0));
+  lines.push('Tipe: ' + (FP_SKIN_TYPE_MAP[entry.skin_type] || entry.skin_type || ''));
+  lines.push('');
+  lines.push(entry.summary || '');
+  lines.push('');
+  var recs = entry.recommendations || [];
+  if (recs.length){
+    lines.push('Top fokus:');
+    for (var i = 0; i < Math.min(recs.length, 3); i++){
+      lines.push((i+1) + '. ' + (recs[i].title || ''));
+    }
+    lines.push('');
+  }
+  lines.push('-- welvra-health.com');
+  return lines.join('\n');
+}
+
+function fpGenerateCompareShareText(prev, curr){
+  var od = (curr.overall_score||0) - (prev.overall_score||0);
+  var lines = [];
+  lines.push('Welvra Faceprint — Progress');
+  lines.push(fpFormatDateShort(prev.created_at) + ' -> ' + fpFormatDateShort(curr.created_at));
+  lines.push('Skor: ' + (prev.overall_score||0) + ' -> ' + (curr.overall_score||0) + ' (' + (od >= 0 ? '+' : '') + od + ')');
+  lines.push('');
+  var notes = fpGenerateCompareSummary(prev, curr);
+  for (var i = 0; i < notes.length; i++) lines.push(notes[i]);
+  lines.push('');
+  lines.push('-- welvra-health.com');
+  return lines.join('\n');
+}
+
+function fpGenerateShareImage(data, type, cb){
+  var canvas = document.createElement('canvas');
+  canvas.width = 1080; canvas.height = 1080;
+  var ctx = canvas.getContext('2d');
+
+  /* Background gradient */
+  var grad = ctx.createLinearGradient(0, 0, 1080, 1080);
+  grad.addColorStop(0, '#0A7B6C');
+  grad.addColorStop(0.5, '#6B9E78');
+  grad.addColorStop(1, '#C8860A');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1080, 1080);
+
+  /* Brand header */
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'italic 56px "Cormorant Garamond", serif';
+  ctx.fillText('WELVRA', 540, 140);
+  ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+  ctx.globalAlpha = 0.85;
+  ctx.fillText('Faceprint', 540, 180);
+  ctx.globalAlpha = 1;
+
+  if (type === 'compare' && data.prev && data.curr){
+    var od = (data.curr.overall_score||0) - (data.prev.overall_score||0);
+    ctx.font = 'italic 96px "Cormorant Garamond", serif';
+    ctx.fillText((data.prev.overall_score||0) + '  \u2192  ' + (data.curr.overall_score||0), 540, 440);
+    ctx.font = '600 32px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = od >= 0 ? '#F5E6C8' : '#FFD0B0';
+    ctx.fillText((od >= 0 ? '+' : '') + od + ' ' + (od >= 0 ? 'Membaik' : 'Mundur'), 540, 500);
+    ctx.fillStyle = '#ffffff';
+
+    /* Top 3 deltas */
+    var keys = ['hydration','acne','pores','wrinkles','pigmentation','redness'];
+    var deltas = [];
+    for (var i = 0; i < keys.length; i++){
+      var k = keys[i];
+      var d = fpComputeMetricDelta(data.prev.metrics?data.prev.metrics[k]:0, data.curr.metrics?data.curr.metrics[k]:0);
+      d.name = FP_METRIC_NAMES[k]; deltas.push(d);
+    }
+    deltas.sort(function(a,b){ return Math.abs(b.delta) - Math.abs(a.delta); });
+    var y = 580;
+    ctx.font = '500 28px "Plus Jakarta Sans", sans-serif';
+    for (var i = 0; i < Math.min(3, deltas.length); i++){
+      var dd = deltas[i];
+      ctx.fillText(dd.name + ': ' + dd.prevScore + ' \u2192 ' + dd.currScore + ' (' + (dd.delta >= 0 ? '+' : '') + dd.delta + ')', 540, y);
+      y += 50;
+    }
+    /* Date range */
+    ctx.font = '400 22px "Plus Jakarta Sans", sans-serif';
+    ctx.globalAlpha = 0.75;
+    ctx.fillText(fpFormatDateShort(data.prev.created_at) + ' \u2192 ' + fpFormatDateShort(data.curr.created_at), 540, 800);
+  } else {
+    /* Single result */
+    var score = data.overall_score || 0;
+    /* Circular gauge */
+    var cx = 540, cy = 450, r = 140;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.closePath();
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)'; ctx.lineWidth = 10; ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI/2, -Math.PI/2 + (score/100) * Math.PI * 2);
+    ctx.strokeStyle = '#F5E6C8'; ctx.lineWidth = 10; ctx.lineCap = 'round'; ctx.stroke();
+    /* Score number */
+    ctx.font = 'italic 144px "Cormorant Garamond", serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(score, cx, cy + 50);
+    /* Label */
+    ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = '#F5E6C8';
+    ctx.fillText(fpGetScoreLabel(score), cx, cy + r + 40);
+    /* Skin type */
+    ctx.font = '500 28px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.globalAlpha = 0.9;
+    ctx.fillText('Tipe Kulit: ' + (FP_SKIN_TYPE_MAP[data.skin_type] || ''), cx, cy + r + 80);
+    ctx.globalAlpha = 1;
+
+    /* Metric tiles */
+    var keys = ['hydration','acne','pores','wrinkles','pigmentation','redness'];
+    var tileW = 160, tileH = 70, gap = 16, cols = 3;
+    var startX = (1080 - (cols * tileW + (cols-1) * gap)) / 2;
+    var startY = 780;
+    ctx.textAlign = 'left';
+    for (var i = 0; i < keys.length; i++){
+      var col = i % cols, row = Math.floor(i / cols);
+      var tx = startX + col * (tileW + gap), ty = startY + row * (tileH + gap);
+      ctx.fillStyle = 'rgba(255,255,255,0.1)';
+      fpRoundRect(ctx, tx, ty, tileW, tileH, 12); ctx.fill();
+      var m = data.metrics ? data.metrics[keys[i]] : 0;
+      var ms = fpMetricScore(m);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '500 14px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(FP_METRIC_NAMES[keys[i]], tx + 12, ty + 28);
+      ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(ms + '/10', tx + 12, ty + 55);
+    }
+    ctx.textAlign = 'center';
+  }
+
+  /* Footer */
+  ctx.font = '400 16px "Plus Jakarta Sans", sans-serif';
+  ctx.fillStyle = '#ffffff';
+  ctx.globalAlpha = 0.7;
+  ctx.fillText('welvra-health.com', 540, 1040);
+  ctx.globalAlpha = 1;
+
+  cb(canvas);
+}
+
+function fpRoundRect(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function fpDownloadShareImage(){
+  var canvas = document.querySelector('#fp-share-preview canvas');
+  if (!canvas) return;
+  canvas.toBlob(function(blob){
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'welvra-faceprint-' + new Date().toISOString().slice(0,10) + '.jpg';
+    a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }, 'image/jpeg', 0.92);
+}
+
+function fpShareViaWebAPI(){
+  var canvas = document.querySelector('#fp-share-preview canvas');
+  if (!canvas || !navigator.canShare) return;
+  canvas.toBlob(function(blob){
+    var file = new File([blob], 'welvra-faceprint.jpg', { type: 'image/jpeg' });
+    if (navigator.canShare({ files: [file] })){
+      navigator.share({ files: [file], title: 'Welvra Faceprint' }).catch(function(){});
+    } else {
+      fpDownloadShareImage();
+    }
+  }, 'image/jpeg', 0.92);
+}
+
+function fpCopyShareText(){
+  var textBox = document.getElementById('fp-share-text');
+  if (!textBox) return;
+  var text = textBox.textContent || '';
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){
+      if (window.showWelvraToast) window.showWelvraToast('Tersalin ke clipboard');
+    });
+  } else {
+    /* Fallback */
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); if (window.showWelvraToast) window.showWelvraToast('Tersalin ke clipboard'); } catch(e){}
+    document.body.removeChild(ta);
+  }
 }
 
 /* ---------- EXPOSE GLOBALLY ---------- */
@@ -11816,6 +12699,24 @@ window.fpResetGallery = fpResetGallery;
 window.fpSaveResult = fpSaveResult;
 window.fpSwitchRoutine = fpSwitchRoutine;
 window.fpStopCamera = fpStopCamera;
+/* Phase 3 */
+window.fpOpenHistory = fpOpenHistory;
+window.fpExitHistoryDetail = fpExitHistoryDetail;
+window.fpToggleDetailMenu = fpToggleDetailMenu;
+window.fpDetailAction = fpDetailAction;
+window.fpEnterCompareMode = fpEnterCompareMode;
+window.fpExitCompareMode = fpExitCompareMode;
+window.fpToggleCompareSelect = fpToggleCompareSelect;
+window.fpRunCompare = fpRunCompare;
+window.fpExitCompare = fpExitCompare;
+window.fpOpenShareModal = fpOpenShareModal;
+window.fpCloseShareModal = fpCloseShareModal;
+window.fpDownloadShareImage = fpDownloadShareImage;
+window.fpShareViaWebAPI = fpShareViaWebAPI;
+window.fpCopyShareText = fpCopyShareText;
+window.fpCancelDelete = fpCancelDelete;
+window.fpConfirmDelete = fpConfirmDelete;
+window.fpSwitchRoutineIn = fpSwitchRoutineIn;
 
 })();
 </script>
