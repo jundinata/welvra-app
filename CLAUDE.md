@@ -27,7 +27,7 @@
 
 ## Existing Features
 - Fitur Tekanan Darah (lihat: PROMPT-FITUR-TEKANAN-DARAH-WELVRA.md)
-- Fitur Meditation (lihat: WELVRA-MEDITATION-FEATURE-SPEC.md)
+- Fitur Faceprint (skin checkup via Claude Vision, Phase 1 shipped)
 
 ## Project-Specific Rules
 - Selalu baca file spec yang relevan (PROMPT-FITUR-*.md atau *-FEATURE-SPEC.md) sebelum modifikasi fitur terkait.
