@@ -11200,6 +11200,16 @@ function fpGetScoreLabel(s){
 var FP_HISTORY_KEY = 'welvra.faceprint.history.v1';
 var FP_PRIVACY_KEY = 'welvra.faceprint.privacy.acknowledged.v1';
 
+function fpGenerateUUID(){
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'){
+    try { return crypto.randomUUID(); } catch(e){}
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
+    var r = Math.random() * 16 | 0;
+    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+}
+
 function fpSaveAnalysis(data){
   try {
     var arr = JSON.parse(localStorage.getItem(FP_HISTORY_KEY) || '[]');
@@ -11222,7 +11232,7 @@ function fpSaveAnalysis(data){
       } catch(te){ thumb = null; }
     }
     var item = {
-      id: Date.now().toString(),
+      id: fpGenerateUUID(),
       created_at: new Date().toISOString(),
       overall_score: data.overall_score,
       skin_type: data.skin_type,
@@ -11234,7 +11244,8 @@ function fpSaveAnalysis(data){
       recommendations: data.recommendations || [],
       daily_routine: data.daily_routine || null,
       primary_concern: data.primary_concern || (data.primary_concerns && data.primary_concerns[0] ? data.primary_concerns[0].title : ''),
-      photo_data_url: thumb
+      photo_data_url: thumb,
+      photo_storage_path: null
     };
     arr.unshift(item);
     if (arr.length > 30) arr = arr.slice(0, 30);
@@ -11288,6 +11299,7 @@ function fpSaveToSupabase(item){
     sb.auth.getUser().then(function(res){
       if (!res.data || !res.data.user) return;
       sb.from('skin_analyses').insert({
+        id: item.id,
         user_id: res.data.user.id,
         overall_score: item.overall_score,
         skin_type: item.skin_type,
@@ -12320,14 +12332,28 @@ function fpOpenHistoryDetail(id){
     photo.src = entry.photo_data_url || 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#D4B89C" width="200" height="200" rx="24"/></svg>');
     /* Async upgrade to cloud full-resolution if signed in */
     var sb = fpGetSupabase();
-    if (sb){
-      sb.from('skin_analyses').select('photo_storage_path').eq('id', entry.id).maybeSingle().then(function(res){
-        if (res && res.data && res.data.photo_storage_path){
-          sb.storage.from('faceprint-photos').createSignedUrl(res.data.photo_storage_path, 3600).then(function(urlRes){
-            if (urlRes && urlRes.data && urlRes.data.signedUrl && photo.parentNode) photo.src = urlRes.data.signedUrl;
-          });
-        }
-      }).catch(function(){});
+    if (sb && photo){
+      var storagePath = entry.photo_storage_path;
+      if (storagePath){
+        sb.storage.from('faceprint-photos').createSignedUrl(storagePath, 3600).then(function(urlRes){
+          if (urlRes && urlRes.data && urlRes.data.signedUrl && photo.parentNode) photo.src = urlRes.data.signedUrl;
+        }).catch(function(){});
+      } else {
+        sb.from('skin_analyses').select('photo_storage_path').eq('id', entry.id).maybeSingle().then(function(res){
+          if (res && res.data && res.data.photo_storage_path){
+            /* Cache path to localStorage */
+            try {
+              var local = fpLoadHistory();
+              for (var li = 0; li < local.length; li++){
+                if (local[li].id === entry.id){ local[li].photo_storage_path = res.data.photo_storage_path; localStorage.setItem(FP_HISTORY_KEY, JSON.stringify(local)); break; }
+              }
+            } catch(ce){}
+            sb.storage.from('faceprint-photos').createSignedUrl(res.data.photo_storage_path, 3600).then(function(urlRes){
+              if (urlRes && urlRes.data && urlRes.data.signedUrl && photo.parentNode) photo.src = urlRes.data.signedUrl;
+            });
+          }
+        }).catch(function(){});
+      }
     }
   }
 
@@ -13140,6 +13166,13 @@ function fpUploadPhotoToCloud(entryId, dataUrl){
           .then(function(result){
             if (!result.error){
               sb.from('skin_analyses').update({ photo_storage_path: path }).eq('id', entryId).then(function(){});
+              /* Cache path to localStorage */
+              try {
+                var local = fpLoadHistory();
+                for (var i = 0; i < local.length; i++){
+                  if (local[i].id === entryId){ local[i].photo_storage_path = path; localStorage.setItem(FP_HISTORY_KEY, JSON.stringify(local)); break; }
+                }
+              } catch(ce){}
             }
           });
       });
@@ -13420,12 +13453,13 @@ function fpBackfillPhotos(){
   sb.auth.getUser().then(function(res){
     if (!res.data || !res.data.user) return;
     var entries = fpLoadHistory();
-    var queue = entries.filter(function(e){ return e.photo_data_url; }).slice(0, 5);
+    var queue = entries.filter(function(e){ return e.photo_data_url && !e.photo_storage_path; }).slice(0, 5);
     function processNext(){
       if (!queue.length) return;
       var entry = queue.shift();
-      sb.from('skin_analyses').select('photo_storage_path').eq('id', entry.id).maybeSingle().then(function(check){
-        if (check && check.data && check.data.photo_storage_path){ processNext(); return; }
+      sb.from('skin_analyses').select('id,photo_storage_path').eq('id', entry.id).maybeSingle().then(function(check){
+        if (!check || !check.data){ processNext(); return; }
+        if (check.data.photo_storage_path){ processNext(); return; }
         fpUploadPhotoToCloud(entry.id, entry.photo_data_url);
         setTimeout(processNext, 1500);
       }).catch(function(){ processNext(); });
@@ -13435,6 +13469,55 @@ function fpBackfillPhotos(){
   });
 }
 
+/* ---------- SYNC DOWN FROM CLOUD ---------- */
+function fpSyncFromCloud(){
+  var sb = fpGetSupabase();
+  if (!sb) return Promise.resolve();
+  return sb.auth.getUser().then(function(res){
+    if (!res.data || !res.data.user) return;
+    return sb.from('skin_analyses')
+      .select('*')
+      .eq('user_id', res.data.user.id)
+      .order('created_at', { ascending: false })
+      .limit(50)
+      .then(function(result){
+        if (result.error || !result.data || !result.data.length) return;
+        var local = fpLoadHistory();
+        var localIds = {};
+        for (var i = 0; i < local.length; i++) localIds[local[i].id] = true;
+        var added = 0;
+        for (var i = 0; i < result.data.length; i++){
+          var row = result.data[i];
+          if (localIds[row.id]) continue;
+          local.push({
+            id: row.id,
+            created_at: row.created_at,
+            overall_score: row.overall_score,
+            skin_type: row.skin_type,
+            skin_type_explanation: row.skin_type_explanation || '',
+            metrics: row.metrics,
+            summary: row.summary,
+            encouragement: row.encouragement || '',
+            primary_concerns: row.primary_concerns || [],
+            recommendations: row.recommendations || [],
+            daily_routine: row.daily_routine || null,
+            primary_concern: row.primary_concern,
+            photo_data_url: null,
+            photo_storage_path: row.photo_storage_path || null
+          });
+          added++;
+        }
+        if (added > 0){
+          local.sort(function(a, b){ return new Date(b.created_at) - new Date(a.created_at); });
+          local = local.slice(0, 30);
+          try { localStorage.setItem(FP_HISTORY_KEY, JSON.stringify(local)); } catch(e){}
+          console.log('Faceprint: synced', added, 'entries from cloud');
+          if (typeof fpRenderHomeWidget === 'function') fpRenderHomeWidget();
+        }
+      });
+  }).catch(function(e){ console.warn('Sync-down failed:', e); });
+}
+
 /* ---------- INIT HOME WIDGET + AUTH SUBSCRIBE ---------- */
 (function(){
   if (document.readyState === 'loading'){
@@ -13442,12 +13525,14 @@ function fpBackfillPhotos(){
   } else {
     setTimeout(fpRenderHomeWidget, 100);
   }
-  /* Backfill photos on sign-in */
+  /* Sync down then backfill photos on sign-in */
   function trySubscribe(){
     if (window.welvraAuth && typeof window.welvraAuth.onAuthChange === 'function'){
       window.welvraAuth.onAuthChange(function(event, session){
         if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session){
-          setTimeout(fpBackfillPhotos, 2000);
+          fpSyncFromCloud().then(function(){
+            setTimeout(fpBackfillPhotos, 1500);
+          });
         }
       });
       return true;
@@ -13504,6 +13589,7 @@ window.fpHandleLightboxClick = fpHandleLightboxClick;
 window.fpOpenLightbox = fpOpenLightbox;
 window.fpCloseLightbox = fpCloseLightbox;
 window.fpBackfillPhotos = fpBackfillPhotos;
+window.fpSyncFromCloud = fpSyncFromCloud;
 window.fpSignOut = fpSignOut;
 window.fpShowPrivacyInfo = fpShowPrivacyInfo;
 window.fpShowTermsInfo = fpShowTermsInfo;
