@@ -3445,6 +3445,195 @@ html.dark .welvra-fcard__overlay{
   .welvra-fcard--sm .welvra-fcard__title{font-size:13px}
 }
 
+/* ============================================================ */
+/* === EDITORIAL FEATURE STACK — vertical magazine cards ===== */
+/* ============================================================ */
+.welvra-feature-stack{
+  margin: 28px 0 32px;
+  padding: 0;
+}
+.welvra-feature-stack__head{
+  display:flex; align-items:center; gap:14px;
+  margin: 0 4px 16px;
+}
+.welvra-feature-stack__title{
+  font-family:'Cormorant Garamond', Georgia, serif;
+  font-size: 24px; font-weight: 500;
+  color: var(--primary);
+  letter-spacing: 0.005em;
+  margin: 0; line-height: 1.1;
+}
+.welvra-feature-stack__line{
+  flex:1; height:1px;
+  background: linear-gradient(90deg, rgba(10,123,108,0.18), transparent);
+}
+html.dark .welvra-feature-stack__title{ color: #E8D9B8; }
+html.dark .welvra-feature-stack__line{
+  background: linear-gradient(90deg, rgba(232,217,184,0.20), transparent);
+}
+.welvra-feature-stack__cards{
+  display:flex; flex-direction:column; gap: 16px;
+}
+
+.welvra-feature-card{
+  position:relative; display:block;
+  width:100%; aspect-ratio: 16 / 7;
+  min-height: 158px;
+  border-radius: 20px; overflow:hidden;
+  isolation:isolate; cursor:pointer;
+  border:none; padding:0; margin:0; text-align:left; color:#fff;
+  background: var(--feature-fallback, #1F2A2A);
+  box-shadow: 0 2px 12px rgba(10,42,42,0.08), 0 1px 3px rgba(10,42,42,0.06);
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-tap-highlight-color: transparent;
+  contain: layout style paint;
+  appearance: none; -webkit-appearance: none;
+  font: inherit;
+}
+.welvra-feature-card::after{
+  content:''; position:absolute; inset:0; z-index: 4;
+  border-radius: inherit; pointer-events: none;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.welvra-feature-card:active{ transform: scale(0.97); }
+.welvra-feature-card:focus-visible{
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+@media (hover:hover){
+  .welvra-feature-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(10,42,42,0.16);
+  }
+  .welvra-feature-card:hover .welvra-feature-card__media img{
+    transform: scale(1.05);
+  }
+}
+
+.welvra-feature-card__media{
+  position:absolute; inset:0; z-index:0;
+  background: var(--feature-fallback, #1F2A2A);
+  overflow: hidden;
+}
+.welvra-feature-card__media img{
+  position:absolute; inset:0;
+  width:100%; height:100%; object-fit: cover; display:block;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 450ms ease-out,
+              filter 500ms ease-out;
+  filter: blur(10px);
+}
+.welvra-feature-card__media.is-loaded img{
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+.welvra-feature-card__media.is-error img{ display:none; }
+
+.welvra-feature-card__overlay{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background: linear-gradient(180deg,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0.10) 40%,
+    rgba(0,0,0,0.70) 100%);
+}
+
+.welvra-feature-card__content{
+  position:absolute; left:0; right:0; bottom:0; z-index:2;
+  padding: 18px 20px;
+  display:flex; flex-direction:column; gap: 0;
+  max-width: calc(100% - 56px);
+}
+.welvra-feature-card__eyebrow{
+  font-family:'Plus Jakarta Sans', sans-serif;
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.45);
+  margin: 0 0 6px;
+  line-height: 1;
+}
+.welvra-feature-card__title{
+  font-family:'Cormorant Garamond', Georgia, serif;
+  font-size: 26px; font-weight: 500;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.30);
+  line-height: 1.15;
+  letter-spacing: 0.005em;
+  margin: 0 0 4px;
+  text-wrap: balance;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.welvra-feature-card__sub{
+  font-family:'Plus Jakarta Sans', sans-serif;
+  font-size: 13px; font-weight: 400;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.4;
+  margin: 0;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+  display: -webkit-box;
+  -webkit-line-clamp: 1; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.welvra-feature-card__icon{
+  position:absolute; top: 18px; right: 20px; z-index: 3;
+  width: 32px; height: 32px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.14);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+  border: 0.5px solid rgba(255,255,255,0.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 1px 4px rgba(0,0,0,0.18);
+  pointer-events: none;
+}
+.welvra-feature-card__icon svg{
+  width: 16px; height: 16px;
+  fill:none; stroke: rgba(255,255,255,0.92);
+  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.30));
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .welvra-feature-card__icon{ background: rgba(255,255,255,0.22); }
+}
+
+/* Per-card fallback colors — curated to match category mood */
+.welvra-feature-card[data-feature="wisdom"]{ --feature-fallback: #6B5536; }
+.welvra-feature-card[data-feature="consult"]{ --feature-fallback: #4A3A2C; }
+.welvra-feature-card[data-feature="tensi"]{ --feature-fallback: #3F4A48; }
+.welvra-feature-card[data-feature="meditasi"]{ --feature-fallback: #2E3F3D; }
+.welvra-feature-card[data-feature="kehamilan"]{ --feature-fallback: #6E5848; }
+.welvra-feature-card[data-feature="jurnal"]{ --feature-fallback: #4F4338; }
+
+@media (max-width: 380px){
+  .welvra-feature-card{ aspect-ratio: 16 / 8; min-height: 150px; }
+  .welvra-feature-card__title{ font-size: 22px; }
+  .welvra-feature-card__sub{ font-size: 12px; }
+  .welvra-feature-card__content{ padding: 16px; max-width: calc(100% - 52px); }
+  .welvra-feature-card__icon{ top: 14px; right: 16px; }
+}
+@media (min-width: 481px){
+  .welvra-feature-stack{ padding: 0 12px; }
+}
+@media (min-width: 769px){
+  .welvra-feature-stack{ max-width: 720px; margin-left: auto; margin-right: auto; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .welvra-feature-card,
+  .welvra-feature-card__media img{ transition: none; }
+  .welvra-feature-card__media img{ filter: blur(0); opacity: 1; transform:none; }
+  .welvra-feature-card:hover{ transform: none; }
+  .welvra-feature-card:hover .welvra-feature-card__media img{ transform: none; }
+}
+
 /* ===== HAMBURGER ===== */
 .hamburger-btn{
   width:44px;height:44px;display:flex;align-items:center;justify-content:center;
@@ -4729,111 +4918,172 @@ html.dark .drawer-auth-name{color:#F0EDE8}
       <div class="hero-indicators" id="hero-indicators"></div>
       <div class="hero-wave"><svg viewBox="0 0 480 40" preserveAspectRatio="none"><path d="M0 40 C80 12, 160 4, 240 16 C320 28, 400 12, 480 8 L480 40 Z" fill="var(--bg)"/></svg></div>
     </div>
-    <div class="section-label">Layanan Kesehatan</div>
-    <div class="features">
-      <!-- PRIMARY 2x2 GRID — hybrid photo + monochrome SVG icon -->
-      <div class="feat-grid">
-        <button type="button" class="welvra-fcard welvra-fcard--lg tt-foto" onclick="openModal('foto')" aria-label="Periksa Gejala — foto dan cerita">
-          <picture class="welvra-fcard__photo">
-            <source type="image/webp" srcset="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&amp;q=80&amp;fm=webp 1x, https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1200&amp;q=80&amp;fm=webp 2x">
-            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&amp;q=80" alt="" loading="eager" fetchpriority="high" decoding="async" width="600" height="600" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
-          </picture>
-          <div class="welvra-fcard__overlay"></div>
-          <div class="welvra-fcard__content">
-            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3"/><path d="M16 4h3a1 1 0 0 1 1 1v3"/><path d="M20 16v3a1 1 0 0 1-1 1h-3"/><path d="M8 20H5a1 1 0 0 1-1-1v-3"/><circle cx="12" cy="12" r="3"/></svg></span>
-            <h3 class="welvra-fcard__title">Periksa Gejala</h3>
-            <p class="welvra-fcard__sub">FOTO &amp; CERITA</p>
-          </div>
-        </button>
-        <button type="button" class="welvra-fcard welvra-fcard--lg tt-lab" onclick="openModal('lab')" aria-label="Baca Hasil Lab — Dr. Sly jelasin">
-          <picture class="welvra-fcard__photo">
-            <source type="image/webp" srcset="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&amp;q=80&amp;fm=webp 1x, https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&amp;q=80&amp;fm=webp 2x">
-            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&amp;q=80" alt="" loading="eager" fetchpriority="high" decoding="async" width="600" height="600" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
-          </picture>
-          <div class="welvra-fcard__overlay"></div>
-          <div class="welvra-fcard__content">
-            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path d="M9 16h4"/></svg></span>
-            <h3 class="welvra-fcard__title">Baca Hasil Lab</h3>
-            <p class="welvra-fcard__sub">DR. SLY JELASIN</p>
-          </div>
-        </button>
-        <button type="button" class="welvra-fcard welvra-fcard--lg tt-chat" onclick="openModal('chat')" aria-label="Tanya Dr. Sly — konsultasi langsung">
-          <picture class="welvra-fcard__photo">
-            <source type="image/webp" srcset="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&amp;q=80&amp;fm=webp 1x, https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=1200&amp;q=80&amp;fm=webp 2x">
-            <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&amp;q=80" alt="" loading="eager" fetchpriority="high" decoding="async" width="600" height="600" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
-          </picture>
-          <div class="welvra-fcard__overlay"></div>
-          <div class="welvra-fcard__content">
-            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7l-4 3v-3H6a2 2 0 0 1-2-2V6Z"/><circle cx="9" cy="10.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="10.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="15" cy="10.5" r="0.9" fill="currentColor" stroke="none"/></svg></span>
-            <h3 class="welvra-fcard__title">Tanya Dr. Sly</h3>
-            <p class="welvra-fcard__sub">KONSULTASI LANGSUNG</p>
-          </div>
-        </button>
-        <button type="button" class="welvra-fcard welvra-fcard--lg tt-tensi" onclick="openModal('tensi')" aria-label="Cek Tensi Anda — pantau tekanan darah">
-          <picture class="welvra-fcard__photo">
-            <source type="image/webp" srcset="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&amp;q=80&amp;fm=webp 1x, https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&amp;q=80&amp;fm=webp 2x">
-            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&amp;q=80" alt="" loading="eager" fetchpriority="high" decoding="async" width="600" height="600" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
-          </picture>
-          <div class="welvra-fcard__overlay"></div>
-          <div class="welvra-fcard__content">
-            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 13h4l2-5 3 9 3-7 2 3h4"/></svg></span>
-            <h3 class="welvra-fcard__title">Cek Tensi Anda</h3>
-            <p class="welvra-fcard__sub">PANTAU TEKANAN DARAH</p>
-          </div>
-        </button>
+    <!-- EDITORIAL FEATURE STACK — vertical magazine cards (Phase 3E redesign) -->
+    <section class="welvra-feature-stack" aria-label="Jelajahi fitur Welvra">
+      <div class="welvra-feature-stack__head">
+        <h2 class="welvra-feature-stack__title">Jelajahi Welvra</h2>
+        <span class="welvra-feature-stack__line" aria-hidden="true"></span>
       </div>
-      <!-- SECONDARY 3-COLUMN GRID — compact hybrid cards -->
-      <div class="feat-grid-sec">
-        <button type="button" class="welvra-fcard welvra-fcard--sm tt-makan" onclick="openModal('makan')" aria-label="Analisa Makanku — cek gizi">
-          <picture class="welvra-fcard__photo">
-            <source type="image/webp" srcset="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=600&amp;q=80&amp;fm=webp">
-            <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=600&amp;q=80" alt="" loading="lazy" decoding="async" width="600" height="630" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
-          </picture>
-          <div class="welvra-fcard__overlay"></div>
-          <div class="welvra-fcard__content">
-            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 9c-3 0-6 2.5-6 6.5C6 19 9 21 12 21s6-2 6-5.5C18 11.5 15 9 12 9Z"/><path d="M12 9c.5-2 2-3 4-3"/><path d="M12 9c-1-1.5-1-3 .5-4.5"/></svg></span>
-            <h3 class="welvra-fcard__title">Analisa Makanku</h3>
-            <p class="welvra-fcard__sub">CEK GIZIMU</p>
+      <div class="welvra-feature-stack__cards">
+
+        <button type="button" class="welvra-feature-card" data-feature="wisdom"
+                onclick="welvraOpenFeature('wisdom', this)"
+                aria-label="Wawasan: Pengetahuan untuk Hidup Lebih Sadar">
+          <div class="welvra-feature-card__media">
+            <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                 alt="Buku terbuka di bawah cahaya pagi yang hangat"
+                 loading="lazy" decoding="async" width="800" height="350"
+                 onload="this.parentNode.classList.add('is-loaded')"
+                 onerror="this.parentNode.classList.add('is-error')">
           </div>
-        </button>
-        <button type="button" class="welvra-fcard welvra-fcard--sm tt-aktiv" id="aktiv-feat-card" onclick="openAktivitasModal()" aria-label="TrackFit — langkah dan kalori">
-          <picture class="welvra-fcard__photo">
-            <source type="image/webp" srcset="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&amp;q=80&amp;fm=webp">
-            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&amp;q=80" alt="" loading="lazy" decoding="async" width="600" height="630" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
-          </picture>
-          <div class="welvra-fcard__overlay"></div>
-          <div class="welvra-fcard__content">
-            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="13" cy="5" r="2"/><path d="M9 11l3-3 3 3 3 2"/><path d="M12 8l-2 4 3 3v5"/><path d="M9 21l2-3"/></svg></span>
-            <h3 class="welvra-fcard__title">TrackFit</h3>
-            <p class="welvra-fcard__sub">LANGKAH &amp; KALORI</p>
+          <div class="welvra-feature-card__overlay"></div>
+          <div class="welvra-feature-card__content">
+            <span class="welvra-feature-card__eyebrow">Wawasan</span>
+            <h3 class="welvra-feature-card__title">Pengetahuan untuk Hidup Lebih Sadar</h3>
+            <p class="welvra-feature-card__sub">Artikel terkurasi tentang kesehatan dan kesejahteraan</p>
           </div>
+          <span class="welvra-feature-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v15l-4-2-4 2-4-2-4 2V5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+          </span>
         </button>
-        <button type="button" class="welvra-fcard welvra-fcard--sm tt-medit" onclick="openMeditasiModal()" aria-label="Meditasi — ketenangan jiwa dan raga">
-          <picture class="welvra-fcard__photo">
-            <source type="image/webp" srcset="https://images.unsplash.com/photo-1545389336-cf090694435e?w=600&amp;q=80&amp;fm=webp">
-            <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?w=600&amp;q=80" alt="" loading="lazy" decoding="async" width="600" height="630" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
-          </picture>
-          <div class="welvra-fcard__overlay"></div>
-          <div class="welvra-fcard__content">
-            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 14c-1.4-2-1.4-4 0-6 1.4 2 1.4 4 0 6Z"/><path d="M12 14c-2.5-1-5-2.5-5.5-5.5C9 9 11 10.5 12 14Z"/><path d="M12 14c2.5-1 5-2.5 5.5-5.5C15 9 13 10.5 12 14Z"/><path d="M5 17c2-1 12-1 14 0"/></svg></span>
-            <h3 class="welvra-fcard__title">Meditasi</h3>
-            <p class="welvra-fcard__sub">JIWA &amp; RAGA</p>
+
+        <button type="button" class="welvra-feature-card" data-feature="consult"
+                onclick="welvraOpenFeature('consult', this)"
+                aria-label="Konsultasi: Berbincang dengan Dr. Sly">
+          <div class="welvra-feature-card__media">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                 alt="Dua cangkir kopi hangat di meja kayu"
+                 loading="lazy" decoding="async" width="800" height="350"
+                 onload="this.parentNode.classList.add('is-loaded')"
+                 onerror="this.parentNode.classList.add('is-error')">
           </div>
-        </button>
-        <button type="button" class="welvra-fcard welvra-fcard--sm tt-mens" id="mens-feat-card" onclick="openMensModal()" aria-label="Siklus Menstruasi — phase tracking" style="display:none">
-          <picture class="welvra-fcard__photo">
-            <source type="image/webp" srcset="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&amp;q=80&amp;fm=webp">
-            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&amp;q=80" alt="" loading="lazy" decoding="async" width="600" height="630" onerror="this.parentNode.parentNode.classList.add('welvra-fcard--no-photo')">
-          </picture>
-          <div class="welvra-fcard__overlay"></div>
-          <div class="welvra-fcard__content">
-            <span class="welvra-fcard__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18c3-3 3-15 0-18Z" fill="currentColor" stroke="none" opacity="0.85"/></svg></span>
-            <h3 class="welvra-fcard__title">Siklus Mens</h3>
-            <p class="welvra-fcard__sub">PHASE TRACKING</p>
+          <div class="welvra-feature-card__overlay"></div>
+          <div class="welvra-feature-card__content">
+            <span class="welvra-feature-card__eyebrow">Konsultasi</span>
+            <h3 class="welvra-feature-card__title">Berbincang dengan Dr. Sly</h3>
+            <p class="welvra-feature-card__sub">Teman bicara untuk pertanyaan kesehatanmu</p>
           </div>
+          <span class="welvra-feature-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7l-4 3v-3H6a2 2 0 0 1-2-2V6z"/></svg>
+          </span>
         </button>
+
+        <button type="button" class="welvra-feature-card" data-feature="tensi"
+                onclick="welvraOpenFeature('tensi', this)"
+                aria-label="Pemantauan: Catat Tekanan Darah Harianmu">
+          <div class="welvra-feature-card__media">
+            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                 alt="Suasana pagi yang minimalis dan tenang"
+                 loading="lazy" decoding="async" width="800" height="350"
+                 onload="this.parentNode.classList.add('is-loaded')"
+                 onerror="this.parentNode.classList.add('is-error')">
+          </div>
+          <div class="welvra-feature-card__overlay"></div>
+          <div class="welvra-feature-card__content">
+            <span class="welvra-feature-card__eyebrow">Pemantauan</span>
+            <h3 class="welvra-feature-card__title">Catat Tekanan Darah Harianmu</h3>
+            <p class="welvra-feature-card__sub">Pantau ritme kardiovaskuler dengan tenang</p>
+          </div>
+          <span class="welvra-feature-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 13h4l2-5 3 9 3-7 2 3h4"/></svg>
+          </span>
+        </button>
+
+        <button type="button" class="welvra-feature-card" data-feature="meditasi"
+                onclick="welvraOpenFeature('meditasi', this)"
+                aria-label="Ketenangan: Sesi Meditasi Singkat">
+          <div class="welvra-feature-card__media">
+            <img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                 alt="Hutan berkabut di pagi hari"
+                 loading="lazy" decoding="async" width="800" height="350"
+                 onload="this.parentNode.classList.add('is-loaded')"
+                 onerror="this.parentNode.classList.add('is-error')">
+          </div>
+          <div class="welvra-feature-card__overlay"></div>
+          <div class="welvra-feature-card__content">
+            <span class="welvra-feature-card__eyebrow">Ketenangan</span>
+            <h3 class="welvra-feature-card__title">Sesi Meditasi Singkat</h3>
+            <p class="welvra-feature-card__sub">Beberapa menit untuk menemukan jeda</p>
+          </div>
+          <span class="welvra-feature-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 14c-1.4-2-1.4-4 0-6 1.4 2 1.4 4 0 6Z"/><path d="M12 14c-2.5-1-5-2.5-5.5-5.5C9 9 11 10.5 12 14Z"/><path d="M12 14c2.5-1 5-2.5 5.5-5.5C15 9 13 10.5 12 14Z"/></svg>
+          </span>
+        </button>
+
+        <button type="button" class="welvra-feature-card" data-feature="kehamilan"
+                onclick="welvraOpenFeature('kehamilan', this)"
+                aria-label="Kehamilan: Perjalanan Sembilan Bulan">
+          <div class="welvra-feature-card__media">
+            <img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                 alt="Pakaian bayi katun lembut yang dilipat rapi"
+                 loading="lazy" decoding="async" width="800" height="350"
+                 onload="this.parentNode.classList.add('is-loaded')"
+                 onerror="this.parentNode.classList.add('is-error')">
+          </div>
+          <div class="welvra-feature-card__overlay"></div>
+          <div class="welvra-feature-card__content">
+            <span class="welvra-feature-card__eyebrow">Kehamilan</span>
+            <h3 class="welvra-feature-card__title">Perjalanan Sembilan Bulan</h3>
+            <p class="welvra-feature-card__sub">Dampingi setiap minggu kehamilan dengan kelembutan</p>
+          </div>
+          <span class="welvra-feature-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21c-4 0-7-3-7-7 0-3 2-5 4-5 1.5 0 2.5 1 3 2 .5-1 1.5-2 3-2 2 0 4 2 4 5 0 4-3 7-7 7z"/></svg>
+          </span>
+        </button>
+
+        <button type="button" class="welvra-feature-card" data-feature="jurnal"
+                onclick="welvraOpenFeature('jurnal', this)"
+                aria-label="Refleksi: Catatan untuk Diri Sendiri">
+          <div class="welvra-feature-card__media">
+            <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                 alt="Jurnal terbuka dengan pulpen di dekat jendela hangat"
+                 loading="lazy" decoding="async" width="800" height="350"
+                 onload="this.parentNode.classList.add('is-loaded')"
+                 onerror="this.parentNode.classList.add('is-error')">
+          </div>
+          <div class="welvra-feature-card__overlay"></div>
+          <div class="welvra-feature-card__content">
+            <span class="welvra-feature-card__eyebrow">Refleksi</span>
+            <h3 class="welvra-feature-card__title">Catatan untuk Diri Sendiri</h3>
+            <p class="welvra-feature-card__sub">Ruang pribadi untuk merefleksikan kesehatan</p>
+          </div>
+          <span class="welvra-feature-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M8 12h8M8 16h5"/></svg>
+          </span>
+        </button>
+
       </div>
-    </div>
+    </section>
+    <script>
+      // Editorial feature card dispatcher — routes to existing feature handlers
+      window.welvraOpenFeature = function(feature, el){
+        if (el && el.classList){ el.classList.add('tap-spring'); setTimeout(function(){ el.classList.remove('tap-spring'); }, 320); }
+        var wisdomNavBtn = document.querySelector('.nav-tab[data-tab="wisdom"]');
+        switch(feature){
+          case 'wisdom':
+            if (window.openWisdomPanel) { window.openWisdomPanel(wisdomNavBtn || el); return; }
+            if (window.showWelvraToast) window.showWelvraToast('Wisdom segera hadir');
+            return;
+          case 'consult':
+            if (window.openModal) { window.openModal('chat'); return; }
+            return;
+          case 'tensi':
+            if (window.openModal) { window.openModal('tensi'); return; }
+            return;
+          case 'meditasi':
+            if (window.openMeditasiModal) { window.openMeditasiModal(); return; }
+            if (window.showWelvraToast) window.showWelvraToast('Meditasi segera hadir');
+            return;
+          case 'kehamilan':
+            if (window.openWisdomPanel) { window.openWisdomPanel(wisdomNavBtn || el); return; }
+            if (window.showWelvraToast) window.showWelvraToast('Modul Kehamilan segera hadir');
+            return;
+          case 'jurnal':
+            if (window.showWelvraToast) window.showWelvraToast('Catatan Kesehatan segera hadir');
+            return;
+        }
+      };
+    </script>
 
     <!-- QUICK STATS BAR -->
     <div class="home-section">
