@@ -6,3 +6,8 @@
   from = "/api/faceprint-analyze"
   to = "/.netlify/functions/faceprint-analyze"
   status = 200
+
+[[redirects]]
+  from = "/api/faceprint-progress-report"
+  to = "/.netlify/functions/faceprint-progress-report"
+  status = 200
