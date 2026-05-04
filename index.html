@@ -3009,21 +3009,102 @@ html.dark .fp-privacy__list li{color:#E0DDD8}
 @keyframes fpDotPulse{0%,100%{box-shadow:0 0 0 3px rgba(10,123,108,.2)}50%{box-shadow:0 0 0 6px rgba(10,123,108,.1)}}
 @media(prefers-reduced-motion:reduce){.fp-progress__dot.active{animation:none}}
 .fp-progress__est{text-align:center;font-size:13px;color:var(--txt-secondary,#6B6661);margin-top:12px}
+/* Phase 2 Result Screen */
 .fp-result{padding:24px;text-align:center}
-.fp-result__photo{width:240px;height:240px;border-radius:24px;object-fit:cover;margin:0 auto 24px;display:block;
+.fp-result__photo{width:200px;height:200px;border-radius:24px;object-fit:cover;margin:0 auto 20px;display:block;
   box-shadow:0 8px 32px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.04),0 0 0 1px rgba(200,134,10,.1)}
-.fp-gauge{margin:0 auto 20px}
+.fp-gauge{margin:0 auto 16px}
 .fp-gauge__score{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:64px;font-weight:600;fill:var(--teal,#0A7B6C)}
 .fp-gauge__label{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;fill:var(--gold,#C8860A)}
-.fp-summary{padding:20px;border-radius:16px;margin-bottom:16px;background:rgba(255,255,255,.45);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+.fp-summary{padding:16px 20px;border-radius:16px;margin-bottom:8px;background:rgba(255,255,255,.45);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
   border:1px solid rgba(200,134,10,.12)}
 html.dark .fp-summary{background:rgba(255,255,255,.06);border-color:rgba(200,134,10,.2)}
-.fp-summary__text{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-style:italic;line-height:1.6;color:var(--txt-primary,#2D2A26)}
+.fp-summary__text{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-style:italic;line-height:1.6;color:var(--txt-primary,#2D2A26)}
 html.dark .fp-summary__text{color:#E0DDD8}
-.fp-hint{padding:14px 16px;border-left:2px solid var(--gold,#C8860A);border-radius:0 12px 12px 0;margin-bottom:20px;text-align:left;
-  background:rgba(200,134,10,.04);font-size:13px;line-height:1.6;color:var(--txt-secondary,#6B6661)}
-.fp-result__actions{position:sticky;bottom:0;padding:16px 0 8px;background:linear-gradient(transparent,rgba(255,255,255,.9) 20%)}
-html.dark .fp-result__actions{background:linear-gradient(transparent,rgba(20,24,32,.9) 20%)}
+.fp-encouragement{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--gold,#C8860A);margin-bottom:20px;font-style:italic}
+.fp-section{text-align:left;margin-bottom:20px}
+.fp-section__heading{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:22px;color:var(--teal,#0A7B6C);margin:0 0 12px}
+/* Skin type card */
+.fp-skintype{padding:20px;border-radius:20px;background:rgba(255,255,255,.45);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border:1px solid rgba(200,134,10,.18);text-align:center}
+html.dark .fp-skintype{background:rgba(255,255,255,.06);border-color:rgba(200,134,10,.25)}
+.fp-skintype__type{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:28px;color:var(--teal,#0A7B6C);margin-bottom:8px}
+.fp-skintype__explain{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;line-height:1.6;color:var(--txt-secondary,#6B6661)}
+/* Metrics breakdown */
+.fp-metric{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid rgba(200,134,10,.08)}
+.fp-metric:last-child{border-bottom:none}
+.fp-metric__icon{flex-shrink:0;width:28px;height:28px;color:var(--gold,#C8860A);margin-top:2px}
+.fp-metric__body{flex:1;min-width:0}
+.fp-metric__header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.fp-metric__name{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;color:var(--txt-primary,#2D2A26)}
+html.dark .fp-metric__name{color:#F0EDE8}
+.fp-metric__score{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--teal,#0A7B6C)}
+.fp-metric__bar{height:6px;border-radius:3px;background:rgba(10,123,108,.1);overflow:hidden;margin-bottom:6px}
+.fp-metric__bar-fill{height:100%;border-radius:3px;width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1)}
+.fp-metric__bar-fill--good{background:linear-gradient(90deg,var(--sage,#6B9E78),var(--gold,#C8860A))}
+.fp-metric__bar-fill--mid{background:linear-gradient(90deg,var(--teal,#0A7B6C),var(--gold,#C8860A))}
+.fp-metric__bar-fill--low{background:linear-gradient(90deg,#D4A055,var(--teal,#0A7B6C))}
+@media(prefers-reduced-motion:reduce){.fp-metric__bar-fill{transition:none}}
+.fp-metric__label{font-family:'Plus Jakarta Sans',sans-serif;font-size:11.5px;font-weight:500;color:var(--gold,#C8860A);margin-bottom:2px}
+.fp-metric__obs{font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-style:italic;line-height:1.5;color:var(--txt-secondary,#6B6661)}
+/* Concern cards */
+.fp-concern{padding:16px;border-radius:16px;margin-bottom:10px;background:rgba(255,255,255,.4);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid rgba(200,134,10,.1);text-align:left}
+html.dark .fp-concern{background:rgba(255,255,255,.05);border-color:rgba(200,134,10,.18)}
+.fp-concern__sev{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:3px 10px;border-radius:8px;margin-bottom:8px}
+.fp-concern__sev--ringan{background:rgba(107,158,120,.15);color:var(--sage,#6B9E78)}
+.fp-concern__sev--sedang{background:rgba(200,134,10,.12);color:var(--gold,#C8860A)}
+.fp-concern__sev--perlu_perhatian{background:rgba(212,160,85,.15);color:#B8860B}
+.fp-concern__title{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:600;color:var(--txt-primary,#2D2A26);margin-bottom:6px}
+html.dark .fp-concern__title{color:#F0EDE8}
+.fp-concern__text{font-size:13px;line-height:1.6;color:var(--txt-secondary,#6B6661);margin-bottom:6px}
+.fp-concern__patience{font-size:12px;font-style:italic;color:var(--gold,#C8860A)}
+/* Recommendation cards */
+.fp-rec{padding:16px;border-radius:16px;margin-bottom:10px;background:rgba(255,255,255,.4);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid rgba(200,134,10,.1);text-align:left}
+html.dark .fp-rec{background:rgba(255,255,255,.05);border-color:rgba(200,134,10,.18)}
+.fp-rec__head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.fp-rec__priority{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:2px 8px;border-radius:6px}
+.fp-rec__priority--high{background:rgba(10,123,108,.12);color:var(--teal,#0A7B6C)}
+.fp-rec__priority--medium{background:rgba(200,134,10,.12);color:var(--gold,#C8860A)}
+.fp-rec__priority--low{background:rgba(107,158,120,.1);color:var(--sage,#6B9E78)}
+.fp-rec__title{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:600;color:var(--txt-primary,#2D2A26)}
+html.dark .fp-rec__title{color:#F0EDE8}
+.fp-rec__why{font-size:13px;line-height:1.6;color:var(--txt-secondary,#6B6661);margin-bottom:8px}
+.fp-rec__sub{font-size:11.5px;font-weight:600;color:var(--txt-primary,#2D2A26);margin:8px 0 4px}
+html.dark .fp-rec__sub{color:#E0DDD8}
+.fp-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.fp-chip{font-size:11.5px;padding:4px 10px;border-radius:8px;background:rgba(10,123,108,.08);color:var(--teal,#0A7B6C);line-height:1.4}
+html.dark .fp-chip{background:rgba(10,123,108,.15)}
+.fp-chip--avoid{background:rgba(200,100,80,.08);color:#B85C4A}
+html.dark .fp-chip--avoid{background:rgba(200,100,80,.15)}
+.fp-chip--brand{background:rgba(200,134,10,.08);color:var(--gold,#C8860A)}
+html.dark .fp-chip--brand{background:rgba(200,134,10,.15)}
+.fp-rec__how{font-size:12.5px;line-height:1.5;color:var(--txt-secondary,#6B6661);margin:6px 0}
+.fp-rec__timeline{font-size:12px;font-style:italic;color:var(--gold,#C8860A)}
+.fp-rec__safe{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--sage,#6B9E78);margin-top:6px}
+.fp-rec__safe svg{width:14px;height:14px}
+/* Routine tabs + steps */
+.fp-routine-tabs{display:flex;gap:0;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid rgba(200,134,10,.15)}
+.fp-routine-tab{flex:1;padding:10px;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;
+  background:rgba(255,255,255,.3);color:var(--txt-secondary,#6B6661);transition:background .25s,color .25s}
+html.dark .fp-routine-tab{background:rgba(255,255,255,.04)}
+.fp-routine-tab.active{background:linear-gradient(135deg,rgba(10,123,108,.1),rgba(200,134,10,.08));color:var(--teal,#0A7B6C)}
+html.dark .fp-routine-tab.active{background:linear-gradient(135deg,rgba(10,123,108,.2),rgba(200,134,10,.12))}
+.fp-routine-panel{display:none}.fp-routine-panel.active{display:block}
+.fp-rstep{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid rgba(200,134,10,.06)}
+.fp-rstep:last-child{border-bottom:none}
+.fp-rstep__num{flex-shrink:0;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:#fff;
+  background:linear-gradient(135deg,var(--teal,#0A7B6C),var(--gold,#C8860A))}
+.fp-rstep__body{flex:1;min-width:0}
+.fp-rstep__name{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;color:var(--txt-primary,#2D2A26);margin-bottom:2px}
+html.dark .fp-rstep__name{color:#F0EDE8}
+.fp-rstep__purpose{font-size:12.5px;line-height:1.5;color:var(--txt-secondary,#6B6661);margin-bottom:4px}
+.fp-rstep__tips{font-size:12px;font-style:italic;color:var(--gold,#C8860A);margin-bottom:4px}
+/* Result footer */
+.fp-result__actions{position:sticky;bottom:0;padding:16px 0 8px;background:linear-gradient(transparent,rgba(255,255,255,.95) 30%)}
+html.dark .fp-result__actions{background:linear-gradient(transparent,rgba(20,24,32,.95) 30%)}
 .fp-result__disclaimer{font-size:11px;font-style:italic;color:rgba(200,134,10,.6);margin-top:12px;line-height:1.5}
 
 /* ============================================================ */
@@ -10901,9 +10982,14 @@ function fpSaveAnalysis(data){
       created_at: new Date().toISOString(),
       overall_score: data.overall_score,
       skin_type: data.skin_type,
+      skin_type_explanation: data.skin_type_explanation || '',
       metrics: data.metrics,
       summary: data.summary,
-      primary_concern: data.primary_concern,
+      encouragement: data.encouragement || '',
+      primary_concerns: data.primary_concerns || [],
+      recommendations: data.recommendations || [],
+      daily_routine: data.daily_routine || null,
+      primary_concern: data.primary_concern || (data.primary_concerns && data.primary_concerns[0] ? data.primary_concerns[0].title : ''),
       photo_data_url: null
     };
     arr.unshift(item);
@@ -11099,8 +11185,9 @@ function fpEnsureDom(){
         '<div class="fp-progress__est">8 - 12 detik</div>' +
       '</div>' +
 
-      /* RESULT */
+      /* RESULT — Phase 2 multi-section */
       '<div class="fp-step fp-result" data-step="result">' +
+        /* Hero */
         '<img class="fp-result__photo" id="fp-result-photo" alt="Foto wajah">' +
         '<svg class="fp-gauge" id="fp-gauge" width="200" height="200" viewBox="0 0 200 200">' +
           '<defs><linearGradient id="fp-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0A7B6C"/><stop offset="100%" stop-color="#C8860A"/></linearGradient></defs>' +
@@ -11110,7 +11197,18 @@ function fpEnsureDom(){
           '<text class="fp-gauge__label" id="fp-gauge-label" x="100" y="135" text-anchor="middle"></text>' +
         '</svg>' +
         '<div class="fp-summary"><p class="fp-summary__text" id="fp-result-summary"></p></div>' +
-        '<div class="fp-hint">Detail breakdown per area kulit dan saran rutinitas akan segera hadir di update berikutnya.</div>' +
+        '<div class="fp-encouragement" id="fp-result-encouragement"></div>' +
+        /* Skin type */
+        '<div class="fp-section" id="fp-sec-skintype"></div>' +
+        /* Metrics */
+        '<div class="fp-section" id="fp-sec-metrics"></div>' +
+        /* Concerns */
+        '<div class="fp-section" id="fp-sec-concerns"></div>' +
+        /* Recommendations */
+        '<div class="fp-section" id="fp-sec-recs"></div>' +
+        /* Routines */
+        '<div class="fp-section" id="fp-sec-routines"></div>' +
+        /* Footer */
         '<div class="fp-result__actions">' +
           '<button class="fp-btn" onclick="fpSaveResult()">Simpan Hasil</button>' +
           '<button class="fp-btn fp-btn--secondary" onclick="closeFaceprint()">Cek Lagi Nanti</button>' +
@@ -11396,45 +11494,240 @@ function fpStartAnalysis(){
   });
 }
 
-/* ---------- RESULT ---------- */
+/* ---------- RESULT — Phase 2 multi-section ---------- */
+
+var FP_SKIN_TYPE_MAP = {
+  oily: 'Kulit Berminyak', dry: 'Kulit Kering', combination: 'Kulit Kombinasi',
+  normal: 'Kulit Normal', sensitive: 'Kulit Sensitif'
+};
+
+var FP_METRIC_ICONS = {
+  hydration: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>',
+  acne: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.5" fill="currentColor"/><circle cx="15" cy="10" r="1.5" fill="currentColor"/><circle cx="12" cy="15" r="1.2" fill="currentColor"/></svg>',
+  pores: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="9" r=".8"/><circle cx="15" cy="9" r=".8"/><circle cx="12" cy="12" r=".8"/><circle cx="9" cy="15" r=".8"/><circle cx="15" cy="15" r=".8"/></svg>',
+  wrinkles: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 7c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>',
+  pigmentation: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" opacity=".3"/><path d="M6 6a9 9 0 0 0 0 12" fill="currentColor" opacity=".1"/></svg>',
+  redness: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 21c-4-3-8-6-8-11a8 8 0 1 1 16 0c0 5-4 8-8 11z"/></svg>'
+};
+
+var FP_METRIC_NAMES = {
+  hydration: 'Hidrasi', acne: 'Jerawat', pores: 'Pori',
+  wrinkles: 'Kerutan', pigmentation: 'Pigmentasi', redness: 'Kemerahan'
+};
+
+function fpBarClass(score){
+  if (score >= 8) return 'fp-metric__bar-fill--good';
+  if (score >= 5) return 'fp-metric__bar-fill--mid';
+  return 'fp-metric__bar-fill--low';
+}
+
 function fpShowResult(data){
   fpShowStep('result');
-  /* Photo */
+
+  /* Hero photo */
   var photo = document.getElementById('fp-result-photo');
   if (photo && fpState.capturedImage) photo.src = fpState.capturedImage;
 
   /* Gauge animation */
   var score = data.overall_score || 0;
-  var circumference = 2 * Math.PI * 85; /* ~534 */
+  var circ = 2 * Math.PI * 85;
   var ring = document.getElementById('fp-gauge-ring');
   var scoreEl = document.getElementById('fp-gauge-score');
   var labelEl = document.getElementById('fp-gauge-label');
-
   if (ring){
-    var target = (score / 100) * circumference;
     ring.style.transition = 'stroke-dasharray 1.2s cubic-bezier(.16,1,.3,1)';
-    setTimeout(function(){ ring.setAttribute('stroke-dasharray', target + ' ' + circumference); }, 50);
+    setTimeout(function(){ ring.setAttribute('stroke-dasharray', ((score/100)*circ) + ' ' + circ); }, 50);
   }
-  /* Animate counter */
   if (scoreEl){
-    var current = 0;
-    var duration = 1200;
-    var start = performance.now();
+    var dur = 1200, st = performance.now();
     (function tick(now){
-      var elapsed = now - start;
-      var pct = Math.min(elapsed / duration, 1);
-      /* ease-out */
-      var eased = 1 - Math.pow(1 - pct, 3);
-      current = Math.round(eased * score);
-      scoreEl.textContent = current;
-      if (pct < 1) requestAnimationFrame(tick);
+      var p = Math.min((now - st) / dur, 1);
+      scoreEl.textContent = Math.round((1 - Math.pow(1-p,3)) * score);
+      if (p < 1) requestAnimationFrame(tick);
     })(performance.now());
   }
   if (labelEl) labelEl.textContent = fpGetScoreLabel(score);
 
-  /* Summary */
-  var summaryEl = document.getElementById('fp-result-summary');
-  if (summaryEl) summaryEl.textContent = data.summary || '';
+  /* Summary + encouragement */
+  var sumEl = document.getElementById('fp-result-summary');
+  if (sumEl) sumEl.textContent = data.summary || '';
+  var encEl = document.getElementById('fp-result-encouragement');
+  if (encEl) encEl.textContent = data.encouragement || '';
+
+  /* Skin type */
+  fpRenderSkinType(data);
+  /* Metrics */
+  fpRenderMetrics(data.metrics);
+  /* Concerns */
+  fpRenderConcerns(data.primary_concerns);
+  /* Recommendations */
+  fpRenderRecs(data.recommendations);
+  /* Routines */
+  fpRenderRoutines(data.daily_routine);
+}
+
+function fpRenderSkinType(data){
+  var el = document.getElementById('fp-sec-skintype');
+  if (!el || !data.skin_type) return;
+  el.innerHTML =
+    '<h3 class="fp-section__heading">Tipe Kulit</h3>' +
+    '<div class="fp-skintype">' +
+      '<div class="fp-skintype__type">' + fpEsc(FP_SKIN_TYPE_MAP[data.skin_type] || data.skin_type) + '</div>' +
+      '<div class="fp-skintype__explain">' + fpEsc(data.skin_type_explanation || '') + '</div>' +
+    '</div>';
+}
+
+function fpRenderMetrics(metrics){
+  var el = document.getElementById('fp-sec-metrics');
+  if (!el || !metrics) return;
+  var keys = ['hydration','acne','pores','wrinkles','pigmentation','redness'];
+  var html = '<h3 class="fp-section__heading">Detail Pemeriksaan</h3>';
+  for (var i = 0; i < keys.length; i++){
+    var k = keys[i];
+    var m = metrics[k];
+    if (!m) continue;
+    var s = typeof m === 'object' ? (m.score || 0) : (m || 0);
+    var label = typeof m === 'object' ? (m.label || '') : '';
+    var obs = typeof m === 'object' ? (m.observation || '') : '';
+    html +=
+      '<div class="fp-metric" data-metric="' + k + '">' +
+        '<div class="fp-metric__icon">' + (FP_METRIC_ICONS[k] || '') + '</div>' +
+        '<div class="fp-metric__body">' +
+          '<div class="fp-metric__header">' +
+            '<span class="fp-metric__name">' + fpEsc(FP_METRIC_NAMES[k] || k) + '</span>' +
+            '<span class="fp-metric__score">' + s + '/10</span>' +
+          '</div>' +
+          '<div class="fp-metric__bar"><div class="fp-metric__bar-fill ' + fpBarClass(s) + '" data-width="' + (s * 10) + '"></div></div>' +
+          (label ? '<div class="fp-metric__label">' + fpEsc(label) + '</div>' : '') +
+          (obs ? '<div class="fp-metric__obs">' + fpEsc(obs) + '</div>' : '') +
+        '</div>' +
+      '</div>';
+  }
+  el.innerHTML = html;
+  /* Animate bars staggered */
+  setTimeout(function(){
+    var bars = el.querySelectorAll('.fp-metric__bar-fill');
+    for (var j = 0; j < bars.length; j++){
+      (function(bar, delay){
+        setTimeout(function(){ bar.style.width = bar.getAttribute('data-width') + '%'; }, delay);
+      })(bars[j], j * 100);
+    }
+  }, 100);
+}
+
+function fpRenderConcerns(concerns){
+  var el = document.getElementById('fp-sec-concerns');
+  if (!el || !concerns || !concerns.length){ if(el) el.innerHTML = ''; return; }
+  var html = '<h3 class="fp-section__heading">Yang Perlu Kamu Tahu</h3>';
+  var max = Math.min(concerns.length, 3);
+  for (var i = 0; i < max; i++){
+    var c = concerns[i];
+    html +=
+      '<div class="fp-concern">' +
+        '<span class="fp-concern__sev fp-concern__sev--' + fpEsc(c.severity || 'ringan') + '">' + fpEsc(c.severity || 'ringan') + '</span>' +
+        '<div class="fp-concern__title">' + fpEsc(c.title || '') + '</div>' +
+        '<div class="fp-concern__text">' + fpEsc(c.explanation || '') + '</div>' +
+        (c.approach ? '<div class="fp-concern__text">' + fpEsc(c.approach) + '</div>' : '') +
+        (c.patience_note ? '<div class="fp-concern__patience">' + fpEsc(c.patience_note) + '</div>' : '') +
+      '</div>';
+  }
+  el.innerHTML = html;
+}
+
+function fpRenderRecs(recs){
+  var el = document.getElementById('fp-sec-recs');
+  if (!el || !recs || !recs.length){ if(el) el.innerHTML = ''; return; }
+  var html = '<h3 class="fp-section__heading">Rekomendasi Untukmu</h3>';
+  /* Sort by priority */
+  var order = {high:0, medium:1, low:2};
+  var sorted = recs.slice().sort(function(a,b){ return (order[a.priority]||2) - (order[b.priority]||2); });
+  for (var i = 0; i < sorted.length; i++){
+    var r = sorted[i];
+    html += '<div class="fp-rec">';
+    html += '<div class="fp-rec__head">';
+    html += '<span class="fp-rec__priority fp-rec__priority--' + fpEsc(r.priority || 'medium') + '">' + fpEsc(r.priority || 'medium') + '</span>';
+    html += '<span class="fp-rec__title">' + fpEsc(r.title || '') + '</span>';
+    html += '</div>';
+    if (r.why) html += '<div class="fp-rec__why">' + fpEsc(r.why) + '</div>';
+    if (r.ingredients_to_look_for && r.ingredients_to_look_for.length){
+      html += '<div class="fp-rec__sub">Cari bahan ini:</div><div class="fp-chips">';
+      for (var j = 0; j < r.ingredients_to_look_for.length; j++){
+        html += '<span class="fp-chip">' + fpEsc(r.ingredients_to_look_for[j]) + '</span>';
+      }
+      html += '</div>';
+    }
+    if (r.ingredients_to_avoid && r.ingredients_to_avoid.length){
+      html += '<div class="fp-rec__sub">Hindari:</div><div class="fp-chips">';
+      for (var j = 0; j < r.ingredients_to_avoid.length; j++){
+        html += '<span class="fp-chip fp-chip--avoid">' + fpEsc(r.ingredients_to_avoid[j]) + '</span>';
+      }
+      html += '</div>';
+    }
+    if (r.how_to_use) html += '<div class="fp-rec__how">' + fpEsc(r.how_to_use) + '</div>';
+    if (r.example_brands && r.example_brands.length){
+      html += '<div class="fp-chips">';
+      for (var j = 0; j < r.example_brands.length; j++){
+        html += '<span class="fp-chip fp-chip--brand">' + fpEsc(r.example_brands[j]) + '</span>';
+      }
+      html += '</div>';
+    }
+    if (r.patience_timeline) html += '<div class="fp-rec__timeline">' + fpEsc(r.patience_timeline) + '</div>';
+    if (r.pregnancy_safe) html += '<div class="fp-rec__safe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg> Aman untuk kehamilan</div>';
+    html += '</div>';
+  }
+  el.innerHTML = html;
+}
+
+function fpRenderRoutines(routine){
+  var el = document.getElementById('fp-sec-routines');
+  if (!el || !routine){ if(el) el.innerHTML = ''; return; }
+  var html = '<h3 class="fp-section__heading">Rutinitas Harian</h3>';
+  html += '<div class="fp-routine-tabs">';
+  html += '<button class="fp-routine-tab active" onclick="fpSwitchRoutine(\'morning\',this)">Pagi</button>';
+  html += '<button class="fp-routine-tab" onclick="fpSwitchRoutine(\'evening\',this)">Malam</button>';
+  html += '</div>';
+  html += fpBuildRoutinePanel('morning', routine.morning, true);
+  html += fpBuildRoutinePanel('evening', routine.evening, false);
+  el.innerHTML = html;
+}
+
+function fpBuildRoutinePanel(id, r, active){
+  if (!r || !r.steps) return '';
+  var html = '<div class="fp-routine-panel' + (active ? ' active' : '') + '" data-routine="' + id + '">';
+  for (var i = 0; i < r.steps.length; i++){
+    var s = r.steps[i];
+    html += '<div class="fp-rstep">';
+    html += '<div class="fp-rstep__num">' + (s.step_number || (i+1)) + '</div>';
+    html += '<div class="fp-rstep__body">';
+    html += '<div class="fp-rstep__name">' + fpEsc(s.step_name || '') + '</div>';
+    if (s.purpose) html += '<div class="fp-rstep__purpose">' + fpEsc(s.purpose) + '</div>';
+    if (s.tips) html += '<div class="fp-rstep__tips">' + fpEsc(s.tips) + '</div>';
+    if (s.ingredients && s.ingredients.length){
+      html += '<div class="fp-chips">';
+      for (var j = 0; j < s.ingredients.length; j++) html += '<span class="fp-chip">' + fpEsc(s.ingredients[j]) + '</span>';
+      html += '</div>';
+    }
+    if (s.examples && s.examples.length){
+      html += '<div class="fp-chips">';
+      for (var j = 0; j < s.examples.length; j++) html += '<span class="fp-chip fp-chip--brand">' + fpEsc(s.examples[j]) + '</span>';
+      html += '</div>';
+    }
+    html += '</div></div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function fpSwitchRoutine(panel, btn){
+  var sec = document.getElementById('fp-sec-routines');
+  if (!sec) return;
+  var tabs = sec.querySelectorAll('.fp-routine-tab');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+  if (btn) btn.classList.add('active');
+  var panels = sec.querySelectorAll('.fp-routine-panel');
+  for (var i = 0; i < panels.length; i++){
+    panels[i].classList.toggle('active', panels[i].getAttribute('data-routine') === panel);
+  }
 }
 
 function fpSaveResult(){
@@ -11455,6 +11748,9 @@ window.fpSwitchCamera = fpSwitchCamera;
 window.fpUseGalleryPhoto = fpUseGalleryPhoto;
 window.fpResetGallery = fpResetGallery;
 window.fpSaveResult = fpSaveResult;
+window.fpSwitchRoutine = fpSwitchRoutine;
+window.fpShowResult = fpShowResult;
+window._fpState = fpState;
 window.fpStopCamera = fpStopCamera;
 
 })();

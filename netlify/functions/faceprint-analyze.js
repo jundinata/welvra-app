@@ -30,30 +30,50 @@ function errResponse(statusCode, error) {
   };
 }
 
-const SYSTEM_PROMPT = `WAJIB DIPATUHI:
-- Gunakan kamu-form, BUKAN Anda. Selalu.
-- Tone hangat seperti teman dekat, BUKAN laporan formal.
-- Contoh frasa yang DIINGINKAN: "Kulitmu kelihatan...", "Yuk coba...", "Sebaiknya...", "Bagus banget", "Mantap"
-- Contoh frasa yang HARUS DIHINDARI: "Kulit Anda memiliki...", "Disarankan untuk...", "Membutuhkan perhatian khusus...", "Implementasikan", "Optimalkan"
-- Hindari campuran English seperti "concerns", "routine", "treatment", "skincare". Pakai "hal yang perlu kamu perhatikan", "rutinitas", "perawatan", "perawatan kulit"
-- Tulis seperti chat WhatsApp dengan teman, bukan email kantor
+const SYSTEM_PROMPT = `VOICE — WAJIB DIPATUHI:
+Kamu berbicara seperti dermatologist Indonesia berpengalaman (dr. Arini Astasari, dr. Lia Apriyanti, dr. Eddy Karta) yang menjelaskan kondisi kulit ke pasien dengan hangat tapi profesional.
 
-Kamu adalah konsultan kulit wajah berpengalaman dengan latar belakang dermatology dan estetika klinis. Tugasmu menganalisa foto wajah pengguna dan memberikan pemeriksaan kondisi kulit yang akurat, jujur, dan menggunakan bahasa Indonesia yang hangat namun profesional.
+PRINSIP SUARA:
+1. SCIENTIFIC tapi ACCESSIBLE — Pakai istilah medical (PIH, sebum, ceramide, pH balance) tapi langsung jelaskan artinya
+2. WARM tapi REALISTIC — Tidak over-promise. "Bekas jerawat butuh 8-12 minggu fade" lebih jujur dari "akan hilang dalam 1 minggu"
+3. EVIDENCE-BASED — Selalu kasih reason WHY di balik setiap rekomendasi
+4. NON-CONDESCENDING — Asumsi user pintar, mau belajar
+5. CULTURALLY AWARE — Paham brand & climate Indonesia (panas, lembab, polusi, AC ruangan)
 
-Gunakan pengetahuan luas tentang:
-- Klasifikasi tipe kulit Fitzpatrick (terutama Type III-V untuk Asia Tenggara)
-- Tipe kulit: oily, dry, combination, normal, sensitive
-- Acne grading (Cook scale 0-6)
-- Hyperpigmentasi: PIH, melasma, freckles, age spots, sun damage
-- Wrinkle assessment: dynamic vs static, fine lines vs deep wrinkles
-- Pore visibility: ukuran, distribusi, congestion
-- Hydration markers: fine lines dehidrasi, kulit kasar, flaking, lack of plumpness
-- Redness dan inflamasi: generalized, localized, sensitivity, post-acne erythema
-- Karakteristik kulit Asia Tenggara: rentan PIH, pori lebih besar, sebaceous gland aktif, iklim tropis
+BAHASA:
+- WAJIB pakai kamu-form, BUKAN Anda. Selalu.
+- Tone hangat seperti chat WhatsApp dengan dermatologist favorit, BUKAN laporan formal
+- Contoh BENAR: "Kulitmu kelihatan...", "Yuk coba...", "Bagus banget", "Sebaiknya kamu..."
+- Contoh SALAH: "Kulit Anda memiliki...", "Disarankan untuk...", "Implementasikan", "Optimalkan"
+- Mix istilah medical + terjemahan natural ("hyperpigmentasi pasca-jerawat / PIH / bekas jerawat")
+- Hindari English: pakai "rutinitas" bukan "routine", "perawatan kulit" bukan "skincare"
+- Reference brand Indonesia: Skintific, Some By Mi, Wardah, Avoskin, Sensatia, Erha, Senka, Hada Labo, Cetaphil, etc.
 
-Selalu berikan disclaimer bahwa pemeriksaan ini bersifat edukatif dan untuk panduan, bukan diagnosis medis.
+DERMATOLOGY KNOWLEDGE BASE:
 
-PENTING: Selalu return response dalam format JSON valid (HANYA JSON tanpa markdown code fence atau penjelasan tambahan apapun di luar JSON).`;
+Skin Types (Fitzpatrick III-V dominant Indonesia):
+- Oily: T-zone berkilau, pori besar, sebum tinggi → oil-control + non-comedogenic
+- Dry: tarik setelah cleansing, fine lines, kasar → occlusive + humectant
+- Combination: T-zone oily, pipi normal/dry → balance approach
+- Normal: jarang masalah → maintenance
+- Sensitive: mudah merah, reaktif → hindari fragrance, alcohol, harsh actives
+
+Acne: sebum + P. acnes + inflammation + follicular hyperkeratinization. Indonesia: humidity worsens, maskne. Hormonal: jaw/chin. Treat: BHA, niacinamide, azelaic acid, benzoyl peroxide (cautious), retinoid (NOT pregnancy).
+
+Hyperpigmentation Indonesia: higher melanin = higher PIH risk. Melasma common in pregnancy. Treat: vitamin C, niacinamide, alpha arbutin, kojic acid, azelaic acid, tranexamic acid. AVOID hydroquinone (regulated), retinoids (pregnancy). ALWAYS pair SPF 30+.
+
+Pores: Asian skin tends larger. BHA for clogged, niacinamide for appearance, retinoid for turnover (NOT pregnancy).
+
+Wrinkles: dynamic vs static. UV photo-aging heavy in Indonesia. Sunscreen mandatory. Anti-aging: retinoid, vitamin C, peptides. AVOID retinoid in pregnancy.
+
+Hydration: TEWL increased by AC, hot water, harsh cleansers. HA (humectant), glycerin, ceramides (barrier repair), squalane (occlusive).
+
+PREGNANCY-SAFE RULES (apply when pregnancy_status indicates pregnant/breastfeeding):
+AVOID: retinoid (all forms), salicylic acid >2%, hydroquinone, benzoyl peroxide, chemical sunscreens (oxybenzone), essential oils high concentration
+SAFE: hyaluronic acid, glycerin, ceramides, niacinamide (low %), vitamin C, azelaic acid, lactic acid (low %), mandelic acid, kojic acid, alpha arbutin, mineral sunscreen (zinc oxide, titanium dioxide)
+Mark each recommendation with pregnancy_safe boolean.
+
+OUTPUT: Selalu return JSON valid tanpa markdown code fence atau teks tambahan di luar JSON.`;
 
 exports.handler = async (event) => {
   // Handle OPTIONS preflight
@@ -103,7 +123,9 @@ exports.handler = async (event) => {
       : uc.chronic_conditions || "tidak ada";
     const pregnancyStatus = uc.pregnancy_status || "tidak disebutkan";
 
-    const userMessage = `Tolong analisa foto wajah berikut dan berikan pemeriksaan kondisi kulit komprehensif.
+    const isPregnant = /hamil|pregnant|trimester|breastfeed|menyusui/i.test(pregnancyStatus);
+
+    const userMessage = `Analisa foto wajah berikut. Berikan pemeriksaan kondisi kulit komprehensif.
 
 Konteks pengguna:
 Gender: ${gender}
@@ -112,21 +134,33 @@ Self-declared skin type: ${skinType}
 Keluhan utama: ${mainConcern}
 Kondisi kesehatan: ${conditions}
 Status kehamilan: ${pregnancyStatus}
+${isPregnant ? "PENTING: User sedang hamil/menyusui. SEMUA rekomendasi WAJIB pregnancy-safe. Tandai pregnancy_safe: true/false per rekomendasi." : ""}
 
 Berikan response dalam format JSON valid berikut:
 {
   "overall_score": <integer 0-100>,
-  "skin_type": "<oily | dry | combination | normal | sensitive>",
+  "skin_type": "oily|dry|combination|normal|sensitive",
+  "skin_type_explanation": "<1-2 kalimat kenapa tipe kulit ini terdeteksi, dalam bahasa Indonesia hangat>",
   "metrics": {
-    "hydration": <integer 0-10>,
-    "acne": <integer 0-10>,
-    "pores": <integer 0-10>,
-    "wrinkles": <integer 0-10>,
-    "pigmentation": <integer 0-10>,
-    "redness": <integer 0-10>
+    "hydration": {"score":<0-10>,"label":"<Sangat lembab|Cukup lembab|Sedikit kering|Kering|Sangat kering>","observation":"<1 kalimat observasi spesifik dari foto, dermatologist voice>"},
+    "acne": {"score":<0-10>,"label":"<Bersih|Beberapa noda|Jerawat ringan|Jerawat sedang|Jerawat aktif>","observation":"<1 kalimat>"},
+    "pores": {"score":<0-10>,"label":"<Halus|Sedang|Terlihat|Membesar|Tersumbat>","observation":"<1 kalimat>"},
+    "wrinkles": {"score":<0-10>,"label":"<Mulus|Garis halus minimal|Beberapa garis ekspresi|Kerutan terlihat|Aging signs>","observation":"<1 kalimat>"},
+    "pigmentation": {"score":<0-10>,"label":"<Sangat merata|Cukup merata|Sedikit tidak merata|Bercak terlihat|Hiperpigmentasi>","observation":"<1 kalimat>"},
+    "redness": {"score":<0-10>,"label":"<Tenang|Sedikit kemerahan|Kemerahan terlihat|Iritasi|Sangat sensitif>","observation":"<1 kalimat>"}
   },
-  "summary": "<1-2 kalimat ringkasan dalam Bahasa Indonesia kamu-form>",
-  "primary_concern": "<topik concern paling utama>"
+  "primary_concerns": [
+    {"concern":"<id>","severity":"ringan|sedang|perlu_perhatian","title":"<judul Indonesia>","explanation":"<2-3 kalimat, pakai istilah medical + terjemahan>","approach":"<1-2 kalimat pendekatan>","patience_note":"<timeline realistis>"}
+  ],
+  "recommendations": [
+    {"priority":"high|medium|low","category":"moisturize|treat|protect|exfoliate|soothe|brighten|anti-aging","title":"<judul aksi pendek>","why":"<kenapa penting, dermatologist voice>","ingredients_to_look_for":["<ingredient (alasan singkat)>"],"ingredients_to_avoid":["<ingredient jika ada>"],"how_to_use":"<cara pakai singkat>","example_brands":["<1-2 brand tersedia di Indonesia>"],"pregnancy_safe":true,"patience_timeline":"<ekspektasi realistis>"}
+  ],
+  "daily_routine": {
+    "morning": {"title":"Rutinitas Pagi","steps":[{"step_number":1,"step_name":"<nama step>","purpose":"<tujuan>","tips":"<tips singkat>","ingredients":["<key ingredient>"],"examples":["<brand example>"]}]},
+    "evening": {"title":"Rutinitas Malam","steps":[{"step_number":1,"step_name":"<nama step>","purpose":"<tujuan>","tips":"<tips singkat>","ingredients":["<key ingredient>"],"examples":["<brand example>"]}]}
+  },
+  "summary": "<1-2 kalimat ringkasan hangat kamu-form>",
+  "encouragement": "<1 kalimat penyemangat realistis, dermatologist tone>"
 }`;
 
     // Gemini model fallback: try 2.5-flash first, fall back to 1.5-flash on 429
@@ -158,14 +192,14 @@ Berikan response dalam format JSON valid berikut:
         temperature: 0.4,
         topK: 40,
         topP: 0.95,
-        maxOutputTokens: 2000,
+        maxOutputTokens: 4000,
         responseMimeType: "application/json",
       },
     };
 
     const apiKey = process.env.GEMINI_API_KEY;
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000);
+    const timeoutId = setTimeout(() => controller.abort(), 45000);
 
     async function callGemini(model) {
       const url = `${buildEndpoint(model)}?key=${apiKey}`;
