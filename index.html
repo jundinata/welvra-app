@@ -3478,8 +3478,8 @@ html.dark .welvra-feature-stack__line{
 /* ===== THIN PILL ROW (Apple Health-style) — shared by features & articles ===== */
 .welvra-feature-card-thin{
   display:flex; align-items:center; gap: 14px;
-  width:100%; min-height: 72px;
-  padding: 12px 16px;
+  width:100%; min-height: 88px;
+  padding: 12px 14px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -3508,28 +3508,21 @@ html.dark .welvra-feature-card-thin{
   }
 }
 
-/* Icon chip (left) */
-.welvra-feature-card-thin__icon{
-  flex: 0 0 40px; width: 40px; height: 40px;
-  display:flex; align-items:center; justify-content:center;
-  border-radius: 12px;
-  background: var(--feature-tint, rgba(10,123,108,0.10));
-}
-.welvra-feature-card-thin__icon svg{
-  width: 20px; height: 20px;
-  fill: none; stroke: var(--primary);
-  stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
-}
-html.dark .welvra-feature-card-thin__icon svg{ stroke: #F0EDE8; }
-
-/* Thumbnail variant (article rows use image instead of icon) */
+/* Photo thumbnail (left) — Unsplash square crop */
 .welvra-feature-card-thin__thumb{
-  flex: 0 0 48px; width: 48px; height: 48px;
-  border-radius: 10px; overflow:hidden;
-  position:relative; background: var(--border-light);
+  flex: 0 0 64px; width: 64px; height: 64px;
+  border-radius: 14px; overflow:hidden;
+  position:relative;
+  background: var(--feature-tint, rgba(10,123,108,0.10));
 }
 .welvra-feature-card-thin__thumb img{
   width:100%; height:100%; object-fit:cover; display:block;
+  opacity: 0;
+  transition: opacity 300ms ease-out, transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.welvra-feature-card-thin__thumb img.loaded{ opacity: 1; }
+@media (hover:hover){
+  .welvra-feature-card-thin:hover .welvra-feature-card-thin__thumb img{ transform: scale(1.06); }
 }
 
 /* Label block (eyebrow + title + meta) */
@@ -3584,21 +3577,19 @@ html.dark .welvra-feature-card-thin__resume{
   background: rgba(200,134,10,0.14);
 }
 
-/* Per-feature icon background tints */
-.welvra-feature-card-thin[data-feature="foto"]{ --feature-tint: rgba(168,121,87,0.14); }
-.welvra-feature-card-thin[data-feature="lab"]{ --feature-tint: rgba(196,168,92,0.14); }
-.welvra-feature-card-thin[data-feature="chat"]{ --feature-tint: rgba(107,158,120,0.14); }
-.welvra-feature-card-thin[data-feature="tensi"]{ --feature-tint: rgba(192,92,92,0.12); }
-.welvra-feature-card-thin[data-feature="makan"]{ --feature-tint: rgba(168,192,92,0.14); }
-.welvra-feature-card-thin[data-feature="aktivitas"]{ --feature-tint: rgba(92,158,168,0.14); }
-.welvra-feature-card-thin[data-feature="meditasi"]{ --feature-tint: rgba(143,121,168,0.14); }
-.welvra-feature-card-thin[data-feature="mens"]{ --feature-tint: rgba(192,121,158,0.14); }
+/* Per-feature thumbnail fallback color (shows when image fails / before load) */
+.welvra-feature-card-thin[data-feature="foto"]{ --feature-tint: #B8A088; }
+.welvra-feature-card-thin[data-feature="lab"]{ --feature-tint: #C8B98A; }
+.welvra-feature-card-thin[data-feature="chat"]{ --feature-tint: #8FB098; }
+.welvra-feature-card-thin[data-feature="tensi"]{ --feature-tint: #C58F8F; }
+.welvra-feature-card-thin[data-feature="makan"]{ --feature-tint: #A8B888; }
+.welvra-feature-card-thin[data-feature="aktivitas"]{ --feature-tint: #88AAB5; }
+.welvra-feature-card-thin[data-feature="meditasi"]{ --feature-tint: #A092B0; }
+.welvra-feature-card-thin[data-feature="mens"]{ --feature-tint: #C098AC; }
 
 @media (max-width: 380px){
-  .welvra-feature-card-thin{ min-height: 64px; padding: 10px 14px; gap: 12px; }
-  .welvra-feature-card-thin__icon{ flex-basis: 36px; width: 36px; height: 36px; border-radius: 10px; }
-  .welvra-feature-card-thin__icon svg{ width: 18px; height: 18px; }
-  .welvra-feature-card-thin__thumb{ flex-basis: 44px; width: 44px; height: 44px; }
+  .welvra-feature-card-thin{ min-height: 80px; padding: 10px 12px; gap: 12px; }
+  .welvra-feature-card-thin__thumb{ flex-basis: 56px; width: 56px; height: 56px; border-radius: 12px; }
   .welvra-feature-card-thin__title{ font-size: 16px; }
 }
 @media (min-width: 481px){
@@ -4907,8 +4898,8 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <button type="button" class="welvra-feature-card-thin" data-feature="foto"
                 onclick="welvraOpenFeature('foto', this)"
                 aria-label="Periksa Gejala — foto dan cerita">
-          <span class="welvra-feature-card-thin__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3"/><path d="M16 4h3a1 1 0 0 1 1 1v3"/><path d="M20 16v3a1 1 0 0 1-1 1h-3"/><path d="M8 20H5a1 1 0 0 1-1-1v-3"/><circle cx="12" cy="12" r="3"/></svg>
+          <span class="welvra-feature-card-thin__thumb">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80" alt="" loading="lazy" decoding="async" width="64" height="64">
           </span>
           <span class="welvra-feature-card-thin__label">
             <span class="welvra-feature-card-thin__eyebrow">FOTO &amp; CERITA</span>
@@ -4920,8 +4911,8 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <button type="button" class="welvra-feature-card-thin" data-feature="lab"
                 onclick="welvraOpenFeature('lab', this)"
                 aria-label="Baca Hasil Lab — Dr. Sly jelasin">
-          <span class="welvra-feature-card-thin__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v4h4"/><path d="M9 12h6"/><path d="M9 16h4"/></svg>
+          <span class="welvra-feature-card-thin__thumb">
+            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80" alt="" loading="lazy" decoding="async" width="64" height="64">
           </span>
           <span class="welvra-feature-card-thin__label">
             <span class="welvra-feature-card-thin__eyebrow">DR. SLY JELASIN</span>
@@ -4933,8 +4924,8 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <button type="button" class="welvra-feature-card-thin" data-feature="chat"
                 onclick="welvraOpenFeature('chat', this)"
                 aria-label="Tanya Dr. Sly — konsultasi langsung">
-          <span class="welvra-feature-card-thin__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7l-4 3v-3H6a2 2 0 0 1-2-2V6Z"/><circle cx="9" cy="10.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="10.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="15" cy="10.5" r="0.9" fill="currentColor" stroke="none"/></svg>
+          <span class="welvra-feature-card-thin__thumb">
+            <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80" alt="" loading="lazy" decoding="async" width="64" height="64">
           </span>
           <span class="welvra-feature-card-thin__label">
             <span class="welvra-feature-card-thin__eyebrow">KONSULTASI LANGSUNG</span>
@@ -4946,8 +4937,8 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <button type="button" class="welvra-feature-card-thin" data-feature="tensi"
                 onclick="welvraOpenFeature('tensi', this)"
                 aria-label="Cek Tensi Anda — pantau tekanan darah">
-          <span class="welvra-feature-card-thin__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M3 13h4l2-5 3 9 3-7 2 3h4"/></svg>
+          <span class="welvra-feature-card-thin__thumb">
+            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80" alt="" loading="lazy" decoding="async" width="64" height="64">
           </span>
           <span class="welvra-feature-card-thin__label">
             <span class="welvra-feature-card-thin__eyebrow">PANTAU TEKANAN DARAH</span>
@@ -4959,8 +4950,8 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <button type="button" class="welvra-feature-card-thin" data-feature="makan"
                 onclick="welvraOpenFeature('makan', this)"
                 aria-label="Analisa Makanku — cek gizi">
-          <span class="welvra-feature-card-thin__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 9c-3 0-6 2.5-6 6.5C6 19 9 21 12 21s6-2 6-5.5C18 11.5 15 9 12 9Z"/><path d="M12 9c.5-2 2-3 4-3"/><path d="M12 9c-1-1.5-1-3 .5-4.5"/></svg>
+          <span class="welvra-feature-card-thin__thumb">
+            <img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80" alt="" loading="lazy" decoding="async" width="64" height="64">
           </span>
           <span class="welvra-feature-card-thin__label">
             <span class="welvra-feature-card-thin__eyebrow">CEK GIZIMU</span>
@@ -4972,8 +4963,8 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <button type="button" class="welvra-feature-card-thin" data-feature="aktivitas" id="aktiv-feat-card"
                 onclick="welvraOpenFeature('aktivitas', this)"
                 aria-label="TrackFit — langkah dan kalori">
-          <span class="welvra-feature-card-thin__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><circle cx="13" cy="5" r="2"/><path d="M9 11l3-3 3 3 3 2"/><path d="M12 8l-2 4 3 3v5"/><path d="M9 21l2-3"/></svg>
+          <span class="welvra-feature-card-thin__thumb">
+            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80" alt="" loading="lazy" decoding="async" width="64" height="64">
           </span>
           <span class="welvra-feature-card-thin__label">
             <span class="welvra-feature-card-thin__eyebrow">LANGKAH &amp; KALORI</span>
@@ -4985,8 +4976,8 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <button type="button" class="welvra-feature-card-thin" data-feature="meditasi"
                 onclick="welvraOpenFeature('meditasi', this)"
                 aria-label="Meditasi — ketenangan jiwa dan raga">
-          <span class="welvra-feature-card-thin__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 14c-1.4-2-1.4-4 0-6 1.4 2 1.4 4 0 6Z"/><path d="M12 14c-2.5-1-5-2.5-5.5-5.5C9 9 11 10.5 12 14Z"/><path d="M12 14c2.5-1 5-2.5 5.5-5.5C15 9 13 10.5 12 14Z"/><path d="M5 17c2-1 12-1 14 0"/></svg>
+          <span class="welvra-feature-card-thin__thumb">
+            <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80" alt="" loading="lazy" decoding="async" width="64" height="64">
           </span>
           <span class="welvra-feature-card-thin__label">
             <span class="welvra-feature-card-thin__eyebrow">JIWA &amp; RAGA</span>
@@ -4998,8 +4989,8 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <button type="button" class="welvra-feature-card-thin" data-feature="mens" id="mens-feat-card"
                 onclick="welvraOpenFeature('mens', this)"
                 aria-label="Siklus Menstruasi — phase tracking" style="display:none">
-          <span class="welvra-feature-card-thin__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18c3-3 3-15 0-18Z" fill="currentColor" stroke="none" opacity="0.85"/></svg>
+          <span class="welvra-feature-card-thin__thumb">
+            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80" alt="" loading="lazy" decoding="async" width="64" height="64">
           </span>
           <span class="welvra-feature-card-thin__label">
             <span class="welvra-feature-card-thin__eyebrow">PHASE TRACKING</span>
@@ -5061,6 +5052,30 @@ html.dark .drawer-auth-name{color:#F0EDE8}
       </div>
       <div class="welvra-feature-stack__cards" id="homeFeedCards"></div>
     </section>
+    <script>
+      // Mark thumbnails loaded for fade-in. Idempotent — safe to call repeatedly.
+      window.markThinPillThumbsLoaded = function(scope){
+        var root = scope || document;
+        root.querySelectorAll('.welvra-feature-card-thin__thumb img').forEach(function(img){
+          if (img.classList.contains('loaded')) return;
+          if (img.complete && img.naturalHeight !== 0){
+            img.classList.add('loaded');
+          } else {
+            img.addEventListener('load', function(){ img.classList.add('loaded'); }, { once: true });
+            img.addEventListener('error', function(){ img.style.display = 'none'; }, { once: true });
+          }
+        });
+      };
+      // Run for the static feature stack cards on first paint.
+      (function(){
+        var run = function(){ window.markThinPillThumbsLoaded(); };
+        if (document.readyState === 'loading'){
+          document.addEventListener('DOMContentLoaded', run);
+        } else {
+          run();
+        }
+      })();
+    </script>
 
     <!-- HEALTH TIP OF THE DAY -->
     <div class="tip-card" id="home-tip-card">
@@ -14508,7 +14523,7 @@ window.meditToggleSection = meditToggleSection;
     var author = a.author ? (a.author.name || 'Tim Welvra') : 'Tim Welvra';
     return '<button type="button" class="welvra-feature-card-thin" data-article-id="' + escHtml(a.id) + '">' +
       '<span class="welvra-feature-card-thin__thumb">' +
-        '<img class="welvra-img__photo" data-src="' + escHtml(img) + '" alt="' + escHtml(a.title) + '" loading="lazy">' +
+        '<img class="welvra-img__photo" data-src="' + escHtml(img) + '" alt="" loading="lazy" decoding="async" width="64" height="64">' +
       '</span>' +
       '<span class="welvra-feature-card-thin__label">' +
         '<span class="welvra-feature-card-thin__eyebrow">' + escHtml(catLabel) + '</span>' +
@@ -14558,6 +14573,8 @@ window.meditToggleSection = meditToggleSection;
           img.src = img.dataset.src;
         }
       });
+      // Smooth fade-in for thumbnails once image data arrives
+      if (typeof markThinPillThumbsLoaded === 'function') markThinPillThumbsLoaded(section);
 
       // Bind click handlers
       section.querySelectorAll('[data-article-id]').forEach(function(el) {
