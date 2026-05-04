@@ -11027,9 +11027,14 @@ function fpSaveToSupabase(item){
         user_id: res.data.user.id,
         overall_score: item.overall_score,
         skin_type: item.skin_type,
+        skin_type_explanation: item.skin_type_explanation || null,
         metrics: item.metrics,
         summary: item.summary,
-        primary_concern: item.primary_concern
+        encouragement: item.encouragement || null,
+        primary_concern: item.primary_concern,
+        primary_concerns: item.primary_concerns || null,
+        recommendations: item.recommendations || null,
+        daily_routine: item.daily_routine || null
       });
     });
   } catch(e){}
@@ -11515,6 +11520,13 @@ var FP_METRIC_NAMES = {
   wrinkles: 'Kerutan', pigmentation: 'Pigmentasi', redness: 'Kemerahan'
 };
 
+function fpPriorityWeight(p){
+  if (p === 'high') return 1;
+  if (p === 'medium') return 2;
+  if (p === 'low') return 3;
+  return 4;
+}
+
 function fpBarClass(score){
   if (score >= 8) return 'fp-metric__bar-fill--good';
   if (score >= 5) return 'fp-metric__bar-fill--mid';
@@ -11529,22 +11541,33 @@ function fpShowResult(data){
   if (photo && fpState.capturedImage) photo.src = fpState.capturedImage;
 
   /* Gauge animation */
-  var score = data.overall_score || 0;
+  var score = Math.max(0, Math.min(100, data.overall_score || 0));
   var circ = 2 * Math.PI * 85;
   var ring = document.getElementById('fp-gauge-ring');
   var scoreEl = document.getElementById('fp-gauge-score');
   var labelEl = document.getElementById('fp-gauge-label');
+  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (ring){
-    ring.style.transition = 'stroke-dasharray 1.2s cubic-bezier(.16,1,.3,1)';
-    setTimeout(function(){ ring.setAttribute('stroke-dasharray', ((score/100)*circ) + ' ' + circ); }, 50);
+    var dashTarget = ((score/100)*circ) + ' ' + circ;
+    if (prefersReduced){
+      ring.style.transition = 'none';
+      ring.setAttribute('stroke-dasharray', dashTarget);
+    } else {
+      ring.style.transition = 'stroke-dasharray 1.2s cubic-bezier(.16,1,.3,1)';
+      setTimeout(function(){ ring.setAttribute('stroke-dasharray', dashTarget); }, 50);
+    }
   }
   if (scoreEl){
-    var dur = 1200, st = performance.now();
-    (function tick(now){
-      var p = Math.min((now - st) / dur, 1);
-      scoreEl.textContent = Math.round((1 - Math.pow(1-p,3)) * score);
-      if (p < 1) requestAnimationFrame(tick);
-    })(performance.now());
+    if (prefersReduced){
+      scoreEl.textContent = score;
+    } else {
+      var dur = 1200, st = performance.now();
+      (function tick(now){
+        var p = Math.min((now - st) / dur, 1);
+        scoreEl.textContent = Math.round((1 - Math.pow(1-p,3)) * score);
+        if (p < 1) requestAnimationFrame(tick);
+      })(performance.now());
+    }
   }
   if (labelEl) labelEl.textContent = fpGetScoreLabel(score);
 
@@ -11587,6 +11610,7 @@ function fpRenderMetrics(metrics){
     var m = metrics[k];
     if (!m) continue;
     var s = typeof m === 'object' ? (m.score || 0) : (m || 0);
+    s = Math.max(0, Math.min(10, s));
     var label = typeof m === 'object' ? (m.label || '') : '';
     var obs = typeof m === 'object' ? (m.observation || '') : '';
     html +=
@@ -11638,9 +11662,8 @@ function fpRenderRecs(recs){
   var el = document.getElementById('fp-sec-recs');
   if (!el || !recs || !recs.length){ if(el) el.innerHTML = ''; return; }
   var html = '<h3 class="fp-section__heading">Rekomendasi Untukmu</h3>';
-  /* Sort by priority */
-  var order = {high:0, medium:1, low:2};
-  var sorted = recs.slice().sort(function(a,b){ return (order[a.priority]||2) - (order[b.priority]||2); });
+  /* Sort by priority (high=1 first, low=3 last) */
+  var sorted = recs.slice().sort(function(a,b){ return fpPriorityWeight(a.priority) - fpPriorityWeight(b.priority); });
   for (var i = 0; i < sorted.length; i++){
     var r = sorted[i];
     html += '<div class="fp-rec">';
@@ -11749,8 +11772,6 @@ window.fpUseGalleryPhoto = fpUseGalleryPhoto;
 window.fpResetGallery = fpResetGallery;
 window.fpSaveResult = fpSaveResult;
 window.fpSwitchRoutine = fpSwitchRoutine;
-window.fpShowResult = fpShowResult;
-window._fpState = fpState;
 window.fpStopCamera = fpStopCamera;
 
 })();

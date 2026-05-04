@@ -192,7 +192,7 @@ Berikan response dalam format JSON valid berikut:
         temperature: 0.4,
         topK: 40,
         topP: 0.95,
-        maxOutputTokens: 4000,
+        maxOutputTokens: 6000,
         responseMimeType: "application/json",
       },
     };
