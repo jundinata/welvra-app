@@ -4690,31 +4690,161 @@ html.dark .welvra-profile-field-value{color:#F0EDE8}
 .welvra-profile-meta-value{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--sage);font-weight:500}
 .welvra-profile-signout{width:100%;padding:14px;border:none;border-radius:12px;background:rgba(200,75,75,.08);color:#C84B4B;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background 200ms}
 .welvra-profile-signout:active{background:rgba(200,75,75,.15)}
-/* Edit modal */
-.welvra-profile-edit-modal{position:fixed;inset:0;z-index:960;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.4)}
+/* ========= Edit modal — fresh glass, viewport-safe, tabbed sections ========= */
+.welvra-profile-edit-modal{
+  position:fixed;inset:0;z-index:960;display:none;
+  align-items:center;justify-content:center;
+  background:rgba(20,30,30,0.42);
+  backdrop-filter:blur(6px) saturate(140%);
+  -webkit-backdrop-filter:blur(6px) saturate(140%);
+  padding:16px;
+}
 .welvra-profile-edit-modal:not([hidden]){display:flex}
-.welvra-profile-edit-modal.visible .welvra-profile-edit-modal-inner{transform:translateY(0)}
-.welvra-profile-edit-modal-inner{width:100%;max-width:480px;max-height:85vh;background:#FAFAF7;border-radius:24px 24px 0 0;padding:0 0 32px;overflow-y:auto;transform:translateY(100%);transition:transform 320ms cubic-bezier(.16,1,.3,1)}
-html.dark .welvra-profile-edit-modal-inner{background:#1A1A16}
-.welvra-profile-edit-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;position:sticky;top:0;background:inherit;z-index:2}
-.welvra-profile-edit-cancel,.welvra-profile-edit-save{padding:8px 16px;border:none;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.welvra-profile-edit-modal.visible .welvra-profile-edit-modal-inner{transform:translateY(0);opacity:1}
+.welvra-profile-edit-modal-inner{
+  width:100%;max-width:440px;
+  max-height:calc(100vh - 32px);
+  display:flex;flex-direction:column;
+  background:linear-gradient(180deg,rgba(255,254,250,0.94),rgba(250,250,247,0.97));
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid rgba(200,134,10,0.15);
+  border-radius:24px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    0 4px 16px rgba(0,0,0,0.06),
+    0 24px 64px rgba(10,123,108,0.10);
+  transform:translateY(24px);opacity:0;
+  transition:transform 350ms cubic-bezier(.16,1,.3,1),opacity 250ms ease-out;
+  overflow:hidden;
+}
+html.dark .welvra-profile-edit-modal-inner{
+  background:linear-gradient(180deg,rgba(30,33,40,0.94),rgba(20,23,30,0.97));
+  border-color:rgba(200,134,10,0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 4px 16px rgba(0,0,0,0.4),
+    0 24px 64px rgba(0,0,0,0.5);
+}
+
+/* Sticky header */
+.welvra-profile-edit-modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;flex-shrink:0;
+  border-bottom:1px solid rgba(10,123,108,0.06);
+  background:transparent;
+}
+.welvra-profile-edit-cancel,.welvra-profile-edit-save{
+  padding:8px 14px;border:none;background:transparent;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
+  border-radius:10px;transition:background 150ms ease-out;
+}
 .welvra-profile-edit-cancel{color:var(--txt-secondary)}
-.welvra-profile-edit-save{color:var(--gold)}
-.welvra-profile-edit-save:disabled{opacity:.4;cursor:not-allowed}
-.welvra-profile-edit-modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--teal);margin:0}
+.welvra-profile-edit-cancel:hover{background:rgba(10,123,108,0.05)}
+.welvra-profile-edit-save{color:#fff;background:linear-gradient(135deg,var(--teal),var(--gold));box-shadow:0 2px 8px rgba(200,134,10,0.20)}
+.welvra-profile-edit-save:hover{filter:brightness(1.05)}
+.welvra-profile-edit-save:disabled{opacity:.4;cursor:not-allowed;filter:none;background:var(--txt-secondary)}
+.welvra-profile-edit-modal-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:var(--teal);margin:0}
 html.dark .welvra-profile-edit-modal-title{color:#F0EDE8}
-.welvra-profile-edit-form{padding:0 20px}
-.welvra-profile-edit-field-label{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--sage);margin:16px 0 8px}
-.welvra-profile-edit-input{width:100%;padding:14px 16px;border:1.5px solid rgba(200,134,10,.2);border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;background:white;color:var(--ink);-webkit-appearance:none;appearance:none;box-sizing:border-box}
-.welvra-profile-edit-input:focus{outline:none;border-color:var(--gold)}
-html.dark .welvra-profile-edit-input{background:#1F1F1A;color:#F0EDE8;border-color:rgba(200,134,10,.25)}
-.welvra-profile-edit-chips{display:flex;flex-wrap:wrap;gap:8px}
-.welvra-profile-edit-chip{padding:10px 16px;border:1.5px solid rgba(200,134,10,.2);border-radius:999px;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary);cursor:pointer;-webkit-tap-highlight-color:transparent}
-.welvra-profile-edit-chip.active{background:var(--teal);color:white;border-color:var(--teal)}
-html.dark .welvra-profile-edit-chip.active{background:var(--gold);border-color:var(--gold);color:#1A1A16}
-.welvra-profile-edit-interests{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.welvra-profile-edit-interest-chip{padding:10px 14px;border:1.5px solid rgba(200,134,10,.2);border-radius:999px;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--txt-secondary);cursor:pointer}
-.welvra-profile-edit-interest-chip.active{background:rgba(200,134,10,.12);border-color:var(--gold);color:var(--gold)}
+
+/* Tab pills — horizontal scroll, sticky below header */
+.welvra-profile-tabs{
+  display:flex;gap:6px;padding:10px 14px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  flex-shrink:0;border-bottom:1px solid rgba(10,123,108,0.06);
+  scrollbar-width:none;
+}
+.welvra-profile-tabs::-webkit-scrollbar{display:none}
+.welvra-profile-tab{
+  flex-shrink:0;padding:8px 14px;border-radius:999px;
+  border:1px solid transparent;background:transparent;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;
+  color:var(--txt-secondary);cursor:pointer;
+  transition:all 200ms ease-out;
+  -webkit-tap-highlight-color:transparent;letter-spacing:.02em;
+}
+.welvra-profile-tab:hover{color:var(--teal);background:rgba(10,123,108,0.05)}
+.welvra-profile-tab.active{
+  color:#fff;background:linear-gradient(135deg,var(--teal),var(--gold));
+  box-shadow:0 2px 8px rgba(200,134,10,0.18);
+}
+
+/* Scrollable form body */
+.welvra-profile-edit-form{
+  padding:14px 18px 24px;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  flex:1;min-height:0;
+  scrollbar-width:thin;scrollbar-color:rgba(200,134,10,0.3) transparent;
+}
+.welvra-profile-edit-form::-webkit-scrollbar{width:4px}
+.welvra-profile-edit-form::-webkit-scrollbar-thumb{background:rgba(200,134,10,0.3);border-radius:2px}
+.welvra-profile-edit-form::-webkit-scrollbar-track{background:transparent}
+
+/* Section panels */
+.welvra-profile-section-panel{display:none;animation:welvraProfilePanelIn 250ms cubic-bezier(.16,1,.3,1)}
+.welvra-profile-section-panel.active{display:block}
+@keyframes welvraProfilePanelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.welvra-profile-section-intro{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--txt-tertiary);margin:0 0 12px;line-height:1.5}
+
+/* Field elements */
+.welvra-profile-edit-field-label{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:14px 0 6px}
+.welvra-profile-edit-input,.welvra-profile-edit-textarea,.welvra-profile-edit-select{
+  width:100%;padding:12px 14px;
+  border:1px solid rgba(200,134,10,0.18);border-radius:12px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;
+  background:rgba(255,255,255,0.6);color:var(--text);
+  -webkit-appearance:none;appearance:none;box-sizing:border-box;
+  transition:border-color 200ms ease-out,box-shadow 200ms ease-out;
+}
+.welvra-profile-edit-textarea{resize:vertical;min-height:64px;font-family:inherit}
+.welvra-profile-edit-select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230A7B6C' stroke-width='2' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.welvra-profile-edit-input:focus,.welvra-profile-edit-textarea:focus,.welvra-profile-edit-select:focus{
+  outline:none;border-color:var(--teal);
+  box-shadow:0 0 0 3px rgba(10,123,108,0.10);
+}
+html.dark .welvra-profile-edit-input,html.dark .welvra-profile-edit-textarea,html.dark .welvra-profile-edit-select{background:rgba(255,255,255,0.04);color:#F0EDE8;border-color:rgba(200,134,10,0.25)}
+
+/* Inline two-column row (e.g. height + weight) */
+.welvra-profile-row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* BMI display */
+.welvra-profile-bmi{
+  margin:14px 0 6px;padding:12px 14px;
+  background:rgba(107,158,120,0.08);border:1px solid rgba(107,158,120,0.18);
+  border-radius:12px;
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+}
+.welvra-profile-bmi-value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--sage)}
+.welvra-profile-bmi-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--txt-secondary)}
+.welvra-profile-bmi-cat{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;color:var(--sage)}
+
+/* Multi-select chips */
+.welvra-profile-edit-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.welvra-profile-edit-chip{
+  padding:8px 13px;border:1px solid rgba(200,134,10,0.2);border-radius:999px;
+  background:transparent;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:12px;color:var(--txt-secondary);cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:all 180ms ease-out;
+}
+.welvra-profile-edit-chip:hover{border-color:var(--teal);color:var(--teal)}
+.welvra-profile-edit-chip.active{background:rgba(107,158,120,0.18);color:var(--sage);border-color:var(--sage);font-weight:600}
+html.dark .welvra-profile-edit-chip.active{background:rgba(200,134,10,0.18);color:var(--gold);border-color:var(--gold)}
+
+.welvra-profile-edit-interests{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.welvra-profile-edit-interest-chip{
+  padding:8px 12px;border:1px solid rgba(200,134,10,0.2);border-radius:999px;
+  background:transparent;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;color:var(--txt-secondary);cursor:pointer;
+}
+.welvra-profile-edit-interest-chip.active{background:rgba(200,134,10,0.12);border-color:var(--gold);color:var(--gold)}
+
+/* Profile screen completeness bar */
+.welvra-profile-completion{padding:6px 24px 0;display:flex;align-items:center;gap:10px}
+.welvra-profile-completion-text{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--txt-secondary);white-space:nowrap}
+.welvra-profile-completion-bar{flex:1;height:4px;background:rgba(10,123,108,0.10);border-radius:999px;overflow:hidden}
+.welvra-profile-completion-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:inherit;transition:width 320ms cubic-bezier(.16,1,.3,1)}
 /* Info modals */
 .welvra-info-modal{position:fixed;inset:0;z-index:970;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.4)}
 .welvra-info-modal:not([hidden]){display:flex}
@@ -14013,42 +14143,157 @@ window.meditToggleSection = meditToggleSection;
   // Bookmarks: welvra.wisdomHub.v1.bookmarks = [{articleId, savedAt}]
   // ReadHistory: welvra.wisdomHub.v1.readHistory = [{articleId, readAt, scrollDepth}]
   // Drawer close: closeWelvraDrawer()
-  var profileState={isOpen:false,isEditMode:false,domBuilt:false,isAnonymous:true,current:{id:null,name:'',age:null,gender:'not-specified',interests:[],photo_url:null,photo_data_url:null,email:'',created_at:null},pending:null};
+  // current/pending hold the full nested shape (see emptyProfileShape, declared below).
+  var profileState={isOpen:false,isEditMode:false,domBuilt:false,isAnonymous:true,activeTab:'basic',current:null,pending:null,id:null,email:'',photo_url:null};
 
-  // ===== LOCAL PROFILE STORE (anonymous mode) =====
+  // ===== LOCAL PROFILE STORE (anonymous mode, nested 7-section schema v2) =====
   var LOCAL_PROFILE_KEY='welvra.profile.local.v1';
+  function emptyProfileShape(){
+    return {
+      schema_version:2,
+      basic:{name:'',birth_date:null,gender:'not-specified',marital_status:null,occupation:null},
+      biometric:{height_cm:null,weight_kg:null,waist_cm:null,blood_type:null},
+      health:{chronic_conditions:[],allergies:[],current_medications:'',surgical_history:'',family_history:[]},
+      lifestyle:{activity_level:null,diet_type:null,special_diet:[],smoking:null,alcohol:null,sleep_hours:null,stress_level:null},
+      reproductive:{menstrual_status:null,last_period_date:null,pregnancy_status:null,num_children:null,contraception_method:[]},
+      goals:{health_goals:[],target_specific:''},
+      preferences:{interests:[],greeting_style:'kamu',custom_greeting:'',notification_times:[]},
+      photo_data_url:null,
+      created_at:null,
+      updated_at:null
+    };
+  }
+  function ageToBirthDate(age){
+    if(age==null||isNaN(age))return null;
+    var y=new Date().getFullYear()-Math.floor(age);
+    return y+'-01-01';
+  }
+  function birthDateToAge(d){
+    if(!d)return null;
+    var bd=new Date(d);if(isNaN(bd))return null;
+    var t=new Date();
+    var a=t.getFullYear()-bd.getFullYear();
+    var m=t.getMonth()-bd.getMonth();
+    if(m<0||(m===0&&t.getDate()<bd.getDate()))a--;
+    return a;
+  }
+  function migrateLegacyProfile(p){
+    // Old flat schema -> new nested schema. Idempotent if already nested.
+    if(p&&p.schema_version===2&&p.basic)return p;
+    var out=emptyProfileShape();
+    if(p){
+      if(p.name)out.basic.name=p.name;
+      if(p.gender)out.basic.gender=p.gender;
+      if(p.age!=null)out.basic.birth_date=ageToBirthDate(p.age);
+      if(Array.isArray(p.interests))out.preferences.interests=p.interests;
+      if(p.photo_data_url)out.photo_data_url=p.photo_data_url;
+      if(p.created_at)out.created_at=p.created_at;
+      if(p.updated_at)out.updated_at=p.updated_at;
+    }
+    return out;
+  }
   function loadLocalProfile(){
     try{
       var raw=localStorage.getItem(LOCAL_PROFILE_KEY);
-      if(raw){var p=JSON.parse(raw);if(p&&typeof p==='object')return p;}
+      if(raw){var p=JSON.parse(raw);if(p&&typeof p==='object'){var migrated=migrateLegacyProfile(p);if(migrated!==p){try{localStorage.setItem(LOCAL_PROFILE_KEY,JSON.stringify(migrated));}catch(e){}}return migrated;}}
     }catch(e){}
     // Seed from onboarding state on first read so what the user typed earlier shows up.
     try{
       var ob=JSON.parse(localStorage.getItem('welvra.onboarding.v1')||'{}');
       if(ob&&ob.data&&(ob.data.name||ob.data.age||(ob.data.interests||[]).length>0)){
-        var seed={name:ob.data.name||'',age:ob.data.age||null,gender:ob.data.gender||'not-specified',interests:ob.data.interests||[],photo_data_url:null,created_at:new Date().toISOString(),updated_at:new Date().toISOString()};
+        var seed=emptyProfileShape();
+        seed.basic.name=ob.data.name||'';
+        seed.basic.gender=ob.data.gender||'not-specified';
+        if(ob.data.age!=null)seed.basic.birth_date=ageToBirthDate(ob.data.age);
+        seed.preferences.interests=ob.data.interests||[];
+        seed.created_at=new Date().toISOString();seed.updated_at=seed.created_at;
         try{localStorage.setItem(LOCAL_PROFILE_KEY,JSON.stringify(seed));}catch(e){}
         return seed;
       }
     }catch(e){}
-    return {name:'',age:null,gender:'not-specified',interests:[],photo_data_url:null,created_at:null,updated_at:null};
+    return emptyProfileShape();
   }
-  function saveLocalProfile(data){
+  function saveLocalProfile(patch){
     var now=new Date().toISOString();
     var existing=loadLocalProfile();
-    var merged={
-      name:data.name!==undefined?data.name:(existing.name||''),
-      age:data.age!==undefined?data.age:(existing.age||null),
-      gender:data.gender!==undefined?data.gender:(existing.gender||'not-specified'),
-      interests:data.interests!==undefined?data.interests:(existing.interests||[]),
-      photo_data_url:data.photo_data_url!==undefined?data.photo_data_url:(existing.photo_data_url||null),
-      created_at:existing.created_at||now,
-      updated_at:now
-    };
+    // Deep merge: patch can be either flat top-level keys (photo_data_url) or nested by section.
+    var merged=JSON.parse(JSON.stringify(existing));
+    Object.keys(patch||{}).forEach(function(k){
+      if(k==='photo_data_url'){merged.photo_data_url=patch[k];return;}
+      if(typeof patch[k]==='object'&&patch[k]!==null&&!Array.isArray(patch[k])){
+        merged[k]=Object.assign({},merged[k]||{},patch[k]);
+      } else {
+        merged[k]=patch[k];
+      }
+    });
+    if(!merged.created_at)merged.created_at=now;
+    merged.updated_at=now;
+    merged.schema_version=2;
     try{localStorage.setItem(LOCAL_PROFILE_KEY,JSON.stringify(merged));}catch(e){console.warn('[Welvra] Local profile save failed:',e.message);}
     return merged;
   }
   function clearLocalProfile(){try{localStorage.removeItem(LOCAL_PROFILE_KEY);}catch(e){}}
+
+  // ===== PROFILE FIELD VOCABULARIES =====
+  var PROFILE_VOCAB={
+    gender:[{v:'male',l:'Pria'},{v:'female',l:'Wanita'},{v:'non-binary',l:'Non-biner'},{v:'not-specified',l:'Tidak ingin sebut'}],
+    marital_status:[{v:'single',l:'Lajang'},{v:'married',l:'Menikah'},{v:'divorced',l:'Cerai'},{v:'widowed',l:'Janda/Duda'}],
+    blood_type:[{v:'A+',l:'A+'},{v:'A-',l:'A-'},{v:'B+',l:'B+'},{v:'B-',l:'B-'},{v:'AB+',l:'AB+'},{v:'AB-',l:'AB-'},{v:'O+',l:'O+'},{v:'O-',l:'O-'}],
+    chronic_conditions:[{v:'hipertensi',l:'Hipertensi'},{v:'diabetes-2',l:'Diabetes Tipe 2'},{v:'kolesterol',l:'Kolesterol Tinggi'},{v:'asma',l:'Asma'},{v:'jantung',l:'Jantung'},{v:'stroke',l:'Stroke'},{v:'kanker',l:'Kanker'},{v:'autoimun',l:'Autoimun'}],
+    allergies:[{v:'makanan',l:'Makanan'},{v:'obat',l:'Obat'},{v:'lingkungan',l:'Lingkungan'},{v:'lateks',l:'Lateks'},{v:'serbuk-sari',l:'Serbuk Sari'}],
+    family_history:[{v:'jantung',l:'Jantung'},{v:'diabetes',l:'Diabetes'},{v:'stroke',l:'Stroke'},{v:'kanker',l:'Kanker'},{v:'hipertensi',l:'Hipertensi'},{v:'autoimun',l:'Autoimun'}],
+    activity_level:[{v:'sedentary',l:'Sedentary'},{v:'ringan',l:'Ringan'},{v:'sedang',l:'Sedang'},{v:'aktif',l:'Aktif'},{v:'sangat-aktif',l:'Sangat Aktif'}],
+    diet_type:[{v:'omnivora',l:'Omnivora'},{v:'vegetarian',l:'Vegetarian'},{v:'vegan',l:'Vegan'},{v:'pescatarian',l:'Pescatarian'},{v:'halal',l:'Halal'},{v:'kosher',l:'Kosher'}],
+    special_diet:[{v:'rendah-garam',l:'Rendah Garam'},{v:'rendah-gula',l:'Rendah Gula'},{v:'rendah-lemak',l:'Rendah Lemak'},{v:'tinggi-protein',l:'Tinggi Protein'},{v:'ketogenik',l:'Ketogenik'},{v:'intermittent-fasting',l:'Intermittent Fasting'}],
+    smoking:[{v:'tidak-pernah',l:'Tidak Pernah'},{v:'dulu-pernah',l:'Dulu Pernah'},{v:'sekarang',l:'Sekarang Masih'}],
+    alcohol:[{v:'tidak-pernah',l:'Tidak Pernah'},{v:'sosial',l:'Sosial'},{v:'rutin',l:'Rutin'}],
+    stress_level:[{v:'rendah',l:'Rendah'},{v:'sedang',l:'Sedang'},{v:'tinggi',l:'Tinggi'}],
+    menstrual_status:[{v:'teratur',l:'Teratur'},{v:'tidak-teratur',l:'Tidak Teratur'},{v:'menopause',l:'Menopause'},{v:'belum-menstruasi',l:'Belum Menstruasi'}],
+    pregnancy_status:[{v:'tidak-hamil',l:'Tidak Hamil'},{v:'sedang-hamil',l:'Sedang Hamil'},{v:'baru-melahirkan',l:'Baru Melahirkan'}],
+    contraception_method:[{v:'pil',l:'Pil'},{v:'iud',l:'IUD'},{v:'suntik',l:'Suntik'},{v:'implant',l:'Implant'},{v:'kondom',l:'Kondom'},{v:'alami',l:'Alami'},{v:'tidak',l:'Tidak'}],
+    health_goals:[{v:'turun-bb',l:'Turun Berat Badan'},{v:'naik-bb',l:'Naik Berat Badan'},{v:'jaga-bb',l:'Jaga Berat Badan'},{v:'fitness',l:'Fitness'},{v:'mental-wellness',l:'Mental Wellness'},{v:'manajemen-stress',l:'Manajemen Stress'},{v:'penyakit-kronis',l:'Kelola Penyakit Kronis'},{v:'kehamilan',l:'Kehamilan Sehat'},{v:'longevity',l:'Longevity'}],
+    interests:[{v:'kesehatan-umum',l:'Kesehatan Umum'},{v:'kesehatan-reproduksi',l:'Reproduksi'},{v:'kehamilan',l:'Kehamilan'},{v:'panduan-orangtua',l:'Orangtua'},{v:'wellness-mental',l:'Wellness Mental'},{v:'nutrisi-gizi',l:'Nutrisi'},{v:'kebugaran',l:'Kebugaran'},{v:'herbal-indonesia',l:'Herbal'},{v:'lifestyle',l:'Lifestyle'},{v:'isu-sosial',l:'Isu Sosial'}],
+    notification_times:[{v:'pagi',l:'Pagi'},{v:'siang',l:'Siang'},{v:'sore',l:'Sore'},{v:'malam',l:'Malam'}],
+    greeting_style:[{v:'kamu',l:'Aku—Kamu'},{v:'anda',l:'Saya—Anda'},{v:'custom',l:'Panggilan Custom'}]
+  };
+  function vocabLabel(key,value){var v=PROFILE_VOCAB[key];if(!v||value==null)return value;for(var i=0;i<v.length;i++)if(v[i].v===value)return v[i].l;return value;}
+
+  // ===== DERIVED HELPERS =====
+  function calculateBMI(heightCm,weightKg){
+    if(!heightCm||!weightKg)return null;
+    var m=heightCm/100;return Math.round((weightKg/(m*m))*10)/10;
+  }
+  function bmiCategory(bmi){
+    if(bmi==null)return null;
+    if(bmi<18.5)return 'Kurus';
+    if(bmi<25)return 'Normal';
+    if(bmi<30)return 'Gemuk';
+    return 'Obesitas';
+  }
+  function calculateProfileCompleteness(p){
+    if(!p||!p.basic)return 0;
+    var weights={basic:20,biometric:15,health:20,lifestyle:15,reproductive:10,goals:10,preferences:10};
+    var sums={
+      basic:[p.basic.name,p.basic.birth_date,p.basic.gender,p.basic.marital_status,p.basic.occupation],
+      biometric:[p.biometric.height_cm,p.biometric.weight_kg,p.biometric.waist_cm,p.biometric.blood_type],
+      health:[p.health.chronic_conditions&&p.health.chronic_conditions.length?1:null,p.health.allergies&&p.health.allergies.length?1:null,p.health.current_medications,p.health.surgical_history,p.health.family_history&&p.health.family_history.length?1:null],
+      lifestyle:[p.lifestyle.activity_level,p.lifestyle.diet_type,p.lifestyle.special_diet&&p.lifestyle.special_diet.length?1:null,p.lifestyle.smoking,p.lifestyle.alcohol,p.lifestyle.sleep_hours,p.lifestyle.stress_level],
+      reproductive:[p.reproductive.menstrual_status,p.reproductive.last_period_date,p.reproductive.pregnancy_status,p.reproductive.num_children,p.reproductive.contraception_method&&p.reproductive.contraception_method.length?1:null],
+      goals:[p.goals.health_goals&&p.goals.health_goals.length?1:null,p.goals.target_specific],
+      preferences:[p.preferences.interests&&p.preferences.interests.length?1:null,p.preferences.greeting_style,p.preferences.notification_times&&p.preferences.notification_times.length?1:null]
+    };
+    // Skip reproductive section for non-female and redistribute its weight evenly.
+    var includeReproductive=p.basic.gender==='female'||p.basic.gender==='non-binary';
+    var totalWeight=0,scoreSum=0;
+    Object.keys(weights).forEach(function(k){
+      if(k==='reproductive'&&!includeReproductive)return;
+      totalWeight+=weights[k];
+      var arr=sums[k]||[];
+      var filled=arr.filter(function(v){return v!=null&&v!==''&&!(Array.isArray(v)&&v.length===0);}).length;
+      scoreSum+=(filled/arr.length)*weights[k];
+    });
+    return totalWeight>0?Math.round((scoreSum/totalWeight)*100):0;
+  }
   function resizeImageToDataUrl(file,size,quality){
     return new Promise(function(resolve,reject){
       var img=new Image();var url=URL.createObjectURL(file);
@@ -14070,11 +14315,126 @@ window.meditToggleSection = meditToggleSection;
     if(profileState.domBuilt)return;profileState.domBuilt=true;
     var el=document.createElement('div');el.className='welvra-profile-screen';el.id='welvraProfileScreen';el.hidden=true;
     el.innerHTML='<header class="welvra-profile-header"><button class="welvra-profile-back" id="profileBackBtn" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><h1 class="welvra-profile-title">Profil saya</h1><button class="welvra-profile-edit" id="profileEditBtn" type="button">Edit</button></header>'
+      +'<div class="welvra-profile-completion"><span class="welvra-profile-completion-text" id="profileCompletionText">Profil 0% lengkap</span><span class="welvra-profile-completion-bar"><span class="welvra-profile-completion-fill" id="profileCompletionFill" style="width:0%"></span></span></div>'
       +'<div class="welvra-profile-content"><section class="welvra-profile-hero"><div class="welvra-profile-photo-wrap"><div class="welvra-profile-photo" id="profilePhotoDisplay"><span class="welvra-profile-photo-placeholder" id="profilePhotoInitials">-</span><img class="welvra-profile-photo-img" id="profilePhotoImg" alt="" hidden/></div><button class="welvra-profile-photo-edit" id="profilePhotoEditBtn" type="button" aria-label="Ubah foto"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></button><input type="file" class="welvra-profile-photo-input" id="profilePhotoInput" accept="image/jpeg,image/png,image/webp" hidden/></div><h2 class="welvra-profile-name" id="profileNameDisplay">-</h2><p class="welvra-profile-email" id="profileEmailDisplay">-</p><p class="welvra-profile-local-notice" id="profileLocalNotice" hidden>Data tersimpan di perangkat ini &middot; <button type="button" class="welvra-profile-local-link" id="profileSignInLink">Masuk untuk sync ke cloud</button></p></section>'
       +'<section class="welvra-profile-section"><div class="welvra-profile-field"><label class="welvra-profile-field-label">Nama</label><div class="welvra-profile-field-value" id="profileFieldName">-</div></div><div class="welvra-profile-field"><label class="welvra-profile-field-label">Usia</label><div class="welvra-profile-field-value" id="profileFieldAge">-</div></div><div class="welvra-profile-field"><label class="welvra-profile-field-label">Gender</label><div class="welvra-profile-field-value" id="profileFieldGender">-</div></div><div class="welvra-profile-field"><label class="welvra-profile-field-label">Minat</label><div class="welvra-profile-field-value welvra-profile-field-interests" id="profileFieldInterests">-</div></div></section>'
       +'<section class="welvra-profile-section welvra-profile-meta"><div class="welvra-profile-meta-item"><span class="welvra-profile-meta-label">Bergabung sejak</span><span class="welvra-profile-meta-value" id="profileJoinedDate">-</span></div></section>'
       +'<section class="welvra-profile-section" id="profileSignOutSection"><button class="welvra-profile-signout" id="profileSignOutBtn" type="button">Keluar dari akun</button></section></div>'
-      +'<div class="welvra-profile-edit-modal" id="profileEditModal" hidden><div class="welvra-profile-edit-modal-inner"><header class="welvra-profile-edit-modal-header"><button class="welvra-profile-edit-cancel" id="profileEditCancel" type="button">Batal</button><h2 class="welvra-profile-edit-modal-title">Edit profil</h2><button class="welvra-profile-edit-save" id="profileEditSave" type="button">Simpan</button></header><div class="welvra-profile-edit-form"><label class="welvra-profile-edit-field-label">Nama</label><input type="text" class="welvra-profile-edit-input" id="profileEditNameInput" maxlength="60"/><label class="welvra-profile-edit-field-label">Usia</label><input type="number" class="welvra-profile-edit-input" id="profileEditAgeInput" min="13" max="120"/><label class="welvra-profile-edit-field-label">Gender</label><div class="welvra-profile-edit-chips" id="profileEditGenderChips"><button class="welvra-profile-edit-chip" data-gender="male" type="button">Pria</button><button class="welvra-profile-edit-chip" data-gender="female" type="button">Wanita</button><button class="welvra-profile-edit-chip" data-gender="non-binary" type="button">Non-biner</button><button class="welvra-profile-edit-chip" data-gender="not-specified" type="button">Tidak ingin sebut</button></div><label class="welvra-profile-edit-field-label">Minat</label><div class="welvra-profile-edit-interests" id="profileEditInterestsGrid"></div></div></div></div>';
+      +'<div class="welvra-profile-edit-modal" id="profileEditModal" hidden>'
+      +'<div class="welvra-profile-edit-modal-inner">'
+      +'<header class="welvra-profile-edit-modal-header"><button class="welvra-profile-edit-cancel" id="profileEditCancel" type="button">Batal</button><h2 class="welvra-profile-edit-modal-title">Edit profil</h2><button class="welvra-profile-edit-save" id="profileEditSave" type="button">Simpan</button></header>'
+      +'<nav class="welvra-profile-tabs" id="profileTabs">'
+        +'<button class="welvra-profile-tab active" data-tab="basic" type="button">Dasar</button>'
+        +'<button class="welvra-profile-tab" data-tab="biometric" type="button">Biometrik</button>'
+        +'<button class="welvra-profile-tab" data-tab="health" type="button">Kesehatan</button>'
+        +'<button class="welvra-profile-tab" data-tab="lifestyle" type="button">Gaya Hidup</button>'
+        +'<button class="welvra-profile-tab" data-tab="reproductive" type="button" data-conditional="reproductive">Reproduksi</button>'
+        +'<button class="welvra-profile-tab" data-tab="goals" type="button">Tujuan</button>'
+        +'<button class="welvra-profile-tab" data-tab="preferences" type="button">Preferensi</button>'
+      +'</nav>'
+      +'<div class="welvra-profile-edit-form" id="profileEditForm">'
+
+      // Section 1 — Identitas Dasar
+      +'<section class="welvra-profile-section-panel active" data-panel="basic">'
+        +'<p class="welvra-profile-section-intro">Identitas dasar untuk personalisasi sapaan dan rekomendasi.</p>'
+        +'<label class="welvra-profile-edit-field-label">Nama lengkap</label>'
+        +'<input type="text" class="welvra-profile-edit-input" id="pf-name" maxlength="60" placeholder="Namamu"/>'
+        +'<label class="welvra-profile-edit-field-label">Tanggal lahir</label>'
+        +'<input type="date" class="welvra-profile-edit-input" id="pf-birth_date"/>'
+        +'<label class="welvra-profile-edit-field-label">Jenis kelamin</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="false" data-vocab="gender" data-path="basic.gender" id="pf-gender"></div>'
+        +'<label class="welvra-profile-edit-field-label">Status pernikahan</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="false" data-vocab="marital_status" data-path="basic.marital_status" id="pf-marital_status"></div>'
+        +'<label class="welvra-profile-edit-field-label">Pekerjaan</label>'
+        +'<input type="text" class="welvra-profile-edit-input" id="pf-occupation" maxlength="100" placeholder="Mis. Software Engineer"/>'
+      +'</section>'
+
+      // Section 2 — Biometrik
+      +'<section class="welvra-profile-section-panel" data-panel="biometric">'
+        +'<p class="welvra-profile-section-intro">Data biometrik untuk perhitungan BMI, kebutuhan kalori, dan rekomendasi olahraga.</p>'
+        +'<div class="welvra-profile-row-2">'
+          +'<div><label class="welvra-profile-edit-field-label">Tinggi (cm)</label><input type="number" class="welvra-profile-edit-input" id="pf-height_cm" min="100" max="250"/></div>'
+          +'<div><label class="welvra-profile-edit-field-label">Berat (kg)</label><input type="number" class="welvra-profile-edit-input" id="pf-weight_kg" min="20" max="300" step="0.1"/></div>'
+        +'</div>'
+        +'<div class="welvra-profile-bmi" id="pf-bmi-display" hidden><span class="welvra-profile-bmi-label">BMI</span><span class="welvra-profile-bmi-value" id="pf-bmi-value">-</span><span class="welvra-profile-bmi-cat" id="pf-bmi-cat">-</span></div>'
+        +'<label class="welvra-profile-edit-field-label">Lingkar pinggang (cm, opsional)</label>'
+        +'<input type="number" class="welvra-profile-edit-input" id="pf-waist_cm" min="40" max="200"/>'
+        +'<label class="welvra-profile-edit-field-label">Golongan darah</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="false" data-vocab="blood_type" data-path="biometric.blood_type" id="pf-blood_type"></div>'
+      +'</section>'
+
+      // Section 3 — Kondisi Kesehatan
+      +'<section class="welvra-profile-section-panel" data-panel="health">'
+        +'<p class="welvra-profile-section-intro">Riwayat kesehatan untuk rekomendasi yang aman dan personal.</p>'
+        +'<label class="welvra-profile-edit-field-label">Penyakit kronis</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="true" data-vocab="chronic_conditions" data-path="health.chronic_conditions" id="pf-chronic_conditions"></div>'
+        +'<label class="welvra-profile-edit-field-label">Alergi</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="true" data-vocab="allergies" data-path="health.allergies" id="pf-allergies"></div>'
+        +'<label class="welvra-profile-edit-field-label">Obat rutin (opsional)</label>'
+        +'<textarea class="welvra-profile-edit-textarea" id="pf-current_medications" maxlength="500" placeholder="Mis. Metformin 500mg 1x sehari"></textarea>'
+        +'<label class="welvra-profile-edit-field-label">Riwayat operasi (opsional)</label>'
+        +'<textarea class="welvra-profile-edit-textarea" id="pf-surgical_history" maxlength="500" placeholder="Mis. Operasi caesar 2020"></textarea>'
+        +'<label class="welvra-profile-edit-field-label">Riwayat penyakit keluarga inti</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="true" data-vocab="family_history" data-path="health.family_history" id="pf-family_history"></div>'
+      +'</section>'
+
+      // Section 4 — Gaya Hidup
+      +'<section class="welvra-profile-section-panel" data-panel="lifestyle">'
+        +'<p class="welvra-profile-section-intro">Pola hidup untuk rekomendasi nutrisi, olahraga, dan tidur yang sesuai.</p>'
+        +'<label class="welvra-profile-edit-field-label">Tingkat aktivitas fisik</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="false" data-vocab="activity_level" data-path="lifestyle.activity_level" id="pf-activity_level"></div>'
+        +'<label class="welvra-profile-edit-field-label">Pola makan</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="false" data-vocab="diet_type" data-path="lifestyle.diet_type" id="pf-diet_type"></div>'
+        +'<label class="welvra-profile-edit-field-label">Diet khusus</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="true" data-vocab="special_diet" data-path="lifestyle.special_diet" id="pf-special_diet"></div>'
+        +'<label class="welvra-profile-edit-field-label">Merokok</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="false" data-vocab="smoking" data-path="lifestyle.smoking" id="pf-smoking"></div>'
+        +'<label class="welvra-profile-edit-field-label">Alkohol</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="false" data-vocab="alcohol" data-path="lifestyle.alcohol" id="pf-alcohol"></div>'
+        +'<label class="welvra-profile-edit-field-label">Tidur per hari (jam)</label>'
+        +'<input type="number" class="welvra-profile-edit-input" id="pf-sleep_hours" min="0" max="24"/>'
+        +'<label class="welvra-profile-edit-field-label">Stress</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="false" data-vocab="stress_level" data-path="lifestyle.stress_level" id="pf-stress_level"></div>'
+      +'</section>'
+
+      // Section 5 — Kesehatan Reproduksi (conditional)
+      +'<section class="welvra-profile-section-panel" data-panel="reproductive" data-conditional="reproductive">'
+        +'<p class="welvra-profile-section-intro">Tampil bila gender wanita atau non-biner. Untuk modul kehamilan dan siklus menstruasi.</p>'
+        +'<label class="welvra-profile-edit-field-label">Status menstruasi</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="false" data-vocab="menstrual_status" data-path="reproductive.menstrual_status" id="pf-menstrual_status"></div>'
+        +'<label class="welvra-profile-edit-field-label">Tanggal HPHT (last period, opsional)</label>'
+        +'<input type="date" class="welvra-profile-edit-input" id="pf-last_period_date"/>'
+        +'<label class="welvra-profile-edit-field-label">Status kehamilan</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="false" data-vocab="pregnancy_status" data-path="reproductive.pregnancy_status" id="pf-pregnancy_status"></div>'
+        +'<label class="welvra-profile-edit-field-label">Jumlah anak</label>'
+        +'<input type="number" class="welvra-profile-edit-input" id="pf-num_children" min="0" max="20"/>'
+        +'<label class="welvra-profile-edit-field-label">Metode kontrasepsi</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="true" data-vocab="contraception_method" data-path="reproductive.contraception_method" id="pf-contraception_method"></div>'
+      +'</section>'
+
+      // Section 6 — Tujuan Kesehatan
+      +'<section class="welvra-profile-section-panel" data-panel="goals">'
+        +'<p class="welvra-profile-section-intro">Tujuan untuk menyelaraskan rekomendasi Welvra denganmu.</p>'
+        +'<label class="welvra-profile-edit-field-label">Goals utama</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="true" data-vocab="health_goals" data-path="goals.health_goals" id="pf-health_goals"></div>'
+        +'<label class="welvra-profile-edit-field-label">Target spesifik (opsional)</label>'
+        +'<textarea class="welvra-profile-edit-textarea" id="pf-target_specific" maxlength="300" placeholder="Mis. Turun 5 kg dalam 3 bulan"></textarea>'
+      +'</section>'
+
+      // Section 7 — Preferensi Aplikasi
+      +'<section class="welvra-profile-section-panel" data-panel="preferences">'
+        +'<p class="welvra-profile-section-intro">Cara aplikasi menyapa dan mengingatkanmu.</p>'
+        +'<label class="welvra-profile-edit-field-label">Topik wellness yang menarik</label>'
+        +'<div class="welvra-profile-edit-interests" data-multi="true" data-vocab="interests" data-path="preferences.interests" id="pf-interests"></div>'
+        +'<label class="welvra-profile-edit-field-label">Cara sapa</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="false" data-vocab="greeting_style" data-path="preferences.greeting_style" id="pf-greeting_style"></div>'
+        +'<label class="welvra-profile-edit-field-label">Panggilan custom (opsional)</label>'
+        +'<input type="text" class="welvra-profile-edit-input" id="pf-custom_greeting" maxlength="60" placeholder="Mis. Sayang, Bro, Mas, Mbak"/>'
+        +'<label class="welvra-profile-edit-field-label">Notifikasi reminder</label>'
+        +'<div class="welvra-profile-edit-chips" data-multi="true" data-vocab="notification_times" data-path="preferences.notification_times" id="pf-notification_times"></div>'
+      +'</section>'
+
+      +'</div></div></div>';
     document.body.appendChild(el);
     bindProfileScreenEvents();
   }
@@ -14085,73 +14445,243 @@ window.meditToggleSection = meditToggleSection;
     fetchProfileData().then(function(){profileState.isOpen=true;var el=document.getElementById('welvraProfileScreen');if(el){el.hidden=false;requestAnimationFrame(function(){el.classList.add('visible');});}document.body.style.overflow='hidden';renderProfileScreen();});
   }
   function closeProfileScreen(){if(!profileState.isOpen)return;profileState.isOpen=false;var el=document.getElementById('welvraProfileScreen');if(el){el.classList.remove('visible');setTimeout(function(){el.hidden=true;},320);}document.body.style.overflow='';}
+  function flatRowToProfileShape(row){
+    var p=emptyProfileShape();
+    if(!row)return p;
+    p.basic.name=row.name||'';
+    p.basic.gender=row.gender||'not-specified';
+    p.basic.birth_date=row.birth_date||(row.age!=null?ageToBirthDate(row.age):null);
+    p.basic.marital_status=row.marital_status||null;
+    p.basic.occupation=row.occupation||null;
+    p.biometric.height_cm=row.height_cm||null;
+    p.biometric.weight_kg=row.weight_kg||null;
+    p.biometric.waist_cm=row.waist_cm||null;
+    p.biometric.blood_type=row.blood_type||null;
+    p.health.chronic_conditions=row.chronic_conditions||[];
+    p.health.allergies=row.allergies||[];
+    p.health.current_medications=row.current_medications||'';
+    p.health.surgical_history=row.surgical_history||'';
+    p.health.family_history=row.family_history||[];
+    p.lifestyle.activity_level=row.activity_level||null;
+    p.lifestyle.diet_type=row.diet_type||null;
+    p.lifestyle.special_diet=row.special_diet||[];
+    p.lifestyle.smoking=row.smoking||null;
+    p.lifestyle.alcohol=row.alcohol||null;
+    p.lifestyle.sleep_hours=row.sleep_hours||null;
+    p.lifestyle.stress_level=row.stress_level||null;
+    p.reproductive.menstrual_status=row.menstrual_status||null;
+    p.reproductive.last_period_date=row.last_period_date||null;
+    p.reproductive.pregnancy_status=row.pregnancy_status||null;
+    p.reproductive.num_children=row.num_children||null;
+    p.reproductive.contraception_method=row.contraception_method||[];
+    p.goals.health_goals=row.health_goals||[];
+    p.goals.target_specific=row.target_specific||'';
+    p.preferences.interests=row.interests||[];
+    p.preferences.greeting_style=row.greeting_style||'kamu';
+    p.preferences.custom_greeting=row.custom_greeting||'';
+    p.preferences.notification_times=row.notification_times||[];
+    p.created_at=row.created_at||null;
+    p.updated_at=row.updated_at||null;
+    return p;
+  }
+  function profileShapeToFlatRow(p){
+    return {
+      name:p.basic.name||'',
+      gender:p.basic.gender||'not-specified',
+      birth_date:p.basic.birth_date||null,
+      age:birthDateToAge(p.basic.birth_date),
+      marital_status:p.basic.marital_status||null,
+      occupation:p.basic.occupation||null,
+      height_cm:p.biometric.height_cm||null,
+      weight_kg:p.biometric.weight_kg||null,
+      waist_cm:p.biometric.waist_cm||null,
+      blood_type:p.biometric.blood_type||null,
+      chronic_conditions:p.health.chronic_conditions||[],
+      allergies:p.health.allergies||[],
+      current_medications:p.health.current_medications||'',
+      surgical_history:p.health.surgical_history||'',
+      family_history:p.health.family_history||[],
+      activity_level:p.lifestyle.activity_level||null,
+      diet_type:p.lifestyle.diet_type||null,
+      special_diet:p.lifestyle.special_diet||[],
+      smoking:p.lifestyle.smoking||null,
+      alcohol:p.lifestyle.alcohol||null,
+      sleep_hours:p.lifestyle.sleep_hours||null,
+      stress_level:p.lifestyle.stress_level||null,
+      menstrual_status:p.reproductive.menstrual_status||null,
+      last_period_date:p.reproductive.last_period_date||null,
+      pregnancy_status:p.reproductive.pregnancy_status||null,
+      num_children:p.reproductive.num_children||null,
+      contraception_method:p.reproductive.contraception_method||[],
+      health_goals:p.goals.health_goals||[],
+      target_specific:p.goals.target_specific||'',
+      interests:p.preferences.interests||[],
+      greeting_style:p.preferences.greeting_style||'kamu',
+      custom_greeting:p.preferences.custom_greeting||'',
+      notification_times:p.preferences.notification_times||[]
+    };
+  }
   function fetchProfileData(){
     if(welvraAuth.isAuthenticated()){
       profileState.isAnonymous=false;
-      var c=welvraAuth.getClient();var user=welvraAuth.getUser();if(!c||!user)return Promise.resolve();
-      profileState.current.id=user.id;profileState.current.email=user.email||'';profileState.current.created_at=user.created_at;profileState.current.photo_data_url=null;
-      return c.from('profiles').select('*').eq('id',user.id).single().then(function(r){if(!r.error&&r.data){profileState.current.name=r.data.name||'';profileState.current.age=r.data.age;profileState.current.gender=r.data.gender||'not-specified';profileState.current.interests=r.data.interests||[];profileState.current.photo_url=r.data.photo_url;}});
+      var c=welvraAuth.getClient();var user=welvraAuth.getUser();if(!c||!user){profileState.current=emptyProfileShape();return Promise.resolve();}
+      profileState.id=user.id;profileState.email=user.email||'';
+      return c.from('profiles').select('*').eq('id',user.id).single().then(function(r){
+        if(!r.error&&r.data){
+          profileState.current=flatRowToProfileShape(r.data);
+          if(!profileState.current.created_at)profileState.current.created_at=user.created_at;
+          profileState.photo_url=r.data.photo_url||null;
+        } else {
+          profileState.current=emptyProfileShape();
+          profileState.current.created_at=user.created_at;
+        }
+      });
     }
     // Anonymous mode — read from localStorage.
     profileState.isAnonymous=true;
-    var lp=loadLocalProfile();
-    profileState.current.id=null;profileState.current.email='';
-    profileState.current.name=lp.name||'';profileState.current.age=lp.age||null;
-    profileState.current.gender=lp.gender||'not-specified';profileState.current.interests=lp.interests||[];
-    profileState.current.photo_url=null;profileState.current.photo_data_url=lp.photo_data_url||null;
-    profileState.current.created_at=lp.created_at||null;
+    profileState.current=loadLocalProfile();
+    profileState.id=null;profileState.email='';profileState.photo_url=null;
     return Promise.resolve();
   }
   function renderProfileScreen(){
-    var p=profileState.current;var ini=(p.name||p.email||'?').trim().charAt(0).toUpperCase();
+    var p=profileState.current||emptyProfileShape();
+    var name=p.basic.name||'';
+    var ini=(name||profileState.email||'?').trim().charAt(0).toUpperCase();
     document.getElementById('profilePhotoInitials').textContent=ini;
     var img=document.getElementById('profilePhotoImg'),iniEl=document.getElementById('profilePhotoInitials');
-    var photoSrc=p.photo_data_url||p.photo_url||null;
+    var photoSrc=p.photo_data_url||profileState.photo_url||null;
     if(photoSrc){img.src=photoSrc;img.hidden=false;iniEl.style.display='none';}else{img.hidden=true;iniEl.style.display='';}
-    document.getElementById('profileNameDisplay').textContent=p.name||'-';
+    document.getElementById('profileNameDisplay').textContent=name||'-';
     var emailEl=document.getElementById('profileEmailDisplay');
-    if(profileState.isAnonymous){emailEl.textContent='Belum masuk';}else{emailEl.textContent=p.email||'-';}
+    emailEl.textContent=profileState.isAnonymous?'Belum masuk':(profileState.email||'-');
     var notice=document.getElementById('profileLocalNotice');if(notice)notice.hidden=!profileState.isAnonymous;
     var signOutSection=document.getElementById('profileSignOutSection');if(signOutSection)signOutSection.style.display=profileState.isAnonymous?'none':'';
-    document.getElementById('profileFieldName').textContent=p.name||'-';
-    document.getElementById('profileFieldAge').textContent=p.age!=null?p.age+' tahun':'-';
-    document.getElementById('profileFieldGender').textContent=genderLabel(p.gender);
+    document.getElementById('profileFieldName').textContent=name||'-';
+    var age=birthDateToAge(p.basic.birth_date);
+    document.getElementById('profileFieldAge').textContent=age!=null?age+' tahun':'-';
+    document.getElementById('profileFieldGender').textContent=genderLabel(p.basic.gender);
     var ie=document.getElementById('profileFieldInterests');
-    if(p.interests&&p.interests.length){ie.innerHTML=p.interests.map(function(s){return '<span class="welvra-profile-interest-pill">'+escHtml(interestLabel(s))+'</span>';}).join('');}else{ie.textContent='Belum dipilih';}
+    var interests=p.preferences.interests||[];
+    if(interests.length){ie.innerHTML=interests.map(function(s){return '<span class="welvra-profile-interest-pill">'+escHtml(interestLabel(s))+'</span>';}).join('');}else{ie.textContent='Belum dipilih';}
     var je=document.getElementById('profileJoinedDate');
     if(p.created_at){var d=new Date(p.created_at);je.textContent=d.toLocaleDateString('id-ID',{year:'numeric',month:'long',day:'numeric'});}else{je.textContent='-';}
+    // Completeness bar
+    var pct=calculateProfileCompleteness(p);
+    var bar=document.getElementById('profileCompletionFill'),txt=document.getElementById('profileCompletionText');
+    if(bar)bar.style.width=pct+'%';
+    if(txt)txt.textContent='Profil '+pct+'% lengkap';
   }
+  // Helpers to traverse the nested profile via "section.field" paths.
+  function profileGet(obj,path){var parts=path.split('.');var cur=obj;for(var i=0;i<parts.length;i++){if(cur==null)return null;cur=cur[parts[i]];}return cur==null?null:cur;}
+  function profileSet(obj,path,value){var parts=path.split('.');var cur=obj;for(var i=0;i<parts.length-1;i++){if(cur[parts[i]]==null)cur[parts[i]]={};cur=cur[parts[i]];}cur[parts[parts.length-1]]=value;}
+
+  function renderChipGroup(container,vocabKey,multi,selectedValue){
+    var vocab=PROFILE_VOCAB[vocabKey]||[];
+    var sel=multi?(Array.isArray(selectedValue)?selectedValue:[]):selectedValue;
+    container.innerHTML=vocab.map(function(o){
+      var active=multi?(sel.indexOf(o.v)!==-1):(sel===o.v);
+      return '<button type="button" class="welvra-profile-edit-chip'+(active?' active':'')+'" data-value="'+escHtml(o.v)+'">'+escHtml(o.l)+'</button>';
+    }).join('');
+  }
+  function renderInterestGroup(container,vocabKey,selectedValues){
+    var vocab=PROFILE_VOCAB[vocabKey]||[];
+    var sel=Array.isArray(selectedValues)?selectedValues:[];
+    container.innerHTML=vocab.map(function(o){
+      var active=sel.indexOf(o.v)!==-1;
+      return '<button type="button" class="welvra-profile-edit-interest-chip'+(active?' active':'')+'" data-value="'+escHtml(o.v)+'">'+escHtml(o.l)+'</button>';
+    }).join('');
+  }
+
+  function applyConditionalSections(p){
+    var includeReproductive=p.basic.gender==='female'||p.basic.gender==='non-binary';
+    document.querySelectorAll('[data-conditional="reproductive"]').forEach(function(el){el.hidden=!includeReproductive;});
+    if(!includeReproductive&&profileState.activeTab==='reproductive')switchProfileTab('basic');
+  }
+  function switchProfileTab(name){
+    profileState.activeTab=name;
+    document.querySelectorAll('.welvra-profile-tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===name);});
+    document.querySelectorAll('.welvra-profile-section-panel').forEach(function(panel){panel.classList.toggle('active',panel.dataset.panel===name);});
+    var form=document.getElementById('profileEditForm');if(form)form.scrollTop=0;
+  }
+  function updateBmiDisplay(){
+    var p=profileState.pending;if(!p)return;
+    var bmi=calculateBMI(p.biometric.height_cm,p.biometric.weight_kg);
+    var box=document.getElementById('pf-bmi-display');
+    if(!bmi){if(box)box.hidden=true;return;}
+    var cat=bmiCategory(bmi);
+    if(box)box.hidden=false;
+    var v=document.getElementById('pf-bmi-value');if(v)v.textContent=bmi.toFixed(1);
+    var c=document.getElementById('pf-bmi-cat');if(c)c.textContent=cat;
+  }
+
   function openProfileEditModal(){
-    profileState.pending=JSON.parse(JSON.stringify(profileState.current));
-    document.getElementById('profileEditNameInput').value=profileState.pending.name||'';
-    document.getElementById('profileEditAgeInput').value=profileState.pending.age||'';
-    document.querySelectorAll('#profileEditGenderChips .welvra-profile-edit-chip').forEach(function(c){var a=c.dataset.gender===profileState.pending.gender;c.classList.toggle('active',a);});
-    renderProfileEditInterests();
-    var m=document.getElementById('profileEditModal');m.hidden=false;requestAnimationFrame(function(){m.classList.add('visible');});profileState.isEditMode=true;
+    profileState.pending=JSON.parse(JSON.stringify(profileState.current||emptyProfileShape()));
+    var p=profileState.pending;
+    // Populate text/number/date inputs
+    document.getElementById('pf-name').value=p.basic.name||'';
+    document.getElementById('pf-birth_date').value=p.basic.birth_date||'';
+    document.getElementById('pf-occupation').value=p.basic.occupation||'';
+    document.getElementById('pf-height_cm').value=p.biometric.height_cm||'';
+    document.getElementById('pf-weight_kg').value=p.biometric.weight_kg||'';
+    document.getElementById('pf-waist_cm').value=p.biometric.waist_cm||'';
+    document.getElementById('pf-current_medications').value=p.health.current_medications||'';
+    document.getElementById('pf-surgical_history').value=p.health.surgical_history||'';
+    document.getElementById('pf-sleep_hours').value=p.lifestyle.sleep_hours||'';
+    document.getElementById('pf-last_period_date').value=p.reproductive.last_period_date||'';
+    document.getElementById('pf-num_children').value=p.reproductive.num_children!=null?p.reproductive.num_children:'';
+    document.getElementById('pf-target_specific').value=p.goals.target_specific||'';
+    document.getElementById('pf-custom_greeting').value=p.preferences.custom_greeting||'';
+    // Populate chip groups via data-attributes.
+    document.querySelectorAll('[data-vocab]').forEach(function(el){
+      var vocabKey=el.dataset.vocab;var path=el.dataset.path;var multi=el.dataset.multi==='true';
+      var current=profileGet(p,path);
+      if(el.classList.contains('welvra-profile-edit-interests'))renderInterestGroup(el,vocabKey,current||[]);
+      else renderChipGroup(el,vocabKey,multi,current);
+    });
+    updateBmiDisplay();
+    applyConditionalSections(p);
+    switchProfileTab('basic');
+    var m=document.getElementById('profileEditModal');m.hidden=false;requestAnimationFrame(function(){m.classList.add('visible');});
+    profileState.isEditMode=true;
   }
   function closeProfileEditModal(){var m=document.getElementById('profileEditModal');m.classList.remove('visible');setTimeout(function(){m.hidden=true;},320);profileState.isEditMode=false;profileState.pending=null;}
-  function renderProfileEditInterests(){
-    var g=document.getElementById('profileEditInterestsGrid');if(!g)return;
-    var cats=[{slug:'kesehatan-umum',label:'Kesehatan Umum'},{slug:'kesehatan-reproduksi',label:'Reproduksi'},{slug:'kehamilan',label:'Kehamilan'},{slug:'panduan-orangtua',label:'Orangtua'},{slug:'wellness-mental',label:'Wellness Mental'},{slug:'nutrisi-gizi',label:'Nutrisi'},{slug:'kebugaran',label:'Kebugaran'},{slug:'herbal-indonesia',label:'Herbal'},{slug:'lifestyle',label:'Lifestyle'},{slug:'isu-sosial',label:'Isu Sosial'}];
-    var sel=profileState.pending.interests||[];
-    g.innerHTML=cats.map(function(c){var a=sel.indexOf(c.slug)!==-1;return '<button class="welvra-profile-edit-interest-chip'+(a?' active':'')+'" data-interest="'+c.slug+'" type="button">'+escHtml(c.label)+'</button>';}).join('');
+
+  function collectFormToPending(){
+    var p=profileState.pending;if(!p)return;
+    p.basic.name=(document.getElementById('pf-name').value||'').trim();
+    p.basic.birth_date=document.getElementById('pf-birth_date').value||null;
+    p.basic.occupation=(document.getElementById('pf-occupation').value||'').trim()||null;
+    var hv=parseInt(document.getElementById('pf-height_cm').value,10);p.biometric.height_cm=isNaN(hv)?null:hv;
+    var wv=parseFloat(document.getElementById('pf-weight_kg').value);p.biometric.weight_kg=isNaN(wv)?null:wv;
+    var wcv=parseInt(document.getElementById('pf-waist_cm').value,10);p.biometric.waist_cm=isNaN(wcv)?null:wcv;
+    p.health.current_medications=(document.getElementById('pf-current_medications').value||'').trim();
+    p.health.surgical_history=(document.getElementById('pf-surgical_history').value||'').trim();
+    var sv=parseInt(document.getElementById('pf-sleep_hours').value,10);p.lifestyle.sleep_hours=isNaN(sv)?null:sv;
+    p.reproductive.last_period_date=document.getElementById('pf-last_period_date').value||null;
+    var nc=parseInt(document.getElementById('pf-num_children').value,10);p.reproductive.num_children=isNaN(nc)?null:nc;
+    p.goals.target_specific=(document.getElementById('pf-target_specific').value||'').trim();
+    p.preferences.custom_greeting=(document.getElementById('pf-custom_greeting').value||'').trim();
+    return p;
   }
+
   function saveProfileEdits(){
-    var p=profileState.pending;if(!p)return;var name=(document.getElementById('profileEditNameInput').value||'').trim();var ageStr=document.getElementById('profileEditAgeInput').value;var age=ageStr?parseInt(ageStr,10):null;
-    if(!name){showToast('Nama tidak boleh kosong');return;}if(age!==null&&(age<13||age>120)){showToast('Usia harus antara 13 dan 120');return;}
+    var p=collectFormToPending();if(!p)return;
+    if(!p.basic.name){showToast('Nama tidak boleh kosong');switchProfileTab('basic');return;}
     var btn=document.getElementById('profileEditSave');btn.disabled=true;btn.textContent='Menyimpan...';
     var afterSave=function(){
-      profileState.current.name=name;profileState.current.age=age;profileState.current.gender=p.gender;profileState.current.interests=p.interests;
-      try{localStorage.setItem('welvra_username',name);}catch(e){}if(typeof setGreeting==='function')setGreeting();
+      profileState.current=JSON.parse(JSON.stringify(p));
+      try{localStorage.setItem('welvra_username',p.basic.name);}catch(e){}
+      if(typeof setGreeting==='function')setGreeting();
       renderProfileScreen();closeProfileEditModal();showToast('Profil tersimpan');btn.disabled=false;btn.textContent='Simpan';
     };
     if(profileState.isAnonymous){
-      saveLocalProfile({name:name,age:age,gender:p.gender,interests:p.interests});
-      var lp=loadLocalProfile();if(lp&&lp.created_at)profileState.current.created_at=lp.created_at;
+      var saved=saveLocalProfile(p);
+      if(saved&&saved.created_at)p.created_at=saved.created_at;
       afterSave();return;
     }
     var c=welvraAuth.getClient();var user=welvraAuth.getUser();if(!c||!user){showToast('Gagal menyimpan');btn.disabled=false;btn.textContent='Simpan';return;}
-    c.from('profiles').update({name:name,age:age,gender:p.gender,interests:p.interests}).eq('id',user.id).then(function(r){
+    var row=profileShapeToFlatRow(p);
+    c.from('profiles').update(row).eq('id',user.id).then(function(r){
       if(r.error){showToast('Gagal: '+r.error.message);btn.disabled=false;btn.textContent='Simpan';return;}
       afterSave();
     });
@@ -14171,7 +14701,7 @@ window.meditToggleSection = meditToggleSection;
       }).catch(function(){showToast('Gagal memproses foto');renderProfileScreen();});
       return;
     }
-    resizeImageFile(file,512,0.85).then(function(blob){return uploadProfilePhoto(blob);}).then(function(url){profileState.current.photo_url=url;showToast('Foto tersimpan');}).catch(function(err){showToast('Gagal upload foto');renderProfileScreen();});
+    resizeImageFile(file,512,0.85).then(function(blob){return uploadProfilePhoto(blob);}).then(function(url){profileState.photo_url=url;showToast('Foto tersimpan');}).catch(function(err){showToast('Gagal upload foto');renderProfileScreen();});
   }
   function resizeImageFile(file,maxDim,quality){return new Promise(function(resolve,reject){var img=new Image();var url=URL.createObjectURL(file);img.onload=function(){var canvas=document.createElement('canvas');var w=img.width,h=img.height,s=Math.min(maxDim/w,maxDim/h,1);canvas.width=Math.round(w*s);canvas.height=Math.round(h*s);canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);canvas.toBlob(function(b){URL.revokeObjectURL(url);b?resolve(b):reject(new Error('Resize gagal'));},'image/jpeg',quality);};img.onerror=function(){URL.revokeObjectURL(url);reject(new Error('Gambar tidak valid'));};img.src=url;});}
   function uploadProfilePhoto(blob){var c=welvraAuth.getClient();var user=welvraAuth.getUser();if(!c||!user)return Promise.reject(new Error('Tidak masuk'));var path=user.id+'/photo.jpg';return c.storage.from('profile-photos').upload(path,blob,{contentType:'image/jpeg',upsert:true}).then(function(r){if(r.error)throw r.error;return c.storage.from('profile-photos').createSignedUrl(path,365*24*60*60);}).then(function(r){if(r.error)throw r.error;return c.from('profiles').update({photo_url:r.data.signedUrl}).eq('id',user.id).then(function(){return r.data.signedUrl;});});}
@@ -14186,16 +14716,98 @@ window.meditToggleSection = meditToggleSection;
     document.getElementById('profilePhotoInput').addEventListener('change',handlePhotoSelect);
     var signInLink=document.getElementById('profileSignInLink');
     if(signInLink)signInLink.addEventListener('click',function(){
-      // Open onboarding email screen as the sign-in entry point.
       if(typeof openOnboarding==='function'){
         try{var ob=JSON.parse(localStorage.getItem('welvra.onboarding.v1')||'{}');ob.currentSlide=4;ob.completed=false;localStorage.setItem('welvra.onboarding.v1',JSON.stringify(ob));}catch(e){}
         openOnboarding();
       }
     });
-    document.getElementById('profileEditGenderChips').addEventListener('click',function(e){var chip=e.target.closest('[data-gender]');if(!chip||!profileState.pending)return;document.querySelectorAll('#profileEditGenderChips .welvra-profile-edit-chip').forEach(function(c){c.classList.remove('active');});chip.classList.add('active');profileState.pending.gender=chip.dataset.gender;});
-    document.getElementById('profileEditInterestsGrid').addEventListener('click',function(e){var btn=e.target.closest('[data-interest]');if(!btn||!profileState.pending)return;var slug=btn.dataset.interest;var arr=profileState.pending.interests;var idx=arr.indexOf(slug);if(idx===-1)arr.push(slug);else arr.splice(idx,1);btn.classList.toggle('active');});
+    // Tab navigation
+    var tabs=document.getElementById('profileTabs');
+    if(tabs)tabs.addEventListener('click',function(e){var t=e.target.closest('.welvra-profile-tab');if(!t)return;switchProfileTab(t.dataset.tab);});
+    // Chip group delegation — single/multi based on parent's data-multi
+    var form=document.getElementById('profileEditForm');
+    if(form)form.addEventListener('click',function(e){
+      var chip=e.target.closest('.welvra-profile-edit-chip,.welvra-profile-edit-interest-chip');
+      if(!chip||!profileState.pending)return;
+      var group=chip.parentElement;if(!group||!group.dataset||!group.dataset.path)return;
+      var multi=group.dataset.multi==='true';
+      var path=group.dataset.path;var value=chip.dataset.value;
+      if(multi){
+        var arr=profileGet(profileState.pending,path)||[];if(!Array.isArray(arr))arr=[];
+        var idx=arr.indexOf(value);
+        if(idx===-1)arr.push(value);else arr.splice(idx,1);
+        profileSet(profileState.pending,path,arr);
+        chip.classList.toggle('active');
+      } else {
+        // Toggle: clicking selected value clears it.
+        var prev=profileGet(profileState.pending,path);
+        var next=(prev===value)?null:value;
+        profileSet(profileState.pending,path,next);
+        group.querySelectorAll('.welvra-profile-edit-chip').forEach(function(c){c.classList.toggle('active',c.dataset.value===next);});
+        // Gender change toggles reproductive section visibility.
+        if(path==='basic.gender')applyConditionalSections(profileState.pending);
+      }
+    });
+    // Live BMI recalc
+    ['pf-height_cm','pf-weight_kg'].forEach(function(id){
+      var el=document.getElementById(id);if(!el)return;
+      el.addEventListener('input',function(){
+        if(!profileState.pending)return;
+        var hv=parseInt(document.getElementById('pf-height_cm').value,10);
+        var wv=parseFloat(document.getElementById('pf-weight_kg').value);
+        profileState.pending.biometric.height_cm=isNaN(hv)?null:hv;
+        profileState.pending.biometric.weight_kg=isNaN(wv)?null:wv;
+        updateBmiDisplay();
+      });
+    });
   }
   window.openProfileScreen=openProfileScreen;
+
+  // ===== PROFILE CONTEXT (consumed by Dr. Sly chat, Analisa Makanku, etc.) =====
+  window.welvraProfileContext=function(){
+    var p=profileState.current||emptyProfileShape();
+    var bmi=calculateBMI(p.biometric.height_cm,p.biometric.weight_kg);
+    return {
+      name:p.basic.name||null,
+      age:birthDateToAge(p.basic.birth_date),
+      gender:p.basic.gender||'not-specified',
+      marital_status:p.basic.marital_status||null,
+      occupation:p.basic.occupation||null,
+      height_cm:p.biometric.height_cm||null,
+      weight_kg:p.biometric.weight_kg||null,
+      waist_cm:p.biometric.waist_cm||null,
+      blood_type:p.biometric.blood_type||null,
+      bmi:bmi,
+      bmi_category:bmiCategory(bmi),
+      chronic_conditions:p.health.chronic_conditions||[],
+      allergies:p.health.allergies||[],
+      current_medications:p.health.current_medications||'',
+      surgical_history:p.health.surgical_history||'',
+      family_history:p.health.family_history||[],
+      activity_level:p.lifestyle.activity_level||null,
+      diet_type:p.lifestyle.diet_type||null,
+      special_diet:p.lifestyle.special_diet||[],
+      smoking:p.lifestyle.smoking||null,
+      alcohol:p.lifestyle.alcohol||null,
+      sleep_hours:p.lifestyle.sleep_hours||null,
+      stress_level:p.lifestyle.stress_level||null,
+      menstrual_status:p.reproductive.menstrual_status||null,
+      last_period_date:p.reproductive.last_period_date||null,
+      pregnancy_status:p.reproductive.pregnancy_status||null,
+      num_children:p.reproductive.num_children||null,
+      contraception_method:p.reproductive.contraception_method||[],
+      health_goals:p.goals.health_goals||[],
+      target_specific:p.goals.target_specific||'',
+      interests:p.preferences.interests||[],
+      greeting_style:p.preferences.greeting_style||'kamu',
+      custom_greeting:p.preferences.custom_greeting||'',
+      notification_times:p.preferences.notification_times||[],
+      is_anonymous:profileState.isAnonymous,
+      completeness:calculateProfileCompleteness(p)
+    };
+  };
+  // Initialize profileState.current early so welvraProfileContext works before profile screen opens.
+  if(!profileState.current){profileState.current=loadLocalProfile();profileState.isAnonymous=!welvraAuth.isAuthenticated();}
 
   // ===== PHASE 3A.5: CLOUD SYNC =====
   var syncState={bookmarkTimer:null,historyTimer:null};
@@ -14383,12 +14995,12 @@ window.meditToggleSection = meditToggleSection;
   }
   function maybeMigrateLocalProfile(userId){
     var lp=loadLocalProfile();
-    var hasContent=lp&&(lp.name||lp.age||(lp.interests&&lp.interests.length)||lp.photo_data_url);
+    var hasContent=lp&&((lp.basic&&(lp.basic.name||lp.basic.birth_date))||(lp.preferences&&lp.preferences.interests&&lp.preferences.interests.length)||lp.photo_data_url);
     if(!hasContent)return;
     if(!confirm('Pindahkan data profil yang sudah kamu isi ke akun?'))return;
     var c=welvraAuth.getClient();if(!c)return;
-    var update={name:lp.name||'',age:lp.age||null,gender:lp.gender||'not-specified',interests:lp.interests||[]};
-    c.from('profiles').update(update).eq('id',userId).then(function(r){
+    var row=profileShapeToFlatRow(lp);
+    c.from('profiles').update(row).eq('id',userId).then(function(r){
       if(r.error){console.warn('[Welvra] Migrate failed:',r.error.message);showToast('Gagal memindahkan data');return;}
       // Photo: re-upload data URL as JPEG blob if present.
       if(lp.photo_data_url){
@@ -14484,11 +15096,12 @@ window.meditToggleSection = meditToggleSection;
       pregnancyWeek: null
     };
 
-    // From profile state (available after auth)
-    if (typeof profileState !== 'undefined' && profileState.current) {
-      ctx.interests = profileState.current.interests || [];
-      ctx.age = profileState.current.age;
-      ctx.gender = profileState.current.gender || 'all';
+    // From profile state (nested schema, available after fetchProfileData)
+    if (typeof profileState !== 'undefined' && profileState.current && profileState.current.basic) {
+      var pc = profileState.current;
+      ctx.interests = (pc.preferences && pc.preferences.interests) || [];
+      ctx.age = (typeof birthDateToAge === 'function') ? birthDateToAge(pc.basic.birth_date) : null;
+      ctx.gender = pc.basic.gender || 'all';
     }
 
     // Fallback: from onboarding localStorage
