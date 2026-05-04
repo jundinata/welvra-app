@@ -3312,6 +3312,11 @@ html.dark .fp-settings__row-label{color:#F0EDE8}
 .fp-lightbox__close{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
   background:rgba(255,255,255,.15);color:#fff;display:flex;align-items:center;justify-content:center;z-index:2}
 .fp-lightbox__close svg{width:24px;height:24px}
+@media(prefers-reduced-motion:reduce){
+  .fp-home-widget__spark svg polyline,.fp-trend__chart svg path{animation:none !important;transition:none !important}
+  .fp-stale-banner,.fp-home-widget,.fp-report__sheet{animation:none !important;transition:none !important}
+  .fp-lightbox img{transition:none !important}
+}
 
 /* ============================================================ */
 /* PHASE 2A — DRAWER + BOTTOM NAV (luxury layer)                */
@@ -11269,10 +11274,17 @@ function fpClearAll(){
   try { localStorage.removeItem(FP_HISTORY_KEY); } catch(e){}
 }
 
+function fpGetSupabase(){
+  try {
+    if (window.welvraAuth && typeof window.welvraAuth.getClient === 'function') return window.welvraAuth.getClient();
+  } catch(e){}
+  return null;
+}
+
 function fpSaveToSupabase(item){
   try {
-    if (!window._supabase) return;
-    var sb = window._supabase;
+    var sb = fpGetSupabase();
+    if (!sb) return;
     sb.auth.getUser().then(function(res){
       if (!res.data || !res.data.user) return;
       sb.from('skin_analyses').insert({
@@ -11445,7 +11457,7 @@ function fpEnsureDom(){
       /* RESULT — Phase 2 multi-section */
       '<div class="fp-step fp-result" data-step="result">' +
         /* Hero */
-        '<img class="fp-result__photo" id="fp-result-photo" alt="Foto wajah">' +
+        '<img class="fp-result__photo" id="fp-result-photo" alt="Foto wajah" style="cursor:zoom-in" onclick="fpHandleLightboxClick(this)">' +
         '<svg class="fp-gauge" id="fp-gauge" width="200" height="200" viewBox="0 0 200 200">' +
           '<defs><linearGradient id="fp-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0A7B6C"/><stop offset="100%" stop-color="#C8860A"/></linearGradient></defs>' +
           '<circle cx="100" cy="100" r="85" fill="none" stroke="rgba(10,123,108,.15)" stroke-width="8"/>' +
@@ -11480,7 +11492,7 @@ function fpEnsureDom(){
       /* HISTORY DETAIL */
       '<div class="fp-step fp-result" data-step="history-detail">' +
         '<div id="fp-hdetail-bar" style="position:relative"></div>' +
-        '<img class="fp-result__photo" id="fp-hdetail-photo" alt="Foto wajah">' +
+        '<img class="fp-result__photo" id="fp-hdetail-photo" alt="Foto wajah" style="cursor:zoom-in" onclick="fpHandleLightboxClick(this)">' +
         '<svg class="fp-gauge" id="fp-hdetail-gauge" width="200" height="200" viewBox="0 0 200 200">' +
           '<defs><linearGradient id="fp-grad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0A7B6C"/><stop offset="100%" stop-color="#C8860A"/></linearGradient></defs>' +
           '<circle cx="100" cy="100" r="85" fill="none" stroke="rgba(10,123,108,.15)" stroke-width="8"/>' +
@@ -12304,7 +12316,20 @@ function fpOpenHistoryDetail(id){
 
   /* Render Phase 2 result sections using detail-specific IDs */
   var photo = document.getElementById('fp-hdetail-photo');
-  if (photo) photo.src = entry.photo_data_url || 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#D4B89C" width="200" height="200" rx="24"/></svg>');
+  if (photo){
+    photo.src = entry.photo_data_url || 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#D4B89C" width="200" height="200" rx="24"/></svg>');
+    /* Async upgrade to cloud full-resolution if signed in */
+    var sb = fpGetSupabase();
+    if (sb){
+      sb.from('skin_analyses').select('photo_storage_path').eq('id', entry.id).maybeSingle().then(function(res){
+        if (res && res.data && res.data.photo_storage_path){
+          sb.storage.from('faceprint-photos').createSignedUrl(res.data.photo_storage_path, 3600).then(function(urlRes){
+            if (urlRes && urlRes.data && urlRes.data.signedUrl && photo.parentNode) photo.src = urlRes.data.signedUrl;
+          });
+        }
+      }).catch(function(){});
+    }
+  }
 
   var score = Math.max(0, Math.min(100, entry.overall_score || 0));
   var circ = 2 * Math.PI * 85;
@@ -12533,9 +12558,9 @@ function fpRenderCompare(prev, curr){
 
   /* Photos */
   html += '<div class="fp-compare__photos">';
-  html += '<div class="fp-compare__photo-col">' + (prev.photo_data_url ? '<img src="' + fpEsc(prev.photo_data_url) + '" alt="">' : '<div class="fp-hcard__placeholder" style="width:56px;height:56px;margin:0 auto">' + FP_PLACEHOLDER_SVG + '</div>') + '<div class="fp-compare__photo-date">' + fpEsc(fpFormatDateShort(prev.created_at)) + '</div></div>';
+  html += '<div class="fp-compare__photo-col">' + (prev.photo_data_url ? '<img src="' + fpEsc(prev.photo_data_url) + '" alt="" style="cursor:zoom-in" onclick="fpHandleLightboxClick(this)">' : '<div class="fp-hcard__placeholder" style="width:56px;height:56px;margin:0 auto">' + FP_PLACEHOLDER_SVG + '</div>') + '<div class="fp-compare__photo-date">' + fpEsc(fpFormatDateShort(prev.created_at)) + '</div></div>';
   html += '<div class="fp-compare__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg></div>';
-  html += '<div class="fp-compare__photo-col">' + (curr.photo_data_url ? '<img src="' + fpEsc(curr.photo_data_url) + '" alt="">' : '<div class="fp-hcard__placeholder" style="width:56px;height:56px;margin:0 auto">' + FP_PLACEHOLDER_SVG + '</div>') + '<div class="fp-compare__photo-date">' + fpEsc(fpFormatDateShort(curr.created_at)) + '</div></div>';
+  html += '<div class="fp-compare__photo-col">' + (curr.photo_data_url ? '<img src="' + fpEsc(curr.photo_data_url) + '" alt="" style="cursor:zoom-in" onclick="fpHandleLightboxClick(this)">' : '<div class="fp-hcard__placeholder" style="width:56px;height:56px;margin:0 auto">' + FP_PLACEHOLDER_SVG + '</div>') + '<div class="fp-compare__photo-date">' + fpEsc(fpFormatDateShort(curr.created_at)) + '</div></div>';
   html += '</div>';
 
   /* Overall delta */
@@ -12837,6 +12862,10 @@ var FP_STALE_DISMISSED_KEY = 'welvra.faceprint.stale_dismissed_at';
 /* ---------- TREND ---------- */
 function fpOpenTrend(){
   fpEnsureDom();
+  fpState.isOpen = true;
+  var modal = document.getElementById('welvraFaceprintModal');
+  if (modal) modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
   fpState.trendRange = '3months';
   fpShowStep('trend');
   fpRenderTrendCharts();
@@ -12942,6 +12971,51 @@ function fpRenderTrendCharts(){
   html += '</div>';
 
   el.innerHTML = html;
+
+  /* Bind dot tap for tooltips */
+  var dots = el.querySelectorAll('.fp-trend__chart svg circle[data-idx]');
+  for (var d = 0; d < dots.length; d++){
+    (function(dot){
+      dot.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        fpShowTrendTooltip(dot);
+      });
+    })(dots[d]);
+  }
+}
+
+var _fpActiveTooltip = null;
+function fpShowTrendTooltip(dot){
+  fpDismissTrendTooltip();
+  var idx = parseInt(dot.getAttribute('data-idx'), 10);
+  var chartEl = dot.closest('.fp-trend__chart');
+  if (!chartEl) return;
+  var labelEl = chartEl.querySelector('.fp-trend__chart-label');
+  var label = labelEl ? labelEl.textContent : '';
+  var entries = fpLoadHistory();
+  var range = fpState.trendRange || '3months';
+  var metricKey = 'overall';
+  var labelToKey = {'Hidrasi':'hydration','Jerawat':'acne','Pori':'pores','Kerutan':'wrinkles','Pigmentasi':'pigmentation','Kemerahan':'redness','Skor Keseluruhan':'overall'};
+  if (labelToKey[label]) metricKey = labelToKey[label];
+  var data = fpComputeTrendData(entries, metricKey, range);
+  var point = data[idx];
+  if (!point) return;
+  var maxVal = metricKey === 'overall' ? 100 : 10;
+  var tooltip = document.createElement('div');
+  tooltip.className = 'fp-trend__tooltip';
+  tooltip.textContent = fpFormatDateShort(point.date) + ' — ' + label + ' ' + point.value + '/' + maxVal;
+  chartEl.style.position = 'relative';
+  var rect = dot.getBoundingClientRect();
+  var chartRect = chartEl.getBoundingClientRect();
+  tooltip.style.left = Math.max(8, Math.min(chartRect.width - 150, rect.left - chartRect.left - 60)) + 'px';
+  tooltip.style.top = (rect.top - chartRect.top - 36) + 'px';
+  chartEl.appendChild(tooltip);
+  _fpActiveTooltip = tooltip;
+  setTimeout(function(){ document.addEventListener('click', fpDismissTrendTooltip, {once:true}); }, 10);
+}
+function fpDismissTrendTooltip(){
+  if (_fpActiveTooltip && _fpActiveTooltip.parentNode) _fpActiveTooltip.parentNode.removeChild(_fpActiveTooltip);
+  _fpActiveTooltip = null;
 }
 
 function fpHandleRangeChange(range){
@@ -13054,8 +13128,9 @@ function fpCloseProgressReport(){
 /* ---------- CLOUD PHOTO ---------- */
 function fpUploadPhotoToCloud(entryId, dataUrl){
   try {
-    if (!window._supabase || !dataUrl) return;
-    var sb = window._supabase;
+    if (!dataUrl) return;
+    var sb = fpGetSupabase();
+    if (!sb) return;
     sb.auth.getUser().then(function(res){
       if (!res.data || !res.data.user) return;
       var uid = res.data.user.id;
@@ -13073,8 +13148,9 @@ function fpUploadPhotoToCloud(entryId, dataUrl){
 }
 
 function fpFetchPhotoUrl(entry){
-  if (!window._supabase || !entry.photo_storage_path) return Promise.resolve(null);
-  return window._supabase.storage.from('faceprint-photos')
+  var sb = fpGetSupabase();
+  if (!sb || !entry.photo_storage_path) return Promise.resolve(null);
+  return sb.storage.from('faceprint-photos')
     .createSignedUrl(entry.photo_storage_path, 3600)
     .then(function(res){ return res.data ? res.data.signedUrl : null; })
     .catch(function(){ return null; });
@@ -13188,13 +13264,50 @@ function fpRenderSettings(){
   html += '<button class="fp-settings__row-btn fp-settings__row-btn--danger" onclick="fpStartDeleteAll()"' + (entries.length ? '' : ' disabled style="opacity:.4"') + '>Hapus</button></div>';
   html += '</div>';
 
-  /* About */
+  /* Akun section — populated async if signed in */
+  html += '<div class="fp-settings__section" id="fp-settings-akun" style="display:none"><div class="fp-settings__section-label">Akun</div>';
+  html += '<div class="fp-settings__row"><div><div class="fp-settings__row-label" id="fp-settings-email">-</div><div class="fp-settings__row-sub">Tersinkronisasi ke cloud</div></div>';
+  html += '<button class="fp-settings__row-btn" onclick="fpSignOut()">Sign Out</button></div>';
+  html += '</div>';
+
+  /* Tentang */
   html += '<div class="fp-settings__section"><div class="fp-settings__section-label">Tentang</div>';
-  html += '<div class="fp-settings__row"><div class="fp-settings__row-label">Versi Aplikasi</div><div class="fp-settings__row-sub">1.0 Phase 4</div></div>';
+  html += '<div class="fp-settings__row"><div class="fp-settings__row-label">Versi Aplikasi</div><div class="fp-settings__row-sub">1.0</div></div>';
+  html += '<div class="fp-settings__row" style="cursor:pointer" onclick="fpShowPrivacyInfo()"><div><div class="fp-settings__row-label">Privasi & Keamanan</div><div class="fp-settings__row-sub">Bagaimana data kamu diperlakukan</div></div></div>';
+  html += '<div class="fp-settings__row" style="cursor:pointer" onclick="fpShowTermsInfo()"><div><div class="fp-settings__row-label">Syarat Layanan</div><div class="fp-settings__row-sub">Ketentuan penggunaan</div></div></div>';
   html += '</div>';
 
   html += '<div style="padding:16px 0"><button class="fp-btn fp-btn--secondary" onclick="closeFaceprint()">Tutup</button></div>';
   el.innerHTML = html;
+
+  /* Async populate Akun if signed in */
+  var sb = fpGetSupabase();
+  if (sb){
+    sb.auth.getUser().then(function(res){
+      if (res && res.data && res.data.user){
+        var akun = document.getElementById('fp-settings-akun');
+        var emailEl = document.getElementById('fp-settings-email');
+        if (akun) akun.style.display = '';
+        if (emailEl) emailEl.textContent = res.data.user.email || '-';
+      }
+    });
+  }
+}
+
+function fpSignOut(){
+  var sb = fpGetSupabase();
+  if (!sb) return;
+  sb.auth.signOut().then(function(){
+    if (window.showWelvraToast) window.showWelvraToast('Berhasil keluar');
+    fpRenderSettings();
+    fpRenderHomeWidget();
+  });
+}
+function fpShowPrivacyInfo(){
+  if (window.showWelvraToast) window.showWelvraToast('Data Faceprint disimpan di perangkat dan cloud (jika sign in). Hanya kamu yang bisa akses.');
+}
+function fpShowTermsInfo(){
+  if (window.showWelvraToast) window.showWelvraToast('Welvra panduan edukasi, bukan diagnosis medis. Konsultasi profesional kesehatan untuk concern serius.');
 }
 
 function fpExportData(){
@@ -13249,8 +13362,8 @@ function fpExecuteDeleteAll(){
 
   /* Supabase rows + storage */
   try {
-    if (window._supabase){
-      var sb = window._supabase;
+    var sb = fpGetSupabase();
+    if (sb){
       sb.auth.getUser().then(function(res){
         if (!res.data || !res.data.user) return;
         var uid = res.data.user.id;
@@ -13272,6 +13385,12 @@ function fpExecuteDeleteAll(){
 }
 
 /* ---------- LIGHTBOX ---------- */
+function fpHandleLightboxClick(imgEl){
+  if (!imgEl || !imgEl.src) return;
+  if (imgEl.src.indexOf('data:image/svg') === 0) return;
+  fpOpenLightbox(imgEl.src);
+}
+
 function fpOpenLightbox(photoUrl){
   if (!photoUrl) return;
   fpEnsureDom();
@@ -13294,13 +13413,48 @@ function fpCloseLightbox(){
 
 function fpLightboxEsc(e){ if (e.key === 'Escape') fpCloseLightbox(); }
 
-/* ---------- INIT HOME WIDGET ---------- */
+/* ---------- BACKFILL PHOTOS ---------- */
+function fpBackfillPhotos(){
+  var sb = fpGetSupabase();
+  if (!sb) return;
+  sb.auth.getUser().then(function(res){
+    if (!res.data || !res.data.user) return;
+    var entries = fpLoadHistory();
+    var queue = entries.filter(function(e){ return e.photo_data_url; }).slice(0, 5);
+    function processNext(){
+      if (!queue.length) return;
+      var entry = queue.shift();
+      sb.from('skin_analyses').select('photo_storage_path').eq('id', entry.id).maybeSingle().then(function(check){
+        if (check && check.data && check.data.photo_storage_path){ processNext(); return; }
+        fpUploadPhotoToCloud(entry.id, entry.photo_data_url);
+        setTimeout(processNext, 1500);
+      }).catch(function(){ processNext(); });
+    }
+    console.log('Faceprint: backfill photos, queue:', queue.length);
+    processNext();
+  });
+}
+
+/* ---------- INIT HOME WIDGET + AUTH SUBSCRIBE ---------- */
 (function(){
   if (document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', fpRenderHomeWidget);
   } else {
     setTimeout(fpRenderHomeWidget, 100);
   }
+  /* Backfill photos on sign-in */
+  function trySubscribe(){
+    if (window.welvraAuth && typeof window.welvraAuth.onAuthChange === 'function'){
+      window.welvraAuth.onAuthChange(function(event, session){
+        if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session){
+          setTimeout(fpBackfillPhotos, 2000);
+        }
+      });
+      return true;
+    }
+    return false;
+  }
+  if (!trySubscribe()) setTimeout(trySubscribe, 1000);
 })();
 
 /* ---------- EXPOSE GLOBALLY ---------- */
@@ -13346,8 +13500,13 @@ window.fpOpenSettings = fpOpenSettings;
 window.fpExportData = fpExportData;
 window.fpStartDeleteAll = fpStartDeleteAll;
 window.fpExecuteDeleteAll = fpExecuteDeleteAll;
+window.fpHandleLightboxClick = fpHandleLightboxClick;
 window.fpOpenLightbox = fpOpenLightbox;
 window.fpCloseLightbox = fpCloseLightbox;
+window.fpBackfillPhotos = fpBackfillPhotos;
+window.fpSignOut = fpSignOut;
+window.fpShowPrivacyInfo = fpShowPrivacyInfo;
+window.fpShowTermsInfo = fpShowTermsInfo;
 
 })();
 </script>
