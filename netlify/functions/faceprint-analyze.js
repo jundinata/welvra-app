@@ -129,45 +129,64 @@ Berikan response dalam format JSON valid berikut:
   "primary_concern": "<topik concern paling utama>"
 }`;
 
-    // Call Gemini 2.0 Flash Vision API
-    const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-    const url = `${endpoint}?key=${process.env.GEMINI_API_KEY}`;
+    // Gemini model fallback: try 2.5-flash first, fall back to 1.5-flash on 429
+    const PRIMARY_MODEL = "gemini-2.5-flash";
+    const FALLBACK_MODEL = "gemini-1.5-flash";
+    const buildEndpoint = (model) =>
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
+    const requestBody = {
+      contents: [
+        {
+          parts: [
+            {
+              inline_data: {
+                mime_type: "image/jpeg",
+                data: cleanBase64,
+              },
+            },
+            {
+              text: userMessage,
+            },
+          ],
+        },
+      ],
+      systemInstruction: {
+        parts: [{ text: SYSTEM_PROMPT }],
+      },
+      generationConfig: {
+        temperature: 0.4,
+        topK: 40,
+        topP: 0.95,
+        maxOutputTokens: 2000,
+        responseMimeType: "application/json",
+      },
+    };
+
+    const apiKey = process.env.GEMINI_API_KEY;
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 30000);
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      signal: controller.signal,
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                inline_data: {
-                  mime_type: "image/jpeg",
-                  data: cleanBase64,
-                },
-              },
-              {
-                text: userMessage,
-              },
-            ],
-          },
-        ],
-        systemInstruction: {
-          parts: [{ text: SYSTEM_PROMPT }],
-        },
-        generationConfig: {
-          temperature: 0.4,
-          topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 2000,
-          responseMimeType: "application/json",
-        },
-      }),
-    });
+    async function callGemini(model) {
+      const url = `${buildEndpoint(model)}?key=${apiKey}`;
+      console.log("Faceprint: trying model:", model);
+      return fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
+        body: JSON.stringify(requestBody),
+      });
+    }
+
+    let response = await callGemini(PRIMARY_MODEL);
+    console.log("Faceprint: response status:", response.status, "model:", PRIMARY_MODEL);
+
+    // Fallback on 429 quota error
+    if (response.status === 429) {
+      console.log("Faceprint: fallback to:", FALLBACK_MODEL);
+      response = await callGemini(FALLBACK_MODEL);
+      console.log("Faceprint: response status:", response.status, "model:", FALLBACK_MODEL);
+    }
 
     clearTimeout(timeoutId);
 
@@ -177,7 +196,7 @@ Berikan response dalam format JSON valid berikut:
       console.error("Gemini API error:", response.status, errorBody);
 
       if (response.status === 429) {
-        return errResponse(429, "Tunggu sebentar, banyak yang sedang cek kulit.");
+        return errResponse(429, "Sistem pemeriksaan sedang sibuk. Coba lagi dalam 1 menit.");
       }
       if (response.status >= 500) {
         return errResponse(502, "Sistem pemeriksaan sedang sibuk. Coba lagi dalam beberapa saat.");
