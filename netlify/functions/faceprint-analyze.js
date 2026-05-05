@@ -209,8 +209,9 @@ Berikan response dalam format JSON valid berikut:
         temperature: 0.4,
         topK: 40,
         topP: 0.95,
-        maxOutputTokens: 8000,
+        maxOutputTokens: 10000,
         responseMimeType: "application/json",
+        thinkingConfig: { thinkingBudget: 0 },
       },
     };
 
@@ -232,11 +233,15 @@ Berikan response dalam format JSON valid berikut:
     let response = await callGemini(PRIMARY_MODEL);
     console.log("Faceprint: response status:", response.status, "model:", PRIMARY_MODEL);
 
-    // Fallback on 429 quota error
-    if (response.status === 429) {
-      console.log("Faceprint: fallback to:", FALLBACK_MODEL);
+    // Fallback on 429 (quota) or 503 (peak demand)
+    if (response.status === 429 || response.status === 503) {
+      // 503 from primary often resolves within ~1s as Google auto-scales
+      if (response.status === 503) {
+        await new Promise((r) => setTimeout(r, 800));
+      }
+      console.log("Faceprint: fallback to:", FALLBACK_MODEL, "after", response.status);
       response = await callGemini(FALLBACK_MODEL);
-      console.log("Faceprint: response status:", response.status, "model:", FALLBACK_MODEL);
+      console.log("Faceprint: fallback response status:", response.status, "model:", FALLBACK_MODEL);
     }
 
     clearTimeout(timeoutId);
@@ -249,10 +254,16 @@ Berikan response dalam format JSON valid berikut:
       if (response.status === 429) {
         return errResponse(429, "Sistem pemeriksaan sedang sibuk. Coba lagi dalam 1 menit.");
       }
-      if (response.status >= 500) {
-        return errResponse(502, "Sistem pemeriksaan sedang sibuk. Coba lagi dalam beberapa saat.");
+      if (response.status === 503) {
+        return errResponse(503, "Sistem sedang ramai, coba beberapa menit lagi.");
       }
-      return errResponse(400, "Pemeriksaan gagal. Coba lagi dengan foto yang lebih jelas.");
+      if (response.status >= 500) {
+        return errResponse(502, "Sistem pemeriksaan sedang sibuk. Coba lagi sebentar.");
+      }
+      if (response.status === 400) {
+        return errResponse(400, "Foto tidak bisa dianalisis. Pastikan wajah terlihat jelas dengan pencahayaan baik.");
+      }
+      return errResponse(400, "Pemeriksaan gagal. Coba foto baru dengan pencahayaan lebih baik.");
     }
 
     // Parse Gemini response

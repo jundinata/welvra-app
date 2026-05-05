@@ -1785,8 +1785,9 @@ html.dark .bp-tabs{background:rgba(10,123,108,0.18)}
 .bp-save-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(10,123,108,.28)}
 .bp-save-btn:active{transform:translateY(0) scale(.98)}
 .bp-save-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-.bp-save-btn.secondary{background:var(--card);color:var(--primary);border:1.5px solid var(--primary);box-shadow:none}
-.bp-save-btn.secondary:hover{background:var(--primary-light);box-shadow:none}
+.bp-save-btn.secondary{background:var(--card) !important;color:var(--primary) !important;border:1.5px solid var(--primary) !important;box-shadow:none !important;text-shadow:none !important}
+.bp-save-btn.secondary:hover{background:var(--primary-light) !important;box-shadow:none !important;transform:none !important}
+.bp-save-btn.secondary:active{transform:none !important;background:var(--primary-light) !important;box-shadow:none !important}
 
 /* Result card (slide-up + fade-in) */
 .bp-result{animation:bpSlideUp .5s cubic-bezier(.25,.8,.25,1) both;margin-bottom:14px}
@@ -11907,7 +11908,7 @@ function fpStartAnalysis(){
   if (b64.indexOf('data:') === 0) b64 = b64.split(',')[1] || b64;
 
   var controller = new AbortController();
-  var timeout = setTimeout(function(){ controller.abort(); }, 30000);
+  var timeout = setTimeout(function(){ controller.abort(); }, 60000);
 
   fetch('/api/faceprint-analyze', {
     method: 'POST',
@@ -11942,10 +11943,20 @@ function fpStartAnalysis(){
     clearTimeout(timeout);
     clearInterval(progressIv);
     console.error('Faceprint analyze error:', err);
-    var msg = err.message || 'Maaf, pemeriksaan gagal. Coba lagi sebentar.';
-    if (err.name === 'AbortError') msg = 'Pemeriksaan terlalu lama. Coba foto lebih kecil.';
-    else if (err.httpStatus === 413) msg = 'Foto terlalu besar. Coba resolusi lebih rendah.';
-    else if (msg.indexOf('HTTP') === 0) msg = 'Sistem sedang bermasalah. Coba lagi sebentar.';
+    var msg = 'Pemeriksaan gagal. Coba lagi atau ambil foto baru.';
+    if (err.name === 'AbortError') {
+      msg = 'Koneksi terlalu lambat. Periksa internet dan coba lagi.';
+    } else if (err.httpStatus === 413) {
+      msg = 'Foto terlalu besar. Coba resolusi lebih rendah.';
+    } else if (err.message && /503|ramai/i.test(err.message)) {
+      msg = err.message;
+    } else if (err.message && /429|sibuk/i.test(err.message)) {
+      msg = 'Sistem pemeriksaan sedang sibuk. Coba lagi dalam 1 menit.';
+    } else if (err.message && /Foto tidak|pencahayaan|wajah terlihat/i.test(err.message)) {
+      msg = err.message;
+    } else if (err.message && err.message.indexOf('HTTP') !== 0) {
+      msg = err.message;
+    }
     if (window.showWelvraToast) window.showWelvraToast(msg);
     fpShowStep('tips');
   });
