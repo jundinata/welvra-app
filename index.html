@@ -27,7 +27,7 @@ setTimeout(function(){
 --gold:#C8860A;--gold-light:rgba(200,134,10,.1);
 --sage:#6B9E78;--sage-light:rgba(107,158,120,.1);
 --blush:#F0E6E6;
---bg:#FAFAF7;--white:#FFFFFF;--card:#FFFFFF;
+--bg:#F4EBD8;--bg-deep:#EEE5D2;--white:#FFFFFF;--card:#FFFFFF;--champagne:#F4EBD8;
 --text:#2D2A26;--text-light:#6B7A8D;--text-muted:#A8A29E;
 --border:#E8E4DF;--border-light:#F3F0EC;
 --shadow:0 2px 4px rgba(0,0,0,.04),0 8px 16px rgba(0,0,0,.06),0 16px 32px rgba(10,123,108,.05),inset 0 1px 0 rgba(255,255,255,.8);
@@ -52,7 +52,7 @@ setTimeout(function(){
 --radius:24px;--max-w:480px;
 }
 html.dark{
---bg:#141820;--white:#1C2030;--card:#1E2235;
+--bg:#16151D;--bg-deep:#0F0E14;--white:#1C2030;--card:#1E2235;
 --text:#F0EDE8;--text-light:#8B9BB4;--text-muted:#5E6A80;
 --border:#2A2F40;--border-light:#232838;
 --blush:#251E2A;
@@ -143,11 +143,28 @@ html.dark{
 }
 
 html{font-size:16px;-webkit-text-size-adjust:100%}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;min-height:100vh;min-height:100dvh;transition:background .4s,color .4s;position:relative}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-background-image:radial-gradient(circle,rgba(10,123,108,.03) 1px,transparent 1px);
-background-size:28px 28px}
-html.dark body::before{background-image:radial-gradient(circle,rgba(10,123,108,.04) 1px,transparent 1px)}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:linear-gradient(180deg,var(--bg) 0%,var(--bg-deep,#EEE5D2) 100%);
+  color:var(--text);
+  line-height:1.7;
+  overflow-x:hidden;
+  min-height:100vh;min-height:100dvh;
+  transition:background .4s,color .4s;
+  position:relative;
+}
+body::before{
+  content:'';
+  position:fixed;
+  top:0;left:0;right:0;
+  height:60vh;
+  background:radial-gradient(ellipse at 50% 0%,rgba(200,134,10,0.04) 0%,transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+html.dark body::before{
+  background:radial-gradient(ellipse at 50% 0%,rgba(200,134,10,0.06) 0%,transparent 70%);
+}
 h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--text);transition:color .3s}
 .container{max-width:var(--max-w);margin:0 auto;padding:0 20px;position:relative;z-index:1}
 button{font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;border:none;outline:none}
@@ -3827,65 +3844,85 @@ html.dark .welvra-feature-stack__line{
 .welvra-feature-card-thin{
   position: relative;
   display:flex; align-items:center; gap: 14px;
-  width:100%; min-height: 92px;
-  padding: 14px 18px 14px 14px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.86) 0%, rgba(255,255,255,0.72) 100%);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  backdrop-filter: blur(16px) saturate(1.4);
-  border: 1px solid rgba(255,255,255,0.6);
-  border-radius: 18px;
+  width:100%; min-height: 96px;
+  padding: 16px 18px 16px 14px;
+  /* iOS 26 Liquid Glass — more transparent so champagne shows through */
+  background: linear-gradient(135deg, rgba(255,253,248,0.55) 0%, rgba(255,253,248,0.38) 100%);
+  -webkit-backdrop-filter: blur(32px) saturate(1.8);
+  backdrop-filter: blur(32px) saturate(1.8);
+  border: 1px solid rgba(255,255,255,0.78);
+  border-radius: 20px;
   cursor: pointer; text-align:left;
   font: inherit; color: inherit;
   appearance:none; -webkit-appearance:none;
   -webkit-tap-highlight-color: transparent;
   overflow: hidden;
   isolation: isolate;
-  /* 5-layer 4D shadow stack */
+  /* DRAMATIC 7-layer shadow stack — iOS 26 Liquid Glass */
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.9),
-    inset 0 -1px 0 rgba(45,42,38,0.04),
-    0 1px 2px rgba(45,42,38,0.04),
-    0 6px 20px rgba(45,42,38,0.06),
-    0 16px 40px var(--feature-glow, rgba(45,42,38,0.05));
+    /* Layer 1: top specular sheen (iOS 26 caustic light) */
+    inset 0 1.5px 0 rgba(255,255,255,1),
+    /* Layer 2: inner crystalline edge highlight */
+    inset 0 0 0 1px rgba(255,255,255,0.45),
+    /* Layer 3: bottom subtle dark (depth) */
+    inset 0 -1.5px 0 rgba(45,42,38,0.06),
+    /* Layer 4: anchor crisp shadow */
+    0 1px 2px rgba(45,42,38,0.06),
+    /* Layer 5: mid mass shadow (lifting feel) */
+    0 10px 28px rgba(45,42,38,0.10),
+    /* Layer 6: DRAMATIC far ambient with COLORED GLOW (signature 4D depth) */
+    0 28px 64px var(--feature-glow-dramatic, rgba(45,42,38,0.18)),
+    /* Layer 7: color halo middle distance */
+    0 4px 24px var(--feature-glow, rgba(45,42,38,0.10));
   transition:
-    transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 320ms cubic-bezier(0.16, 1, 0.3, 1),
     border-color 200ms ease-out;
 }
-/* Per-card colored gradient overlay (subtle, elegant) */
+/* Per-card colored gradient overlay — DRAMATIC iOS 26 refraction */
 .welvra-feature-card-thin::before{
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg,
-    rgba(var(--feature-tint-rgb, 200,134,10), 0.07) 0%,
-    rgba(var(--feature-tint-rgb, 200,134,10), 0.02) 40%,
-    transparent 80%);
+  background:
+    /* Primary diagonal color overlay */
+    linear-gradient(135deg,
+      rgba(var(--feature-tint-rgb, 200,134,10), 0.22) 0%,
+      rgba(var(--feature-tint-rgb, 200,134,10), 0.10) 40%,
+      transparent 80%),
+    /* Subtle iridescent secondary tint (iOS 26 refraction) */
+    radial-gradient(ellipse at 0% 0%,
+      rgba(var(--feature-tint-rgb, 200,134,10), 0.08) 0%,
+      transparent 50%);
   pointer-events: none;
   z-index: -1;
   border-radius: inherit;
 }
-/* Top edge gold shimmer accent (premium luxury cue) */
+/* Top edge gold shimmer accent — DRAMATIC visible cue */
 .welvra-feature-card-thin::after{
   content: '';
   position: absolute;
-  top: 0; left: 14%; right: 14%;
-  height: 1px;
+  top: 0; left: 12%; right: 12%;
+  height: 2px;
   background: linear-gradient(90deg,
     transparent 0%,
-    rgba(200,134,10,0.55) 50%,
+    rgba(200,134,10,0.95) 50%,
     transparent 100%);
   pointer-events: none;
   z-index: 1;
+  border-radius: 0 0 2px 2px;
+  filter: blur(0.3px);
 }
 .welvra-feature-card-thin:active{
   transform: translateY(-1px) scale(0.985);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.9),
-    inset 0 -1px 0 rgba(45,42,38,0.04),
-    0 1px 2px rgba(45,42,38,0.04),
-    0 4px 12px rgba(45,42,38,0.06),
-    0 8px 24px var(--feature-glow, rgba(45,42,38,0.05));
+    inset 0 1.5px 0 rgba(255,255,255,1),
+    inset 0 0 0 1px rgba(255,255,255,0.45),
+    inset 0 -1.5px 0 rgba(45,42,38,0.06),
+    0 1px 2px rgba(45,42,38,0.06),
+    0 6px 16px rgba(45,42,38,0.08),
+    0 16px 36px var(--feature-glow-dramatic, rgba(45,42,38,0.12)),
+    0 4px 12px var(--feature-glow, rgba(45,42,38,0.08));
 }
 .welvra-feature-card-thin:focus-visible{
   outline: 2px solid var(--gold);
@@ -3893,54 +3930,70 @@ html.dark .welvra-feature-stack__line{
 }
 @media (hover:hover){
   .welvra-feature-card-thin:hover{
-    transform: translateY(-3px);
-    border-color: rgba(var(--feature-tint-rgb, 200,134,10), 0.45);
+    transform: translateY(-5px);
+    border-color: rgba(var(--feature-tint-rgb, 200,134,10), 0.55);
     box-shadow:
-      inset 0 1px 0 rgba(255,255,255,1),
-      inset 0 -1px 0 rgba(45,42,38,0.04),
-      0 1px 2px rgba(45,42,38,0.06),
-      0 12px 32px rgba(45,42,38,0.08),
-      0 24px 60px var(--feature-glow-strong, rgba(45,42,38,0.10));
+      inset 0 1.5px 0 rgba(255,255,255,1),
+      inset 0 0 0 1px rgba(255,255,255,0.6),
+      inset 0 -1.5px 0 rgba(45,42,38,0.06),
+      0 1px 2px rgba(45,42,38,0.08),
+      0 18px 40px rgba(45,42,38,0.12),
+      0 40px 80px var(--feature-glow-strong, rgba(45,42,38,0.25)),
+      0 8px 32px var(--feature-glow-dramatic, rgba(45,42,38,0.15));
   }
   .welvra-feature-card-thin:hover::before{
-    background: linear-gradient(135deg,
-      rgba(var(--feature-tint-rgb, 200,134,10), 0.12) 0%,
-      rgba(var(--feature-tint-rgb, 200,134,10), 0.04) 40%,
-      transparent 80%);
+    background:
+      linear-gradient(135deg,
+        rgba(var(--feature-tint-rgb, 200,134,10), 0.32) 0%,
+        rgba(var(--feature-tint-rgb, 200,134,10), 0.16) 40%,
+        transparent 80%),
+      radial-gradient(ellipse at 0% 0%,
+        rgba(var(--feature-tint-rgb, 200,134,10), 0.14) 0%,
+        transparent 50%);
   }
   .welvra-feature-card-thin:hover::after{
+    height: 2.5px;
     background: linear-gradient(90deg,
       transparent 0%,
-      rgba(200,134,10,0.85) 50%,
+      rgba(200,134,10,1) 50%,
       transparent 100%);
+    filter: blur(0);
   }
 }
-/* Dark mode adaptation */
+/* Dark mode adaptation — DRAMATIC equivalents */
 html.dark .welvra-feature-card-thin{
-  background: linear-gradient(135deg, rgba(30,33,40,0.78) 0%, rgba(20,23,30,0.62) 100%);
-  border-color: rgba(255,255,255,0.08);
+  background: linear-gradient(135deg, rgba(40,42,52,0.65) 0%, rgba(28,30,40,0.50) 100%);
+  border-color: rgba(255,255,255,0.10);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.06),
-    inset 0 -1px 0 rgba(0,0,0,0.2),
-    0 1px 2px rgba(0,0,0,0.2),
-    0 6px 20px rgba(0,0,0,0.25),
-    0 16px 40px var(--feature-glow, rgba(0,0,0,0.15));
+    inset 0 1.5px 0 rgba(255,255,255,0.08),
+    inset 0 0 0 1px rgba(255,255,255,0.04),
+    inset 0 -1.5px 0 rgba(0,0,0,0.3),
+    0 1px 2px rgba(0,0,0,0.3),
+    0 10px 28px rgba(0,0,0,0.35),
+    0 28px 64px var(--feature-glow-dramatic, rgba(0,0,0,0.25)),
+    0 4px 24px var(--feature-glow, rgba(0,0,0,0.15));
 }
 html.dark .welvra-feature-card-thin::before{
-  background: linear-gradient(135deg,
-    rgba(var(--feature-tint-rgb, 200,134,10), 0.10) 0%,
-    rgba(var(--feature-tint-rgb, 200,134,10), 0.04) 40%,
-    transparent 80%);
+  background:
+    linear-gradient(135deg,
+      rgba(var(--feature-tint-rgb, 200,134,10), 0.16) 0%,
+      rgba(var(--feature-tint-rgb, 200,134,10), 0.06) 40%,
+      transparent 80%),
+    radial-gradient(ellipse at 0% 0%,
+      rgba(var(--feature-tint-rgb, 200,134,10), 0.10) 0%,
+      transparent 50%);
 }
 @media (hover:hover){
   html.dark .welvra-feature-card-thin:hover{
-    border-color: rgba(var(--feature-tint-rgb, 200,134,10), 0.55);
+    border-color: rgba(var(--feature-tint-rgb, 200,134,10), 0.65);
     box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.08),
-      inset 0 -1px 0 rgba(0,0,0,0.2),
-      0 1px 2px rgba(0,0,0,0.2),
-      0 12px 32px rgba(0,0,0,0.35),
-      0 24px 60px var(--feature-glow-strong, rgba(0,0,0,0.25));
+      inset 0 1.5px 0 rgba(255,255,255,0.10),
+      inset 0 0 0 1px rgba(255,255,255,0.06),
+      inset 0 -1.5px 0 rgba(0,0,0,0.3),
+      0 1px 2px rgba(0,0,0,0.3),
+      0 18px 40px rgba(0,0,0,0.45),
+      0 40px 80px var(--feature-glow-strong, rgba(0,0,0,0.35)),
+      0 8px 32px var(--feature-glow-dramatic, rgba(0,0,0,0.2));
   }
 }
 
@@ -4061,54 +4114,62 @@ html.dark .welvra-feature-card-thin__resume{
   background: rgba(200,134,10,0.14);
 }
 
-/* Per-feature tint + glow (4D/5D luxury glass treatment) */
+/* Per-feature tint + glow (DRAMATIC iOS 26 Liquid Glass treatment) */
 .welvra-feature-card-thin[data-feature="foto"]{
-  --feature-tint: #B8A088;
-  --feature-tint-rgb: 184,160,136;
-  --feature-glow: rgba(184,160,136,0.18);
-  --feature-glow-strong: rgba(184,160,136,0.32);
+  --feature-tint:#B8A088;
+  --feature-tint-rgb:184,160,136;
+  --feature-glow:rgba(184,160,136,0.32);
+  --feature-glow-strong:rgba(184,160,136,0.50);
+  --feature-glow-dramatic:rgba(184,160,136,0.42);
 }
 .welvra-feature-card-thin[data-feature="lab"]{
-  --feature-tint: #C8B98A;
-  --feature-tint-rgb: 200,185,138;
-  --feature-glow: rgba(200,185,138,0.18);
-  --feature-glow-strong: rgba(200,185,138,0.32);
+  --feature-tint:#C8B98A;
+  --feature-tint-rgb:200,185,138;
+  --feature-glow:rgba(200,185,138,0.32);
+  --feature-glow-strong:rgba(200,185,138,0.50);
+  --feature-glow-dramatic:rgba(200,185,138,0.42);
 }
 .welvra-feature-card-thin[data-feature="chat"]{
-  --feature-tint: #8FB098;
-  --feature-tint-rgb: 143,176,152;
-  --feature-glow: rgba(143,176,152,0.18);
-  --feature-glow-strong: rgba(143,176,152,0.32);
+  --feature-tint:#8FB098;
+  --feature-tint-rgb:143,176,152;
+  --feature-glow:rgba(143,176,152,0.32);
+  --feature-glow-strong:rgba(143,176,152,0.50);
+  --feature-glow-dramatic:rgba(143,176,152,0.42);
 }
 .welvra-feature-card-thin[data-feature="tensi"]{
-  --feature-tint: #C58F8F;
-  --feature-tint-rgb: 197,143,143;
-  --feature-glow: rgba(197,143,143,0.18);
-  --feature-glow-strong: rgba(197,143,143,0.32);
+  --feature-tint:#C58F8F;
+  --feature-tint-rgb:197,143,143;
+  --feature-glow:rgba(197,143,143,0.32);
+  --feature-glow-strong:rgba(197,143,143,0.50);
+  --feature-glow-dramatic:rgba(197,143,143,0.42);
 }
 .welvra-feature-card-thin[data-feature="makan"]{
-  --feature-tint: #A8B888;
-  --feature-tint-rgb: 168,184,136;
-  --feature-glow: rgba(168,184,136,0.18);
-  --feature-glow-strong: rgba(168,184,136,0.32);
+  --feature-tint:#A8B888;
+  --feature-tint-rgb:168,184,136;
+  --feature-glow:rgba(168,184,136,0.32);
+  --feature-glow-strong:rgba(168,184,136,0.50);
+  --feature-glow-dramatic:rgba(168,184,136,0.42);
 }
 .welvra-feature-card-thin[data-feature="aktivitas"]{
-  --feature-tint: #88AAB5;
-  --feature-tint-rgb: 136,170,181;
-  --feature-glow: rgba(136,170,181,0.18);
-  --feature-glow-strong: rgba(136,170,181,0.32);
+  --feature-tint:#88AAB5;
+  --feature-tint-rgb:136,170,181;
+  --feature-glow:rgba(136,170,181,0.32);
+  --feature-glow-strong:rgba(136,170,181,0.50);
+  --feature-glow-dramatic:rgba(136,170,181,0.42);
 }
 .welvra-feature-card-thin[data-feature="faceprint"]{
-  --feature-tint: #D4B89C;
-  --feature-tint-rgb: 212,184,156;
-  --feature-glow: rgba(212,184,156,0.20);
-  --feature-glow-strong: rgba(212,184,156,0.34);
+  --feature-tint:#D4B89C;
+  --feature-tint-rgb:212,184,156;
+  --feature-glow:rgba(212,184,156,0.34);
+  --feature-glow-strong:rgba(212,184,156,0.52);
+  --feature-glow-dramatic:rgba(212,184,156,0.44);
 }
 .welvra-feature-card-thin[data-feature="mens"]{
-  --feature-tint: #C098AC;
-  --feature-tint-rgb: 192,152,172;
-  --feature-glow: rgba(192,152,172,0.18);
-  --feature-glow-strong: rgba(192,152,172,0.32);
+  --feature-tint:#C098AC;
+  --feature-tint-rgb:192,152,172;
+  --feature-glow:rgba(192,152,172,0.32);
+  --feature-glow-strong:rgba(192,152,172,0.50);
+  --feature-glow-dramatic:rgba(192,152,172,0.42);
 }
 
 @media (max-width: 380px){
