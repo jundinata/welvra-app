@@ -1854,7 +1854,7 @@ html.dark .toast{background:#F0EDE8;color:#1A1F2E}
 .welvra-trackfit-ring__sublabel{font-size:9px;color:var(--trackfit-text-3);letter-spacing:1.5px;margin-top:4px}
 .welvra-trackfit-ring__goal{font-size:11px;font-weight:700;color:#E8C063;margin-top:10px}
 /* Stats trio */
-.welvra-trackfit-stats-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.welvra-trackfit-stats-trio{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
 .welvra-trackfit-stat{background:var(--trackfit-card-surface);border:1px solid var(--trackfit-card-border);border-radius:14px;padding:12px 12px 14px;display:flex;flex-direction:column;gap:6px}
 .welvra-trackfit-stat__label{font-size:9px;font-weight:700;color:var(--trackfit-text-2);letter-spacing:1.5px}
 .welvra-trackfit-stat__row{display:flex;align-items:baseline;gap:4px}
@@ -1892,6 +1892,44 @@ html.dark .toast{background:#F0EDE8;color:#1A1F2E}
 .welvra-trackfit-startbtn:focus-visible{outline:2px solid #FAE5A8;outline-offset:4px}
 .welvra-trackfit-startbtn svg{width:32px;height:32px}
 .welvra-trackfit-startbtn-label{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--trackfit-text-1);letter-spacing:2.5px;text-align:center;margin-top:16px}
+/* Wellness tip */
+.welvra-trackfit-tip{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(135deg,rgba(13,148,136,0.10) 0%,rgba(232,192,99,0.06) 100%);border:1px solid rgba(232,192,99,0.20);border-radius:16px;padding:14px 16px;margin-bottom:14px}
+.welvra-trackfit-tip__avatar{flex-shrink:0}
+.welvra-trackfit-tip__avatar svg{width:36px;height:36px;display:block}
+.welvra-trackfit-tip__body{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.welvra-trackfit-tip__eyebrow{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;color:#E8C063;letter-spacing:1.5px}
+.welvra-trackfit-tip__text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;font-weight:500;color:var(--trackfit-text-1);line-height:1.45;margin:0}
+/* GPS map */
+.welvra-trackfit-map{background:var(--trackfit-card-surface);border:1px solid var(--trackfit-card-border);border-radius:16px;padding:16px 16px 14px;margin-bottom:14px}
+.welvra-trackfit-map[hidden]{display:none}
+.welvra-trackfit-map__head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.welvra-trackfit-map__label{font-size:9px;font-weight:700;color:var(--trackfit-text-2);letter-spacing:1.5px}
+.welvra-trackfit-map__distance{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:#E8C063}
+.welvra-trackfit-map__svg{width:100%;height:110px;display:block;border-radius:10px;background:rgba(0,0,0,0.20)}
+.welvra-trackfit-map__note{margin:8px 2px 0;font-size:9px;color:var(--trackfit-text-3);letter-spacing:0.3px;text-align:center}
+/* Weekly trend */
+.welvra-trackfit-weekly{background:var(--trackfit-card-surface);border:1px solid var(--trackfit-card-border);border-radius:16px;padding:16px 14px 14px;margin-bottom:14px}
+.welvra-trackfit-weekly__head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.welvra-trackfit-weekly__label{font-size:9px;font-weight:700;color:var(--trackfit-text-2);letter-spacing:1.5px}
+.welvra-trackfit-weekly__avg{font-size:11px;font-weight:700;color:#E8C063}
+.welvra-trackfit-weekly__bars{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;height:64px;align-items:flex-end}
+.welvra-trackfit-weekly__bar{background:var(--trackfit-gold-shine);border-radius:4px;width:100%;opacity:0.45;transition:height .5s ease,opacity .3s ease;min-height:4px}
+.welvra-trackfit-weekly__bar.is-today{opacity:1;box-shadow:0 0 8px rgba(232,192,99,0.55)}
+.welvra-trackfit-weekly__axis{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:8px}
+.welvra-trackfit-weekly__axis span{text-align:center;font-size:9px;font-weight:600;color:var(--trackfit-text-3);letter-spacing:0.3px}
+/* Achievement badges */
+.welvra-trackfit-badges{margin-bottom:28px}
+.welvra-trackfit-badges__head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;padding:0 2px}
+.welvra-trackfit-badges__label{font-size:9px;font-weight:700;color:var(--trackfit-text-2);letter-spacing:1.5px}
+.welvra-trackfit-badges__count{font-size:11px;font-weight:700;color:#E8C063}
+.welvra-trackfit-badges__row{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.welvra-trackfit-badges__row::-webkit-scrollbar{display:none}
+.welvra-trackfit-badge{flex-shrink:0;scroll-snap-align:start;width:78px;display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;background:var(--trackfit-card-surface);border:1px solid var(--trackfit-card-border);border-radius:14px;opacity:0.5;filter:grayscale(0.5);color:rgba(240,237,232,0.45)}
+.welvra-trackfit-badge.is-unlocked{opacity:1;filter:none;border-color:rgba(232,192,99,0.45);background:linear-gradient(180deg,rgba(232,192,99,0.10) 0%,rgba(255,255,255,0.02) 100%);color:#E8C063}
+.welvra-trackfit-badge__icon{width:38px;height:38px;display:flex;align-items:center;justify-content:center}
+.welvra-trackfit-badge__icon svg{width:32px;height:32px}
+.welvra-trackfit-badge__name{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;color:var(--trackfit-text-1);letter-spacing:0.4px;line-height:1.2;text-align:center}
+.welvra-trackfit-badge.is-unlocked .welvra-trackfit-badge__name{color:#E8C063}
 
 /* ===== FOOTER ===== */
 .footer{text-align:center;padding:16px 20px 24px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:500;color:rgba(20,60,46,0.78);letter-spacing:.2px;position:relative;z-index:1;text-shadow:0 1px 2px rgba(255,255,255,0.4)}
@@ -7088,6 +7126,14 @@ html.dark .drawer-auth-name{color:#F0EDE8}
           <svg class="welvra-trackfit-stat__icon" viewBox="0 0 18 18" aria-hidden="true"><g stroke="url(#tfGoldShine)" stroke-width="1.4" fill="none" stroke-linecap="round"><circle cx="9" cy="9" r="7"/><path d="M9 4 L9 9 L13 11.5"/></g></svg>
         </span>
       </article>
+      <article class="welvra-trackfit-stat">
+        <span class="welvra-trackfit-stat__label">PACE</span>
+        <span class="welvra-trackfit-stat__row">
+          <span class="welvra-trackfit-stat__value" id="trackfit-pace">&mdash;</span>
+          <span class="welvra-trackfit-stat__unit">/km</span>
+          <svg class="welvra-trackfit-stat__icon" viewBox="0 0 18 18" aria-hidden="true"><g stroke="url(#tfGoldShine)" stroke-width="1.4" fill="none" stroke-linecap="round"><circle cx="9" cy="10" r="6.5"/><path d="M9 6 L9 10 L12 12"/><path d="M9 1 L9 3"/><path d="M6 1 L12 1"/></g></svg>
+        </span>
+      </article>
     </section>
     <section class="welvra-trackfit-duo">
       <article class="welvra-trackfit-duo__card welvra-trackfit-duo__card--heart">
@@ -7107,6 +7153,35 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <span class="welvra-trackfit-duo__badge" id="trackfit-streak-bonus">+1</span>
       </article>
     </section>
+    <section class="welvra-trackfit-tip" aria-live="polite">
+      <span class="welvra-trackfit-tip__avatar" aria-hidden="true">
+        <svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="rgba(13,148,136,0.18)" stroke="url(#tfGoldShine)" stroke-width="1"/><text x="14" y="19" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="14" font-weight="700" fill="url(#tfGoldShine)">S</text></svg>
+      </span>
+      <div class="welvra-trackfit-tip__body">
+        <span class="welvra-trackfit-tip__eyebrow">DR. SLY MENGINGATKAN</span>
+        <p class="welvra-trackfit-tip__text" id="trackfit-tip-text">Setiap langkah adalah investasi untuk dirimu di masa depan.</p>
+      </div>
+    </section>
+    <section class="welvra-trackfit-map" id="trackfit-map" hidden>
+      <header class="welvra-trackfit-map__head">
+        <span class="welvra-trackfit-map__label">RUTE TERPANTAU</span>
+        <span class="welvra-trackfit-map__distance" id="trackfit-map-distance">0,0 km</span>
+      </header>
+      <svg class="welvra-trackfit-map__svg" viewBox="0 0 340 140" aria-hidden="true" preserveAspectRatio="none">
+        <defs>
+          <pattern id="trackfit-topo" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M0 20 Q10 14 20 20 Q30 26 40 20" fill="none" stroke="rgba(232,192,99,0.10)" stroke-width="0.6"/>
+            <path d="M0 30 Q10 24 20 30 Q30 36 40 30" fill="none" stroke="rgba(232,192,99,0.07)" stroke-width="0.6"/>
+            <path d="M0 10 Q10 4 20 10 Q30 16 40 10" fill="none" stroke="rgba(232,192,99,0.05)" stroke-width="0.6"/>
+          </pattern>
+          <linearGradient id="trackfit-route-grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FAE5A8"/><stop offset="100%" stop-color="#C8860A"/></linearGradient>
+        </defs>
+        <rect width="340" height="140" fill="url(#trackfit-topo)"/>
+        <path id="trackfit-route-path" d="M20 110 Q60 80,90 95 Q130 115,170 80 Q210 50,250 70 Q280 85,320 50" fill="none" stroke="url(#trackfit-route-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="500" stroke-dashoffset="500" style="transition:stroke-dashoffset 1s ease"/>
+        <circle id="trackfit-route-pin" cx="20" cy="110" r="5" fill="url(#trackfit-route-grad)" stroke="#0A1F18" stroke-width="2"/>
+      </svg>
+      <p class="welvra-trackfit-map__note">Estimasi rute aktivitas — bukan GPS sebenarnya.</p>
+    </section>
     <section class="welvra-trackfit-hourly">
       <header class="welvra-trackfit-hourly__head">
         <span class="welvra-trackfit-hourly__label">PROGRES PER JAM</span>
@@ -7114,6 +7189,21 @@ html.dark .drawer-auth-name{color:#F0EDE8}
       </header>
       <div class="welvra-trackfit-hourly__bars" id="trackfit-hourly-bars" aria-hidden="true"></div>
       <div class="welvra-trackfit-hourly__axis"><span>06</span><span>10</span><span>14</span><span>18</span><span>22</span></div>
+    </section>
+    <section class="welvra-trackfit-weekly">
+      <header class="welvra-trackfit-weekly__head">
+        <span class="welvra-trackfit-weekly__label">TREN MINGGU INI</span>
+        <span class="welvra-trackfit-weekly__avg" id="trackfit-week-avg">Rata-rata: 0</span>
+      </header>
+      <div class="welvra-trackfit-weekly__bars" id="trackfit-week-bars" aria-hidden="true"></div>
+      <div class="welvra-trackfit-weekly__axis"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div>
+    </section>
+    <section class="welvra-trackfit-badges" aria-label="Pencapaian">
+      <header class="welvra-trackfit-badges__head">
+        <span class="welvra-trackfit-badges__label">PENCAPAIAN</span>
+        <span class="welvra-trackfit-badges__count" id="trackfit-badges-count">0 / 8</span>
+      </header>
+      <div class="welvra-trackfit-badges__row" id="trackfit-badges-row" role="list"></div>
     </section>
     <button class="welvra-trackfit-startbtn" id="trackfit-start-btn" aria-label="Mulai sesi berjalan" type="button">
       <span><svg viewBox="0 0 24 24" aria-hidden="true" id="trackfit-startbtn-svg"><path d="M8 5 L18 12 L8 19 Z" fill="#0A1F18"/></svg></span>
@@ -10787,16 +10877,50 @@ Welvra.trackfit = (function(){
   var state = null;
   var sessionTimer = null;
 
+  var BADGES = [
+    {id:'first_step',name:'Langkah Awal',icon:'footprint'},{id:'walker_1k',name:'1.000',icon:'flag'},
+    {id:'walker_5k',name:'5.000',icon:'medal'},{id:'achiever_10k',name:'10K',icon:'trophy'},
+    {id:'streak_7',name:'7 Hari',icon:'flame'},{id:'streak_30',name:'30 Hari',icon:'crown'},
+    {id:'first_run',name:'Lari Perdana',icon:'runner'},{id:'first_cycle',name:'Sepeda Perdana',icon:'bike'}
+  ];
+  var BADGE_ICONS = {
+    footprint:'<svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="11" cy="14" rx="4" ry="6"/><circle cx="9" cy="6" r="1.5"/><circle cx="13" cy="5.5" r="1.2"/><circle cx="15" cy="8" r="1"/><ellipse cx="22" cy="22" rx="4" ry="6"/><circle cx="19" cy="14" r="1.2"/><circle cx="23" cy="13.5" r="1"/></g></svg>',
+    flag:'<svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 L8 28 M8 4 L22 4 L18 9 L22 14 L8 14"/></g></svg>',
+    medal:'<svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="20" r="7"/><path d="M11 14 L8 4 L14 4 L16 8 M21 14 L24 4 L18 4 L16 8"/><circle cx="16" cy="20" r="3"/></g></svg>',
+    trophy:'<svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 L23 4 L22 14 Q22 19 16 19 Q10 19 10 14 Z M9 7 L4 7 Q4 12 10 13 M23 7 L28 7 Q28 12 22 13 M14 19 L14 24 L18 24 L18 19 M11 24 L21 24 L21 28 L11 28 Z"/></g></svg>',
+    flame:'<svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3 q-7 7 -7 14 q0 6 4 8 q-3 -4 1 -8 q4 -4 8 0 q3 4 -1 8 q7 -2 7 -10 q0 -8 -10 -10 z M14 18 q-2 3 0 5 q1 -2 2 -2 q1 1 1 3"/></g></svg>',
+    crown:'<svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22 L8 8 L13 16 L16 6 L19 16 L24 8 L28 22 L4 22 Z M4 26 L28 26"/></g></svg>',
+    runner:'<svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="6" r="2.5"/><path d="M16 14 Q12 10 9 12 L11 16 Q14 18 18 17 L22 22 L20 28 M22 17 L26 13 M22 17 L25 21"/></g></svg>',
+    bike:'<svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="22" r="5"/><circle cx="25" cy="22" r="5"/><path d="M7 22 L14 22 L19 9 L13 9 M19 9 L25 22 M19 9 L23 5"/></g></svg>'
+  };
+
   function todayKey(){ return new Date().toISOString().slice(0,10); }
   function load(){ try { var r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : null; } catch(e){ return null; } }
   function save(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
+  function initialState(){
+    return { date:todayKey(), mode:'walking', steps:0, goal:DEFAULT_GOAL,
+      calories:0, distance:0, activeMinutes:0, pace:0,
+      hourly:new Array(24).fill(0), sessionActive:false, sessionStartedAt:null,
+      heartRate:0, streakDays:0, lastGoalMetDate:null,
+      weeklyHistory:[], achievements:[] };
+  }
   function init(){
-    state = load() || {};
+    state = load() || initialState();
+    // Ensure missing keys from older schema
+    if(!state.weeklyHistory) state.weeklyHistory=[];
+    if(!state.achievements) state.achievements=[];
+    if(state.pace===undefined) state.pace=0;
     if (state.date !== todayKey()) {
-      state = { date:todayKey(), mode:state.mode||'walking', steps:0, goal:state.goal||DEFAULT_GOAL,
-        calories:0, distance:0, activeMinutes:0, hourly:new Array(24).fill(0),
-        sessionActive:false, sessionStartedAt:null, heartRate:0,
-        streakDays:state.streakDays||0, lastGoalMetDate:state.lastGoalMetDate||null };
+      // Archive yesterday
+      if(state.steps > 0){
+        state.weeklyHistory.push({date:state.date, steps:state.steps, goal:state.goal});
+        if(state.weeklyHistory.length > 30) state.weeklyHistory = state.weeklyHistory.slice(-30);
+      }
+      var kept = { mode:state.mode, goal:state.goal, streakDays:state.streakDays,
+        lastGoalMetDate:state.lastGoalMetDate, weeklyHistory:state.weeklyHistory, achievements:state.achievements };
+      state = initialState();
+      state.mode=kept.mode; state.goal=kept.goal; state.streakDays=kept.streakDays;
+      state.lastGoalMetDate=kept.lastGoalMetDate; state.weeklyHistory=kept.weeklyHistory; state.achievements=kept.achievements;
       save();
     }
     return state;
@@ -10806,6 +10930,13 @@ Welvra.trackfit = (function(){
     state.distance = +((state.steps * 0.000762).toFixed(2));
     var k = state.mode==='running'?0.06:state.mode==='cycling'?0.025:0.04;
     state.calories = Math.round(state.steps * k);
+    state.pace = (state.distance > 0 && state.activeMinutes > 0) ? state.activeMinutes / state.distance : 0;
+  }
+  function fmtPace(p){
+    if(!p||p<=0) return '\u2014';
+    var m=Math.floor(p), s=Math.round((p-m)*60);
+    if(s===60){m+=1;s=0;}
+    return m+':'+(s<10?'0'+s:s);
   }
   function generateHeartRate(){
     var base = state.mode==='running'?145:state.mode==='cycling'?125:state.sessionActive?100:75;
@@ -10913,6 +11044,103 @@ Welvra.trackfit = (function(){
       p.classList.toggle('is-active', isActive);
       p.setAttribute('aria-selected', isActive?'true':'false');
     });
+    // Phase 3: Pace
+    var paceEl = el('trackfit-pace');
+    if(paceEl) paceEl.textContent = fmtPace(s.pace);
+    // Wellness tip
+    var tipEl = el('trackfit-tip-text');
+    if(tipEl) tipEl.textContent = pickWellnessTip();
+    // GPS map
+    updateMapVisibility(); renderMap();
+    // Weekly trend
+    renderWeekly();
+    // Achievements
+    checkAchievements(); renderBadges();
+  }
+
+  function pickWellnessTip(){
+    var s=state;
+    if(s.heartRate>=140&&s.sessionActive) return 'Detakmu cukup tinggi. Atur napas dan minum air putih.';
+    if(s.streakDays>=30) return 'Tiga puluh hari beruntun. Konsistensi adalah bentuk cinta paling sederhana untuk diri sendiri.';
+    if(s.streakDays>=7) return 'Tujuh hari beruntun. Tubuh dan pikiranmu sedang terbentuk.';
+    if(s.steps>=s.goal) return 'Target tercapai. Beri tubuhmu apresiasi malam ini.';
+    if(s.goal&&s.steps>=s.goal*0.75) return 'Hampir sampai. '+fmt(s.goal-s.steps)+' langkah lagi menuju target.';
+    if(s.goal&&s.steps>=s.goal*0.5) return 'Setengah jalan. Coba sambil dengar musik favoritmu.';
+    if(s.steps>0&&s.steps<(s.goal||10000)*0.25) return 'Setiap langkah berarti. Lanjutkan ritmemu.';
+    if(s.steps===0) return 'Mulai dengan langkah pertama. Setiap perjalanan butuh awal.';
+    return 'Tetap bergerak dengan tenang. Kualitas mengalahkan kecepatan.';
+  }
+  function updateMapVisibility(){
+    var m=document.getElementById('trackfit-map');
+    if(!m) return;
+    var vis=state.mode==='running'||state.mode==='cycling';
+    if(vis) m.removeAttribute('hidden'); else m.setAttribute('hidden','');
+  }
+  function renderMap(){
+    var pathEl=document.getElementById('trackfit-route-path');
+    var pinEl=document.getElementById('trackfit-route-pin');
+    var distEl=document.getElementById('trackfit-map-distance');
+    if(!pathEl) return;
+    var ratio=Math.min(state.distance/5,1);
+    var off=500*(1-ratio);
+    pathEl.setAttribute('stroke-dashoffset',off);
+    var x=20+(320-20)*ratio;
+    var y=110-60*Math.sin(ratio*Math.PI*1.2);
+    if(pinEl){pinEl.setAttribute('cx',x.toFixed(1));pinEl.setAttribute('cy',y.toFixed(1));}
+    if(distEl) distEl.textContent=state.distance.toString().replace('.',',')+' km';
+  }
+  function renderWeekly(){
+    var barsEl=document.getElementById('trackfit-week-bars');
+    var avgEl=document.getElementById('trackfit-week-avg');
+    if(!barsEl) return;
+    var today=new Date(); today.setHours(0,0,0,0);
+    var dow=today.getDay()||7;
+    var monday=new Date(today); monday.setDate(today.getDate()-(dow-1));
+    var days=[];
+    for(var i=0;i<7;i++){
+      var d=new Date(monday); d.setDate(monday.getDate()+i);
+      var dKey=d.toISOString().slice(0,10);
+      var steps=0;
+      if(dKey===todayKey()) steps=state.steps;
+      else{ var f=(state.weeklyHistory||[]).filter(function(x){return x.date===dKey;})[0]; if(f) steps=f.steps; }
+      days.push({key:dKey,steps:steps,isToday:dKey===todayKey()});
+    }
+    var max=Math.max.apply(null,days.map(function(d){return d.steps;}).concat([1]));
+    var sum=days.reduce(function(a,d){return a+d.steps;},0);
+    var avg=Math.round(sum/7);
+    var html=days.map(function(d){
+      var ratio=d.steps/max;
+      var hPct=Math.max(ratio*100,6);
+      return '<div class="welvra-trackfit-weekly__bar'+(d.isToday?' is-today':'')+'" style="height:'+hPct+'%;"></div>';
+    }).join('');
+    barsEl.innerHTML=html;
+    if(avgEl) avgEl.textContent='Rata-rata: '+fmt(avg);
+  }
+  function checkAchievements(){
+    state.achievements=state.achievements||[];
+    function u(id){if(state.achievements.indexOf(id)<0) state.achievements.push(id);}
+    if(state.steps>0) u('first_step');
+    if(state.steps>=1000) u('walker_1k');
+    if(state.steps>=5000) u('walker_5k');
+    if(state.steps>=state.goal) u('achiever_10k');
+    if(state.streakDays>=7) u('streak_7');
+    if(state.streakDays>=30) u('streak_30');
+    if(state.sessionActive&&state.mode==='running') u('first_run');
+    if(state.sessionActive&&state.mode==='cycling') u('first_cycle');
+  }
+  function renderBadges(){
+    var rowEl=document.getElementById('trackfit-badges-row');
+    var countEl=document.getElementById('trackfit-badges-count');
+    if(!rowEl) return;
+    var unlocked=state.achievements||[];
+    var html=BADGES.map(function(b){
+      var on=unlocked.indexOf(b.id)>=0;
+      return '<div class="welvra-trackfit-badge'+(on?' is-unlocked':'')+'" role="listitem" aria-label="'+b.name+(on?' \u2014 terbuka':' \u2014 terkunci')+'">'+
+        '<span class="welvra-trackfit-badge__icon">'+BADGE_ICONS[b.icon]+'</span>'+
+        '<span class="welvra-trackfit-badge__name">'+b.name+'</span></div>';
+    }).join('');
+    rowEl.innerHTML=html;
+    if(countEl) countEl.textContent=unlocked.length+' / '+BADGES.length;
   }
 
   function open(){
