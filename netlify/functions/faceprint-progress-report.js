@@ -107,7 +107,7 @@ exports.handler = async (event) => {
         temperature: 0.5,
         topK: 40,
         topP: 0.95,
-        maxOutputTokens: 3000,
+        maxOutputTokens: 5000,
         responseMimeType: "application/json",
       },
     };
@@ -127,8 +127,13 @@ exports.handler = async (event) => {
     }
 
     let response = await callGemini(PRIMARY_MODEL);
-    if (response.status === 429) {
-      console.log("Progress report: fallback to:", FALLBACK_MODEL);
+    if (response.status === 429 || response.status === 503) {
+      // 503 from primary often resolves within ~1s as Google auto-scales.
+      // Wait briefly so the fallback isn't burned on a transient blip.
+      if (response.status === 503) {
+        await new Promise((r) => setTimeout(r, 800));
+      }
+      console.log("Progress report: fallback to:", FALLBACK_MODEL, "after", response.status);
       response = await callGemini(FALLBACK_MODEL);
     }
     clearTimeout(timeoutId);
@@ -138,6 +143,8 @@ exports.handler = async (event) => {
       console.error("Gemini API error:", response.status, errorBody);
       if (response.status === 429)
         return errResponse(429, "Sistem sedang sibuk. Coba lagi dalam 1 menit.");
+      if (response.status === 503)
+        return errResponse(503, "Sistem sedang ramai, coba beberapa menit lagi.");
       if (response.status >= 500)
         return errResponse(502, "Sistem sedang sibuk. Coba lagi sebentar.");
       return errResponse(400, "Laporan gagal dibuat. Coba lagi.");
