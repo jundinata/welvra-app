@@ -107,8 +107,9 @@ exports.handler = async (event) => {
         temperature: 0.5,
         topK: 40,
         topP: 0.95,
-        maxOutputTokens: 5000,
+        maxOutputTokens: 8000,
         responseMimeType: "application/json",
+        thinkingConfig: { thinkingBudget: 0 },
       },
     };
 
