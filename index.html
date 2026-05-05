@@ -291,29 +291,21 @@ animation:letterReveal .3s ease-out 2.4s both}
   border-bottom: 0;
   transition: box-shadow .4s;
 }
-/* Fade extension — real sibling div below header */
-.welvra-header-fade{
-  width: 100%;
-  height: 152px;
-  pointer-events: none;
-  margin-bottom: -110px;
-  position: relative;
-  z-index: 0;
-  background-image:
-    radial-gradient(ellipse 75% 100% at 50% 0%, transparent 0%, transparent 50%, rgba(250,250,247,0.50) 90%, rgba(250,250,247,0.85) 100%),
-    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='140' viewBox='0 0 100 140'%3E%3Cg stroke='%238B5E07' stroke-width='0.8' fill='none' opacity='0.22' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 0 L50 140' stroke-width='0.5'/%3E%3Cpath d='M50 12 Q42 22 50 32 Q58 22 50 12 Z'/%3E%3Cpath d='M50 28 Q40 33 33 42 Q40 48 50 44'/%3E%3Cpath d='M50 28 Q60 33 67 42 Q60 48 50 44'/%3E%3Cpath d='M44 18 L50 8 L56 18'/%3E%3Ccircle cx='50' cy='22' r='1.4' fill='%238B5E07' stroke='none'/%3E%3Cpath d='M14 28 Q4 38 14 54 Q26 50 22 40 Q19 32 14 28'/%3E%3Cpath d='M22 58 Q10 64 18 76 Q30 72 26 64 Q24 60 22 58'/%3E%3Cpath d='M8 80 Q2 86 8 94 Q16 92 13 87 Q10 82 8 80'/%3E%3Cpath d='M86 28 Q96 38 86 54 Q74 50 78 40 Q81 32 86 28'/%3E%3Cpath d='M78 58 Q90 64 82 76 Q70 72 74 64 Q76 60 78 58'/%3E%3Cpath d='M92 80 Q98 86 92 94 Q84 92 87 87 Q90 82 92 80'/%3E%3Cellipse cx='28' cy='86' rx='4' ry='9' transform='rotate(-30 28 86)'/%3E%3Cellipse cx='72' cy='86' rx='4' ry='9' transform='rotate(30 72 86)'/%3E%3Cpath d='M50 100 Q42 110 50 120 Q58 110 50 100 Z'/%3E%3Cpath d='M42 116 L50 110 L58 116'/%3E%3Ccircle cx='50' cy='113' r='1.2' fill='%238B5E07' stroke='none'/%3E%3Cpath d='M22 124 Q12 130 20 138 Q30 136 27 130 Q24 126 22 124'/%3E%3Cpath d='M78 124 Q88 130 80 138 Q70 136 73 130 Q76 126 78 124'/%3E%3C/g%3E%3C/svg%3E"),
-    linear-gradient(180deg, #E8D49A 0%, #F4E6BE 25%, rgba(250,250,247,0.85) 75%, rgba(250,250,247,1) 100%);
-  background-repeat: no-repeat, repeat, no-repeat;
-  background-size: 100% 100%, 100px 140px, 100% 100%;
-  background-blend-mode: normal, multiply, normal;
-}
-/* Home dashboard ivory background (scoped — global --bg untouched) */
+/* Home dashboard — full gold-batik luxury surface (scoped, global --bg untouched) */
 main.container{
-  background-color: #FAFAF7;
+  background-image:
+    radial-gradient(circle 280px at 95% 0%,
+      rgba(165,111,8,0.55) 0%,
+      rgba(200,134,10,0.32) 25%,
+      rgba(200,134,10,0.10) 55%,
+      transparent 100%),
+    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='140' viewBox='0 0 100 140'%3E%3Cg stroke='%238B5E07' stroke-width='0.8' fill='none' opacity='0.22' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 0 L50 140' stroke-width='0.5'/%3E%3Cpath d='M50 12 Q42 22 50 32 Q58 22 50 12 Z'/%3E%3Cpath d='M50 28 Q40 33 33 42 Q40 48 50 44'/%3E%3Cpath d='M50 28 Q60 33 67 42 Q60 48 50 44'/%3E%3Cpath d='M44 18 L50 8 L56 18'/%3E%3Ccircle cx='50' cy='22' r='1.4' fill='%238B5E07' stroke='none'/%3E%3Cpath d='M14 28 Q4 38 14 54 Q26 50 22 40 Q19 32 14 28'/%3E%3Cpath d='M22 58 Q10 64 18 76 Q30 72 26 64 Q24 60 22 58'/%3E%3Cpath d='M8 80 Q2 86 8 94 Q16 92 13 87 Q10 82 8 80'/%3E%3Cpath d='M86 28 Q96 38 86 54 Q74 50 78 40 Q81 32 86 28'/%3E%3Cpath d='M78 58 Q90 64 82 76 Q70 72 74 64 Q76 60 78 58'/%3E%3Cpath d='M92 80 Q98 86 92 94 Q84 92 87 87 Q90 82 92 80'/%3E%3Cellipse cx='28' cy='86' rx='4' ry='9' transform='rotate(-30 28 86)'/%3E%3Cellipse cx='72' cy='86' rx='4' ry='9' transform='rotate(30 72 86)'/%3E%3Cpath d='M50 100 Q42 110 50 120 Q58 110 50 100 Z'/%3E%3Cpath d='M42 116 L50 110 L58 116'/%3E%3Ccircle cx='50' cy='113' r='1.2' fill='%238B5E07' stroke='none'/%3E%3Cpath d='M22 124 Q12 130 20 138 Q30 136 27 130 Q24 126 22 124'/%3E%3Cpath d='M78 124 Q88 130 80 138 Q70 136 73 130 Q76 126 78 124'/%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(135deg, #FBF5E4 0%, #F4E6BE 55%, #E8D49A 100%);
+  background-repeat: no-repeat, repeat, no-repeat;
+  background-size: 100% 600px, 100px 140px, 100% 100%;
+  background-blend-mode: normal, multiply, normal;
+  min-height: 100vh;
   position: relative;
-}
-html.dark main.container{
-  background-color: var(--bg);
 }
 .welvra-header-premium.scrolled{
   box-shadow: 0 6px 22px rgba(200,134,10,0.16);
@@ -329,14 +321,18 @@ html.dark .welvra-header-premium{
   background-blend-mode: normal, normal, multiply, normal;
   box-shadow: 0 4px 16px rgba(0,0,0,0.3);
 }
-html.dark .welvra-header-fade{
+html.dark main.container{
   background-image:
-    radial-gradient(ellipse 75% 100% at 50% 0%, transparent 0%, transparent 50%, rgba(26,35,48,0.50) 90%, rgba(26,35,48,0.85) 100%),
-    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='140' viewBox='0 0 100 140'%3E%3Cg stroke='%23C8860A' stroke-width='0.8' fill='none' opacity='0.28' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 0 L50 140' stroke-width='0.5'/%3E%3Cpath d='M50 12 Q42 22 50 32 Q58 22 50 12 Z'/%3E%3Cpath d='M50 28 Q40 33 33 42 Q40 48 50 44'/%3E%3Cpath d='M50 28 Q60 33 67 42 Q60 48 50 44'/%3E%3Cpath d='M44 18 L50 8 L56 18'/%3E%3Ccircle cx='50' cy='22' r='1.4' fill='%23C8860A' stroke='none'/%3E%3Cpath d='M14 28 Q4 38 14 54 Q26 50 22 40 Q19 32 14 28'/%3E%3Cpath d='M22 58 Q10 64 18 76 Q30 72 26 64 Q24 60 22 58'/%3E%3Cpath d='M8 80 Q2 86 8 94 Q16 92 13 87 Q10 82 8 80'/%3E%3Cpath d='M86 28 Q96 38 86 54 Q74 50 78 40 Q81 32 86 28'/%3E%3Cpath d='M78 58 Q90 64 82 76 Q70 72 74 64 Q76 60 78 58'/%3E%3Cpath d='M92 80 Q98 86 92 94 Q84 92 87 87 Q90 82 92 80'/%3E%3Cellipse cx='28' cy='86' rx='4' ry='9' transform='rotate(-30 28 86)'/%3E%3Cellipse cx='72' cy='86' rx='4' ry='9' transform='rotate(30 72 86)'/%3E%3Cpath d='M50 100 Q42 110 50 120 Q58 110 50 100 Z'/%3E%3Cpath d='M42 116 L50 110 L58 116'/%3E%3Ccircle cx='50' cy='113' r='1.2' fill='%23C8860A' stroke='none'/%3E%3Cpath d='M22 124 Q12 130 20 138 Q30 136 27 130 Q24 126 22 124'/%3E%3Cpath d='M78 124 Q88 130 80 138 Q70 136 73 130 Q76 126 78 124'/%3E%3C/g%3E%3C/svg%3E"),
-    linear-gradient(180deg, rgba(232,212,154,0.4) 0%, rgba(244,230,190,0.25) 25%, rgba(26,35,48,0.85) 75%, rgba(26,35,48,1) 100%);
+    radial-gradient(circle 280px at 95% 0%,
+      rgba(200,134,10,0.40) 0%,
+      rgba(200,134,10,0.20) 25%,
+      rgba(200,134,10,0.08) 55%,
+      transparent 100%),
+    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='140' viewBox='0 0 100 140'%3E%3Cg stroke='%23E0B062' stroke-width='0.8' fill='none' opacity='0.22' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 0 L50 140' stroke-width='0.5'/%3E%3Cpath d='M50 12 Q42 22 50 32 Q58 22 50 12 Z'/%3E%3Cpath d='M50 28 Q40 33 33 42 Q40 48 50 44'/%3E%3Cpath d='M50 28 Q60 33 67 42 Q60 48 50 44'/%3E%3Cpath d='M44 18 L50 8 L56 18'/%3E%3Ccircle cx='50' cy='22' r='1.4' fill='%23E0B062' stroke='none'/%3E%3Cpath d='M14 28 Q4 38 14 54 Q26 50 22 40 Q19 32 14 28'/%3E%3Cpath d='M22 58 Q10 64 18 76 Q30 72 26 64 Q24 60 22 58'/%3E%3Cpath d='M8 80 Q2 86 8 94 Q16 92 13 87 Q10 82 8 80'/%3E%3Cpath d='M86 28 Q96 38 86 54 Q74 50 78 40 Q81 32 86 28'/%3E%3Cpath d='M78 58 Q90 64 82 76 Q70 72 74 64 Q76 60 78 58'/%3E%3Cpath d='M92 80 Q98 86 92 94 Q84 92 87 87 Q90 82 92 80'/%3E%3Cellipse cx='28' cy='86' rx='4' ry='9' transform='rotate(-30 28 86)'/%3E%3Cellipse cx='72' cy='86' rx='4' ry='9' transform='rotate(30 72 86)'/%3E%3Cpath d='M50 100 Q42 110 50 120 Q58 110 50 100 Z'/%3E%3Cpath d='M42 116 L50 110 L58 116'/%3E%3Ccircle cx='50' cy='113' r='1.2' fill='%23E0B062' stroke='none'/%3E%3Cpath d='M22 124 Q12 130 20 138 Q30 136 27 130 Q24 126 22 124'/%3E%3Cpath d='M78 124 Q88 130 80 138 Q70 136 73 130 Q76 126 78 124'/%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(135deg, #2A2218 0%, #1F1A12 50%, #14110B 100%);
   background-repeat: no-repeat, repeat, no-repeat;
-  background-size: 100% 100%, 100px 140px, 100% 100%;
-  background-blend-mode: normal, multiply, normal;
+  background-size: 100% 600px, 100px 140px, 100% 100%;
+  background-blend-mode: normal, screen, normal;
 }
 
 /* Inner layout */
@@ -491,7 +487,7 @@ background:var(--white);color:var(--text);font-family:'Plus Jakarta Sans',sans-s
 /* ===== HERO — Premium Multi-Layer Redesign ===== */
 /* === MINIMAL GREETING HERO — iOS 26 soft blue glass === */
 .hero{
-  margin: 14px 14px 24px;
+  margin: 24px 14px 24px;
   border-radius: 24px;
   min-height: auto;
   padding: 24px 22px 22px;
@@ -1850,7 +1846,7 @@ html.dark .toast{background:#F0EDE8;color:#1A1F2E}
 .splash-title{font-size:3.2rem}
 }
 @media(max-width:380px){
-.hero{padding:20px 18px;margin:14px 12px 20px}
+.hero{padding:20px 18px;margin:24px 12px 20px}
 .header-brand small{display:none}
 }
 
@@ -5848,7 +5844,6 @@ html.dark .drawer-auth-name{color:#F0EDE8}
       </div>
     </div>
   </header>
-  <div class="welvra-header-fade" aria-hidden="true"></div>
 
   <main class="container">
     <div class="hero">
@@ -5864,7 +5859,7 @@ html.dark .drawer-auth-name{color:#F0EDE8}
       <h2 id="greeting"></h2>
       <p>Ada keluhan kesehatan hari ini? Welvra siap membantu.</p>
       <div class="hero-indicators" id="hero-indicators"></div>
-      <div class="hero-wave"><svg viewBox="0 0 480 40" preserveAspectRatio="none"><path d="M0 40 C80 12, 160 4, 240 16 C320 28, 400 12, 480 8 L480 40 Z" fill="#FAFAF7"/></svg></div>
+      <div class="hero-wave"><svg viewBox="0 0 480 40" preserveAspectRatio="none"><path d="M0 40 C80 12, 160 4, 240 16 C320 28, 400 12, 480 8 L480 40 Z" fill="transparent"/></svg></div>
     </div>
     <!-- Standalone weather card — Polish R2 -->
     <div class="welvra-weather-card" id="welvra-weather-card" role="status" aria-live="polite">
