@@ -55,6 +55,9 @@ setTimeout(function(){
 --gold-deep:#8B5E07;--gold-rich:#A56F08;
 --header-fade-h:152px;--header-zone-h:240px;
 --page-bg:#FAFAF7;
+--card-grad-blue:linear-gradient(135deg,#E8F0FB 0%,#D5E3F7 50%,#BCD0EC 100%);
+--card-grad-navy:linear-gradient(135deg,#DDE3F5 0%,#C5CFE8 50%,#ABB7DA 100%);
+--card-grad-sage:linear-gradient(135deg,#E0EDDD 0%,#C5DCC0 50%,#ABCAA5 100%);
 --forest-0:#154630;--forest-20:#325D49;--forest-40:#4F7663;
 --forest-60:#6E8E7E;--forest-80:#8DA699;--forest-100:#A6BCB0;
 --forest-grad:linear-gradient(180deg,#154630 0%,#325D49 20%,#4F7663 40%,#6E8E7E 60%,#8DA699 80%,#A6BCB0 100%);
@@ -615,7 +618,7 @@ html.dark .hero::after{ content: none; }
     inset 0 1px 0 rgba(255,255,255,0.10);
   color: #FFFFFF;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   transition: opacity .25s ease;
 }
 html.dark .welvra-weather-card{
@@ -649,7 +652,8 @@ html.dark .welvra-weather-card{
   margin-left: auto;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   max-width: 60%;
-  line-height: 1;
+  line-height: 1.4;
+  padding-bottom: 1px;
   transition: opacity .25s ease;
 }
 html.dark .welvra-weather-card__city{ color: rgba(255,255,255,0.72); }
@@ -666,7 +670,7 @@ html.dark .welvra-weather-card__city{ color: rgba(255,255,255,0.72); }
   letter-spacing: 1.4px;
   text-transform: uppercase;
   color: rgba(255,255,255,0.88);
-  line-height: 1;
+  line-height: 1.4;
 }
 .welvra-weather-card__empty{
   font-family:'Plus Jakarta Sans', sans-serif;
@@ -1813,7 +1817,8 @@ html.dark .toast{background:#F0EDE8;color:#1A1F2E}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
 /* ===== FOOTER ===== */
-.footer{text-align:center;padding:20px 20px 32px;font-size:.7rem;color:var(--text-muted);letter-spacing:.3px;position:relative;z-index:1;opacity:.6}
+.footer{text-align:center;padding:16px 20px 24px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:500;color:rgba(20,60,46,0.78);letter-spacing:.2px;position:relative;z-index:1;text-shadow:0 1px 2px rgba(255,255,255,0.4)}
+html.dark .footer{color:rgba(232,192,99,0.65);text-shadow:none}
 
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar{width:3px}
@@ -4078,42 +4083,39 @@ html.dark .welvra-feature-stack__line{
 .welvra-feature-card-thin{
   position: relative;
   display:flex; align-items:center; gap: 14px;
-  width:100%; min-height: 88px;
-  padding: 12px 14px;
-  /* iOS 26 Liquid Glass — more transparent so champagne shows through */
-  background: linear-gradient(135deg, rgba(255,253,248,0.55) 0%, rgba(255,253,248,0.38) 100%);
-  -webkit-backdrop-filter: blur(32px) saturate(1.8);
-  backdrop-filter: blur(32px) saturate(1.8);
-  border: 1px solid rgba(255,255,255,0.78);
-  border-radius: 20px;
+  width:100%; height: 70px; min-height: 70px;
+  padding: 8px 14px 8px 8px;
+  background-image:
+    radial-gradient(ellipse 60% 80% at 25% 15%, rgba(255,255,255,0.55), rgba(255,255,255,0.20) 35%, transparent 70%),
+    var(--card-grad-blue);
+  background-blend-mode: normal, normal;
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 18px;
   cursor: pointer; text-align:left;
   font: inherit; color: inherit;
   appearance:none; -webkit-appearance:none;
   -webkit-tap-highlight-color: transparent;
   overflow: hidden;
   isolation: isolate;
-  /* DRAMATIC 7-layer shadow stack — iOS 26 Liquid Glass */
   box-shadow:
-    /* Layer 1: top specular sheen (iOS 26 caustic light) */
-    inset 0 1.5px 0 rgba(255,255,255,1),
-    /* Layer 2: inner crystalline edge highlight */
-    inset 0 0 0 1px rgba(255,255,255,0.45),
-    /* Layer 3: bottom subtle dark (depth) */
-    inset 0 -1.5px 0 rgba(45,42,38,0.06),
-    /* Layer 4: anchor crisp shadow */
-    0 1px 2px rgba(45,42,38,0.06),
-    /* Layer 5: mid mass shadow (lifting feel) */
-    0 10px 28px rgba(45,42,38,0.10),
-    /* Layer 6: DRAMATIC far ambient with COLORED GLOW (signature 4D depth) */
-    0 28px 64px var(--feature-glow-dramatic, rgba(45,42,38,0.18)),
-    /* Layer 7: color halo middle distance */
-    0 4px 24px var(--feature-glow, rgba(45,42,38,0.10));
+    inset 0 1px 0 rgba(255,255,255,0.7),
+    0 4px 14px rgba(20,30,60,0.08);
   transition:
     transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 320ms cubic-bezier(0.16, 1, 0.3, 1),
     border-color 200ms ease-out;
 }
-/* Per-card colored gradient overlay — DRAMATIC iOS 26 refraction */
+/* Mixed pearlescent gradient rotation */
+.welvra-feature-card-thin:nth-child(3n+1){ background-image:
+  radial-gradient(ellipse 60% 80% at 25% 15%, rgba(255,255,255,0.55), rgba(255,255,255,0.20) 35%, transparent 70%),
+  var(--card-grad-blue); }
+.welvra-feature-card-thin:nth-child(3n+2){ background-image:
+  radial-gradient(ellipse 60% 80% at 25% 15%, rgba(255,255,255,0.55), rgba(255,255,255,0.20) 35%, transparent 70%),
+  var(--card-grad-navy); }
+.welvra-feature-card-thin:nth-child(3n){ background-image:
+  radial-gradient(ellipse 60% 80% at 25% 15%, rgba(255,255,255,0.55), rgba(255,255,255,0.20) 35%, transparent 70%),
+  var(--card-grad-sage); }
+/* Per-card colored gradient overlay */
 .welvra-feature-card-thin::before{
   content: '';
   position: absolute;
@@ -4193,17 +4195,19 @@ html.dark .welvra-feature-stack__line{
 }
 /* Dark mode adaptation — DRAMATIC equivalents */
 html.dark .welvra-feature-card-thin{
-  background: linear-gradient(135deg, rgba(40,42,52,0.65) 0%, rgba(28,30,40,0.50) 100%);
   border-color: rgba(255,255,255,0.10);
-  box-shadow:
-    inset 0 1.5px 0 rgba(255,255,255,0.08),
-    inset 0 0 0 1px rgba(255,255,255,0.04),
-    inset 0 -1.5px 0 rgba(0,0,0,0.3),
-    0 1px 2px rgba(0,0,0,0.3),
-    0 10px 28px rgba(0,0,0,0.35),
-    0 28px 64px var(--feature-glow-dramatic, rgba(0,0,0,0.25)),
-    0 4px 24px var(--feature-glow, rgba(0,0,0,0.15));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 14px rgba(0,0,0,0.25);
 }
+html.dark .welvra-feature-card-thin:nth-child(3n+1){ background-image:
+  radial-gradient(ellipse 60% 80% at 25% 15%, rgba(255,255,255,0.18), transparent 70%),
+  linear-gradient(135deg, #1F2A45 0%, #2A3556 50%, #354064 100%); }
+html.dark .welvra-feature-card-thin:nth-child(3n+2){ background-image:
+  radial-gradient(ellipse 60% 80% at 25% 15%, rgba(255,255,255,0.18), transparent 70%),
+  linear-gradient(135deg, #2A2F50 0%, #353A60 50%, #404575 100%); }
+html.dark .welvra-feature-card-thin:nth-child(3n){ background-image:
+  radial-gradient(ellipse 60% 80% at 25% 15%, rgba(255,255,255,0.18), transparent 70%),
+  linear-gradient(135deg, #1F3528 0%, #2A4035 50%, #354B40 100%); }
+html.dark .welvra-feature-card-thin__title{ color: #F0F4FA; text-shadow: none; }
 html.dark .welvra-feature-card-thin::before{
   background:
     linear-gradient(135deg,
@@ -4230,8 +4234,8 @@ html.dark .welvra-feature-card-thin::before{
 
 /* Photo thumbnail (left) — Unsplash square crop with gold ring + inner color glow */
 .welvra-feature-card-thin__thumb{
-  flex: 0 0 64px; width: 64px; height: 64px;
-  border-radius: 14px; overflow:hidden;
+  flex: 0 0 54px; width: 54px; height: 54px;
+  border-radius: 12px; overflow:hidden;
   position:relative;
   background: var(--feature-tint, rgba(10,123,108,0.10));
   box-shadow:
@@ -4293,10 +4297,11 @@ html.dark .welvra-feature-card-thin__thumb{
 }
 .welvra-feature-card-thin__title{
   font-family:'Cormorant Garamond', Georgia, serif;
-  font-size: 18px; font-weight: 500;
-  color: var(--text);
-  margin: 0; line-height: 1.2;
-  letter-spacing: 0.003em;
+  font-size: 17px; font-weight: 600;
+  color: #1A2540;
+  margin: 0; line-height: 1.15;
+  letter-spacing: -0.005em;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.5);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -4622,14 +4627,17 @@ html.dark .bottom-nav.welvra-glass-soft{
 .nav-tab:focus-visible{outline:none}
 .nav-tab:focus-visible .nav-tab-icon{outline:2px solid var(--gold);outline-offset:4px;border-radius:50%}
 .nav-tab-icon{width:26px;height:26px;display:flex;align-items:center;justify-content:center;transition:transform 300ms var(--ease-spring)}
-.nav-tab-icon svg{width:26px;height:26px;stroke:var(--sage-muted);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke 250ms var(--ease-decelerate),fill 250ms var(--ease-decelerate)}
-html.dark .nav-tab-icon svg{stroke:rgba(160,180,170,.55)}
-.nav-tab-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.3px;color:var(--sage-muted);transition:color 250ms var(--ease-decelerate)}
-html.dark .nav-tab-label{color:rgba(160,180,170,.6)}
+.nav-tab-icon svg{width:26px;height:26px;stroke:rgba(26,37,64,0.55);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke 250ms var(--ease-decelerate),fill 250ms var(--ease-decelerate)}
+html.dark .nav-tab-icon svg{stroke:rgba(255,255,255,0.45)}
+.nav-tab-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.3px;color:rgba(26,37,64,0.55);transition:color 250ms var(--ease-decelerate),font-weight 250ms;margin-top:2px}
+html.dark .nav-tab-label{color:rgba(255,255,255,0.50)}
 .nav-tab-indicator{position:absolute;bottom:6px;left:50%;width:0;height:2px;background:linear-gradient(90deg,var(--gold-cream),var(--gold),var(--gold-cream));border-radius:1px;transform:translateX(-50%);transition:width 400ms var(--ease-out-expo)}
-.nav-tab.active .nav-tab-icon svg{stroke:url(#welvraGoldGradient);fill:url(#welvraGoldGradient);fill-opacity:.15}
-.nav-tab.active .nav-tab-label{color:var(--primary);font-weight:600}
-html.dark .nav-tab.active .nav-tab-label{color:var(--teal-light)}
+.nav-tab.active .nav-tab-icon svg{stroke:#0A7B6C;fill:url(#navGradActive);fill-opacity:.15}
+.nav-tab[data-tab="toko"].active .nav-tab-icon svg{stroke:#C8860A;fill:url(#navGradGold);fill-opacity:.15}
+.nav-tab.active .nav-tab-label{color:#0A7B6C;font-weight:700}
+.nav-tab[data-tab="toko"].active .nav-tab-label{color:#C8860A}
+html.dark .nav-tab.active .nav-tab-label{color:#2DD4BF}
+html.dark .nav-tab[data-tab="toko"].active .nav-tab-label{color:#E8C063}
 .nav-tab.active .nav-tab-indicator{width:24px}
 .nav-tab:active .nav-tab-icon{transform:scale(.92)}
 .nav-tab.tap-spring .nav-tab-icon{animation:navTabSpring 300ms var(--ease-spring)}
@@ -5746,6 +5754,14 @@ html.dark .drawer-auth-name{color:#F0EDE8}
       <stop offset="0%" stop-color="#F5E6C8"/>
       <stop offset="50%" stop-color="#C8860A"/>
       <stop offset="100%" stop-color="#A57008"/>
+    </linearGradient>
+    <linearGradient id="navGradActive" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#0A7B6C"/>
+    </linearGradient>
+    <linearGradient id="navGradGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E8C063"/>
+      <stop offset="100%" stop-color="#C8860A"/>
     </linearGradient>
   </defs>
 </svg>
