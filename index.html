@@ -52,6 +52,10 @@ setTimeout(function(){
 --glass-txt-tertiary:#738078;
 --glass-txt-accent:#A57008;
 --radius:24px;--max-w:480px;
+--forest-0:#154630;--forest-20:#325D49;--forest-40:#4F7663;
+--forest-60:#6E8E7E;--forest-80:#8DA699;--forest-100:#A6BCB0;
+--forest-grad:linear-gradient(180deg,#154630 0%,#325D49 20%,#4F7663 40%,#6E8E7E 60%,#8DA699 80%,#A6BCB0 100%);
+--forest-grad-compact:linear-gradient(180deg,#23523C 0%,#4F7663 50%,#7F9B8D 100%);
 }
 html.dark{
 --bg:#1A2330;--bg-light:#22303D;--bg-edge:#0F1820;--white:#1C2030;--card:#1E2235;
@@ -462,35 +466,27 @@ background:var(--white);color:var(--text);font-family:'Plus Jakarta Sans',sans-s
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg,
-    rgba(168,192,216,0.55) 0%,
-    rgba(140,170,195,0.42) 100%);
-  -webkit-backdrop-filter: blur(32px) saturate(1.8);
-  backdrop-filter: blur(32px) saturate(1.8);
-  border: 1px solid rgba(255,255,255,0.45);
+  background: var(--forest-grad);
+  border: 1px solid rgba(255,255,255,0.18);
   box-shadow:
-    inset 0 1.5px 0 rgba(255,255,255,0.65),
-    inset 0 0 0 1px rgba(255,255,255,0.18),
-    inset 0 -1px 0 rgba(31,56,72,0.05),
-    0 8px 24px rgba(91,124,142,0.10),
-    0 24px 56px rgba(91,124,142,0.20);
-  color: #1F3848;
+    inset 0 1.5px 0 rgba(255,255,255,0.20),
+    inset 0 0 0 1px rgba(255,255,255,0.08),
+    0 8px 24px rgba(20,60,46,0.15),
+    0 24px 56px rgba(20,60,46,0.25);
+  color: #FFFFFF;
   animation: heroFadeIn .4s ease-out both;
 }
 .hero::before,
 .hero::after{ content: none; }
 html.dark .hero{
-  background: linear-gradient(135deg,
-    rgba(60,80,100,0.55) 0%,
-    rgba(40,60,80,0.42) 100%);
-  border-color: rgba(255,255,255,0.08);
-  color: #E8EEF2;
+  background: var(--forest-grad);
+  border-color: rgba(255,255,255,0.10);
+  color: #FFFFFF;
   box-shadow:
-    inset 0 1.5px 0 rgba(255,255,255,0.10),
+    inset 0 1.5px 0 rgba(255,255,255,0.12),
     inset 0 0 0 1px rgba(255,255,255,0.05),
-    inset 0 -1px 0 rgba(0,0,0,0.2),
-    0 8px 24px rgba(0,0,0,0.25),
-    0 24px 56px rgba(0,0,0,0.30);
+    0 8px 24px rgba(0,0,0,0.30),
+    0 24px 56px rgba(0,0,0,0.35);
 }
 html.dark .hero::before,
 html.dark .hero::after{ content: none; }
@@ -541,7 +537,8 @@ html.dark .hero::after{ content: none; }
   margin-bottom: 6px;
   font-weight: 600;
   line-height: 1.15;
-  color: inherit;
+  color: #FFFFFF;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.18);
   letter-spacing: -0.005em;
   position: relative; z-index: 4;
   animation: heroSlideUp .5s ease-out .2s both;
@@ -552,8 +549,8 @@ html.dark .hero::after{ content: none; }
   font-size: 0.85rem;
   font-weight: 400;
   line-height: 1.55;
-  color: inherit;
-  opacity: 0.78;
+  color: rgba(255,255,255,0.82);
+  opacity: 1;
   margin-bottom: 14px;
   letter-spacing: 0;
   position: relative; z-index: 4;
@@ -598,20 +595,20 @@ html.dark .hero::after{ content: none; }
   border-radius: 14px;
   display: flex; align-items: center;
   padding: 0 14px; gap: 10px;
-  background: rgba(255,255,255,0.55);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
-  backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid rgba(200,134,10,0.18);
-  box-shadow: 0 4px 14px rgba(200,134,10,0.06);
-  color: #1A1A1A;
+  background: var(--forest-grad-compact);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow:
+    0 4px 14px rgba(20,60,46,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.10);
+  color: #FFFFFF;
   position: relative;
   overflow: hidden;
   transition: opacity .25s ease;
 }
 html.dark .welvra-weather-card{
-  background: rgba(40,42,52,0.55);
-  border-color: rgba(200,134,10,0.22);
-  color: #F0EDE8;
+  background: var(--forest-grad-compact);
+  border-color: rgba(255,255,255,0.12);
+  color: #FFFFFF;
 }
 .welvra-weather-card__icon{
   flex-shrink: 0;
@@ -621,7 +618,7 @@ html.dark .welvra-weather-card{
 }
 .welvra-weather-card__icon svg{
   width: 24px; height: 24px;
-  stroke: var(--gold);
+  stroke: rgba(255,255,255,0.95);
   stroke-width: 1.5;
   fill: none;
 }
@@ -635,50 +632,65 @@ html.dark .welvra-weather-card{
 .welvra-weather-card__city{
   font-family:'Plus Jakarta Sans', sans-serif;
   font-size: 13px; font-weight: 500;
-  color: rgba(26,26,26,0.65);
+  color: rgba(255,255,255,0.72);
   margin-left: auto;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   max-width: 60%;
   line-height: 1;
   transition: opacity .25s ease;
 }
-html.dark .welvra-weather-card__city{ color: rgba(240,237,232,0.65); }
+html.dark .welvra-weather-card__city{ color: rgba(255,255,255,0.72); }
+.welvra-weather-card__sep{
+  color: rgba(255,255,255,0.40);
+  margin: 0 8px;
+  font-size: 14px;
+  line-height: 1;
+}
+.welvra-weather-card__cond{
+  font-family:'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.88);
+  line-height: 1;
+}
 .welvra-weather-card__empty{
   font-family:'Plus Jakarta Sans', sans-serif;
   font-size: 13px; font-weight: 500;
-  color: rgba(26,26,26,0.50);
+  color: rgba(255,255,255,0.65);
   display: flex; align-items: center; gap: 8px;
 }
-html.dark .welvra-weather-card__empty{ color: rgba(240,237,232,0.45); }
+html.dark .welvra-weather-card__empty{ color: rgba(255,255,255,0.65); }
 .welvra-weather-card__empty svg{
   width: 16px; height: 16px;
-  stroke: rgba(26,26,26,0.40);
+  stroke: rgba(255,255,255,0.55);
   stroke-width: 1.5; fill: none;
 }
-html.dark .welvra-weather-card__empty svg{ stroke: rgba(240,237,232,0.35); }
+html.dark .welvra-weather-card__empty svg{ stroke: rgba(255,255,255,0.55); }
 .welvra-weather-card__skel{
   display: flex; align-items: center; gap: 10px; width: 100%;
 }
 .welvra-weather-card__skel-icon{
   width: 24px; height: 24px; border-radius: 6px;
-  background: linear-gradient(90deg, rgba(200,134,10,0.10), rgba(200,134,10,0.20), rgba(200,134,10,0.10));
+  background: linear-gradient(90deg, rgba(255,255,255,0.16), rgba(255,255,255,0.28), rgba(255,255,255,0.16));
   background-size: 200% 100%;
-  animation: shimmer-gold 1.4s ease-in-out infinite;
+  animation: shimmer-white 1.4s ease-in-out infinite;
 }
 .welvra-weather-card__skel-temp{
   width: 50px; height: 12px; border-radius: 4px;
-  background: linear-gradient(90deg, rgba(200,134,10,0.10), rgba(200,134,10,0.20), rgba(200,134,10,0.10));
+  background: linear-gradient(90deg, rgba(255,255,255,0.16), rgba(255,255,255,0.28), rgba(255,255,255,0.16));
   background-size: 200% 100%;
-  animation: shimmer-gold 1.4s ease-in-out infinite;
+  animation: shimmer-white 1.4s ease-in-out infinite;
 }
 .welvra-weather-card__skel-city{
   width: 90px; height: 12px; border-radius: 4px;
   margin-left: auto;
-  background: linear-gradient(90deg, rgba(200,134,10,0.10), rgba(200,134,10,0.20), rgba(200,134,10,0.10));
+  background: linear-gradient(90deg, rgba(255,255,255,0.16), rgba(255,255,255,0.28), rgba(255,255,255,0.16));
   background-size: 200% 100%;
-  animation: shimmer-gold 1.4s ease-in-out infinite;
+  animation: shimmer-white 1.4s ease-in-out infinite;
 }
-@keyframes shimmer-gold{
+@keyframes shimmer-white{
   0%{ background-position: 200% 0; }
   100%{ background-position: -200% 0; }
 }
@@ -690,6 +702,9 @@ html.dark .welvra-weather-card__empty svg{ stroke: rgba(240,237,232,0.35); }
 }
 @media (max-width: 360px){
   .welvra-weather-card{ margin: 8px 16px 0; }
+  .welvra-weather-card__sep{ margin: 0 6px; }
+  .welvra-weather-card__cond{ font-size: 10px; letter-spacing: 1.2px; }
+  .welvra-weather-card__city{ max-width: 45%; font-size: 12px; }
 }
 
 /* ===== SECTION LABEL ===== */
@@ -7181,6 +7196,18 @@ Welvra.weather = (function(){
     if (code >= 95 && code <= 99) return 'badai';
     return 'berawan';
   }
+  function condFor(code){
+    if (code === 0) return 'SUNNY';
+    if (code === 1 || code === 2) return 'PARTLY CLOUDY';
+    if (code === 3) return 'CLOUDY';
+    if (code === 45 || code === 48) return 'FOGGY';
+    if (code >= 51 && code <= 57) return 'DRIZZLE';
+    if (code >= 61 && code <= 67) return 'RAINING';
+    if (code >= 71 && code <= 77) return 'SNOWY';
+    if (code >= 80 && code <= 82) return 'RAINING';
+    if (code >= 95 && code <= 99) return 'STORMY';
+    return 'CLEAR';
+  }
   function escapeHtml(s){
     return String(s||'').replace(/[&<>"']/g, function(c){
       return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
@@ -7282,11 +7309,14 @@ Welvra.weather = (function(){
     var temp = (payload.temp != null) ? payload.temp + '°' : '—';
     var city = payload.city || '';
     var desc = descFor(payload.code);
+    var cond = condFor(payload.code);
     var iconHtml = iconFor(payload.code);
 
     var inner =
       '<div class="welvra-weather-card__icon"><svg ' + ICON_ATTR + '>' + iconHtml + '</svg></div>' +
       '<div class="welvra-weather-card__temp">' + escapeHtml(temp) + '</div>' +
+      '<span class="welvra-weather-card__sep">&middot;</span>' +
+      '<div class="welvra-weather-card__cond">' + escapeHtml(cond) + '</div>' +
       '<div class="welvra-weather-card__city">' + escapeHtml(city) + '</div>' +
       '<span class="welvra-weather-card__sr" id="' + SR_ID + '">' +
         'Cuaca saat ini' + (city ? ' di ' + escapeHtml(city) : '') + ': ' + escapeHtml(temp) + ', ' + escapeHtml(desc) +
