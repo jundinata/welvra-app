@@ -3823,53 +3823,163 @@ html.dark .welvra-feature-stack__line{
 }
 
 /* ===== THIN PILL ROW (Apple Health-style) — shared by features & articles ===== */
+/* === LUXURY 4D/5D GLASS FEATURE CARD === */
 .welvra-feature-card-thin{
+  position: relative;
   display:flex; align-items:center; gap: 14px;
-  width:100%; min-height: 88px;
-  padding: 12px 14px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
+  width:100%; min-height: 92px;
+  padding: 14px 18px 14px 14px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.86) 0%, rgba(255,255,255,0.72) 100%);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 18px;
   cursor: pointer; text-align:left;
   font: inherit; color: inherit;
   appearance:none; -webkit-appearance:none;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
+  overflow: hidden;
+  isolation: isolate;
+  /* 5-layer 4D shadow stack */
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    inset 0 -1px 0 rgba(45,42,38,0.04),
+    0 1px 2px rgba(45,42,38,0.04),
+    0 6px 20px rgba(45,42,38,0.06),
+    0 16px 40px var(--feature-glow, rgba(45,42,38,0.05));
+  transition:
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 200ms ease-out;
 }
-.welvra-feature-card-thin:active{ transform: scale(0.98); }
-.welvra-feature-card-thin:focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+/* Per-card colored gradient overlay (subtle, elegant) */
+.welvra-feature-card-thin::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(var(--feature-tint-rgb, 200,134,10), 0.07) 0%,
+    rgba(var(--feature-tint-rgb, 200,134,10), 0.02) 40%,
+    transparent 80%);
+  pointer-events: none;
+  z-index: -1;
+  border-radius: inherit;
+}
+/* Top edge gold shimmer accent (premium luxury cue) */
+.welvra-feature-card-thin::after{
+  content: '';
+  position: absolute;
+  top: 0; left: 14%; right: 14%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(200,134,10,0.55) 50%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.welvra-feature-card-thin:active{
+  transform: translateY(-1px) scale(0.985);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    inset 0 -1px 0 rgba(45,42,38,0.04),
+    0 1px 2px rgba(45,42,38,0.04),
+    0 4px 12px rgba(45,42,38,0.06),
+    0 8px 24px var(--feature-glow, rgba(45,42,38,0.05));
+}
+.welvra-feature-card-thin:focus-visible{
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
 @media (hover:hover){
   .welvra-feature-card-thin:hover{
-    border-color: rgba(10,123,108,0.20);
-    box-shadow: 0 4px 16px rgba(10,42,42,0.06);
+    transform: translateY(-3px);
+    border-color: rgba(var(--feature-tint-rgb, 200,134,10), 0.45);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,1),
+      inset 0 -1px 0 rgba(45,42,38,0.04),
+      0 1px 2px rgba(45,42,38,0.06),
+      0 12px 32px rgba(45,42,38,0.08),
+      0 24px 60px var(--feature-glow-strong, rgba(45,42,38,0.10));
+  }
+  .welvra-feature-card-thin:hover::before{
+    background: linear-gradient(135deg,
+      rgba(var(--feature-tint-rgb, 200,134,10), 0.12) 0%,
+      rgba(var(--feature-tint-rgb, 200,134,10), 0.04) 40%,
+      transparent 80%);
+  }
+  .welvra-feature-card-thin:hover::after{
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(200,134,10,0.85) 50%,
+      transparent 100%);
   }
 }
+/* Dark mode adaptation */
 html.dark .welvra-feature-card-thin{
-  background: var(--card);
-  border-color: var(--border);
+  background: linear-gradient(135deg, rgba(30,33,40,0.78) 0%, rgba(20,23,30,0.62) 100%);
+  border-color: rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.2),
+    0 1px 2px rgba(0,0,0,0.2),
+    0 6px 20px rgba(0,0,0,0.25),
+    0 16px 40px var(--feature-glow, rgba(0,0,0,0.15));
+}
+html.dark .welvra-feature-card-thin::before{
+  background: linear-gradient(135deg,
+    rgba(var(--feature-tint-rgb, 200,134,10), 0.10) 0%,
+    rgba(var(--feature-tint-rgb, 200,134,10), 0.04) 40%,
+    transparent 80%);
 }
 @media (hover:hover){
   html.dark .welvra-feature-card-thin:hover{
-    border-color: rgba(200,134,10,0.30);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.30);
+    border-color: rgba(var(--feature-tint-rgb, 200,134,10), 0.55);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.08),
+      inset 0 -1px 0 rgba(0,0,0,0.2),
+      0 1px 2px rgba(0,0,0,0.2),
+      0 12px 32px rgba(0,0,0,0.35),
+      0 24px 60px var(--feature-glow-strong, rgba(0,0,0,0.25));
   }
 }
 
-/* Photo thumbnail (left) — Unsplash square crop */
+/* Photo thumbnail (left) — Unsplash square crop with gold ring + inner color glow */
 .welvra-feature-card-thin__thumb{
-  flex: 0 0 64px; width: 64px; height: 64px;
+  flex: 0 0 68px; width: 68px; height: 68px;
   border-radius: 14px; overflow:hidden;
   position:relative;
   background: var(--feature-tint, rgba(10,123,108,0.10));
+  box-shadow:
+    0 0 0 1px rgba(200,134,10,0.18),
+    inset 0 0 0 1px rgba(255,255,255,0.4),
+    0 4px 12px var(--feature-glow, rgba(45,42,38,0.08));
+  transition: box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .welvra-feature-card-thin__thumb img{
   width:100%; height:100%; object-fit:cover; display:block;
   opacity: 0;
-  transition: opacity 300ms ease-out, transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 300ms ease-out, transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .welvra-feature-card-thin__thumb img.loaded{ opacity: 1; }
 @media (hover:hover){
-  .welvra-feature-card-thin:hover .welvra-feature-card-thin__thumb img{ transform: scale(1.06); }
+  .welvra-feature-card-thin:hover .welvra-feature-card-thin__thumb{
+    box-shadow:
+      0 0 0 1px rgba(200,134,10,0.4),
+      inset 0 0 0 1px rgba(255,255,255,0.6),
+      0 6px 18px var(--feature-glow-strong, rgba(45,42,38,0.15));
+    transform: scale(1.02);
+  }
+  .welvra-feature-card-thin:hover .welvra-feature-card-thin__thumb img{
+    transform: scale(1.08);
+  }
+}
+html.dark .welvra-feature-card-thin__thumb{
+  box-shadow:
+    0 0 0 1px rgba(200,134,10,0.28),
+    inset 0 0 0 1px rgba(255,255,255,0.08),
+    0 4px 12px var(--feature-glow, rgba(0,0,0,0.2));
 }
 
 /* Label block (eyebrow + title + meta) */
@@ -3878,12 +3988,24 @@ html.dark .welvra-feature-card-thin{
   display:flex; flex-direction:column; gap: 2px;
 }
 .welvra-feature-card-thin__eyebrow{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family:'Plus Jakarta Sans', sans-serif;
-  font-size: 10px; font-weight: 600;
+  font-size: 10px; font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.10em;
+  letter-spacing: 0.12em;
   color: var(--gold);
   margin: 0; line-height: 1.1;
+}
+.welvra-feature-card-thin__eyebrow::before{
+  content: '';
+  display: inline-block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--feature-tint, var(--gold));
+  box-shadow: 0 0 6px rgba(var(--feature-tint-rgb, 200,134,10), 0.5);
+  flex-shrink: 0;
 }
 .welvra-feature-card-thin__title{
   font-family:'Cormorant Garamond', Georgia, serif;
@@ -3904,11 +4026,26 @@ html.dark .welvra-feature-card-thin{
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
 }
 
-/* Trailing controls (chevron / resume badge) */
+/* Trailing controls (chevron / resume badge) — colored circle button */
 .welvra-feature-card-thin__chevron{
-  flex: 0 0 16px; width: 16px; height: 16px;
-  fill: none; stroke: var(--text-muted);
-  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  flex: 0 0 28px; width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(var(--feature-tint-rgb, 200,134,10), 0.10);
+  padding: 6px;
+  box-sizing: border-box;
+  fill: none; stroke: var(--feature-tint, var(--gold));
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  transition: background 280ms ease-out, transform 280ms cubic-bezier(0.16, 1, 0.3, 1), stroke 280ms ease-out;
+}
+@media (hover:hover){
+  .welvra-feature-card-thin:hover .welvra-feature-card-thin__chevron{
+    background: rgba(var(--feature-tint-rgb, 200,134,10), 0.22);
+    transform: translateX(3px);
+    stroke: var(--gold);
+  }
+}
+html.dark .welvra-feature-card-thin__chevron{
+  background: rgba(var(--feature-tint-rgb, 200,134,10), 0.16);
 }
 .welvra-feature-card-thin__resume{
   flex: 0 0 auto;
@@ -3924,15 +4061,55 @@ html.dark .welvra-feature-card-thin__resume{
   background: rgba(200,134,10,0.14);
 }
 
-/* Per-feature thumbnail fallback color (shows when image fails / before load) */
-.welvra-feature-card-thin[data-feature="foto"]{ --feature-tint: #B8A088; }
-.welvra-feature-card-thin[data-feature="lab"]{ --feature-tint: #C8B98A; }
-.welvra-feature-card-thin[data-feature="chat"]{ --feature-tint: #8FB098; }
-.welvra-feature-card-thin[data-feature="tensi"]{ --feature-tint: #C58F8F; }
-.welvra-feature-card-thin[data-feature="makan"]{ --feature-tint: #A8B888; }
-.welvra-feature-card-thin[data-feature="aktivitas"]{ --feature-tint: #88AAB5; }
-.welvra-feature-card-thin[data-feature="faceprint"]{ --feature-tint: #D4B89C; }
-.welvra-feature-card-thin[data-feature="mens"]{ --feature-tint: #C098AC; }
+/* Per-feature tint + glow (4D/5D luxury glass treatment) */
+.welvra-feature-card-thin[data-feature="foto"]{
+  --feature-tint: #B8A088;
+  --feature-tint-rgb: 184,160,136;
+  --feature-glow: rgba(184,160,136,0.18);
+  --feature-glow-strong: rgba(184,160,136,0.32);
+}
+.welvra-feature-card-thin[data-feature="lab"]{
+  --feature-tint: #C8B98A;
+  --feature-tint-rgb: 200,185,138;
+  --feature-glow: rgba(200,185,138,0.18);
+  --feature-glow-strong: rgba(200,185,138,0.32);
+}
+.welvra-feature-card-thin[data-feature="chat"]{
+  --feature-tint: #8FB098;
+  --feature-tint-rgb: 143,176,152;
+  --feature-glow: rgba(143,176,152,0.18);
+  --feature-glow-strong: rgba(143,176,152,0.32);
+}
+.welvra-feature-card-thin[data-feature="tensi"]{
+  --feature-tint: #C58F8F;
+  --feature-tint-rgb: 197,143,143;
+  --feature-glow: rgba(197,143,143,0.18);
+  --feature-glow-strong: rgba(197,143,143,0.32);
+}
+.welvra-feature-card-thin[data-feature="makan"]{
+  --feature-tint: #A8B888;
+  --feature-tint-rgb: 168,184,136;
+  --feature-glow: rgba(168,184,136,0.18);
+  --feature-glow-strong: rgba(168,184,136,0.32);
+}
+.welvra-feature-card-thin[data-feature="aktivitas"]{
+  --feature-tint: #88AAB5;
+  --feature-tint-rgb: 136,170,181;
+  --feature-glow: rgba(136,170,181,0.18);
+  --feature-glow-strong: rgba(136,170,181,0.32);
+}
+.welvra-feature-card-thin[data-feature="faceprint"]{
+  --feature-tint: #D4B89C;
+  --feature-tint-rgb: 212,184,156;
+  --feature-glow: rgba(212,184,156,0.20);
+  --feature-glow-strong: rgba(212,184,156,0.34);
+}
+.welvra-feature-card-thin[data-feature="mens"]{
+  --feature-tint: #C098AC;
+  --feature-tint-rgb: 192,152,172;
+  --feature-glow: rgba(192,152,172,0.18);
+  --feature-glow-strong: rgba(192,152,172,0.32);
+}
 
 @media (max-width: 380px){
   .welvra-feature-card-thin{ min-height: 80px; padding: 10px 12px; gap: 12px; }
