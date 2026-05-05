@@ -55,6 +55,12 @@ setTimeout(function(){
 --gold-deep:#8B5E07;--gold-rich:#A56F08;
 --header-fade-h:152px;--header-zone-h:240px;
 --page-bg:#FAFAF7;
+--trackfit-bg-1:#0A1F18;--trackfit-bg-2:#143C2E;--trackfit-bg-3:#0A1810;
+--trackfit-gold-shine:linear-gradient(135deg,#FAE5A8 0%,#E8C063 40%,#A56F08 100%);
+--trackfit-bg-grad:linear-gradient(180deg,var(--trackfit-bg-1) 0%,var(--trackfit-bg-2) 40%,var(--trackfit-bg-3) 100%);
+--trackfit-card-surface:linear-gradient(180deg,rgba(255,255,255,0.06) 0%,rgba(255,255,255,0.02) 100%);
+--trackfit-card-border:rgba(232,192,99,0.14);
+--trackfit-text-1:#F5F1E8;--trackfit-text-2:rgba(240,237,232,0.55);--trackfit-text-3:rgba(240,237,232,0.40);
 --card-grad-blue:linear-gradient(135deg,#E8F0FB 0%,#D5E3F7 50%,#BCD0EC 100%);
 --card-grad-navy:linear-gradient(135deg,#DDE3F5 0%,#C5CFE8 50%,#ABB7DA 100%);
 --card-grad-sage:linear-gradient(135deg,#E0EDDD 0%,#C5DCC0 50%,#ABCAA5 100%);
@@ -1815,6 +1821,77 @@ background:var(--text);color:var(--bg);padding:13px 24px;border-radius:14px;font
 box-shadow:0 8px 32px rgba(0,0,0,.2);transition:transform .5s cubic-bezier(.32,.72,.24,1),opacity .5s;opacity:0;white-space:nowrap;max-width:90vw;text-align:center}
 html.dark .toast{background:#F0EDE8;color:#1A1F2E}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ===== TRACKFIT ELITE ===== */
+.welvra-trackfit-screen{position:fixed;inset:0;z-index:1000;background:var(--trackfit-bg-grad);overflow-y:auto;overflow-x:hidden;display:none;color:var(--trackfit-text-1);font-family:'Plus Jakarta Sans',sans-serif}
+.welvra-trackfit-screen.is-open{display:block;animation:trackfitFadeIn .35s ease-out}
+@keyframes trackfitFadeIn{from{opacity:0}to{opacity:1}}
+.welvra-trackfit-container{max-width:480px;margin:0 auto;padding:60px 20px 32px;position:relative}
+.welvra-trackfit-close{position:fixed;top:16px;left:16px;z-index:2;width:40px;height:40px;background:rgba(255,255,255,0.06);border:1px solid rgba(232,192,99,0.20);border-radius:50%;color:var(--trackfit-text-1);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.welvra-trackfit-close svg{width:22px;height:22px}
+.welvra-trackfit-close:focus-visible{outline:2px solid #E8C063;outline-offset:2px}
+.welvra-trackfit-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px}
+.welvra-trackfit-header__brand{display:flex;gap:10px;align-items:center}
+.welvra-trackfit-header__brand-mark svg{width:22px;height:22px;display:block}
+.welvra-trackfit-header__brand-text{display:flex;flex-direction:column}
+.welvra-trackfit-header__eyebrow{font-size:8px;font-weight:700;color:#C8860A;letter-spacing:2px}
+.welvra-trackfit-header__title{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--trackfit-text-1);letter-spacing:2.5px}
+.welvra-trackfit-header__sync{display:flex;flex-direction:column;align-items:flex-end}
+.welvra-trackfit-header__sync-label{font-size:8px;font-weight:600;color:var(--trackfit-text-2);letter-spacing:1.5px}
+.welvra-trackfit-header__sync-value{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;color:var(--trackfit-text-1);margin-top:2px}
+/* Mode toggle */
+.welvra-trackfit-modes{display:flex;gap:8px;margin-bottom:24px}
+.welvra-trackfit-modes__pill{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;height:32px;border-radius:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(232,192,99,0.20);color:var(--trackfit-text-2);font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.welvra-trackfit-modes__pill svg{width:14px;height:14px}
+.welvra-trackfit-modes__pill.is-active{background:var(--trackfit-gold-shine);border-color:rgba(232,192,99,0.45);color:#0A1F18}
+.welvra-trackfit-modes__pill:focus-visible{outline:2px solid #E8C063;outline-offset:2px}
+/* Progress ring */
+.welvra-trackfit-ring-wrap{position:relative;width:100%;max-width:296px;margin:0 auto 32px;aspect-ratio:1}
+.welvra-trackfit-ring{width:100%;height:100%;display:block}
+.welvra-trackfit-ring-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.welvra-trackfit-ring__eyebrow{font-size:9px;font-weight:700;color:var(--trackfit-text-2);letter-spacing:2.5px}
+.welvra-trackfit-ring__number{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:700;color:var(--trackfit-text-1);letter-spacing:-0.5px;line-height:1}
+.welvra-trackfit-ring__sublabel{font-size:9px;color:var(--trackfit-text-3);letter-spacing:1.5px;margin-top:4px}
+.welvra-trackfit-ring__goal{font-size:11px;font-weight:700;color:#E8C063;margin-top:10px}
+/* Stats trio */
+.welvra-trackfit-stats-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.welvra-trackfit-stat{background:var(--trackfit-card-surface);border:1px solid var(--trackfit-card-border);border-radius:14px;padding:12px 12px 14px;display:flex;flex-direction:column;gap:6px}
+.welvra-trackfit-stat__label{font-size:9px;font-weight:700;color:var(--trackfit-text-2);letter-spacing:1.5px}
+.welvra-trackfit-stat__row{display:flex;align-items:baseline;gap:4px}
+.welvra-trackfit-stat__value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--trackfit-text-1);line-height:1}
+.welvra-trackfit-stat__unit{font-size:11px;color:var(--trackfit-text-2)}
+.welvra-trackfit-stat__icon{width:16px;height:16px;margin-left:auto;align-self:center}
+/* HR + Streak duo */
+.welvra-trackfit-duo{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.welvra-trackfit-duo__card{background:var(--trackfit-card-surface);border:1px solid var(--trackfit-card-border);border-radius:14px;padding:12px;position:relative;display:flex;align-items:center;gap:10px;overflow:hidden}
+.welvra-trackfit-duo__icon{width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.welvra-trackfit-duo__icon svg{width:24px;height:24px}
+.welvra-trackfit-duo__body{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.welvra-trackfit-duo__label{font-size:9px;font-weight:700;color:var(--trackfit-text-2);letter-spacing:1.4px}
+.welvra-trackfit-duo__row{display:flex;align-items:baseline;gap:4px}
+.welvra-trackfit-duo__value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--trackfit-text-1);line-height:1}
+.welvra-trackfit-duo__unit{font-size:11px;color:var(--trackfit-text-2)}
+.welvra-trackfit-duo__ecg{position:absolute;right:12px;bottom:12px;width:60px;height:18px;opacity:0.85}
+.welvra-trackfit-duo__badge{position:absolute;top:10px;right:12px;font-size:9px;font-weight:800;color:#E8C063;letter-spacing:1px;display:none}
+.welvra-trackfit-duo__card--streak.is-bonus .welvra-trackfit-duo__badge{display:block}
+@keyframes hrPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+.welvra-trackfit-duo__card--heart.is-pulsing .welvra-trackfit-duo__icon svg{animation:hrPulse .9s ease-in-out infinite}
+/* Hourly chart */
+.welvra-trackfit-hourly{background:var(--trackfit-card-surface);border:1px solid var(--trackfit-card-border);border-radius:16px;padding:16px 14px;margin-bottom:32px}
+.welvra-trackfit-hourly__head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.welvra-trackfit-hourly__label{font-size:9px;font-weight:700;color:var(--trackfit-text-2);letter-spacing:1.5px}
+.welvra-trackfit-hourly__hours{font-size:9px;color:var(--trackfit-text-3);letter-spacing:1px}
+.welvra-trackfit-hourly__bars{display:grid;grid-template-columns:repeat(24,1fr);gap:3px;height:50px;align-items:flex-end}
+.welvra-trackfit-hourly__bar{background:var(--trackfit-gold-shine);border-radius:3px;width:100%;min-height:3px;transition:height .4s ease,opacity .4s ease}
+.welvra-trackfit-hourly__bar.is-peak{box-shadow:0 0 8px rgba(232,192,99,0.6)}
+.welvra-trackfit-hourly__axis{display:flex;justify-content:space-between;margin-top:8px;font-size:8px;color:var(--trackfit-text-3);letter-spacing:0.5px;padding:0 2px}
+/* Start button */
+.welvra-trackfit-startbtn{display:flex;margin:0 auto;width:76px;height:76px;border-radius:50%;background:var(--trackfit-gold-shine);border:1px solid rgba(232,192,99,0.35);box-shadow:0 0 0 4px rgba(232,192,99,0.10),0 12px 28px rgba(200,134,10,0.30);cursor:pointer;align-items:center;justify-content:center;transition:transform .2s ease}
+.welvra-trackfit-startbtn:hover{transform:scale(1.04)}
+.welvra-trackfit-startbtn:active{transform:scale(0.96)}
+.welvra-trackfit-startbtn:focus-visible{outline:2px solid #FAE5A8;outline-offset:4px}
+.welvra-trackfit-startbtn svg{width:32px;height:32px}
+.welvra-trackfit-startbtn-label{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--trackfit-text-1);letter-spacing:2.5px;text-align:center;margin-top:16px}
 
 /* ===== FOOTER ===== */
 .footer{text-align:center;padding:16px 20px 24px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:500;color:rgba(20,60,46,0.78);letter-spacing:.2px;position:relative;z-index:1;text-shadow:0 1px 2px rgba(255,255,255,0.4)}
@@ -5995,7 +6072,7 @@ html.dark .drawer-auth-name{color:#F0EDE8}
             if (window.openModal) { window.openModal(feature); return; }
             return;
           case 'aktivitas':
-            if (window.openAktivitasModal) { window.openAktivitasModal(); return; }
+            if (Welvra.trackfit) { Welvra.trackfit.open(); return; }
             return;
           case 'faceprint':
             if (window.openFaceprint) { window.openFaceprint(); return; }
@@ -6930,6 +7007,118 @@ html.dark .drawer-auth-name{color:#F0EDE8}
       <button class="welvra-confirm-btn welvra-confirm-cancel" onclick="closeWelvraResetConfirm()">Batal</button>
       <button class="welvra-confirm-btn welvra-confirm-confirm" onclick="confirmWelvraReset()">Reset</button>
     </div>
+  </div>
+</div>
+
+<!-- TRACKFIT ELITE SCREEN -->
+<div class="welvra-trackfit-screen" id="welvra-trackfit-screen" role="dialog" aria-modal="true" aria-labelledby="trackfit-title">
+  <svg width="0" height="0" style="position:absolute;" aria-hidden="true">
+    <defs>
+      <linearGradient id="tfGoldShine" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FAE5A8"/><stop offset="40%" stop-color="#E8C063"/><stop offset="100%" stop-color="#A56F08"/></linearGradient>
+      <linearGradient id="tfGoldShine2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FAE5A8"/><stop offset="100%" stop-color="#C8860A"/></linearGradient>
+      <radialGradient id="tfRingHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="50%" stop-color="#C8860A" stop-opacity="0"/><stop offset="75%" stop-color="#C8860A" stop-opacity="0.18"/><stop offset="100%" stop-color="#C8860A" stop-opacity="0"/></radialGradient>
+    </defs>
+  </svg>
+  <button class="welvra-trackfit-close" aria-label="Tutup TrackFit" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 L9 12 L15 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="welvra-trackfit-container">
+    <header class="welvra-trackfit-header">
+      <div class="welvra-trackfit-header__brand">
+        <span class="welvra-trackfit-header__brand-mark"><svg viewBox="0 0 22 22" aria-hidden="true"><rect x="0.6" y="0.6" width="20.8" height="20.8" rx="5" fill="none" stroke="url(#tfGoldShine)" stroke-width="1.2"/><path d="M5 11 L9 15 L17 7" fill="none" stroke="url(#tfGoldShine)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="welvra-trackfit-header__brand-text">
+          <span class="welvra-trackfit-header__eyebrow">WELVRA</span>
+          <span class="welvra-trackfit-header__title" id="trackfit-title">TRACKFIT</span>
+        </span>
+      </div>
+      <div class="welvra-trackfit-header__sync">
+        <span class="welvra-trackfit-header__sync-label">TERSINKRON</span>
+        <span class="welvra-trackfit-header__sync-value" id="trackfit-streak-display">Hari ke-0</span>
+      </div>
+    </header>
+    <section class="welvra-trackfit-modes" role="tablist" aria-label="Pilih mode aktivitas">
+      <button class="welvra-trackfit-modes__pill is-active" data-mode="walking" role="tab" aria-selected="true" type="button">
+        <svg viewBox="0 0 18 18" aria-hidden="true"><g stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="3" r="2"/><path d="M7 6 L10 12 L13 9 M10 12 L8 17"/></g></svg>
+        <span>BERJALAN</span>
+      </button>
+      <button class="welvra-trackfit-modes__pill" data-mode="running" role="tab" aria-selected="false" type="button">
+        <svg viewBox="0 0 18 18" aria-hidden="true"><g stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="3" r="2"/><path d="M9 6 L13 11 L15 8 M13 11 L9 16 L5 14"/></g></svg>
+        <span>LARI</span>
+      </button>
+      <button class="welvra-trackfit-modes__pill" data-mode="cycling" role="tab" aria-selected="false" type="button">
+        <svg viewBox="0 0 22 18" aria-hidden="true"><g stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="13" r="3.2"/><circle cx="17" cy="13" r="3.2"/><path d="M5 13 L10 13 L13 6 L9 6 M13 6 L17 13"/></g></svg>
+        <span>BERSEPEDA</span>
+      </button>
+    </section>
+    <section class="welvra-trackfit-ring-wrap">
+      <svg class="welvra-trackfit-ring" viewBox="0 0 296 296" aria-hidden="true">
+        <circle cx="148" cy="148" r="148" fill="url(#tfRingHalo)" opacity="0.6"/>
+        <circle cx="148" cy="148" r="105" stroke="rgba(255,255,255,0.06)" stroke-width="14" fill="none"/>
+        <circle id="trackfit-ring-progress" cx="148" cy="148" r="105" stroke="url(#tfGoldShine)" stroke-width="14" fill="none" stroke-dasharray="0 660" stroke-linecap="round" transform="rotate(-90 148 148)" style="transition:stroke-dasharray .9s cubic-bezier(.25,.8,.25,1)"/>
+      </svg>
+      <div class="welvra-trackfit-ring-text">
+        <span class="welvra-trackfit-ring__eyebrow">TOTAL LANGKAH</span>
+        <span class="welvra-trackfit-ring__number" id="trackfit-steps">0</span>
+        <span class="welvra-trackfit-ring__sublabel">LANGKAH HARI INI</span>
+        <span class="welvra-trackfit-ring__goal" id="trackfit-goal-display">0 · 10.000 Target</span>
+      </div>
+    </section>
+    <section class="welvra-trackfit-stats-trio">
+      <article class="welvra-trackfit-stat">
+        <span class="welvra-trackfit-stat__label">KALORI</span>
+        <span class="welvra-trackfit-stat__row">
+          <span class="welvra-trackfit-stat__value" id="trackfit-kcal">0</span>
+          <span class="welvra-trackfit-stat__unit">kkal</span>
+          <svg class="welvra-trackfit-stat__icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2 q-4 4 -4 8 q0 3 2 5 q-1 -3 1 -5 q2 -3 4 0 q3 4 -1 7 q5 -2 5 -7 q0 -7 -7 -8 z" fill="url(#tfGoldShine)"/></svg>
+        </span>
+      </article>
+      <article class="welvra-trackfit-stat">
+        <span class="welvra-trackfit-stat__label">JARAK</span>
+        <span class="welvra-trackfit-stat__row">
+          <span class="welvra-trackfit-stat__value" id="trackfit-distance">0</span>
+          <span class="welvra-trackfit-stat__unit">km</span>
+          <svg class="welvra-trackfit-stat__icon" viewBox="0 0 18 18" aria-hidden="true"><g stroke="url(#tfGoldShine)" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="3" r="2"/><path d="M7 6 L10 12 L13 9 M10 12 L8 17 M13 9 L16 12"/></g></svg>
+        </span>
+      </article>
+      <article class="welvra-trackfit-stat">
+        <span class="welvra-trackfit-stat__label">AKTIF</span>
+        <span class="welvra-trackfit-stat__row">
+          <span class="welvra-trackfit-stat__value" id="trackfit-active-minutes">0</span>
+          <span class="welvra-trackfit-stat__unit">mnt</span>
+          <svg class="welvra-trackfit-stat__icon" viewBox="0 0 18 18" aria-hidden="true"><g stroke="url(#tfGoldShine)" stroke-width="1.4" fill="none" stroke-linecap="round"><circle cx="9" cy="9" r="7"/><path d="M9 4 L9 9 L13 11.5"/></g></svg>
+        </span>
+      </article>
+    </section>
+    <section class="welvra-trackfit-duo">
+      <article class="welvra-trackfit-duo__card welvra-trackfit-duo__card--heart">
+        <span class="welvra-trackfit-duo__icon"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M11 19 q-9 -7 -9 -13 q0 -4 4 -4 q3 0 4 3 q1 -3 4 -3 q4 0 4 4 q0 6 -7 13 z" fill="#E84A5F"/></svg></span>
+        <div class="welvra-trackfit-duo__body">
+          <span class="welvra-trackfit-duo__label">DETAK JANTUNG</span>
+          <span class="welvra-trackfit-duo__row"><span class="welvra-trackfit-duo__value" id="trackfit-hr">&mdash;</span><span class="welvra-trackfit-duo__unit">bpm</span></span>
+        </div>
+        <svg class="welvra-trackfit-duo__ecg" viewBox="0 0 80 24" aria-hidden="true"><path id="trackfit-hr-ecg" d="M0 12 L18 12 L22 4 L26 20 L30 12 L80 12" fill="none" stroke="#E84A5F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </article>
+      <article class="welvra-trackfit-duo__card welvra-trackfit-duo__card--streak">
+        <span class="welvra-trackfit-duo__icon"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M11 2 q-7 6 -7 13 q0 5 4 6 q-3 -3 0 -7 q3 -4 7 0 q3 4 -1 9 q7 -2 7 -10 q0 -10 -10 -11 z" fill="url(#tfGoldShine)"/></svg></span>
+        <div class="welvra-trackfit-duo__body">
+          <span class="welvra-trackfit-duo__label">BERUNTUN</span>
+          <span class="welvra-trackfit-duo__row"><span class="welvra-trackfit-duo__value" id="trackfit-streak">0</span><span class="welvra-trackfit-duo__unit">hari</span></span>
+        </div>
+        <span class="welvra-trackfit-duo__badge" id="trackfit-streak-bonus">+1</span>
+      </article>
+    </section>
+    <section class="welvra-trackfit-hourly">
+      <header class="welvra-trackfit-hourly__head">
+        <span class="welvra-trackfit-hourly__label">PROGRES PER JAM</span>
+        <span class="welvra-trackfit-hourly__hours" id="trackfit-hourly-peak">24 jam</span>
+      </header>
+      <div class="welvra-trackfit-hourly__bars" id="trackfit-hourly-bars" aria-hidden="true"></div>
+      <div class="welvra-trackfit-hourly__axis"><span>06</span><span>10</span><span>14</span><span>18</span><span>22</span></div>
+    </section>
+    <button class="welvra-trackfit-startbtn" id="trackfit-start-btn" aria-label="Mulai sesi berjalan" type="button">
+      <span><svg viewBox="0 0 24 24" aria-hidden="true" id="trackfit-startbtn-svg"><path d="M8 5 L18 12 L8 19 Z" fill="#0A1F18"/></svg></span>
+    </button>
+    <p class="welvra-trackfit-startbtn-label" id="trackfit-startbtn-label">MULAI BERJALAN</p>
   </div>
 </div>
 
@@ -10589,6 +10778,180 @@ function startAktivSubtag() {
     setTimeout(function(){ el.textContent = tags[i]; el.style.opacity = '1'; }, 300);
   }, 4000);
 }
+
+// ===== TRACKFIT ELITE MODULE =====
+window.Welvra = window.Welvra || {};
+Welvra.trackfit = (function(){
+  var STORAGE_KEY = 'welvra_trackfit_v1';
+  var DEFAULT_GOAL = 10000;
+  var state = null;
+  var sessionTimer = null;
+
+  function todayKey(){ return new Date().toISOString().slice(0,10); }
+  function load(){ try { var r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : null; } catch(e){ return null; } }
+  function save(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
+  function init(){
+    state = load() || {};
+    if (state.date !== todayKey()) {
+      state = { date:todayKey(), mode:state.mode||'walking', steps:0, goal:state.goal||DEFAULT_GOAL,
+        calories:0, distance:0, activeMinutes:0, hourly:new Array(24).fill(0),
+        sessionActive:false, sessionStartedAt:null, heartRate:0,
+        streakDays:state.streakDays||0, lastGoalMetDate:state.lastGoalMetDate||null };
+      save();
+    }
+    return state;
+  }
+  function get(){ if(!state) init(); return state; }
+  function recompute(){
+    state.distance = +((state.steps * 0.000762).toFixed(2));
+    var k = state.mode==='running'?0.06:state.mode==='cycling'?0.025:0.04;
+    state.calories = Math.round(state.steps * k);
+  }
+  function generateHeartRate(){
+    var base = state.mode==='running'?145:state.mode==='cycling'?125:state.sessionActive?100:75;
+    return Math.round(base + (Math.random()-0.5)*14);
+  }
+  function tick(){
+    if(!state.sessionActive) return;
+    var rate = state.mode==='running'?3:state.mode==='cycling'?5:1.5;
+    var add = Math.round(rate);
+    state.steps += add;
+    state.activeMinutes = Math.round((Date.now()-state.sessionStartedAt)/60000);
+    var h = new Date().getHours();
+    state.hourly[h] = (state.hourly[h]||0) + add;
+    state.heartRate = generateHeartRate();
+    recompute();
+    if(state.steps >= state.goal && state.lastGoalMetDate !== state.date){
+      state.lastGoalMetDate = state.date;
+      state.streakDays = (state.streakDays||0) + 1;
+    }
+    save(); render();
+  }
+  function startSession(){
+    state.sessionActive = true;
+    state.sessionStartedAt = Date.now();
+    sessionTimer = setInterval(tick, 1000);
+    save(); render();
+  }
+  function pauseSession(){
+    state.sessionActive = false;
+    if(sessionTimer){ clearInterval(sessionTimer); sessionTimer = null; }
+    save(); render();
+  }
+  function toggleSession(){ if(state.sessionActive) pauseSession(); else startSession(); }
+  function setMode(m){ state.mode = m; save(); render(); }
+  function setGoal(g){ state.goal = g; save(); render(); }
+
+  function fmt(n){ return n.toLocaleString('id-ID'); }
+  function render(){
+    if(!document.getElementById('welvra-trackfit-screen')) return;
+    var s = state;
+    var el = function(id){ return document.getElementById(id); };
+    var ringEl=el('trackfit-ring-progress'), stepsEl=el('trackfit-steps'), goalEl=el('trackfit-goal-display');
+    var kcalEl=el('trackfit-kcal'), distEl=el('trackfit-distance'), actEl=el('trackfit-active-minutes');
+    var streakEl=el('trackfit-streak-display'), btnSvg=el('trackfit-startbtn-svg'), btnLabel=el('trackfit-startbtn-label');
+    var barsEl=el('trackfit-hourly-bars'), hrEl=el('trackfit-hr'), streakEl2=el('trackfit-streak');
+    var peakEl=el('trackfit-hourly-peak');
+
+    if(stepsEl) stepsEl.textContent = fmt(s.steps);
+    if(goalEl) goalEl.textContent = fmt(s.steps) + ' \u00b7 ' + fmt(s.goal) + ' Target';
+    if(kcalEl) kcalEl.textContent = fmt(s.calories);
+    if(distEl) distEl.textContent = s.distance.toString().replace('.',',');
+    if(actEl) actEl.textContent = s.activeMinutes;
+    if(streakEl) streakEl.textContent = 'Hari ke-' + (s.streakDays||0);
+    if(ringEl){
+      var pct = Math.min(s.steps/s.goal,1);
+      var d = (pct*660).toFixed(1);
+      ringEl.setAttribute('stroke-dasharray', d+' '+(660-parseFloat(d)));
+    }
+    if(btnSvg){
+      btnSvg.innerHTML = s.sessionActive
+        ? '<rect x="7" y="5" width="3.5" height="14" rx="1" fill="#0A1F18"/><rect x="13.5" y="5" width="3.5" height="14" rx="1" fill="#0A1F18"/>'
+        : '<path d="M8 5 L18 12 L8 19 Z" fill="#0A1F18"/>';
+    }
+    if(btnLabel){
+      if(s.sessionActive){ btnLabel.textContent='JEDA SESI'; }
+      else{ btnLabel.textContent = s.mode==='running'?'MULAI LARI':s.mode==='cycling'?'MULAI BERSEPEDA':'MULAI BERJALAN'; }
+    }
+    if(hrEl) hrEl.textContent = s.heartRate||'\u2014';
+    var heartCard = document.querySelector('.welvra-trackfit-duo__card--heart');
+    if(heartCard) heartCard.classList.toggle('is-pulsing', !!s.sessionActive);
+    if(streakEl2) streakEl2.textContent = s.streakDays||0;
+    var streakCard = document.querySelector('.welvra-trackfit-duo__card--streak');
+    if(streakCard) streakCard.classList.toggle('is-bonus', s.lastGoalMetDate===s.date);
+
+    // Hourly bars
+    if(barsEl){
+      var mx = Math.max.apply(null, s.hourly.concat([1]));
+      var peakHour=-1, peakVal=0, html='';
+      for(var h=0;h<24;h++){
+        var v=s.hourly[h]||0;
+        if(v>peakVal){peakVal=v;peakHour=h;}
+        var ratio=v/mx;
+        var hPct=Math.max(ratio*100,6);
+        var op=0.25+ratio*0.75;
+        html+='<div class="welvra-trackfit-hourly__bar'+(peakVal===v&&v>0?' is-peak':'')+'" style="height:'+hPct+'%;opacity:'+op.toFixed(2)+';"></div>';
+      }
+      barsEl.innerHTML=html;
+      if(peakEl){
+        if(peakVal>0){
+          var hh=peakHour<10?'0'+peakHour:''+peakHour;
+          peakEl.textContent='PUNCAK '+hh+'.00';
+          peakEl.style.color='#E8C063';
+          peakEl.style.fontWeight='700';
+        } else {
+          peakEl.textContent='24 jam';
+          peakEl.style.color='';
+          peakEl.style.fontWeight='';
+        }
+      }
+    }
+    // Sync mode pills
+    var pills = document.querySelectorAll('.welvra-trackfit-modes__pill');
+    pills.forEach(function(p){
+      var isActive = p.dataset.mode===s.mode;
+      p.classList.toggle('is-active', isActive);
+      p.setAttribute('aria-selected', isActive?'true':'false');
+    });
+  }
+
+  function open(){
+    var el=document.getElementById('welvra-trackfit-screen');
+    if(!el) return;
+    init();
+    el.classList.add('is-open');
+    document.body.style.overflow='hidden';
+    render();
+    // If session was active, restart timer
+    if(state.sessionActive && !sessionTimer){
+      sessionTimer = setInterval(tick, 1000);
+    }
+  }
+  function close(){
+    var el=document.getElementById('welvra-trackfit-screen');
+    if(!el) return;
+    el.classList.remove('is-open');
+    document.body.style.overflow='';
+    if(sessionTimer){ clearInterval(sessionTimer); sessionTimer=null; }
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    init();
+    var startBtn=document.getElementById('trackfit-start-btn');
+    if(startBtn) startBtn.addEventListener('click', toggleSession);
+    var closeBtn=document.querySelector('.welvra-trackfit-close');
+    if(closeBtn) closeBtn.addEventListener('click', close);
+    // Mode pills
+    var pills=document.querySelectorAll('.welvra-trackfit-modes__pill');
+    pills.forEach(function(p){
+      p.addEventListener('click', function(){
+        setMode(p.dataset.mode);
+      });
+    });
+  });
+
+  return { open:open, close:close, toggleSession:toggleSession, setMode:setMode, setGoal:setGoal, get:get };
+})();
 
 function buildAktivitasModal() {
   var html =
