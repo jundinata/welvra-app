@@ -1930,6 +1930,15 @@ html.dark .toast{background:#F0EDE8;color:#1A1F2E}
 .welvra-trackfit-badge__icon svg{width:32px;height:32px}
 .welvra-trackfit-badge__name{font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;color:var(--trackfit-text-1);letter-spacing:0.4px;line-height:1.2;text-align:center}
 .welvra-trackfit-badge.is-unlocked .welvra-trackfit-badge__name{color:#E8C063}
+/* Motion status indicator */
+.welvra-trackfit-motion-status{display:flex;align-items:center;justify-content:center;gap:6px;margin:14px auto 0;padding:6px 14px;background:rgba(232,192,99,0.08);border:1px solid rgba(232,192,99,0.20);border-radius:12px;font-size:10px;font-weight:600;letter-spacing:1px;color:var(--trackfit-text-2);width:fit-content}
+.welvra-trackfit-motion-status[hidden]{display:none}
+.welvra-trackfit-motion-status__dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;animation:motionPulse 1.2s ease-in-out infinite}
+@keyframes motionPulse{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.4)}}
+.welvra-trackfit-fallback{margin:14px auto 0;padding:14px 16px;background:rgba(232,192,99,0.05);border:1px solid rgba(232,192,99,0.18);border-radius:14px;width:fit-content;max-width:100%;display:flex;flex-direction:column;align-items:center;gap:8px}
+.welvra-trackfit-fallback[hidden]{display:none}
+.welvra-trackfit-fallback__msg{margin:0;font-size:11px;color:var(--trackfit-text-2);text-align:center}
+.welvra-trackfit-fallback__btn{background:var(--trackfit-gold-shine);color:#0A1F18;border:0;border-radius:10px;padding:8px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer}
 
 /* ===== FOOTER ===== */
 .footer{text-align:center;padding:16px 20px 24px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:500;color:rgba(20,60,46,0.78);letter-spacing:.2px;position:relative;z-index:1;text-shadow:0 1px 2px rgba(255,255,255,0.4)}
@@ -7209,6 +7218,14 @@ html.dark .drawer-auth-name{color:#F0EDE8}
       <span><svg viewBox="0 0 24 24" aria-hidden="true" id="trackfit-startbtn-svg"><path d="M8 5 L18 12 L8 19 Z" fill="#0A1F18"/></svg></span>
     </button>
     <p class="welvra-trackfit-startbtn-label" id="trackfit-startbtn-label">MULAI BERJALAN</p>
+    <div class="welvra-trackfit-motion-status" id="trackfit-motion-status" hidden>
+      <span class="welvra-trackfit-motion-status__dot"></span>
+      <span class="welvra-trackfit-motion-status__text">Merekam gerakan</span>
+    </div>
+    <div class="welvra-trackfit-fallback" id="trackfit-fallback" hidden>
+      <p class="welvra-trackfit-fallback__msg" id="trackfit-fallback-msg">Sensor gerakan tidak tersedia. Gunakan input manual.</p>
+      <button class="welvra-trackfit-fallback__btn" id="trackfit-fallback-btn" type="button">+100 langkah</button>
+    </div>
   </div>
 </div>
 
@@ -10875,7 +10892,9 @@ Welvra.trackfit = (function(){
   var STORAGE_KEY = 'welvra_trackfit_v1';
   var DEFAULT_GOAL = 10000;
   var state = null;
-  var sessionTimer = null;
+  var tickInterval = null;
+  var lastSaveAt = 0;
+  var motionState = { lastStepAt:0, ema:9.8, emaAlpha:0.10, lastMagnitude:0, ascending:false, threshold:1.6, debounceMs:320 };
 
   var BADGES = [
     {id:'first_step',name:'Langkah Awal',icon:'footprint'},{id:'walker_1k',name:'1.000',icon:'flag'},
@@ -10901,6 +10920,7 @@ Welvra.trackfit = (function(){
     return { date:todayKey(), mode:'walking', steps:0, goal:DEFAULT_GOAL,
       calories:0, distance:0, activeMinutes:0, pace:0,
       hourly:new Array(24).fill(0), sessionActive:false, sessionStartedAt:null,
+      lastCycleTickAt:null, motionStatus:'idle',
       heartRate:0, streakDays:0, lastGoalMetDate:null,
       weeklyHistory:[], achievements:[] };
   }
@@ -10942,34 +10962,91 @@ Welvra.trackfit = (function(){
     var base = state.mode==='running'?145:state.mode==='cycling'?125:state.sessionActive?100:75;
     return Math.round(base + (Math.random()-0.5)*14);
   }
-  function tick(){
-    if(!state.sessionActive) return;
-    var rate = state.mode==='running'?3:state.mode==='cycling'?5:1.5;
-    var add = Math.round(rate);
-    state.steps += add;
-    state.activeMinutes = Math.round((Date.now()-state.sessionStartedAt)/60000);
-    var h = new Date().getHours();
-    state.hourly[h] = (state.hourly[h]||0) + add;
-    state.heartRate = generateHeartRate();
-    recompute();
-    if(state.steps >= state.goal && state.lastGoalMetDate !== state.date){
-      state.lastGoalMetDate = state.date;
-      state.streakDays = (state.streakDays||0) + 1;
+  function configureMotionForMode(mode){
+    if(mode==='running'){motionState.threshold=2.4;motionState.debounceMs=240;}
+    else if(mode==='cycling'){motionState.threshold=0;motionState.debounceMs=0;}
+    else{motionState.threshold=1.6;motionState.debounceMs=320;}
+  }
+  function handleMotion(event){
+    var acc=event.accelerationIncludingGravity;
+    if(!acc||acc.x===null) return;
+    var mag=Math.sqrt(acc.x*acc.x+acc.y*acc.y+acc.z*acc.z);
+    motionState.ema=motionState.ema+motionState.emaAlpha*(mag-motionState.ema);
+    var movement=Math.abs(mag-motionState.ema);
+    var now=Date.now();
+    if(movement>motionState.lastMagnitude){motionState.ascending=true;}
+    else if(motionState.ascending&&motionState.lastMagnitude>motionState.threshold){
+      if(now-motionState.lastStepAt>motionState.debounceMs){onStepDetected();motionState.lastStepAt=now;}
+      motionState.ascending=false;
     }
-    save(); render();
+    motionState.lastMagnitude=movement;
+  }
+  function onStepDetected(){
+    state.steps+=1;
+    var hour=new Date().getHours();
+    state.hourly[hour]=(state.hourly[hour]||0)+1;
+    recompute(); checkAchievements();
+    if(state.steps>=state.goal&&state.lastGoalMetDate!==state.date){
+      state.lastGoalMetDate=state.date;state.streakDays=(state.streakDays||0)+1;
+    }
+    if(Date.now()-lastSaveAt>1000){save();render();lastSaveAt=Date.now();}
+  }
+  function tickClock(){
+    if(!state.sessionActive) return;
+    state.activeMinutes=Math.round((Date.now()-state.sessionStartedAt)/60000);
+    state.heartRate=generateHeartRate();
+    if(state.mode==='cycling'){
+      var delta=(Date.now()-(state.lastCycleTickAt||state.sessionStartedAt))/1000;
+      state.lastCycleTickAt=Date.now();
+      var kmAdded=(15*delta)/3600;
+      state.distance=+(state.distance+kmAdded).toFixed(2);
+      var stepEquiv=Math.round(kmAdded*800);
+      state.steps+=stepEquiv;
+      var hour=new Date().getHours();
+      state.hourly[hour]=(state.hourly[hour]||0)+stepEquiv;
+    }
+    recompute(); save(); render();
+  }
+  function requestMotionPermission(){
+    return new Promise(function(resolve){
+      if(typeof DeviceMotionEvent==='undefined'){resolve('unsupported');return;}
+      if(typeof DeviceMotionEvent.requestPermission==='function'){
+        DeviceMotionEvent.requestPermission().then(function(r){resolve(r);}).catch(function(){resolve('denied');});
+      } else {resolve('granted');}
+    });
   }
   function startSession(){
-    state.sessionActive = true;
-    state.sessionStartedAt = Date.now();
-    sessionTimer = setInterval(tick, 1000);
-    save(); render();
+    requestMotionPermission().then(function(result){
+      if(result==='granted'){
+        state.motionStatus='active';
+        state.sessionActive=true;
+        state.sessionStartedAt=Date.now();
+        state.lastCycleTickAt=Date.now();
+        configureMotionForMode(state.mode);
+        if(state.mode!=='cycling') window.addEventListener('devicemotion',handleMotion);
+        tickInterval=setInterval(tickClock,2000);
+        save();render();
+      } else {
+        state.motionStatus=(result==='denied'?'denied':'unsupported');
+        startSessionFallback();
+      }
+    });
+  }
+  function startSessionFallback(){
+    state.sessionActive=true;
+    state.sessionStartedAt=Date.now();
+    state.lastCycleTickAt=Date.now();
+    tickInterval=setInterval(tickClock,2000);
+    save();render();
   }
   function pauseSession(){
-    state.sessionActive = false;
-    if(sessionTimer){ clearInterval(sessionTimer); sessionTimer = null; }
-    save(); render();
+    state.sessionActive=false;
+    window.removeEventListener('devicemotion',handleMotion);
+    if(tickInterval){clearInterval(tickInterval);tickInterval=null;}
+    state.motionStatus='paused';
+    save();render();
   }
-  function toggleSession(){ if(state.sessionActive) pauseSession(); else startSession(); }
+  function toggleSession(){if(state.sessionActive) pauseSession(); else startSession();}
   function setMode(m){ state.mode = m; save(); render(); }
   function setGoal(g){ state.goal = g; save(); render(); }
 
@@ -11056,6 +11133,27 @@ Welvra.trackfit = (function(){
     renderWeekly();
     // Achievements
     checkAchievements(); renderBadges();
+    // Motion status + fallback
+    var motionEl=el('trackfit-motion-status');
+    var fallbackEl=el('trackfit-fallback');
+    if(motionEl){
+      if(s.sessionActive && s.mode==='cycling'){
+        motionEl.hidden=false;
+        var st=motionEl.querySelector('.welvra-trackfit-motion-status__text');
+        if(st) st.textContent='Merekam waktu sepeda';
+      } else if(s.sessionActive && s.motionStatus==='active'){
+        motionEl.hidden=false;
+        var st2=motionEl.querySelector('.welvra-trackfit-motion-status__text');
+        if(st2) st2.textContent='Merekam gerakan';
+      } else { motionEl.hidden=true; }
+    }
+    if(fallbackEl){
+      if(s.sessionActive && (s.motionStatus==='denied'||s.motionStatus==='unsupported')){
+        fallbackEl.hidden=false;
+        var fMsg=el('trackfit-fallback-msg');
+        if(fMsg) fMsg.textContent=s.motionStatus==='denied'?'Izin gerakan ditolak. Gunakan input manual.':'Sensor gerakan tidak tersedia. Gunakan input manual.';
+      } else { fallbackEl.hidden=true; }
+    }
   }
 
   function pickWellnessTip(){
@@ -11150,9 +11248,13 @@ Welvra.trackfit = (function(){
     el.classList.add('is-open');
     document.body.style.overflow='hidden';
     render();
-    // If session was active, restart timer
-    if(state.sessionActive && !sessionTimer){
-      sessionTimer = setInterval(tick, 1000);
+    // If session was active, restart clock + motion listener
+    if(state.sessionActive && !tickInterval){
+      tickInterval=setInterval(tickClock,2000);
+      if(state.motionStatus==='active' && state.mode!=='cycling'){
+        configureMotionForMode(state.mode);
+        window.addEventListener('devicemotion',handleMotion);
+      }
     }
   }
   function close(){
@@ -11160,7 +11262,8 @@ Welvra.trackfit = (function(){
     if(!el) return;
     el.classList.remove('is-open');
     document.body.style.overflow='';
-    if(sessionTimer){ clearInterval(sessionTimer); sessionTimer=null; }
+    if(tickInterval){ clearInterval(tickInterval); tickInterval=null; }
+    window.removeEventListener('devicemotion',handleMotion);
   }
 
   document.addEventListener('DOMContentLoaded', function(){
@@ -11172,10 +11275,17 @@ Welvra.trackfit = (function(){
     // Mode pills
     var pills=document.querySelectorAll('.welvra-trackfit-modes__pill');
     pills.forEach(function(p){
-      p.addEventListener('click', function(){
-        setMode(p.dataset.mode);
-      });
+      p.addEventListener('click', function(){ setMode(p.dataset.mode); });
     });
+    // Manual fallback button
+    var manualBtn=document.getElementById('trackfit-fallback-btn');
+    if(manualBtn){
+      manualBtn.addEventListener('click', function(){
+        if(!state.sessionActive) return;
+        for(var i=0;i<100;i++) onStepDetected();
+        save(); render();
+      });
+    }
   });
 
   return { open:open, close:close, toggleSession:toggleSession, setMode:setMode, setGoal:setGoal, get:get };
