@@ -1939,6 +1939,44 @@ html.dark .toast{background:#F0EDE8;color:#1A1F2E}
 .welvra-trackfit-fallback[hidden]{display:none}
 .welvra-trackfit-fallback__msg{margin:0;font-size:11px;color:var(--trackfit-text-2);text-align:center}
 .welvra-trackfit-fallback__btn{background:var(--trackfit-gold-shine);color:#0A1F18;border:0;border-radius:10px;padding:8px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer}
+/* Settings sheet */
+.welvra-trackfit-header{position:relative;padding-right:36px}
+.welvra-trackfit-header__menu{position:absolute;right:0;top:4px;width:32px;height:32px;background:rgba(255,255,255,0.04);border:1px solid rgba(232,192,99,0.18);border-radius:50%;color:var(--trackfit-text-2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}
+.welvra-trackfit-header__menu:hover{background:rgba(232,192,99,0.10);color:#E8C063}
+.welvra-trackfit-header__menu svg{width:18px;height:18px}
+.welvra-trackfit-header__menu:focus-visible{outline:2px solid #E8C063;outline-offset:2px}
+.welvra-trackfit-sheet{position:fixed;inset:0;z-index:1100}
+.welvra-trackfit-sheet[hidden]{display:none}
+.welvra-trackfit-sheet__backdrop{position:absolute;inset:0;background:rgba(5,15,10,0.65);animation:tfFadeIn .25s ease-out}
+.welvra-trackfit-sheet__panel{position:absolute;left:0;right:0;bottom:0;max-width:480px;margin:0 auto;background:linear-gradient(180deg,#143C2E 0%,#0A1F18 100%);border-top:1px solid rgba(232,192,99,0.22);border-radius:24px 24px 0 0;padding:12px 20px 32px;animation:tfSlideUp .3s cubic-bezier(.25,.8,.25,1)}
+@keyframes tfSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.welvra-trackfit-sheet__handle{width:38px;height:4px;background:rgba(232,192,99,0.30);border-radius:2px;margin:0 auto 14px}
+.welvra-trackfit-sheet__title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--trackfit-text-1);letter-spacing:0.5px;margin:0 0 14px;text-align:center}
+.welvra-trackfit-sheet__list{list-style:none;margin:0;padding:0}
+.welvra-trackfit-sheet__item{width:100%;display:flex;align-items:center;gap:14px;padding:14px 12px;background:rgba(255,255,255,0.04);border:1px solid rgba(232,192,99,0.14);border-radius:14px;margin-bottom:8px;cursor:pointer;text-align:left;transition:background .2s}
+.welvra-trackfit-sheet__item:hover{background:rgba(232,192,99,0.10)}
+.welvra-trackfit-sheet__item:focus-visible{outline:2px solid #E8C063;outline-offset:2px}
+.welvra-trackfit-sheet__icon{width:38px;height:38px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.welvra-trackfit-sheet__icon svg{width:22px;height:22px}
+.welvra-trackfit-sheet__body{display:flex;flex-direction:column;gap:2px;min-width:0}
+.welvra-trackfit-sheet__label{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;color:var(--trackfit-text-1)}
+.welvra-trackfit-sheet__sub{font-size:11px;color:var(--trackfit-text-2)}
+.welvra-trackfit-sheet__item--danger .welvra-trackfit-sheet__label{color:#E8A57F}
+.welvra-trackfit-sheet__cancel{width:100%;margin-top:10px;padding:14px;background:transparent;border:1px solid rgba(255,255,255,0.10);border-radius:14px;color:var(--trackfit-text-2);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer}
+/* Confirm dialog */
+.welvra-trackfit-confirm{position:fixed;inset:0;z-index:1200;display:flex;align-items:center;justify-content:center;padding:20px}
+.welvra-trackfit-confirm[hidden]{display:none}
+.welvra-trackfit-confirm__backdrop{position:absolute;inset:0;background:rgba(5,15,10,0.75)}
+.welvra-trackfit-confirm__panel{position:relative;max-width:320px;width:100%;background:linear-gradient(180deg,#143C2E 0%,#0A1F18 100%);border:1px solid rgba(232,192,99,0.22);border-radius:20px;padding:22px 22px 18px;animation:tfFadeIn .25s ease-out}
+.welvra-trackfit-confirm__title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--trackfit-text-1);margin:0 0 8px}
+.welvra-trackfit-confirm__msg{font-size:13px;line-height:1.5;color:var(--trackfit-text-2);margin:0 0 18px}
+.welvra-trackfit-confirm__actions{display:flex;gap:10px}
+.welvra-trackfit-confirm__btn{flex:1;padding:11px 14px;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:1px solid}
+.welvra-trackfit-confirm__btn--cancel{background:transparent;border-color:rgba(255,255,255,0.15);color:var(--trackfit-text-2)}
+.welvra-trackfit-confirm__btn--ok{background:rgba(232,132,90,0.18);border-color:rgba(232,132,90,0.45);color:#E8A57F}
+/* Toast */
+.welvra-trackfit-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);max-width:320px;padding:12px 18px;background:#143C2E;border:1px solid rgba(232,192,99,0.30);border-radius:12px;color:var(--trackfit-text-1);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,0.4);z-index:1300;opacity:0;transition:opacity .3s ease,transform .3s ease;pointer-events:none;text-align:center}
+.welvra-trackfit-toast.is-visible{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ===== FOOTER ===== */
 .footer{text-align:center;padding:16px 20px 24px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:500;color:rgba(20,60,46,0.78);letter-spacing:.2px;position:relative;z-index:1;text-shadow:0 1px 2px rgba(255,255,255,0.4)}
@@ -7082,6 +7120,9 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <span class="welvra-trackfit-header__sync-label">TERSINKRON</span>
         <span class="welvra-trackfit-header__sync-value" id="trackfit-streak-display">Hari ke-0</span>
       </div>
+      <button class="welvra-trackfit-header__menu" id="trackfit-menu-btn" type="button" aria-label="Opsi sesi" aria-haspopup="dialog">
+        <svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="5" r="1.6" fill="currentColor"/><circle cx="11" cy="11" r="1.6" fill="currentColor"/><circle cx="11" cy="17" r="1.6" fill="currentColor"/></svg>
+      </button>
     </header>
     <section class="welvra-trackfit-modes" role="tablist" aria-label="Pilih mode aktivitas">
       <button class="welvra-trackfit-modes__pill is-active" data-mode="walking" role="tab" aria-selected="true" type="button">
@@ -7225,6 +7266,39 @@ html.dark .drawer-auth-name{color:#F0EDE8}
     <div class="welvra-trackfit-fallback" id="trackfit-fallback" hidden>
       <p class="welvra-trackfit-fallback__msg" id="trackfit-fallback-msg">Sensor gerakan tidak tersedia. Gunakan input manual.</p>
       <button class="welvra-trackfit-fallback__btn" id="trackfit-fallback-btn" type="button">+100 langkah</button>
+    </div>
+  </div>
+  <div class="welvra-trackfit-sheet" id="trackfit-sheet" role="dialog" aria-modal="true" aria-labelledby="trackfit-sheet-title" hidden>
+    <div class="welvra-trackfit-sheet__backdrop" id="trackfit-sheet-backdrop"></div>
+    <div class="welvra-trackfit-sheet__panel">
+      <div class="welvra-trackfit-sheet__handle"></div>
+      <h2 class="welvra-trackfit-sheet__title" id="trackfit-sheet-title">Pengaturan Sesi</h2>
+      <ul class="welvra-trackfit-sheet__list" role="menu">
+        <li><button class="welvra-trackfit-sheet__item" data-action="connect" role="menuitem" type="button">
+          <span class="welvra-trackfit-sheet__icon"><svg viewBox="0 0 22 22" aria-hidden="true"><g fill="none" stroke="url(#tfGoldShine)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="10" height="16" rx="2"/><path d="M9 7 L13 7 M9 11 L13 11"/></g></svg></span>
+          <span class="welvra-trackfit-sheet__body"><span class="welvra-trackfit-sheet__label">Hubungkan Smartwatch</span><span class="welvra-trackfit-sheet__sub" id="trackfit-bt-status">Belum terhubung</span></span>
+        </button></li>
+        <li><button class="welvra-trackfit-sheet__item" data-action="share" role="menuitem" type="button">
+          <span class="welvra-trackfit-sheet__icon"><svg viewBox="0 0 22 22" aria-hidden="true"><g fill="none" stroke="url(#tfGoldShine)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3 L11 14 M7 7 L11 3 L15 7 M4 14 L4 18 L18 18 L18 14"/></g></svg></span>
+          <span class="welvra-trackfit-sheet__body"><span class="welvra-trackfit-sheet__label">Bagikan Progres</span><span class="welvra-trackfit-sheet__sub">Kartu visual hari ini</span></span>
+        </button></li>
+        <li><button class="welvra-trackfit-sheet__item welvra-trackfit-sheet__item--danger" data-action="reset" role="menuitem" type="button">
+          <span class="welvra-trackfit-sheet__icon"><svg viewBox="0 0 22 22" aria-hidden="true"><g fill="none" stroke="#E8845A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6 Q4 14 11 17 Q18 14 18 6 M14 6 L11 3 L14 6 M11 3 L11 9 L15 11"/></g></svg></span>
+          <span class="welvra-trackfit-sheet__body"><span class="welvra-trackfit-sheet__label">Reset Hari Ini</span><span class="welvra-trackfit-sheet__sub">Streak &amp; pencapaian tetap aman</span></span>
+        </button></li>
+      </ul>
+      <button class="welvra-trackfit-sheet__cancel" id="trackfit-sheet-cancel" type="button">Tutup</button>
+    </div>
+  </div>
+  <div class="welvra-trackfit-confirm" id="trackfit-confirm" role="dialog" aria-modal="true" hidden>
+    <div class="welvra-trackfit-confirm__backdrop"></div>
+    <div class="welvra-trackfit-confirm__panel">
+      <h2 class="welvra-trackfit-confirm__title">Reset hari ini?</h2>
+      <p class="welvra-trackfit-confirm__msg">Langkah, kalori, jarak, dan progres jam akan dikembalikan ke nol. Streak dan pencapaian tetap aman.</p>
+      <div class="welvra-trackfit-confirm__actions">
+        <button class="welvra-trackfit-confirm__btn welvra-trackfit-confirm__btn--cancel" id="trackfit-confirm-cancel" type="button">Batal</button>
+        <button class="welvra-trackfit-confirm__btn welvra-trackfit-confirm__btn--ok" id="trackfit-confirm-ok" type="button">Reset</button>
+      </div>
     </div>
   </div>
 </div>
@@ -10921,7 +10995,8 @@ Welvra.trackfit = (function(){
       calories:0, distance:0, activeMinutes:0, pace:0,
       hourly:new Array(24).fill(0), sessionActive:false, sessionStartedAt:null,
       lastCycleTickAt:null, motionStatus:'idle',
-      heartRate:0, streakDays:0, lastGoalMetDate:null,
+      heartRate:0, heartRateSource:'synthetic',
+      streakDays:0, lastGoalMetDate:null,
       weeklyHistory:[], achievements:[] };
   }
   function init(){
@@ -10959,9 +11034,14 @@ Welvra.trackfit = (function(){
     return m+':'+(s<10?'0'+s:s);
   }
   function generateHeartRate(){
+    if(state.heartRateSource==='bluetooth'&&btState.isConnected) return state.heartRate;
     var base = state.mode==='running'?145:state.mode==='cycling'?125:state.sessionActive?100:75;
     return Math.round(base + (Math.random()-0.5)*14);
   }
+
+  // Bluetooth state
+  var btState = { device:null, server:null, characteristic:null, isConnected:false };
+  function isWebBluetoothSupported(){ return typeof navigator!=='undefined'&&navigator.bluetooth&&typeof navigator.bluetooth.requestDevice==='function'; }
   function configureMotionForMode(mode){
     if(mode==='running'){motionState.threshold=2.4;motionState.debounceMs=240;}
     else if(mode==='cycling'){motionState.threshold=0;motionState.debounceMs=0;}
@@ -11241,6 +11321,124 @@ Welvra.trackfit = (function(){
     if(countEl) countEl.textContent=unlocked.length+' / '+BADGES.length;
   }
 
+  // Sheet
+  function openSheet(){ var s=document.getElementById('trackfit-sheet'); if(s) s.removeAttribute('hidden'); updateBtStatusUI(); }
+  function closeSheet(){ var s=document.getElementById('trackfit-sheet'); if(s) s.setAttribute('hidden',''); }
+
+  // Reset
+  function confirmReset(){
+    var dlg=document.getElementById('trackfit-confirm');
+    var ok=document.getElementById('trackfit-confirm-ok');
+    var cancel=document.getElementById('trackfit-confirm-cancel');
+    var bd=dlg.querySelector('.welvra-trackfit-confirm__backdrop');
+    function dismiss(){ dlg.setAttribute('hidden',''); ok.onclick=null; cancel.onclick=null; bd.onclick=null; }
+    dlg.removeAttribute('hidden');
+    ok.onclick=function(){ resetToday(); dismiss(); };
+    cancel.onclick=dismiss; bd.onclick=dismiss;
+  }
+  function resetToday(){
+    if(state.sessionActive) pauseSession();
+    state.steps=0;state.calories=0;state.distance=0;state.activeMinutes=0;state.pace=0;
+    state.hourly=new Array(24).fill(0);state.heartRate=0;
+    state.sessionStartedAt=null;state.lastCycleTickAt=null;
+    save(); render();
+  }
+
+  // Share
+  async function shareProgress(){
+    var blob=await generateShareImage();
+    var text=formatShareText();
+    var shareData={title:'Welvra TrackFit',text:text};
+    if(blob&&navigator.canShare){
+      var file=new File([blob],'welvra-trackfit.png',{type:'image/png'});
+      if(navigator.canShare({files:[file]})) shareData.files=[file];
+    }
+    try{ if(navigator.share) await navigator.share(shareData); else downloadShareImage(blob); }
+    catch(e){/* user cancelled */}
+  }
+  function formatShareText(){
+    var ml=state.mode==='running'?'Lari':state.mode==='cycling'?'Bersepeda':'Berjalan';
+    var p=fmtPace(state.pace);
+    return 'Saya sudah '+ml.toLowerCase()+' '+fmt(state.steps)+' langkah hari ini \u00b7 '+
+      state.distance.toString().replace('.',',')+' km \u00b7 '+state.calories+' kkal'+
+      (p!=='\u2014'?' \u00b7 pace '+p+'/km':'') + ' (Welvra)';
+  }
+  function generateShareImage(){
+    return new Promise(function(resolve){
+      var c=document.createElement('canvas');c.width=1080;c.height=1080;
+      var x=c.getContext('2d');
+      var bg=x.createLinearGradient(0,0,0,1080);bg.addColorStop(0,'#0A1F18');bg.addColorStop(0.5,'#143C2E');bg.addColorStop(1,'#0A1810');
+      x.fillStyle=bg;x.fillRect(0,0,1080,1080);
+      var halo=x.createRadialGradient(540,540,100,540,540,600);halo.addColorStop(0,'rgba(200,134,10,0.22)');halo.addColorStop(1,'rgba(200,134,10,0)');
+      x.fillStyle=halo;x.fillRect(0,0,1080,1080);
+      x.textAlign='center';
+      x.fillStyle='#C8860A';x.font='700 28px "Plus Jakarta Sans",sans-serif';x.fillText('WELVRA',540,130);
+      x.fillStyle='#F5F1E8';x.font='700 44px "Cormorant Garamond",Georgia,serif';x.fillText('TRACKFIT',540,188);
+      x.fillStyle='#F5F1E8';x.font='700 220px "Cormorant Garamond",Georgia,serif';x.fillText(fmt(state.steps),540,530);
+      x.fillStyle='rgba(245,241,232,0.55)';x.font='600 26px "Plus Jakarta Sans",sans-serif';x.fillText('LANGKAH HARI INI',540,580);
+      var sy=700;
+      function ds(cx,cy,l,v){x.textAlign='center';x.fillStyle='rgba(245,241,232,0.50)';x.font='700 18px "Plus Jakarta Sans",sans-serif';x.fillText(l,cx,cy);x.fillStyle='#F5F1E8';x.font='700 42px "Cormorant Garamond",Georgia,serif';x.fillText(v,cx,cy+56);}
+      ds(270,sy,'JARAK',state.distance.toString().replace('.',',')+' km');
+      ds(540,sy,'KALORI',state.calories+' kkal');
+      var pt=fmtPace(state.pace)==='\u2014'?'\u2014':fmtPace(state.pace)+'/km';
+      ds(810,sy,'PACE',pt);
+      var ml=state.mode==='running'?'LARI':state.mode==='cycling'?'BERSEPEDA':'BERJALAN';
+      x.fillStyle='rgba(232,192,99,0.18)';x.strokeStyle='rgba(232,192,99,0.55)';x.lineWidth=2;
+      x.beginPath();x.moveTo(468,850);x.lineTo(652,850);x.quadraticCurveTo(668,850,668,866);x.lineTo(668,892);x.quadraticCurveTo(668,908,652,908);x.lineTo(468,908);x.quadraticCurveTo(452,908,452,892);x.lineTo(452,866);x.quadraticCurveTo(452,850,468,850);x.closePath();x.fill();x.stroke();
+      x.fillStyle='#E8C063';x.font='700 22px "Plus Jakarta Sans",sans-serif';x.fillText(ml,540,887);
+      var d=new Date();var mon=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+      x.fillStyle='rgba(245,241,232,0.45)';x.font='500 22px "Plus Jakarta Sans",sans-serif';x.fillText(d.getDate()+' '+mon[d.getMonth()]+' '+d.getFullYear(),540,990);
+      x.fillStyle='rgba(200,134,10,0.7)';x.font='700 18px "Plus Jakarta Sans",sans-serif';x.fillText('welvra-health.com',540,1030);
+      c.toBlob(function(b){resolve(b);},'image/png',0.92);
+    });
+  }
+  function downloadShareImage(blob){
+    var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;
+    a.download='welvra-trackfit-'+todayKey()+'.png';document.body.appendChild(a);a.click();
+    document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(url);},1000);
+  }
+
+  // Smartwatch BLE
+  async function connectSmartwatch(){
+    if(!isWebBluetoothSupported()){showBtToast('Hubungkan smartwatch belum tersedia di browser ini. Gunakan Chrome di Android.');return;}
+    try{
+      var device=await navigator.bluetooth.requestDevice({filters:[{services:['heart_rate']}],optionalServices:['battery_service']});
+      btState.device=device;
+      device.addEventListener('gattserverdisconnected',onBtDisconnected);
+      var server=await device.gatt.connect();btState.server=server;
+      var service=await server.getPrimaryService('heart_rate');
+      var ch=await service.getCharacteristic('heart_rate_measurement');btState.characteristic=ch;
+      await ch.startNotifications();
+      ch.addEventListener('characteristicvaluechanged',onHeartRateChanged);
+      btState.isConnected=true;state.heartRateSource='bluetooth';
+      updateBtStatusUI();showBtToast('Terhubung ke '+(device.name||'perangkat'));save();
+    } catch(e){ if(e&&e.name!=='NotFoundError') showBtToast('Gagal menghubungkan: '+(e&&e.message?e.message:'tidak diketahui')); }
+  }
+  function onHeartRateChanged(event){
+    var v=event.target.value;var flags=v.getUint8(0);
+    state.heartRate=flags&0x1?v.getUint16(1,true):v.getUint8(1);
+  }
+  function onBtDisconnected(){
+    btState.isConnected=false;btState.characteristic=null;btState.server=null;
+    state.heartRateSource='synthetic';updateBtStatusUI();showBtToast('Smartwatch terputus');
+  }
+  function disconnectSmartwatch(){
+    if(btState.device&&btState.device.gatt&&btState.device.gatt.connected) btState.device.gatt.disconnect();
+    else onBtDisconnected();
+  }
+  function updateBtStatusUI(){
+    var sub=document.getElementById('trackfit-bt-status');if(!sub) return;
+    if(btState.isConnected&&btState.device){sub.textContent='Terhubung \u00b7 '+(btState.device.name||'perangkat');sub.style.color='#4ADE80';}
+    else if(!isWebBluetoothSupported()){sub.textContent='Tidak tersedia di browser ini';sub.style.color='';}
+    else{sub.textContent='Belum terhubung';sub.style.color='';}
+  }
+  function showBtToast(msg){
+    var t=document.createElement('div');t.className='welvra-trackfit-toast';t.textContent=msg;
+    document.body.appendChild(t);
+    setTimeout(function(){t.classList.add('is-visible');},10);
+    setTimeout(function(){t.classList.remove('is-visible');setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},300);},3500);
+  }
+
   function open(){
     var el=document.getElementById('welvra-trackfit-screen');
     if(!el) return;
@@ -11286,6 +11484,22 @@ Welvra.trackfit = (function(){
         save(); render();
       });
     }
+    // Sheet wiring
+    var menuBtn=document.getElementById('trackfit-menu-btn');
+    var sheetCancel=document.getElementById('trackfit-sheet-cancel');
+    var sheetBd=document.getElementById('trackfit-sheet-backdrop');
+    if(menuBtn) menuBtn.addEventListener('click', openSheet);
+    if(sheetCancel) sheetCancel.addEventListener('click', closeSheet);
+    if(sheetBd) sheetBd.addEventListener('click', closeSheet);
+    document.querySelectorAll('.welvra-trackfit-sheet__item').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var action=btn.dataset.action;
+        closeSheet();
+        if(action==='reset') confirmReset();
+        else if(action==='share') shareProgress();
+        else if(action==='connect'){ if(btState.isConnected) disconnectSmartwatch(); else connectSmartwatch(); }
+      });
+    });
   });
 
   return { open:open, close:close, toggleSession:toggleSession, setMode:setMode, setGoal:setGoal, get:get };
