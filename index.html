@@ -3039,7 +3039,7 @@ html.dark .fp-privacy__list li{color:#E0DDD8}
 @media(prefers-reduced-motion:reduce){.fp-progress__dot.active{animation:none}}
 .fp-progress__est{text-align:center;font-size:13px;color:var(--txt-secondary,#6B6661);margin-top:12px}
 /* Phase 2 Result Screen */
-.fp-result{padding:24px 24px 160px;text-align:center}
+.fp-result{padding:24px 24px 140px;text-align:center}
 .fp-result__photo{width:200px;height:200px;border-radius:24px;object-fit:cover;margin:0 auto 20px;display:block;
   box-shadow:0 8px 32px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.04),0 0 0 1px rgba(200,134,10,.1)}
 .fp-gauge{margin:0 auto 16px}
@@ -3131,11 +3131,106 @@ html.dark .fp-routine-tab.active{background:linear-gradient(135deg,rgba(10,123,1
 html.dark .fp-rstep__name{color:#F0EDE8}
 .fp-rstep__purpose{font-size:12.5px;line-height:1.5;color:var(--txt-secondary,#6B6661);margin-bottom:4px}
 .fp-rstep__tips{font-size:12px;font-style:italic;color:var(--gold,#C8860A);margin-bottom:4px}
-/* Result footer */
-.fp-result__actions{position:sticky;bottom:0;padding:16px 0 8px;background:rgba(250,250,247,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);z-index:2}
-.fp-result__actions::before{content:'';position:absolute;left:0;right:0;top:-32px;height:32px;background:linear-gradient(180deg,rgba(250,250,247,0) 0%,rgba(250,250,247,.85) 80%,rgba(250,250,247,.92) 100%);pointer-events:none}
-html.dark .fp-result__actions{background:rgba(20,24,32,.92)}
-html.dark .fp-result__actions::before{background:linear-gradient(180deg,rgba(20,24,32,0) 0%,rgba(20,24,32,.85) 80%,rgba(20,24,32,.92) 100%)}
+/* Luxury floating glass action sheet */
+.fp-result__actions{
+  position:sticky;bottom:0;left:0;right:0;
+  padding:14px 20px 18px;
+  margin:24px -24px 0;
+  background:rgba(255,255,255,.78);
+  -webkit-backdrop-filter:blur(24px) saturate(1.4);
+  backdrop-filter:blur(24px) saturate(1.4);
+  border-top:1px solid rgba(200,134,10,.18);
+  border-radius:24px 24px 0 0;
+  box-shadow:0 -8px 32px rgba(10,79,69,.06),0 -2px 8px rgba(45,42,38,.04);
+  z-index:5;
+  display:flex;flex-direction:column;gap:10px;
+  isolation:isolate;
+}
+.fp-result__actions::before{
+  content:'';position:absolute;left:0;right:0;top:-40px;height:40px;
+  background:linear-gradient(180deg,rgba(250,250,247,0) 0%,rgba(250,250,247,.7) 60%,rgba(250,250,247,.92) 100%);
+  pointer-events:none;
+  z-index:-1;
+}
+.fp-result__actions::after{
+  content:'';position:absolute;left:24px;right:24px;top:0;height:1px;
+  background:linear-gradient(90deg,transparent 0%,rgba(200,134,10,.5) 50%,transparent 100%);
+  pointer-events:none;
+}
+html.dark .fp-result__actions{
+  background:rgba(20,24,32,.82);
+  border-top-color:rgba(200,134,10,.28);
+  box-shadow:0 -8px 32px rgba(0,0,0,.3),0 -2px 8px rgba(0,0,0,.2);
+}
+html.dark .fp-result__actions::before{
+  background:linear-gradient(180deg,rgba(20,24,32,0) 0%,rgba(20,24,32,.7) 60%,rgba(20,24,32,.92) 100%);
+}
+/* Primary action button */
+.fp-result__actions .fp-action-primary{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:14px 20px;
+  border:none;border-radius:14px;
+  background:linear-gradient(135deg,var(--teal,#0A7B6C),var(--gold,#C8860A));
+  color:#fff;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:15px;font-weight:600;letter-spacing:.3px;
+  cursor:pointer;
+  box-shadow:0 4px 16px rgba(10,123,108,.22),0 2px 6px rgba(200,134,10,.14);
+  transition:transform .15s ease-out,box-shadow .25s ease-out,filter .2s ease-out;
+}
+.fp-result__actions .fp-action-primary:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(10,123,108,.28),0 3px 8px rgba(200,134,10,.18);
+  filter:brightness(1.05);
+}
+.fp-result__actions .fp-action-primary:active{
+  transform:translateY(0) scale(.98);
+  box-shadow:0 2px 8px rgba(10,123,108,.18);
+}
+.fp-result__actions .fp-action-primary svg{
+  width:18px;height:18px;flex-shrink:0;
+}
+/* Secondary actions row (2 side-by-side) */
+.fp-result__actions .fp-action-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+}
+.fp-result__actions .fp-action-secondary{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 14px;
+  border:1px solid rgba(10,123,108,.15);
+  border-radius:12px;
+  background:rgba(255,255,255,.5);
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+  color:var(--teal,#0A7B6C);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:500;letter-spacing:.2px;
+  cursor:pointer;
+  transition:background .2s,border-color .2s,color .2s,transform .15s;
+}
+.fp-result__actions .fp-action-secondary:hover{
+  background:rgba(10,123,108,.06);
+  border-color:rgba(10,123,108,.3);
+  color:var(--teal-deep,#054238);
+}
+.fp-result__actions .fp-action-secondary:active{
+  transform:scale(.97);
+  background:rgba(10,123,108,.1);
+}
+.fp-result__actions .fp-action-secondary svg{
+  width:15px;height:15px;flex-shrink:0;
+  color:var(--gold,#C8860A);
+}
+html.dark .fp-result__actions .fp-action-secondary{
+  background:rgba(255,255,255,.04);
+  border-color:rgba(200,134,10,.2);
+  color:#7AC0B0;
+}
+html.dark .fp-result__actions .fp-action-secondary:hover{
+  background:rgba(255,255,255,.07);
+  border-color:rgba(200,134,10,.35);
+  color:#A0DACA;
+}
 .fp-result__disclaimer{font-size:11px;font-style:italic;color:rgba(200,134,10,.6);margin-top:12px;line-height:1.5}
 
 /* ======================================================================= */
@@ -11529,9 +11624,20 @@ function fpEnsureDom(){
         '<div class="fp-section" id="fp-sec-routines"></div>' +
         /* Footer */
         '<div class="fp-result__actions">' +
-          '<button class="fp-btn" onclick="fpSaveResult()">Simpan Hasil</button>' +
-          '<button class="fp-btn fp-btn--secondary" onclick="fpOpenShareModal()">Bagikan</button>' +
-          '<button class="fp-btn fp-btn--secondary" onclick="closeFaceprint()">Cek Lagi Nanti</button>' +
+          '<button class="fp-action-primary" onclick="fpSaveResult()" aria-label="Simpan hasil pemeriksaan">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>' +
+            '<span>Simpan Hasil</span>' +
+          '</button>' +
+          '<div class="fp-action-row">' +
+            '<button class="fp-action-secondary" onclick="fpOpenShareModal()" aria-label="Bagikan hasil">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>' +
+              '<span>Bagikan</span>' +
+            '</button>' +
+            '<button class="fp-action-secondary" onclick="closeFaceprint()" aria-label="Tutup tanpa menyimpan">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' +
+              '<span>Nanti Saja</span>' +
+            '</button>' +
+          '</div>' +
         '</div>' +
         '<div class="fp-result__disclaimer">Hanya untuk edukasi dan panduan. Bukan diagnosis medis. Konsultasi dermatologist untuk concern serius.</div>' +
       '</div>' +
@@ -11558,8 +11664,14 @@ function fpEnsureDom(){
         '<div class="fp-section" id="fp-hdetail-recs"></div>' +
         '<div class="fp-section" id="fp-hdetail-routines"></div>' +
         '<div class="fp-result__actions">' +
-          '<button class="fp-btn" onclick="fpOpenShareModal()">Bagikan</button>' +
-          '<button class="fp-btn fp-btn--secondary" onclick="fpExitHistoryDetail()">Kembali ke Riwayat</button>' +
+          '<button class="fp-action-primary" onclick="fpOpenShareModal()" aria-label="Bagikan hasil">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>' +
+            '<span>Bagikan</span>' +
+          '</button>' +
+          '<button class="fp-action-secondary" style="width:100%" onclick="fpExitHistoryDetail()" aria-label="Kembali ke daftar riwayat">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>' +
+            '<span>Kembali ke Riwayat</span>' +
+          '</button>' +
         '</div>' +
       '</div>' +
 
