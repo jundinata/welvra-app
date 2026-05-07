@@ -2138,7 +2138,8 @@ html.dark .footer{color:rgba(232,192,99,0.65);text-shadow:none}
 .welvra-siklus-screen[data-tab="hamil"]{background:linear-gradient(180deg,#F0F5EE 0%,#E0EBDD 50%,#C8DCC4 100%)}
 .welvra-siklus-screen[data-tab="pcos"]{background:linear-gradient(180deg,#FAFAF7 0%,#F0EDE8 50%,#E5E1DA 100%)}
 .welvra-siklus-container{max-width:480px;margin:0 auto;padding:60px 20px 40px;position:relative;min-height:100vh}
-.welvra-siklus-close{position:fixed;top:16px;left:16px;z-index:2;width:40px;height:40px;background:rgba(255,255,255,0.50);border:1px solid rgba(200,134,10,0.30);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.welvra-siklus-close{position:fixed;top:16px;left:16px;z-index:2;width:40px;height:40px;background:rgba(255,255,255,0.50);border:1px solid rgba(200,134,10,0.30);border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.welvra-siklus-screen.is-open .welvra-siklus-close{display:flex}
 .welvra-siklus-close svg{width:22px;height:22px;color:#1A2540}
 .welvra-siklus-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
 .welvra-siklus-header__brand{display:flex;gap:10px;align-items:center}
@@ -8334,7 +8335,7 @@ function loadHealthProfile() {
     var gid = p.gender === 'Laki-laki' ? 'hp-male' : 'hp-female';
     el = document.getElementById(gid); if (el) el.checked = true;
     var lbl = document.querySelector('label[for="' + gid + '"]'); if (lbl) lbl.classList.add('active');
-    el = document.getElementById('hp-pregnant-wrap'); if (el && p.gender === 'Perempuan') el.style.display = 'block';
+    el = document.getElementById('hp-pregnant-wrap'); if (el && isFemaleProfile()) el.style.display = 'block';
   }
   el = document.getElementById('hp-city'); if (el && p.city) el.value = p.city;
   el = document.getElementById('hp-weight'); if (el && p.weight) el.value = p.weight;
@@ -8514,7 +8515,7 @@ function buildProfileContext() {
   }
   if (p.gender) {
     parts.push('Jenis kelamin: ' + p.gender);
-    if (p.gender === 'Perempuan') parts.push('Sedang hamil: ' + (p.pregnant ? 'Ya' : 'Tidak'));
+    if (isFemaleProfile()) parts.push('Sedang hamil: ' + (p.pregnant ? 'Ya' : 'Tidak'));
   }
   if (p.city) parts.push('Kota: ' + p.city);
   if (p.weight) parts.push('Berat badan: ' + p.weight + 'kg');
@@ -9831,11 +9832,19 @@ function mensFmt(d) {
 function mensParse(s) { var p = s.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
 function mensDiffDays(a, b) { return Math.round((a - b) / 86400000); }
 
+function isFemaleProfile(){
+  try {
+    var profile = typeof getHealthProfile === 'function' ? getHealthProfile() : JSON.parse(localStorage.getItem('welvra_health_profile') || '{}');
+    if (!profile.gender) return false;
+    var g = String(profile.gender).toLowerCase().trim();
+    return g === 'perempuan' || g === 'wanita' || g === 'female' || g === 'p' || g === 'w' || g === 'f';
+  } catch(e){ return false; }
+}
+
 function toggleMensCardVisibility() {
   var card = document.getElementById('mens-feat-card');
   if (!card) return;
-  var p = getHealthProfile();
-  card.style.display = (p.gender === 'Perempuan') ? '' : 'none';
+  card.style.display = isFemaleProfile() ? '' : 'none';
 }
 
 function getCycles() { return mensGet(MENS_CYCLES, []); }
@@ -10536,7 +10545,7 @@ function mensShowToast(msg) {
 
 function checkInAppNotifications() {
   var p = getHealthProfile();
-  if (p.gender !== 'Perempuan') return;
+  if (!isFemaleProfile()) return;
   var cycles = getCycles(); if (!cycles.length) return;
   var settings = mensGet(MENS_SETTINGS, { remindBefore:true, remindOv:true, remindLate:true });
   var today = mensFmt(mensToday());
@@ -13771,7 +13780,7 @@ function aktivShowToast(msg) {
       var h = parseFloat(p.height);
       if (!isFinite(h) || h < 100 || h > 250) return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true };
       // Broca: (tinggi - 100) × 0.9 (default/male/unspecified) or × 0.85 (female)
-      var factor = (p.gender === 'Perempuan') ? 0.85 : 0.9;
+      var factor = isFemaleProfile() ? 0.85 : 0.9;
       var ideal = (h - 100) * factor;
       if (!isFinite(ideal) || ideal <= 0) return { value:'--', badge:{cls:'sb-muted',label:'Belum ada data'}, small:true };
       var idealRounded = Math.round(ideal);
