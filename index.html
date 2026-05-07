@@ -2130,6 +2130,117 @@ html.dark .footer{color:rgba(232,192,99,0.65);text-shadow:none}
 .mens-toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(100px); background:linear-gradient(135deg,#E91E8C,#C2185B); color:#ffffff; padding:14px 22px; border-radius:30px; font-size:14px; font-weight:500; box-shadow:0 8px 28px rgba(194,24,91,0.4); z-index:600; cursor:pointer; opacity:0; transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1); font-family:'Plus Jakarta Sans',sans-serif; max-width:90vw; text-align:center; letter-spacing:0.3px; }
 .mens-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
+/* ===== SIKLUS WANITA — Luxury Wellness Suite ===== */
+.welvra-siklus-screen{position:fixed;inset:0;z-index:1000;overflow-y:auto;overflow-x:hidden;display:none;animation:siklusFadeIn .35s ease-out;font-family:'Plus Jakarta Sans',sans-serif}
+.welvra-siklus-screen.is-open{display:block}
+@keyframes siklusFadeIn{from{opacity:0}to{opacity:1}}
+.welvra-siklus-screen[data-tab="cycle"]{background:linear-gradient(180deg,#FBF7EE 0%,#F5EDD8 50%,#EDE0BC 100%)}
+.welvra-siklus-screen[data-tab="hamil"]{background:linear-gradient(180deg,#F0F5EE 0%,#E0EBDD 50%,#C8DCC4 100%)}
+.welvra-siklus-screen[data-tab="pcos"]{background:linear-gradient(180deg,#FAFAF7 0%,#F0EDE8 50%,#E5E1DA 100%)}
+.welvra-siklus-container{max-width:480px;margin:0 auto;padding:60px 20px 40px;position:relative;min-height:100vh}
+.welvra-siklus-close{position:fixed;top:16px;left:16px;z-index:2;width:40px;height:40px;background:rgba(255,255,255,0.50);border:1px solid rgba(200,134,10,0.30);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.welvra-siklus-close svg{width:22px;height:22px;color:#1A2540}
+.welvra-siklus-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
+.welvra-siklus-header__brand{display:flex;gap:10px;align-items:center}
+.welvra-siklus-header__brand-mark svg{width:24px;height:24px}
+.welvra-siklus-header__eyebrow{font-size:8px;font-weight:700;color:#C8860A;letter-spacing:2px;display:block}
+.welvra-siklus-header__title{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:#1A2540;letter-spacing:1.5px;display:block}
+.welvra-siklus-header__greeting{display:flex;flex-direction:column;align-items:flex-end}
+.welvra-siklus-header__phase{font-size:9px;font-weight:700;color:rgba(26,37,64,0.55);letter-spacing:1.5px;text-transform:uppercase}
+.welvra-siklus-header__hello{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:#1A2540;margin-top:2px}
+.welvra-siklus-tabs{display:flex;gap:8px;margin-bottom:28px}
+.welvra-siklus-tab{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;height:36px;border-radius:18px;background:rgba(255,255,255,0.55);border:1px solid rgba(200,134,10,0.20);color:rgba(26,37,64,0.60);font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.4px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.welvra-siklus-tab svg{width:14px;height:14px}
+.welvra-siklus-tab.is-active{background:linear-gradient(135deg,#FAE5A8 0%,#E8C063 50%,#C8860A 100%);border-color:rgba(200,134,10,0.45);color:#0A1F18;box-shadow:0 4px 12px rgba(200,134,10,0.25)}
+.welvra-siklus-tab:focus-visible{outline:2px solid #C8860A;outline-offset:2px}
+.welvra-siklus-card{background:rgba(255,255,255,0.65);border:1px solid rgba(255,255,255,0.55);border-radius:20px;padding:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.7),0 8px 20px rgba(20,30,60,0.06);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);margin-bottom:16px}
+/* Cycle Dial */
+.welvra-cycle-dial-wrap{position:relative;width:100%;max-width:296px;margin:8px auto 28px;aspect-ratio:1}
+.welvra-cycle-dial{width:100%;height:100%;display:block}
+.welvra-cycle-dial-core{position:absolute;inset:28px;border-radius:50%;background:rgba(255,255,255,0.85);border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;gap:4px;box-shadow:inset 0 2px 12px rgba(20,30,60,0.04),0 8px 20px rgba(200,134,10,0.10);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .2s ease}
+.welvra-cycle-dial-core:active{transform:scale(0.98)}
+.welvra-cycle-dial__big{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:600;color:#1A2540;line-height:1}
+.welvra-cycle-dial__sublabel{font-size:12px;font-weight:500;color:rgba(26,37,64,0.55)}
+.welvra-cycle-dial__badge{margin-top:10px;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(255,255,255,0.85);border:1px solid rgba(200,134,10,0.30);border-radius:14px;font-size:11px;font-weight:700;color:#C8860A;letter-spacing:0.3px}
+.welvra-cycle-dial__badge svg{width:11px;height:11px}
+/* Cycle Actions */
+.welvra-cycle-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
+.welvra-cycle-action{background:rgba(255,255,255,0.65);border:1px solid rgba(200,134,10,0.20);border-radius:18px;padding:14px 8px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;color:#1A2540;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;transition:background .2s,transform .15s;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.welvra-cycle-action:active{transform:scale(0.96)}
+.welvra-cycle-action svg{width:20px;height:20px;color:#C8860A}
+.welvra-cycle-action.is-recording{background:#1A2540;color:#FAE5A8;animation:cyclePulse 1.5s infinite}
+.welvra-cycle-action.is-recording svg{color:#FAE5A8}
+@keyframes cyclePulse{0%,100%{box-shadow:0 0 0 0 rgba(26,37,64,0.4)}50%{box-shadow:0 0 0 14px rgba(26,37,64,0)}}
+/* Cycle Insight */
+.welvra-cycle-insight__head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.welvra-cycle-insight__avatar svg{width:32px;height:32px}
+.welvra-cycle-insight__title{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;color:#C8860A;letter-spacing:1.2px;text-transform:uppercase}
+.welvra-cycle-insight__body{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;font-weight:500;color:#1A2540;line-height:1.55;transition:opacity .25s}
+/* Hamil */
+.welvra-hamil-greeting{margin-bottom:16px}
+.welvra-hamil-greeting__trimester{font-size:11px;font-weight:700;color:#6B9E78;letter-spacing:1.5px;text-transform:uppercase}
+.welvra-hamil-greeting__hello{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#1F3528;margin-top:4px}
+.welvra-hamil-fetal{text-align:center;margin-bottom:24px}
+.welvra-hamil-fetal__week{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:#1F3528}
+.welvra-hamil-fetal__circle{width:220px;height:220px;margin:16px auto 0;border-radius:50%;background:linear-gradient(135deg,rgba(255,255,255,0.85),rgba(168,201,174,0.45));box-shadow:0 16px 36px rgba(107,158,120,0.18),inset 0 0 0 6px rgba(255,255,255,0.45);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.welvra-hamil-fetal__icon{width:90px;height:90px;color:#6B9E78;filter:drop-shadow(0 8px 12px rgba(107,158,120,0.25))}
+.welvra-hamil-fetal__art{position:absolute;inset:8px;border-radius:50%}
+.welvra-hamil-fetal__label{font-size:10px;font-weight:700;color:#1F3528;letter-spacing:1px;margin-top:12px}
+.welvra-hamil-vitals{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.welvra-hamil-vital{background:rgba(255,255,255,0.65);border:1px solid rgba(107,158,120,0.20);border-radius:18px;padding:14px;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center}
+.welvra-hamil-vital svg{width:22px;height:22px;grid-row:span 2}
+.welvra-hamil-vital__value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#1F3528}
+.welvra-hamil-vital__unit{font-size:11px;color:rgba(31,53,40,0.55);margin-left:-4px;align-self:end;padding-bottom:4px}
+.welvra-hamil-vital__label{grid-column:2;font-size:10px;font-weight:600;color:rgba(31,53,40,0.55);letter-spacing:0.8px}
+.welvra-hamil-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.welvra-hamil-action{background:rgba(255,255,255,0.65);border:1px solid rgba(107,158,120,0.25);border-radius:18px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;color:#1F3528;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.4px}
+.welvra-hamil-action svg{width:22px;height:22px;color:#6B9E78}
+.welvra-hamil-action.is-active{background:#1F3528;color:#F0F4EE}
+.welvra-hamil-action.is-active svg{color:#FAE5A8}
+.welvra-hamil-insight__head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.welvra-hamil-insight__avatar svg{width:32px;height:32px}
+.welvra-hamil-insight__title{font-size:12px;font-weight:800;color:#6B9E78;letter-spacing:1.2px;text-transform:uppercase}
+.welvra-hamil-insight__body{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;font-weight:500;color:#1F3528;line-height:1.55;transition:opacity .25s}
+.welvra-hamil-set-lmp{width:100%;padding:12px;background:transparent;border:1px dashed rgba(107,158,120,0.40);border-radius:14px;color:#6B9E78;font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif}
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"]{background:linear-gradient(180deg,#1A2421 0%,#24312D 50%,#1A2421 100%)}
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-hamil-greeting__hello,
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-hamil-fetal__week,
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-hamil-fetal__label,
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-hamil-vital__value,
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-hamil-insight__body{color:#F0F4EE}
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-hamil-greeting__trimester{color:#A8C9AE}
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-hamil-vital,
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-hamil-action,
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-siklus-card{background:#24312D;border-color:rgba(168,201,174,0.20)}
+/* PCOS */
+.welvra-pcos-greeting{margin-bottom:16px}
+.welvra-pcos-greeting__eyebrow{font-size:10px;font-weight:700;color:#C8860A;letter-spacing:1.5px;text-transform:uppercase}
+.welvra-pcos-greeting__title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#1A2540;margin-top:4px}
+.welvra-pcos-score{background:linear-gradient(135deg,#1A2540 0%,#0A1F18 100%);border-radius:22px;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 16px 32px rgba(20,30,60,0.18);margin-bottom:16px;position:relative;overflow:hidden}
+.welvra-pcos-score::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:radial-gradient(circle,rgba(200,134,10,0.18),transparent 70%);border-radius:50%}
+.welvra-pcos-score__label{display:block;font-size:11px;font-weight:700;color:#C8860A;letter-spacing:1.5px;text-transform:uppercase}
+.welvra-pcos-score__status{display:block;margin-top:6px;font-size:12px;color:rgba(245,241,232,0.65);transition:opacity .3s}
+.welvra-pcos-score__value{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:600;color:#F5F1E8;line-height:1}
+.welvra-pcos-chart__head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.welvra-pcos-chart__label{font-size:11px;font-weight:700;color:rgba(26,37,64,0.55);letter-spacing:1.2px;text-transform:uppercase}
+.welvra-pcos-chart__current{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#C8860A}
+.welvra-pcos-chart__svg{width:100%;height:110px;display:block}
+.welvra-pcos-chart__axis{display:flex;justify-content:space-between;margin-top:8px;padding:0 4px;font-size:9px;color:rgba(26,37,64,0.45)}
+.welvra-pcos-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.welvra-pcos-action{background:rgba(255,255,255,0.65);border:1px solid rgba(26,37,64,0.10);border-radius:18px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;color:#1A2540;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.4px}
+.welvra-pcos-action svg{width:22px;height:22px;color:#C8860A}
+.welvra-pcos-action.is-scanning{background:#1A2540;color:#FAE5A8}
+.welvra-pcos-action.is-scanning svg{color:#FAE5A8}
+.welvra-pcos-insight__head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.welvra-pcos-insight__avatar svg{width:32px;height:32px}
+.welvra-pcos-insight__title{font-size:12px;font-weight:800;color:#C8860A;letter-spacing:1.2px;text-transform:uppercase}
+.welvra-pcos-insight__body{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;font-weight:500;color:#1A2540;line-height:1.55;transition:opacity .25s}
+.welvra-pcos-flash{position:fixed;inset:0;background:#fff;z-index:1500;opacity:0;pointer-events:none;animation:pcosFlash 0.6s ease-out}
+@keyframes pcosFlash{0%{opacity:1}100%{opacity:0}}
+/* Siklus Toast */
+.welvra-siklus-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);max-width:320px;padding:12px 18px;background:#1A2540;border:1px solid rgba(200,134,10,0.45);border-radius:12px;color:#FAE5A8;font-size:13px;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,0.30);z-index:1300;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;text-align:center}
+.welvra-siklus-toast.is-visible{opacity:1;transform:translateX(-50%) translateY(0)}
+
 /* ===== CEK TENSI ANDA — Blood Pressure Monitor ===== */
 /* Home card (rose accent, matches aktiv/mens inline-style pattern) */
 .bp-rose-card{background:linear-gradient(135deg,#ffffff 0%,#FDECEC 50%,#F8D5D5 100%);border-left:4px solid #D63031;box-shadow:0 2px 4px rgba(214,48,49,.08),0 8px 16px rgba(214,48,49,.12),0 16px 32px rgba(214,48,49,.1),inset 0 1px 0 rgba(255,255,255,.9)}
@@ -6163,7 +6274,7 @@ html.dark .drawer-auth-name{color:#F0EDE8}
             if (window.openFaceprint) { window.openFaceprint(); return; }
             return;
           case 'mens':
-            if (window.openMensModal) { window.openMensModal(); return; }
+            if (Welvra.siklus) { Welvra.siklus.open(); return; }
             return;
         }
       };
@@ -7300,6 +7411,194 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <button class="welvra-trackfit-confirm__btn welvra-trackfit-confirm__btn--ok" id="trackfit-confirm-ok" type="button">Reset</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- SIKLUS WANITA SCREEN -->
+<div class="welvra-siklus-screen" id="welvra-siklus-screen" role="dialog" aria-modal="true" aria-labelledby="siklus-title" data-tab="cycle">
+  <button class="welvra-siklus-close" aria-label="Tutup Siklus Wanita">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 L9 12 L15 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="welvra-siklus-container">
+    <svg width="0" height="0" style="position:absolute;" aria-hidden="true">
+      <defs>
+        <linearGradient id="siklusGoldShine" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FAE5A8"/><stop offset="40%" stop-color="#E8C063"/><stop offset="100%" stop-color="#A56F08"/></linearGradient>
+        <linearGradient id="siklusSageShine" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#A8C9AE"/><stop offset="100%" stop-color="#6B9E78"/></linearGradient>
+      </defs>
+    </svg>
+
+    <header class="welvra-siklus-header">
+      <div class="welvra-siklus-header__brand">
+        <span class="welvra-siklus-header__brand-mark">
+          <svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="8" fill="none" stroke="url(#siklusGoldShine)" stroke-width="1.4"/><circle cx="11" cy="11" r="4.5" fill="url(#siklusGoldShine)" opacity="0.55"/></svg>
+        </span>
+        <span class="welvra-siklus-header__brand-text">
+          <span class="welvra-siklus-header__eyebrow">WELVRA</span>
+          <span class="welvra-siklus-header__title" id="siklus-title">SIKLUS WANITA</span>
+        </span>
+      </div>
+      <div class="welvra-siklus-header__greeting">
+        <span class="welvra-siklus-header__phase" id="siklus-phase-label">Fase Luteal</span>
+        <span class="welvra-siklus-header__hello" id="siklus-greeting">Apa kabar</span>
+      </div>
+    </header>
+
+    <nav class="welvra-siklus-tabs" role="tablist" aria-label="Pilih mode">
+      <button class="welvra-siklus-tab is-active" data-tab="cycle" role="tab" aria-selected="true" type="button">
+        <svg viewBox="0 0 18 18" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="9" r="6"/><path d="M9 3 a6 6 0 0 1 0 12"/></g></svg>
+        <span>SIKLUS</span>
+      </button>
+      <button class="welvra-siklus-tab" data-tab="hamil" role="tab" aria-selected="false" type="button">
+        <svg viewBox="0 0 18 18" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="9" cy="11" rx="5" ry="6"/><circle cx="9" cy="5" r="2"/></g></svg>
+        <span>HAMIL</span>
+      </button>
+      <button class="welvra-siklus-tab" data-tab="pcos" role="tab" aria-selected="false" type="button">
+        <svg viewBox="0 0 18 18" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 3 Q9 6 5 9 Q9 12 5 15 M13 3 Q9 6 13 9 Q9 12 13 15"/></g></svg>
+        <span>PCOS</span>
+      </button>
+    </nav>
+
+    <!-- PHASE 1: Cycle Panel -->
+    <section class="welvra-siklus-panel welvra-siklus-panel--cycle" id="siklus-panel-cycle" role="tabpanel">
+      <div class="welvra-cycle-dial-wrap">
+        <svg class="welvra-cycle-dial" viewBox="0 0 296 296" aria-hidden="true">
+          <defs>
+            <linearGradient id="cycleDialFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FAE5A8"/><stop offset="100%" stop-color="#C8860A"/></linearGradient>
+            <radialGradient id="cycleDialHalo" cx="0.5" cy="0.5" r="0.5"><stop offset="60%" stop-color="#C8860A" stop-opacity="0"/><stop offset="100%" stop-color="#C8860A" stop-opacity="0.18"/></radialGradient>
+          </defs>
+          <circle cx="148" cy="148" r="140" fill="url(#cycleDialHalo)"/>
+          <circle cx="148" cy="148" r="105" stroke="rgba(255,255,255,0.55)" stroke-width="14" fill="none"/>
+          <circle id="cycle-dial-progress" cx="148" cy="148" r="105" stroke="url(#cycleDialFill)" stroke-width="14" fill="none" stroke-dasharray="0 660" stroke-linecap="round" transform="rotate(-90 148 148)" style="transition:stroke-dasharray .9s cubic-bezier(.25,.8,.25,1)"/>
+        </svg>
+        <button class="welvra-cycle-dial-core" id="cycle-dial-tap" type="button" aria-label="Catat awal/akhir mens">
+          <span class="welvra-cycle-dial__big" id="cycle-days-left">06</span>
+          <span class="welvra-cycle-dial__sublabel">Hari Lagi</span>
+          <span class="welvra-cycle-dial__badge" id="cycle-status-badge">
+            <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1 Q3 6 3 9 Q3 12 7 13 Q11 12 11 9 Q11 6 7 1Z" fill="currentColor"/></svg>
+            <span>Prediksi Mens</span>
+          </span>
+        </button>
+      </div>
+      <div class="welvra-cycle-actions">
+        <button class="welvra-cycle-action" id="cycle-voice-btn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11 Q5 17 12 17 Q19 17 19 11 M12 17 L12 21 M9 21 L15 21"/></g></svg>
+          <span id="cycle-voice-label">Voice Log</span>
+        </button>
+        <button class="welvra-cycle-action" id="cycle-sync-btn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10 L21 10 M8 3 L8 7 M16 3 L16 7 M9 15 L11 17 L15 13"/></g></svg>
+          <span>Smart Sync</span>
+        </button>
+        <button class="welvra-cycle-action welvra-cycle-action--bbt" id="cycle-bbt-btn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L12 14 M9 2 L15 2 M9 11 L15 11"/><circle cx="12" cy="18" r="4"/></g></svg>
+          <span>Catat BBT</span>
+        </button>
+      </div>
+      <div class="welvra-siklus-card welvra-cycle-insight" id="cycle-insight">
+        <div class="welvra-cycle-insight__head">
+          <span class="welvra-cycle-insight__avatar" id="cycle-insight-avatar">
+            <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="rgba(13,148,136,0.16)" stroke="url(#siklusGoldShine)" stroke-width="1"/><text x="16" y="21" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="14" font-weight="700" fill="url(#siklusGoldShine)">W</text></svg>
+          </span>
+          <span class="welvra-cycle-insight__title" id="cycle-insight-title">Welvra Insight</span>
+        </div>
+        <p class="welvra-cycle-insight__body" id="cycle-insight-body">Siklusmu stabil. Ketuk "Catat BBT" untuk validasi ovulasi terbaru, atau "Voice Log" untuk catat gejala harian dengan suara.</p>
+      </div>
+    </section>
+
+    <!-- PHASE 2: Hamil Panel -->
+    <section class="welvra-siklus-panel welvra-siklus-panel--hamil" id="siklus-panel-hamil" role="tabpanel" hidden>
+      <div class="welvra-hamil-greeting">
+        <span class="welvra-hamil-greeting__trimester" id="hamil-trimester">Trimester Pertama</span>
+        <h2 class="welvra-hamil-greeting__hello" id="hamil-hello">Apa kabar</h2>
+      </div>
+      <div class="welvra-hamil-fetal">
+        <h2 class="welvra-hamil-fetal__week" id="hamil-week">Minggu ke-12</h2>
+        <div class="welvra-hamil-fetal__circle" id="hamil-fetal-circle">
+          <svg class="welvra-hamil-fetal__icon" id="hamil-fetal-icon" viewBox="0 0 100 100" aria-hidden="true"></svg>
+          <canvas class="welvra-hamil-fetal__art" id="hamil-art-canvas" width="220" height="220" style="display:none;" aria-hidden="true"></canvas>
+          <span class="welvra-hamil-fetal__label" id="hamil-fruit-label">SEUKURAN JERUK NIPIS</span>
+        </div>
+      </div>
+      <div class="welvra-hamil-vitals">
+        <div class="welvra-hamil-vital">
+          <svg viewBox="0 0 22 22" aria-hidden="true"><path d="M11 19 q-9 -7 -9 -13 q0 -4 4 -4 q3 0 4 3 q1 -3 4 -3 q4 0 4 4 q0 6 -7 13 z" fill="#E84A5F"/></svg>
+          <span class="welvra-hamil-vital__value" id="hamil-fhr">158</span>
+          <span class="welvra-hamil-vital__unit">bpm</span>
+          <span class="welvra-hamil-vital__label">Detak Jantung Janin</span>
+        </div>
+        <div class="welvra-hamil-vital">
+          <svg viewBox="0 0 22 22" aria-hidden="true"><g fill="none" stroke="#6B9E78" stroke-width="1.5" stroke-linecap="round"><path d="M3 10 L19 10 M11 4 L11 10 M5 14 L17 14 L17 19 L5 19 Z M8 14 L8 19 M14 14 L14 19"/></g></svg>
+          <span class="welvra-hamil-vital__value" id="hamil-weight">68.5</span>
+          <span class="welvra-hamil-vital__unit">kg</span>
+          <span class="welvra-hamil-vital__label" id="hamil-weight-label">Berat Badan Ibu</span>
+        </div>
+      </div>
+      <div class="welvra-hamil-actions">
+        <button class="welvra-hamil-action" id="hamil-art-btn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21 L5 7 Q5 5 7 5 L17 5 Q19 5 19 7 L19 21 M5 11 L19 11 M9 16 Q11 14 13 16 Q15 18 17 16"/></g></svg>
+          <span>Render Estetik USG</span>
+        </button>
+        <button class="welvra-hamil-action" id="hamil-partner-btn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21 q-9 -8 -9 -13 q0 -4 4 -4 q3 0 5 3 q2 -3 5 -3 q4 0 4 4 q0 5 -9 13 z"/></g></svg>
+          <span id="hamil-partner-label">Mode Pendamping</span>
+        </button>
+      </div>
+      <div class="welvra-siklus-card welvra-hamil-insight">
+        <div class="welvra-hamil-insight__head">
+          <span class="welvra-hamil-insight__avatar" id="hamil-insight-avatar"></span>
+          <span class="welvra-hamil-insight__title" id="hamil-insight-title">Welvra Insight</span>
+        </div>
+        <p class="welvra-hamil-insight__body" id="hamil-insight-body">Ligamen rahimmu sedang meregang minggu ini. Wajar merasakan nyeri tajam singkat di perut bawah. Perbanyak air, hindari gerakan mendadak.</p>
+      </div>
+      <button class="welvra-hamil-set-lmp" id="hamil-set-lmp-btn" type="button">Atur Tanggal HPHT</button>
+    </section>
+
+    <!-- PHASE 3: PCOS Panel -->
+    <section class="welvra-siklus-panel welvra-siklus-panel--pcos" id="siklus-panel-pcos" role="tabpanel" hidden>
+      <header class="welvra-pcos-greeting">
+        <span class="welvra-pcos-greeting__eyebrow">PEMANTAUAN KLINIS</span>
+        <h2 class="welvra-pcos-greeting__title">PCOS Dashboard</h2>
+      </header>
+      <div class="welvra-pcos-score">
+        <div class="welvra-pcos-score__left">
+          <span class="welvra-pcos-score__label">Hormonal Balance</span>
+          <span class="welvra-pcos-score__status" id="pcos-score-status">Sub-Optimal</span>
+        </div>
+        <span class="welvra-pcos-score__value" id="pcos-score-value">72</span>
+      </div>
+      <div class="welvra-siklus-card welvra-pcos-chart">
+        <header class="welvra-pcos-chart__head">
+          <span class="welvra-pcos-chart__label">Suhu Basal Tubuh (BBT)</span>
+          <span class="welvra-pcos-chart__current" id="pcos-bbt-current">--</span>
+        </header>
+        <svg class="welvra-pcos-chart__svg" viewBox="0 0 320 110" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="pcosBbtArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(200,134,10,0.25)"/><stop offset="100%" stop-color="rgba(200,134,10,0)"/></linearGradient></defs>
+          <path id="pcos-bbt-area" fill="url(#pcosBbtArea)" d=""/>
+          <polyline id="pcos-bbt-line" fill="none" stroke="url(#siklusGoldShine)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points=""/>
+          <g id="pcos-bbt-points"></g>
+        </svg>
+        <div class="welvra-pcos-chart__axis" id="pcos-bbt-axis"></div>
+      </div>
+      <div class="welvra-pcos-actions">
+        <button class="welvra-pcos-action" id="pcos-skin-btn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6 L9.5 4 L14.5 4 L16 6 M8 13 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0"/></g></svg>
+          <span id="pcos-skin-label">Pemindaian Kulit</span>
+        </button>
+        <button class="welvra-pcos-action" id="pcos-lab-btn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3 L14 3 L19 8 L19 21 L6 21 Z M14 3 L14 8 L19 8 M9 14 L15 14 M9 17 L13 17"/></g></svg>
+          <span id="pcos-lab-label">Unggah Lab</span>
+        </button>
+      </div>
+      <div class="welvra-siklus-card welvra-pcos-insight">
+        <div class="welvra-pcos-insight__head">
+          <span class="welvra-pcos-insight__avatar" id="pcos-insight-avatar"></span>
+          <span class="welvra-pcos-insight__title" id="pcos-insight-title">Welvra Insight</span>
+        </div>
+        <p class="welvra-pcos-insight__body" id="pcos-insight-body">Sistem siap. Gunakan Pemindaian Kulit untuk evaluasi jerawat hormonal, atau Unggah Lab untuk terjemahan hasil tes darah ke laporan personal.</p>
+      </div>
+      <video id="pcos-skin-video" playsinline autoplay muted style="display:none;"></video>
+      <canvas id="pcos-skin-canvas" width="320" height="320" style="display:none;"></canvas>
+      <input type="file" id="pcos-lab-file" accept="application/pdf" style="display:none;">
+    </section>
   </div>
 </div>
 
@@ -11503,6 +11802,948 @@ Welvra.trackfit = (function(){
   });
 
   return { open:open, close:close, toggleSession:toggleSession, setMode:setMode, setGoal:setGoal, get:get };
+})();
+
+// ===== SIKLUS WANITA MODULE =====
+window.Welvra = window.Welvra || {};
+Welvra.siklus = (function(){
+  var STORAGE_KEY = 'welvra_siklus_v2';
+  var state = null;
+  var activeTab = 'cycle';
+
+  function todayKey(){ return new Date().toISOString().slice(0,10); }
+  function load(){ try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e){ return null; } }
+  function save(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
+
+  function initialState(){
+    return {
+      cycle: { startDate:null, cycleLength:28, lutealLength:14, ovulationDay:14, bbtLog:[], symptomLog:[], calendarEvents:[] },
+      hamil: { lmpDate:null, currentWeek:0, partnerMode:false, ultrasoundUploads:[], weightLog:[], fhrLog:[] },
+      pcos: { hormonalScore:72, scoreHistory:[], bbtChartData:[], skinScans:[], labUploads:[] }
+    };
+  }
+
+  function init(){
+    state = load() || initialState();
+    if (!state.cycle) state.cycle = initialState().cycle;
+    if (!state.hamil) state.hamil = initialState().hamil;
+    if (!state.pcos) state.pcos = initialState().pcos;
+    save();
+    return state;
+  }
+
+  function getUserDisplayName(){
+    try {
+      if (window.Welvra && window.Welvra.profile && typeof window.Welvra.profile.getDisplayName === 'function') {
+        return window.Welvra.profile.getDisplayName().split(' ')[0];
+      }
+      var p = window.getHealthProfile && window.getHealthProfile();
+      if (p && p.name) return p.name.split(' ')[0];
+    } catch(e){}
+    return '';
+  }
+
+  function setTab(tabName){
+    activeTab = tabName;
+    document.querySelectorAll('.welvra-siklus-tab').forEach(function(t){
+      var on = t.dataset.tab === tabName;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    document.querySelectorAll('.welvra-siklus-panel').forEach(function(p){
+      p.hidden = !p.classList.contains('welvra-siklus-panel--' + tabName);
+    });
+    var screen = document.getElementById('welvra-siklus-screen');
+    if (screen) screen.dataset.tab = tabName;
+    render();
+  }
+
+  function open(){
+    var el = document.getElementById('welvra-siklus-screen');
+    if (!el) return;
+    init();
+    el.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    setTab('cycle');
+    // Update greeting
+    var greetEl = document.getElementById('siklus-greeting');
+    var name = getUserDisplayName();
+    if (greetEl) greetEl.textContent = name ? 'Hai, ' + name : 'Apa kabar';
+  }
+
+  function close(){
+    var el = document.getElementById('welvra-siklus-screen');
+    if (!el) return;
+    el.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  function render(){
+    if (activeTab === 'cycle') renderCycle();
+    else if (activeTab === 'hamil') renderHamil();
+    else if (activeTab === 'pcos') renderPcos();
+  }
+
+  // ---- Toast ----
+  function showToast(message){
+    var t = document.createElement('div');
+    t.className = 'welvra-siklus-toast';
+    t.textContent = message;
+    document.body.appendChild(t);
+    setTimeout(function(){ t.classList.add('is-visible'); }, 10);
+    setTimeout(function(){
+      t.classList.remove('is-visible');
+      setTimeout(function(){ if (t.parentNode) t.parentNode.removeChild(t); }, 300);
+    }, 3000);
+  }
+
+  // ---- Insight helpers ----
+  function showInsight(type, title, body){
+    var avatarEl = document.getElementById('cycle-insight-avatar');
+    var titleEl = document.getElementById('cycle-insight-title');
+    var bodyEl = document.getElementById('cycle-insight-body');
+    if (titleEl) titleEl.textContent = title;
+    if (bodyEl){
+      bodyEl.style.opacity = 0;
+      setTimeout(function(){ bodyEl.textContent = body; bodyEl.style.opacity = 1; }, 250);
+    }
+    if (avatarEl){
+      var letter = type === 'drsly' ? 'S' : 'W';
+      avatarEl.innerHTML = '<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="rgba(13,148,136,0.16)" stroke="url(#siklusGoldShine)" stroke-width="1"/><text x="16" y="21" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="700" fill="url(#siklusGoldShine)">' + letter + '</text></svg>';
+    }
+  }
+
+  function showInsightHamil(type, title, body){
+    var avatarEl = document.getElementById('hamil-insight-avatar');
+    var titleEl = document.getElementById('hamil-insight-title');
+    var bodyEl = document.getElementById('hamil-insight-body');
+    if (titleEl) titleEl.textContent = title;
+    if (bodyEl){
+      bodyEl.style.opacity = 0;
+      setTimeout(function(){ bodyEl.textContent = body; bodyEl.style.opacity = 1; }, 250);
+    }
+    if (avatarEl){
+      var letter = type === 'drsly' ? 'S' : 'W';
+      avatarEl.innerHTML = '<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="rgba(13,148,136,0.16)" stroke="url(#siklusGoldShine)" stroke-width="1"/><text x="16" y="21" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="700" fill="url(#siklusGoldShine)">' + letter + '</text></svg>';
+    }
+  }
+
+  function showInsightPcos(type, title, body){
+    var avatarEl = document.getElementById('pcos-insight-avatar');
+    var titleEl = document.getElementById('pcos-insight-title');
+    var bodyEl = document.getElementById('pcos-insight-body');
+    if (titleEl) titleEl.textContent = title;
+    if (bodyEl){
+      bodyEl.style.opacity = 0;
+      setTimeout(function(){ bodyEl.textContent = body; bodyEl.style.opacity = 1; }, 250);
+    }
+    if (avatarEl){
+      var letter = type === 'drsly' ? 'S' : 'W';
+      avatarEl.innerHTML = '<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="rgba(13,148,136,0.16)" stroke="url(#siklusGoldShine)" stroke-width="1"/><text x="16" y="21" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="700" fill="url(#siklusGoldShine)">' + letter + '</text></svg>';
+    }
+  }
+
+  // =================== PHASE 1: CYCLE ===================
+  var cycle = {
+    daysUntilMens: function(){
+      var c = state.cycle;
+      if (!c.startDate) return 6;
+      var startMs = new Date(c.startDate).getTime();
+      var now = Date.now();
+      var elapsed = Math.floor((now - startMs) / 86400000);
+      var dayInCycle = elapsed % c.cycleLength;
+      return Math.max(0, c.cycleLength - dayInCycle);
+    },
+    currentPhaseLabel: function(){
+      var c = state.cycle;
+      if (!c.startDate) return 'Fase Folikuler';
+      var startMs = new Date(c.startDate).getTime();
+      var elapsed = Math.floor((Date.now() - startMs) / 86400000);
+      var day = elapsed % c.cycleLength;
+      if (day < 5) return 'Fase Mens';
+      if (day < c.ovulationDay - 1) return 'Fase Folikuler';
+      if (day <= c.ovulationDay + 1) return 'Fase Ovulasi';
+      return 'Fase Luteal';
+    },
+    recalibrate: function(bbt){
+      var log = state.cycle.bbtLog;
+      log.push({ date: todayKey(), temp: bbt });
+      if (log.length > 90) log.shift();
+      var recent = log.slice(-7, -1);
+      if (recent.length >= 3){
+        var avg = recent.reduce(function(a,b){ return a + b.temp; }, 0) / recent.length;
+        if (bbt - avg >= 0.3){
+          var c = state.cycle;
+          if (!c.startDate) c.startDate = todayKey();
+          var elapsed = Math.floor((Date.now() - new Date(c.startDate).getTime()) / 86400000);
+          c.ovulationDay = (elapsed % c.cycleLength);
+          c.cycleLength = c.ovulationDay + c.lutealLength;
+          return { spike: true, newDays: c.cycleLength - c.ovulationDay };
+        }
+      }
+      return { spike: false };
+    }
+  };
+
+  function renderCycle(){
+    var c = state.cycle;
+    var days = cycle.daysUntilMens();
+    var pct = Math.min((c.cycleLength - days) / c.cycleLength, 1);
+    var circ = 2 * Math.PI * 105;
+    var dash = (pct * circ).toFixed(1);
+
+    var daysEl = document.getElementById('cycle-days-left');
+    var ringEl = document.getElementById('cycle-dial-progress');
+    var phaseEl = document.getElementById('siklus-phase-label');
+    var badgeEl = document.getElementById('cycle-status-badge');
+
+    if (daysEl) daysEl.textContent = days < 10 ? '0' + days : '' + days;
+    if (ringEl) ringEl.setAttribute('stroke-dasharray', dash + ' ' + (circ - parseFloat(dash)));
+    if (phaseEl) phaseEl.textContent = cycle.currentPhaseLabel();
+    if (badgeEl){
+      var phase = cycle.currentPhaseLabel();
+      var spanLabel = badgeEl.querySelector('span');
+      if (spanLabel){
+        spanLabel.textContent = phase === 'Fase Ovulasi' ? 'Masa Subur' :
+                                phase === 'Fase Mens' ? 'Sedang Mens' :
+                                phase === 'Fase Folikuler' ? 'Folikuler' : 'Prediksi Mens';
+      }
+    }
+  }
+
+  // ---- Voice Log ----
+  var voiceState = { recorder: null, chunks: [], audioCtx: null };
+
+  function autocorrelatePitch(buf, sampleRate){
+    var SIZE = buf.length;
+    var sumSq = 0;
+    for (var i = 0; i < SIZE; i++) sumSq += buf[i]*buf[i];
+    var rms = Math.sqrt(sumSq / SIZE);
+    if (rms < 0.01) return -1;
+    var bestOffset = -1, bestCorrelation = 0;
+    for (var offset = 50; offset < SIZE/2; offset++){
+      var correlation = 0;
+      for (var k = 0; k < SIZE - offset; k++) correlation += buf[k] * buf[k + offset];
+      if (correlation > bestCorrelation){ bestCorrelation = correlation; bestOffset = offset; }
+    }
+    if (bestOffset === -1 || bestCorrelation < 0.5) return -1;
+    return sampleRate / bestOffset;
+  }
+
+  function analyzeBiomarkers(pitches, amplitudes){
+    if (pitches.length < 5) return { confidence:'low', stress:'unknown', fatigue:'unknown' };
+    var avgPitch = pitches.reduce(function(a,b){ return a+b; }, 0) / pitches.length;
+    var pitchVariance = pitches.reduce(function(a,b){ return a + Math.pow(b - avgPitch, 2); }, 0) / pitches.length;
+    var jitter = Math.sqrt(pitchVariance) / avgPitch;
+    var avgAmp = amplitudes.reduce(function(a,b){ return a+b; }, 0) / amplitudes.length;
+    var ampVariance = amplitudes.reduce(function(a,b){ return a + Math.pow(b - avgAmp, 2); }, 0) / amplitudes.length;
+    var ampStability = 1 - Math.min(Math.sqrt(ampVariance) / Math.max(avgAmp, 0.001), 1);
+    return {
+      confidence: pitches.length > 20 ? 'high' : 'medium',
+      avgPitch: Math.round(avgPitch),
+      jitter: +(jitter * 100).toFixed(2),
+      stress: jitter > 0.06 ? 'tinggi' : jitter > 0.03 ? 'sedang' : 'rendah',
+      fatigue: ampStability < 0.5 ? 'tinggi' : ampStability < 0.75 ? 'sedang' : 'rendah'
+    };
+  }
+
+  function adviceFromBiomarkers(b){
+    if (b.stress === 'tinggi' && b.fatigue === 'tinggi'){
+      return 'Suaramu menunjukkan stres dan kelelahan yang tinggi hari ini. Aku sarankan ganti rutinitas berat dengan yoga restoratif atau jalan santai 20 menit. Tidur lebih awal malam ini.';
+    }
+    if (b.stress === 'tinggi'){
+      return 'Aku mendengar tegang di suaramu — variasi nada cukup tinggi. Coba latihan pernapasan 4-7-8 selama 5 menit, lalu evaluasi lagi.';
+    }
+    if (b.fatigue === 'tinggi'){
+      return 'Suaramu lebih lemah dari biasanya, indikasi kelelahan. Hidrasi, perpanjang istirahat siang, dan kurangi intensitas olahraga hari ini.';
+    }
+    return 'Suaramu stabil dan tenang. Pertahankan ritme harianmu. Kalau ada gejala fisik, catat manual untuk pelacakan jangka panjang.';
+  }
+
+  // ---- Calendar import ----
+  function parseIcs(text){
+    var events = [];
+    var lines = text.split(/\r?\n/);
+    var cur = null;
+    for (var i = 0; i < lines.length; i++){
+      var line = lines[i].trim();
+      if (line === 'BEGIN:VEVENT') cur = {};
+      else if (line === 'END:VEVENT' && cur){ events.push(cur); cur = null; }
+      else if (cur){
+        if (line.indexOf('SUMMARY:') === 0) cur.summary = line.slice(8);
+        else if (line.indexOf('DTSTART') === 0){
+          var m = line.match(/(\d{8})/);
+          if (m) cur.date = m[1].slice(0,4) + '-' + m[1].slice(4,6) + '-' + m[1].slice(6,8);
+        }
+      }
+    }
+    return events;
+  }
+
+  function detectPmsConflicts(events){
+    var startMs = state.cycle.startDate ? new Date(state.cycle.startDate).getTime() : Date.now();
+    var nextMens = startMs + state.cycle.cycleLength * 86400000;
+    var pmsStart = nextMens - 7 * 86400000;
+    var pmsEnd = nextMens;
+    return events.filter(function(e){
+      if (!e.date) return false;
+      var t = new Date(e.date).getTime();
+      return t >= pmsStart && t <= pmsEnd;
+    }).map(function(e){
+      return { summary: e.summary, date: e.date, dateLabel: new Date(e.date).toLocaleDateString('id-ID', { day:'numeric', month:'short' }) };
+    });
+  }
+
+  function formatPmsWeek(){
+    var startMs = state.cycle.startDate ? new Date(state.cycle.startDate).getTime() : Date.now();
+    var pmsStart = new Date(startMs + (state.cycle.cycleLength - 7) * 86400000);
+    var pmsEnd = new Date(startMs + state.cycle.cycleLength * 86400000);
+    return pmsStart.toLocaleDateString('id-ID', { day:'numeric', month:'short' }) + ' - ' + pmsEnd.toLocaleDateString('id-ID', { day:'numeric', month:'short' });
+  }
+
+  // =================== PHASE 2: HAMIL ===================
+  var hamil = {
+    fetalSizeMap: [
+      { week:4, fruit:'Biji Wijen', icon:'sesame' },
+      { week:6, fruit:'Biji Lentil', icon:'lentil' },
+      { week:8, fruit:'Buah Anggur', icon:'grape' },
+      { week:10, fruit:'Buah Stroberi', icon:'strawberry' },
+      { week:12, fruit:'Jeruk Nipis', icon:'lime' },
+      { week:14, fruit:'Buah Persik', icon:'peach' },
+      { week:16, fruit:'Buah Alpukat', icon:'avocado' },
+      { week:20, fruit:'Pisang', icon:'banana' },
+      { week:24, fruit:'Jagung', icon:'corn' },
+      { week:28, fruit:'Buah Terong', icon:'eggplant' },
+      { week:32, fruit:'Buah Labu Siam', icon:'squash' },
+      { week:36, fruit:'Selada Romaine', icon:'lettuce' },
+      { week:40, fruit:'Semangka Mini', icon:'watermelon' }
+    ],
+    gestationalAge: function(lmpDateStr){
+      if (!lmpDateStr) return { weeks:0, days:0 };
+      var lmp = new Date(lmpDateStr).getTime();
+      var diff = Date.now() - lmp;
+      var totalDays = Math.floor(diff / 86400000);
+      return { weeks: Math.floor(totalDays / 7), days: totalDays % 7 };
+    },
+    trimester: function(weeks){
+      if (weeks <= 13) return 'Trimester Pertama';
+      if (weeks <= 27) return 'Trimester Kedua';
+      return 'Trimester Ketiga';
+    },
+    sizeForWeek: function(weeks){
+      var match = hamil.fetalSizeMap[0];
+      for (var i = 0; i < hamil.fetalSizeMap.length; i++){
+        if (hamil.fetalSizeMap[i].week <= weeks) match = hamil.fetalSizeMap[i];
+      }
+      return match;
+    },
+    iconSvg: function(iconName){
+      var paths = {
+        lime:       '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="55" r="32"/><path d="M30 35 Q50 50 70 30"/><path d="M50 25 L45 18 L55 18 Z"/></g>',
+        peach:      '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M30 55 Q30 30 50 30 Q70 30 70 55 Q70 80 50 80 Q30 80 30 55Z"/><path d="M50 30 Q60 20 65 25"/><path d="M50 30 L50 50"/></g>',
+        grape:      '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="40" cy="40" r="8"/><circle cx="55" cy="42" r="8"/><circle cx="35" cy="55" r="8"/><circle cx="50" cy="58" r="8"/><circle cx="65" cy="55" r="8"/><circle cx="45" cy="72" r="8"/><circle cx="58" cy="72" r="8"/><path d="M50 30 L50 22 L60 18"/></g>',
+        strawberry: '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M30 40 Q30 75 50 80 Q70 75 70 40 Q60 30 50 32 Q40 30 30 40Z"/><path d="M40 40 L35 30 L45 32 L50 25 L55 32 L65 30 L60 40"/></g>',
+        banana:     '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M25 35 Q40 25 60 30 Q75 35 75 55 Q60 75 35 65 Q22 55 25 35Z"/><path d="M22 35 L18 30"/></g>',
+        avocado:    '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M50 20 Q35 25 35 50 Q35 80 50 80 Q65 80 65 50 Q65 25 50 20Z"/><circle cx="50" cy="55" r="8"/></g>',
+        watermelon: '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 60 Q30 40 50 38 Q70 40 80 60 Q70 80 50 82 Q30 80 20 60Z"/><path d="M30 60 L70 60"/><circle cx="38" cy="68" r="2"/><circle cx="50" cy="70" r="2"/><circle cx="62" cy="68" r="2"/></g>',
+        sesame:     '<g fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="50" cy="50" rx="14" ry="8"/></g>',
+        lentil:     '<g fill="none" stroke="currentColor" stroke-width="2"><circle cx="50" cy="50" r="14"/></g>',
+        corn:       '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M40 25 Q35 50 40 75 Q50 80 60 75 Q65 50 60 25 Q55 22 50 22 Q45 22 40 25Z"/><circle cx="48" cy="40" r="2"/><circle cx="55" cy="40" r="2"/><circle cx="48" cy="55" r="2"/><circle cx="55" cy="55" r="2"/></g>',
+        eggplant:   '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M40 25 Q40 30 45 35 Q35 35 30 50 Q30 80 50 80 Q70 80 70 50 Q65 35 55 35 Q60 30 60 25 Z"/></g>',
+        squash:     '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M50 20 Q40 30 35 55 Q30 80 50 80 Q70 80 65 55 Q60 30 50 20Z"/></g>',
+        lettuce:    '<g fill="none" stroke="currentColor" stroke-width="2"><path d="M30 70 Q30 35 50 30 Q70 35 70 70 Z M40 70 Q40 45 50 40 Q60 45 60 70"/></g>'
+      };
+      return paths[iconName] || paths.lime;
+    }
+  };
+
+  function renderHamil(){
+    var h = state.hamil;
+    var ga = hamil.gestationalAge(h.lmpDate);
+    h.currentWeek = ga.weeks;
+    var size = hamil.sizeForWeek(Math.max(ga.weeks, 4));
+    var trimesterEl = document.getElementById('hamil-trimester');
+    var helloEl = document.getElementById('hamil-hello');
+    var weekEl = document.getElementById('hamil-week');
+    var iconEl = document.getElementById('hamil-fetal-icon');
+    var labelEl = document.getElementById('hamil-fruit-label');
+
+    if (trimesterEl) trimesterEl.textContent = ga.weeks > 0 ? hamil.trimester(ga.weeks) : 'Belum diatur';
+    if (helloEl){
+      var name = getUserDisplayName();
+      helloEl.textContent = h.partnerMode ? 'Hello, Pendamping' : (name ? 'Apa kabar, ' + name : 'Apa kabar');
+    }
+    if (weekEl) weekEl.textContent = ga.weeks > 0 ? ('Minggu ke-' + ga.weeks + (ga.days > 0 ? ' + ' + ga.days + 'h' : '')) : 'Atur HPHT untuk mulai';
+    if (iconEl) iconEl.innerHTML = hamil.iconSvg(size.icon);
+    if (labelEl) labelEl.textContent = ga.weeks > 0 ? 'SEUKURAN ' + size.fruit.toUpperCase() : '--';
+    updateHamilInsight();
+  }
+
+  function updateHamilInsight(){
+    var h = state.hamil;
+    var weeks = h.currentWeek;
+    var bodyEl = document.getElementById('hamil-insight-body');
+    var titleEl = document.getElementById('hamil-insight-title');
+    var avatarEl = document.getElementById('hamil-insight-avatar');
+    var insightText = '', persona = 'welvra', titleText = 'Welvra Insight';
+
+    if (weeks === 0){
+      insightText = 'Atur tanggal HPHT (Hari Pertama Haid Terakhir) untuk mulai pelacakan kehamilan.';
+    } else if (weeks <= 12){
+      insightText = h.partnerMode
+        ? 'Pendamping, dia ada di trimester pertama. Mual pagi mungkin masih muncul. Siapkan biskuit dan air saat dia bangun, hindari aroma menyengat.'
+        : 'Trimester pertama — fase pembentukan organ janin penting. Konsumsi asam folat 600mcg/hari, hindari makanan mentah.';
+      persona = h.partnerMode ? 'drsly' : 'welvra';
+      titleText = h.partnerMode ? 'Pesan untuk Pendamping' : 'Welvra Insight';
+    } else if (weeks <= 27){
+      insightText = h.partnerMode
+        ? 'Energinya mulai pulih. Ajak dia jalan ringan sore hari. Dia mungkin merasakan tendangan janin pertama — temani momen itu.'
+        : 'Trimester kedua — energi membaik, risiko keguguran menurun. Saatnya olahraga ringan: berenang atau yoga prenatal.';
+      persona = 'drsly';
+      titleText = h.partnerMode ? 'Pesan untuk Pendamping' : 'Pesan dari Dr. Sly';
+    } else {
+      insightText = h.partnerMode
+        ? 'Trimester akhir. Tubuhnya berat, pinggang sering nyeri. Bantu pakaikan kaus kaki, siapkan bantal di antara lutut saat dia tidur miring.'
+        : 'Trimester ketiga — fokus persiapan persalinan. Kontraksi Braxton Hicks normal. Siapkan tas RS minggu ke-36.';
+      persona = 'drsly';
+      titleText = h.partnerMode ? 'Pesan untuk Pendamping' : 'Pesan dari Dr. Sly';
+    }
+
+    if (titleEl) titleEl.textContent = titleText;
+    if (bodyEl){
+      bodyEl.style.opacity = 0;
+      setTimeout(function(){ bodyEl.textContent = insightText; bodyEl.style.opacity = 1; }, 200);
+    }
+    if (avatarEl){
+      var letter = persona === 'drsly' ? 'S' : 'W';
+      avatarEl.innerHTML = '<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="rgba(13,148,136,0.16)" stroke="url(#siklusGoldShine)" stroke-width="1"/><text x="16" y="21" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="700" fill="url(#siklusGoldShine)">' + letter + '</text></svg>';
+    }
+  }
+
+  function applyArtisticFilter(img, callback){
+    var canvas = document.getElementById('hamil-art-canvas');
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+    var w = img.width * scale;
+    var h = img.height * scale;
+    var x = (canvas.width - w) / 2;
+    var y = (canvas.height - h) / 2;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(canvas.width/2, canvas.height/2, canvas.width/2, 0, Math.PI*2);
+    ctx.clip();
+    ctx.filter = 'sepia(0.3) saturate(1.4) brightness(1.05) contrast(1.15)';
+    ctx.drawImage(img, x, y, w, h);
+    ctx.filter = 'none';
+    var grad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 20, canvas.width/2, canvas.height/2, canvas.width/2);
+    grad.addColorStop(0, 'rgba(232,192,99,0)');
+    grad.addColorStop(0.7, 'rgba(232,192,99,0.20)');
+    grad.addColorStop(1, 'rgba(165,111,8,0.40)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var data = imageData.data;
+    for (var i = 0; i < data.length; i += 4){
+      var noise = (Math.random() - 0.5) * 16;
+      data[i]     = Math.max(0, Math.min(255, data[i] + noise));
+      data[i + 1] = Math.max(0, Math.min(255, data[i + 1] + noise));
+      data[i + 2] = Math.max(0, Math.min(255, data[i + 2] + noise));
+    }
+    ctx.putImageData(imageData, 0, 0);
+    ctx.restore();
+    callback(canvas.toDataURL('image/png', 0.92));
+  }
+
+  // =================== PHASE 3: PCOS ===================
+  var pcos = {
+    animateScore: function(start, end, duration){
+      var startMs = null;
+      var el = document.getElementById('pcos-score-value');
+      function step(ts){
+        if (!startMs) startMs = ts;
+        var progress = Math.min((ts - startMs) / duration, 1);
+        var ease = progress * (2 - progress);
+        el.textContent = Math.floor(ease * (end - start) + start);
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = end;
+      }
+      requestAnimationFrame(step);
+    },
+    computeScore: function(){
+      var labs = state.pcos.labUploads;
+      if (labs.length === 0) return state.pcos.hormonalScore || 72;
+      var latest = labs[labs.length - 1];
+      var m = latest.extractedMarkers || {};
+      var score = 50;
+      if (m.lh && m.fsh){
+        var ratio = m.lh / m.fsh;
+        score += ratio < 2 ? 15 : ratio < 3 ? 5 : -10;
+      }
+      if (m.testosterone) score += m.testosterone < 60 ? 10 : m.testosterone > 85 ? -10 : 0;
+      if (m.hba1c) score += m.hba1c < 5.7 ? 10 : m.hba1c < 6.5 ? -5 : -15;
+      if (m.insulin) score += m.insulin < 10 ? 10 : m.insulin > 25 ? -10 : 3;
+      return Math.max(1, Math.min(100, Math.round(score)));
+    }
+  };
+
+  function renderPcos(){
+    var pc = state.pcos;
+    var statusEl = document.getElementById('pcos-score-status');
+    var bbtCurEl = document.getElementById('pcos-bbt-current');
+    var scoreEl = document.getElementById('pcos-score-value');
+
+    if (scoreEl) scoreEl.textContent = pc.hormonalScore;
+    if (statusEl){
+      var s = pc.hormonalScore;
+      statusEl.textContent = s >= 85 ? 'Optimal' : s >= 70 ? 'Sub-Optimal' : s >= 50 ? 'Perlu Perhatian' : 'Konsultasi Disarankan';
+    }
+
+    var log = state.cycle.bbtLog.slice(-7);
+    if (log.length > 0){
+      var lineEl = document.getElementById('pcos-bbt-line');
+      var areaEl = document.getElementById('pcos-bbt-area');
+      var pointsEl = document.getElementById('pcos-bbt-points');
+      var axisEl = document.getElementById('pcos-bbt-axis');
+      var minT = Math.min.apply(null, log.map(function(x){ return x.temp; }));
+      var maxT = Math.max.apply(null, log.map(function(x){ return x.temp; }));
+      var range = Math.max(maxT - minT, 0.5);
+      var points = log.map(function(x, i){
+        var px = (i / Math.max(log.length - 1, 1)) * 320;
+        var py = 100 - ((x.temp - minT) / range) * 80;
+        return px.toFixed(1) + ',' + py.toFixed(1);
+      });
+      if (lineEl) lineEl.setAttribute('points', points.join(' '));
+      if (areaEl) areaEl.setAttribute('d', 'M0,110 L' + points.join(' L') + ' L320,110 Z');
+      if (pointsEl){
+        pointsEl.innerHTML = log.map(function(x, i){
+          var coords = points[i].split(',');
+          return '<circle cx="' + coords[0] + '" cy="' + coords[1] + '" r="3" fill="#FAE5A8" stroke="#1A2540" stroke-width="1.5"/>';
+        }).join('');
+      }
+      if (axisEl){
+        axisEl.innerHTML = log.map(function(x){
+          var d = new Date(x.date);
+          return '<span>' + d.getDate() + '/' + (d.getMonth()+1) + '</span>';
+        }).join('');
+      }
+      if (bbtCurEl) bbtCurEl.textContent = log[log.length-1].temp.toFixed(1) + '\u00B0C';
+    } else {
+      if (bbtCurEl) bbtCurEl.textContent = '--';
+    }
+  }
+
+  function analyzeSkinFrame(canvas){
+    var ctx = canvas.getContext('2d');
+    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var data = imageData.data;
+    var blemishPixels = 0, redSum = 0, totalSamples = 0;
+    for (var i = 0; i < data.length; i += 16){
+      var r = data[i], g = data[i+1], b = data[i+2];
+      if (r > 60 && r < 250 && g > 50 && g - b > 5 && r - g > 10){
+        totalSamples++;
+        redSum += r;
+        if (r / (g + 1) > 1.35) blemishPixels++;
+      }
+    }
+    var avgRed = totalSamples > 0 ? redSum / totalSamples : 0;
+    var blemishRatio = totalSamples > 0 ? blemishPixels / totalSamples : 0;
+    var blemishCount = Math.min(Math.round(blemishRatio * 200), 50);
+    var redIntensity = avgRed > 200 ? 'tinggi' : avgRed > 160 ? 'sedang' : 'rendah';
+    return { blemishCount: blemishCount, redIntensity: redIntensity, totalSamples: totalSamples };
+  }
+
+  function extractLabMarkers(text){
+    var lower = text.toLowerCase();
+    var markers = {};
+    function findValue(pattern){
+      var m = lower.match(pattern);
+      if (m){ var num = parseFloat(m[1].replace(',', '.')); return isNaN(num) ? null : num; }
+      return null;
+    }
+    markers.lh = findValue(/\blh\b[^\d]{0,30}(\d+\.?\d*)/);
+    markers.fsh = findValue(/\bfsh\b[^\d]{0,30}(\d+\.?\d*)/);
+    markers.testosterone = findValue(/testoster(?:on|one)[^\d]{0,40}(\d+\.?\d*)/);
+    markers.estradiol = findValue(/estradiol[^\d]{0,40}(\d+\.?\d*)/);
+    markers.tsh = findValue(/\btsh\b[^\d]{0,30}(\d+\.?\d*)/);
+    markers.glucose = findValue(/glukosa(?:\s+puasa)?[^\d]{0,40}(\d+\.?\d*)/) || findValue(/glucose[^\d]{0,40}(\d+\.?\d*)/);
+    markers.insulin = findValue(/insulin[^\d]{0,40}(\d+\.?\d*)/);
+    markers.hba1c = findValue(/hba1c[^\d]{0,30}(\d+\.?\d*)/);
+    Object.keys(markers).forEach(function(k){ if (markers[k] === null) delete markers[k]; });
+    return markers;
+  }
+
+  function generateWeatherReport(m){
+    var parts = [];
+    parts.push('Laporan terjemahan dari hasil lab-mu:');
+    var found = Object.keys(m).length;
+    if (found === 0) return 'Aku belum bisa mengekstrak nilai hormon dari PDF ini. Coba unggah versi yang lebih bersih (bukan hasil scan dari foto), atau ketik manual nilai yang ada.';
+    if (m.lh && m.fsh){
+      var ratio = (m.lh / m.fsh).toFixed(2);
+      if (ratio < 2) parts.push('Rasio LH/FSH ' + ratio + ' — sangat baik. Risiko anovulasi rendah bulan ini.');
+      else if (ratio < 3) parts.push('Rasio LH/FSH ' + ratio + ' — borderline. Perlu pantau dengan ovulasi.');
+      else parts.push('Rasio LH/FSH ' + ratio + ' — tinggi, indikasi imbalance hormon. Diskusikan dengan dokter kandungan.');
+    }
+    if (m.testosterone){
+      if (m.testosterone < 60) parts.push('Testosteron ' + m.testosterone + ' — dalam rentang normal.');
+      else if (m.testosterone > 85) parts.push('Testosteron ' + m.testosterone + ' — di atas normal, bisa kontribusi ke jerawat hormonal & rambut menipis.');
+      else parts.push('Testosteron ' + m.testosterone + ' — borderline tinggi.');
+    }
+    if (m.hba1c){
+      if (m.hba1c < 5.7) parts.push('HbA1c ' + m.hba1c + '% — kontrol gula darah baik.');
+      else if (m.hba1c < 6.5) parts.push('HbA1c ' + m.hba1c + '% — pre-diabetes, atur diet karbo & olahraga rutin.');
+      else parts.push('HbA1c ' + m.hba1c + '% — masuk diabetes, segera konsultasi dokter.');
+    }
+    if (m.insulin){
+      if (m.insulin > 25) parts.push('Insulin puasa ' + m.insulin + ' — tinggi, indikasi resistensi insulin (umum di PCOS).');
+      else if (m.insulin < 10) parts.push('Insulin puasa ' + m.insulin + ' — sehat.');
+    }
+    if (m.tsh){
+      if (m.tsh < 0.4) parts.push('TSH ' + m.tsh + ' — tiroid hiperaktif.');
+      else if (m.tsh > 4.0) parts.push('TSH ' + m.tsh + ' — tiroid hipoaktif, bisa mempengaruhi siklus.');
+      else parts.push('TSH ' + m.tsh + ' — tiroid sehat.');
+    }
+    return parts.join(' ');
+  }
+
+  // =================== EVENT BINDINGS ===================
+  document.addEventListener('DOMContentLoaded', function(){
+    init();
+
+    // Tab switcher
+    document.querySelectorAll('.welvra-siklus-tab').forEach(function(t){
+      t.addEventListener('click', function(){ setTab(t.dataset.tab); });
+    });
+
+    // Close button
+    var closeBtn = document.querySelector('.welvra-siklus-close');
+    if (closeBtn) closeBtn.addEventListener('click', close);
+
+    // ---- Cycle: Dial tap ----
+    var dialTap = document.getElementById('cycle-dial-tap');
+    if (dialTap) dialTap.addEventListener('click', function(){
+      var c = state.cycle;
+      if (!c.startDate || cycle.daysUntilMens() <= 1){
+        c.startDate = todayKey();
+        save();
+        showToast('Awal mens hari ini tercatat');
+        render();
+      } else {
+        showToast('Tap "Catat BBT" untuk validasi siklus');
+      }
+    });
+
+    // ---- Cycle: Voice Log ----
+    var voiceBtn = document.getElementById('cycle-voice-btn');
+    if (voiceBtn) voiceBtn.addEventListener('click', function(){
+      if (voiceState.recorder && voiceState.recorder.state === 'recording'){
+        voiceState.recorder.stop();
+        return;
+      }
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
+        var btn = document.getElementById('cycle-voice-btn');
+        var label = document.getElementById('cycle-voice-label');
+        btn.classList.add('is-recording');
+        if (label) label.textContent = 'Mendengarkan...';
+        voiceState.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var source = voiceState.audioCtx.createMediaStreamSource(stream);
+        var analyser = voiceState.audioCtx.createAnalyser();
+        analyser.fftSize = 2048;
+        source.connect(analyser);
+        var pitchSamples = [];
+        var amplitudeSamples = [];
+        var sampleInterval = setInterval(function(){
+          var buf = new Float32Array(analyser.fftSize);
+          analyser.getFloatTimeDomainData(buf);
+          var sum = 0;
+          for (var i = 0; i < buf.length; i++) sum += buf[i]*buf[i];
+          amplitudeSamples.push(Math.sqrt(sum / buf.length));
+          var pitch = autocorrelatePitch(buf, voiceState.audioCtx.sampleRate);
+          if (pitch > 0) pitchSamples.push(pitch);
+        }, 100);
+
+        voiceState.recorder = new MediaRecorder(stream);
+        voiceState.chunks = [];
+        voiceState.recorder.ondataavailable = function(e){ voiceState.chunks.push(e.data); };
+        voiceState.recorder.onstop = function(){
+          clearInterval(sampleInterval);
+          stream.getTracks().forEach(function(t){ t.stop(); });
+          btn.classList.remove('is-recording');
+          if (label) label.textContent = 'Voice Log';
+          var biomarkers = analyzeBiomarkers(pitchSamples, amplitudeSamples);
+          var advice = adviceFromBiomarkers(biomarkers);
+          state.cycle.symptomLog.push({ date: todayKey(), source:'voice', biomarkers: biomarkers, advice: advice });
+          save();
+          showInsight('drsly', 'Pesan dari Dr. Sly', advice);
+        };
+        voiceState.recorder.start();
+        setTimeout(function(){
+          if (voiceState.recorder && voiceState.recorder.state === 'recording') voiceState.recorder.stop();
+        }, 5000);
+      }).catch(function(){
+        showToast('Akses mikrofon ditolak. Cek pengaturan browser.');
+      });
+    });
+
+    // ---- Cycle: Smart Sync ----
+    var syncBtn = document.getElementById('cycle-sync-btn');
+    if (syncBtn) syncBtn.addEventListener('click', function(){
+      var input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.ics,text/calendar';
+      input.onchange = function(e){
+        var file = e.target.files && e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(ev){
+          var events = parseIcs(ev.target.result);
+          state.cycle.calendarEvents = events;
+          save();
+          var conflicts = detectPmsConflicts(events);
+          var msg;
+          if (conflicts.length > 0){
+            msg = 'Sinkronisasi selesai. Aku temukan ' + conflicts.length + ' meeting di minggu PMS-mu (' + formatPmsWeek() + '). ' +
+                  'Pertimbangkan reschedule: ' + conflicts.slice(0,2).map(function(c){ return '"' + c.summary + '" tanggal ' + c.dateLabel; }).join('; ') + '.';
+          } else {
+            msg = 'Sinkronisasi selesai. Tidak ada meeting konflik dengan minggu PMS-mu yang akan datang.';
+          }
+          showInsight('drsly', 'Pesan dari Dr. Sly', msg);
+        };
+        reader.readAsText(file);
+      };
+      input.click();
+    });
+
+    // ---- Cycle: BBT ----
+    var bbtBtn = document.getElementById('cycle-bbt-btn');
+    if (bbtBtn) bbtBtn.addEventListener('click', function(){
+      var input = window.prompt('Masukkan suhu basal (\u00B0C). Contoh: 36.7', '36.7');
+      if (input === null) return;
+      var bbt = parseFloat(input.replace(',', '.'));
+      if (isNaN(bbt) || bbt < 35 || bbt > 38.5){
+        showToast('Suhu tidak valid. Rentang normal 35-38.5\u00B0C');
+        return;
+      }
+      var result = cycle.recalibrate(bbt);
+      save();
+      render();
+      if (result.spike){
+        showInsight('welvra', 'Welvra Insight', 'Lonjakan suhu basal terdeteksi. Algoritma sudah kalibrasi ulang siklusmu — mens diprediksi datang ' + result.newDays + ' hari lagi. Detail akurasi membaik seiring lebih banyak data BBT.');
+      } else {
+        showInsight('welvra', 'Welvra Insight', 'BBT tercatat: ' + bbt.toFixed(1) + '\u00B0C. Belum ada lonjakan signifikan — ovulasi belum terkonfirmasi. Catat lagi besok pagi sebelum bangun.');
+      }
+    });
+
+    // ---- Hamil: Set LMP ----
+    var lmpBtn = document.getElementById('hamil-set-lmp-btn');
+    if (lmpBtn) lmpBtn.addEventListener('click', function(){
+      var input = window.prompt('Masukkan tanggal HPHT (YYYY-MM-DD). Contoh: 2026-02-12', state.hamil.lmpDate || '');
+      if (!input) return;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(input)){
+        showToast('Format tanggal salah. Pakai YYYY-MM-DD.');
+        return;
+      }
+      state.hamil.lmpDate = input;
+      save();
+      renderHamil();
+      showToast('HPHT tersimpan. Usia kehamilan dikalkulasi.');
+    });
+
+    // ---- Hamil: Render Estetik USG ----
+    var artBtn = document.getElementById('hamil-art-btn');
+    if (artBtn) artBtn.addEventListener('click', function(){
+      var input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = function(e){
+        var file = e.target.files && e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(ev){
+          var img = new Image();
+          img.onload = function(){
+            applyArtisticFilter(img, function(dataUrl){
+              var iconEl = document.getElementById('hamil-fetal-icon');
+              var canvas = document.getElementById('hamil-art-canvas');
+              var labelEl = document.getElementById('hamil-fruit-label');
+              if (iconEl) iconEl.style.display = 'none';
+              if (canvas) canvas.style.display = 'block';
+              if (labelEl){ labelEl.textContent = 'RENDER ESTETIK'; labelEl.style.color = '#C8860A'; }
+              state.hamil.ultrasoundUploads.push({ date: todayKey(), artisticDataUrl: dataUrl });
+              save();
+              showInsightHamil('drsly', 'Pesan dari Dr. Sly', 'Render estetik selesai. Foto USG-mu sekarang punya tone gold yang lebih hangat — cocok untuk simpan sebagai memori.');
+              var fcircle = document.getElementById('hamil-fetal-circle');
+              var showingArt = true;
+              fcircle.style.cursor = 'pointer';
+              fcircle.onclick = function(){
+                showingArt = !showingArt;
+                if (showingArt){
+                  canvas.style.display = 'block';
+                  iconEl.style.display = 'none';
+                  labelEl.textContent = 'RENDER ESTETIK';
+                } else {
+                  canvas.style.display = 'none';
+                  iconEl.style.display = 'block';
+                  var size = hamil.sizeForWeek(state.hamil.currentWeek);
+                  labelEl.textContent = 'SEUKURAN ' + size.fruit.toUpperCase();
+                }
+              };
+            });
+          };
+          img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+      };
+      input.click();
+    });
+
+    // ---- Hamil: Partner Mode ----
+    var partnerBtn = document.getElementById('hamil-partner-btn');
+    if (partnerBtn) partnerBtn.addEventListener('click', function(){
+      state.hamil.partnerMode = !state.hamil.partnerMode;
+      save();
+      var screen = document.getElementById('welvra-siklus-screen');
+      var btn = document.getElementById('hamil-partner-btn');
+      var label = document.getElementById('hamil-partner-label');
+      if (state.hamil.partnerMode){
+        screen.dataset.partner = 'on';
+        btn.classList.add('is-active');
+        if (label) label.textContent = 'Mode Ibu';
+        var wl = document.getElementById('hamil-weight-label');
+        if (wl) wl.textContent = 'Berat Pasangan';
+      } else {
+        screen.removeAttribute('data-partner');
+        btn.classList.remove('is-active');
+        if (label) label.textContent = 'Mode Pendamping';
+        var wl2 = document.getElementById('hamil-weight-label');
+        if (wl2) wl2.textContent = 'Berat Badan Ibu';
+      }
+      renderHamil();
+      showToast(state.hamil.partnerMode ? 'Mode pendamping aktif' : 'Kembali ke mode ibu');
+    });
+
+    // ---- PCOS: Skin Scan ----
+    var skinScanState = { stream:null, scanning:false };
+    var skinBtn = document.getElementById('pcos-skin-btn');
+    if (skinBtn) skinBtn.addEventListener('click', function(){
+      if (skinScanState.scanning) return;
+      skinScanState.scanning = true;
+      var btn = document.getElementById('pcos-skin-btn');
+      var label = document.getElementById('pcos-skin-label');
+      btn.classList.add('is-scanning');
+      if (label) label.textContent = 'Memindai...';
+
+      navigator.mediaDevices.getUserMedia({ video: { facingMode:'user' } }).then(function(stream){
+        skinScanState.stream = stream;
+        var video = document.getElementById('pcos-skin-video');
+        video.srcObject = stream;
+        setTimeout(function(){
+          var canvas = document.getElementById('pcos-skin-canvas');
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          var flash = document.createElement('div');
+          flash.className = 'welvra-pcos-flash';
+          document.body.appendChild(flash);
+          setTimeout(function(){ if (flash.parentNode) flash.parentNode.removeChild(flash); }, 600);
+          var analysis = analyzeSkinFrame(canvas);
+          stream.getTracks().forEach(function(t){ t.stop(); });
+          skinScanState.stream = null;
+          skinScanState.scanning = false;
+          btn.classList.remove('is-scanning');
+          if (label) label.textContent = 'Pemindaian Kulit';
+          var prevScans = state.pcos.skinScans;
+          var prevCount = prevScans.length > 0 ? prevScans[prevScans.length-1].blemishCount : null;
+          state.pcos.skinScans.push({ date: todayKey(), blemishCount: analysis.blemishCount, redIntensity: analysis.redIntensity });
+          if (state.pcos.skinScans.length > 30) state.pcos.skinScans.shift();
+          save();
+          var report;
+          if (prevCount !== null){
+            var delta = analysis.blemishCount - prevCount;
+            var deltaPct = prevCount > 0 ? Math.round((delta / prevCount) * 100) : 0;
+            if (delta < 0) report = 'Hasil pemindaian: ' + analysis.blemishCount + ' titik peradangan terdeteksi, turun ' + Math.abs(deltaPct) + '% dari pemindaian terakhir. Rutinitas skincare-mu efektif. Pertahankan retinoid malam dan SPF pagi.';
+            else if (delta > 0) report = 'Hasil pemindaian: ' + analysis.blemishCount + ' titik peradangan, naik ' + deltaPct + '% dari sebelumnya. Mungkin terkait fluktuasi androgen di fase luteal. Pertimbangkan tambah niacinamide atau salicylic acid.';
+            else report = 'Hasil pemindaian: ' + analysis.blemishCount + ' titik peradangan, stabil dari sebelumnya. Pertahankan rutinitas saat ini.';
+          } else {
+            report = 'Pemindaian pertama tersimpan. Terdeteksi ' + analysis.blemishCount + ' titik peradangan kulit (intensitas ' + analysis.redIntensity + '). Lakukan pemindaian rutin setiap minggu untuk lihat trend dengan rutinitas skincare-mu.';
+          }
+          showInsightPcos('drsly', 'Pesan dari Dr. Sly', report);
+        }, 2000);
+      }).catch(function(){
+        skinScanState.scanning = false;
+        btn.classList.remove('is-scanning');
+        if (label) label.textContent = 'Pemindaian Kulit';
+        showToast('Akses kamera ditolak. Cek pengaturan browser.');
+      });
+    });
+
+    // ---- PCOS: Lab Upload ----
+    var labBtn = document.getElementById('pcos-lab-btn');
+    if (labBtn) labBtn.addEventListener('click', function(){
+      document.getElementById('pcos-lab-file').click();
+    });
+
+    var labFile = document.getElementById('pcos-lab-file');
+    if (labFile) labFile.addEventListener('change', function(e){
+      var file = e.target.files && e.target.files[0];
+      if (!file) return;
+      var btn = document.getElementById('pcos-lab-btn');
+      var label = document.getElementById('pcos-lab-label');
+      btn.style.opacity = 0.5;
+      btn.style.pointerEvents = 'none';
+      if (label) label.textContent = 'Memproses...';
+
+      var fileReader = new FileReader();
+      fileReader.onload = function(ev){
+        var typedarray = new Uint8Array(ev.target.result);
+        if (!window.pdfjsLib){
+          showToast('PDF.js belum dimuat. Coba reload halaman.');
+          btn.style.opacity = 1; btn.style.pointerEvents = 'auto';
+          if (label) label.textContent = 'Unggah Lab';
+          return;
+        }
+        pdfjsLib.getDocument({ data: typedarray }).promise.then(function(pdf){
+          var pagePromises = [];
+          for (var i = 1; i <= pdf.numPages; i++){
+            pagePromises.push(pdf.getPage(i).then(function(page){
+              return page.getTextContent().then(function(content){
+                return content.items.map(function(item){ return item.str; }).join(' ');
+              });
+            }));
+          }
+          return Promise.all(pagePromises);
+        }).then(function(pages){
+          var fullText = pages.join('\n');
+          var markers = extractLabMarkers(fullText);
+          state.pcos.labUploads.push({ date: todayKey(), extractedMarkers: markers, rawTextSnippet: fullText.slice(0, 500) });
+          var prevScore = state.pcos.hormonalScore;
+          state.pcos.hormonalScore = pcos.computeScore();
+          state.pcos.scoreHistory.push({ date: todayKey(), score: state.pcos.hormonalScore });
+          save();
+          pcos.animateScore(prevScore, state.pcos.hormonalScore, 1500);
+          var statusEl = document.getElementById('pcos-score-status');
+          if (statusEl){
+            statusEl.style.opacity = 0;
+            setTimeout(function(){
+              var delta = state.pcos.hormonalScore - prevScore;
+              statusEl.textContent = (state.pcos.hormonalScore >= 85 ? 'Optimal' : state.pcos.hormonalScore >= 70 ? 'Sub-Optimal' : 'Perlu Perhatian') +
+                                     (delta !== 0 ? ' \u00B7 ' + (delta > 0 ? 'Naik' : 'Turun') + ' ' + Math.abs(delta) + ' poin' : '');
+              statusEl.style.opacity = 1;
+            }, 250);
+          }
+          showInsightPcos('drsly', 'Pesan dari Dr. Sly', generateWeatherReport(markers));
+          btn.style.opacity = 1; btn.style.pointerEvents = 'auto';
+          if (label) label.textContent = 'Unggah Lab';
+        }).catch(function(){
+          showToast('Gagal memproses PDF. Pastikan file valid.');
+          btn.style.opacity = 1; btn.style.pointerEvents = 'auto';
+          if (label) label.textContent = 'Unggah Lab';
+        });
+      };
+      fileReader.readAsArrayBuffer(file);
+    });
+  });
+
+  return { open: open, close: close, setTab: setTab, get: function(){ return state; } };
 })();
 
 function buildAktivitasModal() {
