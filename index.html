@@ -2183,10 +2183,46 @@ html.dark .footer{color:rgba(232,192,99,0.65);text-shadow:none}
 .welvra-hamil-greeting__hello{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#1F3528;margin-top:4px}
 .welvra-hamil-fetal{text-align:center;margin-bottom:24px}
 .welvra-hamil-fetal__week{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:#1F3528}
-.welvra-hamil-fetal__circle{width:220px;height:220px;margin:16px auto 0;border-radius:50%;background:linear-gradient(135deg,rgba(255,255,255,0.85),rgba(168,201,174,0.45));box-shadow:0 16px 36px rgba(107,158,120,0.18),inset 0 0 0 6px rgba(255,255,255,0.45);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.welvra-hamil-fetal__icon{width:90px;height:90px;color:#6B9E78;filter:drop-shadow(0 8px 12px rgba(107,158,120,0.25))}
-.welvra-hamil-fetal__art{position:absolute;inset:8px;border-radius:50%}
-.welvra-hamil-fetal__label{font-size:10px;font-weight:700;color:#1F3528;letter-spacing:1px;margin-top:12px}
+.welvra-hamil-fetal__stage{position:relative;width:240px;height:240px;margin:16px auto 0}
+.welvra-hamil-fetal__circle{position:absolute;top:10px;left:10px;width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,rgba(255,255,255,0.85),rgba(168,201,174,0.45));box-shadow:0 16px 36px rgba(107,158,120,0.18),inset 0 0 0 6px rgba(255,255,255,0.45);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;cursor:default;outline:none;transition:box-shadow .35s ease}
+.welvra-hamil-fetal__circle:focus-visible{box-shadow:0 16px 36px rgba(107,158,120,0.18),inset 0 0 0 6px rgba(255,255,255,0.45),0 0 0 3px rgba(200,134,10,0.55)}
+.welvra-hamil-fetal__icon{width:90px;height:90px;color:#6B9E78;filter:drop-shadow(0 8px 12px rgba(107,158,120,0.25));transition:opacity .3s cubic-bezier(0.25,0.8,0.25,1)}
+.welvra-hamil-fetal__art{position:absolute;inset:8px;border-radius:50%;transition:opacity 1s cubic-bezier(0.25,0.8,0.25,1),filter 1s cubic-bezier(0.25,0.8,0.25,1),transform 1s cubic-bezier(0.25,0.8,0.25,1)}
+.welvra-hamil-fetal__usg{position:absolute;inset:8px;border-radius:50%;width:calc(100% - 16px);height:calc(100% - 16px);object-fit:cover;transition:opacity 1s cubic-bezier(0.25,0.8,0.25,1),filter 1s cubic-bezier(0.25,0.8,0.25,1),transform 1s cubic-bezier(0.25,0.8,0.25,1);will-change:opacity,filter,transform}
+.welvra-hamil-fetal__render{position:absolute;inset:8px;border-radius:50%;width:calc(100% - 16px);height:calc(100% - 16px);object-fit:cover;opacity:0;filter:blur(24px);transform:scale(1.05);transition:opacity 1s cubic-bezier(0.25,0.8,0.25,1),filter 1s cubic-bezier(0.25,0.8,0.25,1),transform 1s cubic-bezier(0.25,0.8,0.25,1);will-change:opacity,filter,transform}
+.welvra-hamil-fetal__circle.is-rendered .welvra-hamil-fetal__render{opacity:1;filter:blur(0);transform:scale(1)}
+.welvra-hamil-fetal__label{font-size:10px;font-weight:700;color:#1F3528;letter-spacing:1px;text-align:center;margin-top:12px;text-shadow:0 1px 4px rgba(255,255,255,0.6);pointer-events:none;transition:opacity .3s ease;position:relative;z-index:2}
+.welvra-hamil-fetal__circle.is-rendered .welvra-hamil-fetal__label{opacity:0}
+.welvra-hamil-fetal__frame{position:absolute;inset:0;width:240px;height:240px;pointer-events:none;opacity:0;transform:scale(1.05);transition:opacity .5s cubic-bezier(0.25,0.8,0.25,1),transform .5s cubic-bezier(0.25,0.8,0.25,1)}
+.welvra-hamil-fetal__stage.is-framed .welvra-hamil-fetal__frame{opacity:1;transform:scale(1)}
+.welvra-hamil-fetal__loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:radial-gradient(circle at center,rgba(31,53,40,0.35),rgba(31,53,40,0.45));border-radius:50%;opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:3}
+.welvra-hamil-fetal__circle.is-loading .welvra-hamil-fetal__loading{opacity:1}
+.welvra-hamil-fetal__circle.is-loading{animation:hamilFetalPulse 1.4s cubic-bezier(0.25,0.8,0.25,1) infinite}
+@keyframes hamilFetalPulse{0%,100%{box-shadow:0 16px 36px rgba(107,158,120,0.18),inset 0 0 0 6px rgba(255,255,255,0.45),0 0 0 0 rgba(200,134,10,0.45)}50%{box-shadow:0 16px 36px rgba(107,158,120,0.18),inset 0 0 0 6px rgba(255,255,255,0.45),0 0 0 18px rgba(200,134,10,0)}}
+.welvra-hamil-fetal__spinner{width:34px;height:34px;border-radius:50%;border:2.5px solid rgba(250,229,168,0.25);border-top-color:#FAE5A8;animation:hamilFetalSpin 0.9s linear infinite}
+@keyframes hamilFetalSpin{to{transform:rotate(360deg)}}
+.welvra-hamil-fetal__loading-text{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;color:#FAE5A8;letter-spacing:1px;text-transform:uppercase}
+.welvra-hamil-fetal__overlay{margin-top:14px;display:flex;flex-direction:column;align-items:center;gap:2px;opacity:0;transform:translateY(8px);transition:opacity .5s cubic-bezier(0.25,0.8,0.25,1),transform .5s cubic-bezier(0.25,0.8,0.25,1);min-height:0}
+.welvra-hamil-fetal__overlay.is-visible{opacity:1;transform:translateY(0)}
+.welvra-hamil-fetal__overlay-week{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;font-weight:600;color:#1F3528;line-height:1.2}
+.welvra-hamil-fetal__overlay-fruit{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;color:rgba(31,53,40,0.65);letter-spacing:1px;text-transform:uppercase}
+.welvra-hamil-fetal__overlay-date{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:500;color:rgba(31,53,40,0.5);letter-spacing:0.8px}
+.welvra-hamil-fetal__save{margin:14px auto 0;display:inline-flex;align-items:center;gap:6px;padding:8px 20px;height:36px;border:none;border-radius:18px;background:linear-gradient(135deg,#FAE5A8 0%,#E8C063 45%,#C8860A 100%);color:#1F3528;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 18px rgba(200,134,10,0.30);opacity:0;transform:translateY(6px);transition:opacity .4s cubic-bezier(0.25,0.8,0.25,1),transform .4s cubic-bezier(0.25,0.8,0.25,1),box-shadow .2s ease}
+.welvra-hamil-fetal__save.is-visible{opacity:1;transform:translateY(0)}
+.welvra-hamil-fetal__save:hover{box-shadow:0 8px 22px rgba(200,134,10,0.42)}
+.welvra-hamil-fetal__save:active{transform:scale(0.97)}
+.welvra-hamil-fetal__save:focus-visible{outline:2px solid #C8860A;outline-offset:3px}
+.welvra-hamil-fetal__save svg{width:14px;height:14px}
+.welvra-hamil-fetal__save[hidden]{display:none}
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-hamil-fetal__overlay-week{color:#F0F4EE}
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-hamil-fetal__overlay-fruit{color:rgba(168,201,174,0.85)}
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-hamil-fetal__overlay-date{color:rgba(168,201,174,0.65)}
+.welvra-siklus-screen[data-partner="on"][data-tab="hamil"] .welvra-hamil-fetal__label{color:#F0F4EE;text-shadow:0 1px 4px rgba(0,0,0,0.4)}
+@media (prefers-reduced-motion: reduce){
+  .welvra-hamil-fetal__usg,.welvra-hamil-fetal__render,.welvra-hamil-fetal__frame,.welvra-hamil-fetal__overlay,.welvra-hamil-fetal__save{transition:opacity .15s ease}
+  .welvra-hamil-fetal__circle.is-loading{animation:none}
+  .welvra-hamil-fetal__spinner{animation:none;border-top-color:rgba(250,229,168,0.6)}
+}
 .welvra-hamil-vitals{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
 .welvra-hamil-vital{background:rgba(255,255,255,0.65);border:1px solid rgba(107,158,120,0.20);border-radius:18px;padding:14px;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center}
 .welvra-hamil-vital svg{width:22px;height:22px;grid-row:span 2}
@@ -7513,11 +7549,42 @@ html.dark .drawer-auth-name{color:#F0EDE8}
       </div>
       <div class="welvra-hamil-fetal">
         <h2 class="welvra-hamil-fetal__week" id="hamil-week">Minggu ke-12</h2>
-        <div class="welvra-hamil-fetal__circle" id="hamil-fetal-circle">
-          <svg class="welvra-hamil-fetal__icon" id="hamil-fetal-icon" viewBox="0 0 100 100" aria-hidden="true"></svg>
-          <canvas class="welvra-hamil-fetal__art" id="hamil-art-canvas" width="220" height="220" style="display:none;" aria-hidden="true"></canvas>
-          <span class="welvra-hamil-fetal__label" id="hamil-fruit-label">SEUKURAN JERUK NIPIS</span>
+        <div class="welvra-hamil-fetal__stage" id="hamil-fetal-stage">
+          <div class="welvra-hamil-fetal__circle" id="hamil-fetal-circle" tabindex="-1" role="button" aria-label="Visualisasi janin">
+            <svg class="welvra-hamil-fetal__icon" id="hamil-fetal-icon" viewBox="0 0 100 100" aria-hidden="true"></svg>
+            <canvas class="welvra-hamil-fetal__art" id="hamil-art-canvas" width="220" height="220" style="display:none;" aria-hidden="true"></canvas>
+            <img class="welvra-hamil-fetal__usg" id="hamil-fetal-usg" alt="Foto USG dengan render estetik" style="display:none;">
+            <img class="welvra-hamil-fetal__render" id="hamil-fetal-render" alt="" style="display:none;">
+            <span class="welvra-hamil-fetal__label" id="hamil-fruit-label">SEUKURAN JERUK NIPIS</span>
+            <div class="welvra-hamil-fetal__loading" id="hamil-fetal-loading" aria-hidden="true">
+              <div class="welvra-hamil-fetal__spinner"></div>
+              <span class="welvra-hamil-fetal__loading-text" id="hamil-loading-text">Membuat visualisasi 5D</span>
+            </div>
+          </div>
+          <svg class="welvra-hamil-fetal__frame" id="hamil-fetal-frame" viewBox="0 0 240 240" aria-hidden="true">
+            <circle cx="120" cy="120" r="115" fill="none" stroke="url(#siklusGoldShine)" stroke-width="1.5" opacity="0.7"/>
+            <circle cx="120" cy="120" r="118" fill="none" stroke="url(#siklusGoldShine)" stroke-width="0.5" opacity="0.4"/>
+            <g stroke="url(#siklusGoldShine)" stroke-width="1.2" fill="none" stroke-linecap="round">
+              <path d="M22 38 Q22 26 34 26 M28 22 Q34 22 36 28 M30 30 Q26 30 26 34"/>
+              <circle cx="22" cy="22" r="1.6" fill="url(#siklusGoldShine)" stroke="none"/>
+              <path d="M218 38 Q218 26 206 26 M212 22 Q206 22 204 28 M210 30 Q214 30 214 34"/>
+              <circle cx="218" cy="22" r="1.6" fill="url(#siklusGoldShine)" stroke="none"/>
+              <path d="M22 202 Q22 214 34 214 M28 218 Q34 218 36 212 M30 210 Q26 210 26 206"/>
+              <circle cx="22" cy="218" r="1.6" fill="url(#siklusGoldShine)" stroke="none"/>
+              <path d="M218 202 Q218 214 206 214 M212 218 Q206 218 204 212 M210 210 Q214 210 214 206"/>
+              <circle cx="218" cy="218" r="1.6" fill="url(#siklusGoldShine)" stroke="none"/>
+            </g>
+          </svg>
         </div>
+        <div class="welvra-hamil-fetal__overlay" id="hamil-fetal-overlay" aria-live="polite">
+          <span class="welvra-hamil-fetal__overlay-week" id="hamil-overlay-week"></span>
+          <span class="welvra-hamil-fetal__overlay-fruit" id="hamil-overlay-fruit"></span>
+          <span class="welvra-hamil-fetal__overlay-date" id="hamil-overlay-date"></span>
+        </div>
+        <button class="welvra-hamil-fetal__save" id="hamil-save-btn" type="button" hidden>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3 H10 L13 6 V13 H3 Z"/><path d="M5 3 V7 H10 V3"/><path d="M5 13 V10 H11 V13"/></g></svg>
+          <span>Simpan Render</span>
+        </button>
       </div>
       <div class="welvra-hamil-vitals">
         <div class="welvra-hamil-vital">
@@ -11827,7 +11894,7 @@ Welvra.siklus = (function(){
   function initialState(){
     return {
       cycle: { startDate:null, cycleLength:28, lutealLength:14, ovulationDay:14, bbtLog:[], symptomLog:[], calendarEvents:[] },
-      hamil: { lmpDate:null, currentWeek:0, partnerMode:false, ultrasoundUploads:[], weightLog:[], fhrLog:[] },
+      hamil: { lmpDate:null, currentWeek:0, partnerMode:false, ultrasoundUploads:[], weightLog:[], fhrLog:[], lastRenderState:'fruit', lastRenderUrl:null, lastRenderWeek:null, lastRenderDateLabel:null, disclaimerSeen:false },
       pcos: { hormonalScore:72, scoreHistory:[], bbtChartData:[], skinScans:[], labUploads:[] }
     };
   }
@@ -11837,6 +11904,12 @@ Welvra.siklus = (function(){
     if (!state.cycle) state.cycle = initialState().cycle;
     if (!state.hamil) state.hamil = initialState().hamil;
     if (!state.pcos) state.pcos = initialState().pcos;
+    // Backfill new render fields for legacy state blobs
+    if (typeof state.hamil.lastRenderState === 'undefined') state.hamil.lastRenderState = 'fruit';
+    if (typeof state.hamil.lastRenderUrl === 'undefined') state.hamil.lastRenderUrl = null;
+    if (typeof state.hamil.lastRenderWeek === 'undefined') state.hamil.lastRenderWeek = null;
+    if (typeof state.hamil.lastRenderDateLabel === 'undefined') state.hamil.lastRenderDateLabel = null;
+    if (typeof state.hamil.disclaimerSeen === 'undefined') state.hamil.disclaimerSeen = false;
     save();
     return state;
   }
@@ -12186,6 +12259,15 @@ Welvra.siklus = (function(){
     if (iconEl) iconEl.innerHTML = hamil.iconSvg(size.icon);
     if (labelEl) labelEl.textContent = ga.weeks > 0 ? 'SEUKURAN ' + size.fruit.toUpperCase() : '--';
     updateHamilInsight();
+
+    if (!morphInProgress){
+      var hasUpload = h.ultrasoundUploads && h.ultrasoundUploads.length > 0;
+      if (hasUpload || h.lastRenderUrl){
+        restoreRenderState();
+      } else {
+        setVisualState('fruit');
+      }
+    }
   }
 
   function updateHamilInsight(){
@@ -12227,6 +12309,429 @@ Welvra.siklus = (function(){
       var letter = persona === 'drsly' ? 'S' : 'W';
       avatarEl.innerHTML = '<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="rgba(13,148,136,0.16)" stroke="url(#siklusGoldShine)" stroke-width="1"/><text x="16" y="21" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" font-weight="700" fill="url(#siklusGoldShine)">' + letter + '</text></svg>';
     }
+  }
+
+  // ---- Fetal Render Library ----
+  var FETAL_MILESTONES = [4, 6, 8, 10, 12, 14, 16, 20, 24, 28, 32, 36, 40];
+  var morphInProgress = false;
+  var morphTimers = [];
+  var dotsInterval = null;
+
+  function getFetalRenderForWeek(weeks){
+    var match = FETAL_MILESTONES[0];
+    var w = Math.max(0, weeks || 0);
+    for (var i = 0; i < FETAL_MILESTONES.length; i++){
+      if (FETAL_MILESTONES[i] <= w) match = FETAL_MILESTONES[i];
+    }
+    if (w >= 37) match = 40;
+    var pad = match < 10 ? '0' + match : '' + match;
+    return 'assets/fetal-renders/fetal-week-' + pad + '.webp';
+  }
+
+  function formatIndonesianDate(date){
+    try {
+      return date.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+    } catch(e){
+      return date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
+    }
+  }
+
+  function prefersReducedMotion(){
+    try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){ return false; }
+  }
+
+  function clearMorphTimers(){
+    for (var i = 0; i < morphTimers.length; i++) clearTimeout(morphTimers[i]);
+    morphTimers = [];
+    if (dotsInterval){ clearInterval(dotsInterval); dotsInterval = null; }
+  }
+
+  function showLoadingState(){
+    var circle = document.getElementById('hamil-fetal-circle');
+    var loadingText = document.getElementById('hamil-loading-text');
+    if (circle) circle.classList.add('is-loading');
+    if (loadingText){
+      var dots = 0;
+      loadingText.textContent = 'Membuat visualisasi 5D';
+      dotsInterval = setInterval(function(){
+        dots = (dots + 1) % 4;
+        loadingText.textContent = 'Membuat visualisasi 5D' + Array(dots + 1).join('.');
+      }, 500);
+    }
+  }
+
+  function hideLoadingState(){
+    var circle = document.getElementById('hamil-fetal-circle');
+    if (circle) circle.classList.remove('is-loading');
+    if (dotsInterval){ clearInterval(dotsInterval); dotsInterval = null; }
+  }
+
+  function setRenderImageSrc(url, onReady, onFail){
+    var renderImg = document.getElementById('hamil-fetal-render');
+    if (!renderImg){ if (onFail) onFail(); return; }
+    renderImg.onload = function(){ if (onReady) onReady(); };
+    renderImg.onerror = function(){ if (onFail) onFail(); };
+    renderImg.src = url;
+  }
+
+  function performMorph(targetUrl, weeks){
+    if (morphInProgress) return;
+    morphInProgress = true;
+    clearMorphTimers();
+
+    var stage = document.getElementById('hamil-fetal-stage');
+    var circle = document.getElementById('hamil-fetal-circle');
+    var iconEl = document.getElementById('hamil-fetal-icon');
+    var canvas = document.getElementById('hamil-art-canvas');
+    var usgImg = document.getElementById('hamil-fetal-usg');
+    var renderImg = document.getElementById('hamil-fetal-render');
+    var labelEl = document.getElementById('hamil-fruit-label');
+    var saveBtn = document.getElementById('hamil-save-btn');
+
+    if (!circle || !renderImg || !usgImg) { morphInProgress = false; return; }
+
+    // Hide static fruit icon + scratch canvas — show USG image as starting frame
+    if (iconEl) iconEl.style.display = 'none';
+    if (canvas) canvas.style.display = 'none';
+    if (labelEl) labelEl.style.display = 'none';
+    usgImg.style.display = 'block';
+    usgImg.style.opacity = '1';
+    usgImg.style.filter = 'blur(0)';
+    usgImg.style.transform = 'scale(1)';
+    renderImg.style.display = 'block';
+    if (saveBtn){ saveBtn.hidden = true; saveBtn.classList.remove('is-visible'); }
+    var overlay = document.getElementById('hamil-fetal-overlay');
+    if (overlay) overlay.classList.remove('is-visible');
+    if (stage) stage.classList.remove('is-framed');
+    circle.classList.remove('is-rendered');
+    // Clear render img inline styles so CSS class transitions can drive it
+    renderImg.style.opacity = '';
+    renderImg.style.filter = '';
+    renderImg.style.transform = '';
+
+    var reduced = prefersReducedMotion();
+
+    var afterRenderReady = function(){
+      showLoadingState();
+      if (reduced){
+        usgImg.style.opacity = '0';
+        circle.classList.add('is-rendered');
+        revealFrameAndText(weeks);
+        hideLoadingState();
+        morphInProgress = false;
+        return;
+      }
+
+      // Phase 2: USG fade out (0.5s -> 1.5s)
+      morphTimers.push(setTimeout(function(){
+        usgImg.style.filter = 'blur(24px)';
+        usgImg.style.transform = 'scale(1.05)';
+        usgImg.style.opacity = '0';
+      }, 500));
+
+      // Phase 3: 3D rendering fade in (1.5s -> 2.5s)
+      morphTimers.push(setTimeout(function(){
+        circle.classList.add('is-rendered');
+      }, 1500));
+
+      // Phase 4: frame + text reveal, hide loading (2.5s -> 3.0s)
+      morphTimers.push(setTimeout(function(){
+        revealFrameAndText(weeks);
+        hideLoadingState();
+        morphInProgress = false;
+      }, 2500));
+    };
+
+    setRenderImageSrc(targetUrl, afterRenderReady, function(){
+      console.warn('Welvra fetal render asset not found:', targetUrl);
+      hideLoadingState();
+      morphInProgress = false;
+      // Graceful fallback — keep USG as final state, no frame, no overlay
+      circle.classList.remove('is-rendered');
+      renderImg.style.display = 'none';
+      state.hamil.lastRenderState = 'usg';
+      state.hamil.lastRenderUrl = null;
+      save();
+      showToast('Visualisasi 5D belum tersedia, menampilkan render estetik');
+      bindCircleToggle();
+    });
+  }
+
+  function revealFrameAndText(weeks){
+    var stage = document.getElementById('hamil-fetal-stage');
+    var overlay = document.getElementById('hamil-fetal-overlay');
+    var weekEl = document.getElementById('hamil-overlay-week');
+    var fruitEl = document.getElementById('hamil-overlay-fruit');
+    var dateEl = document.getElementById('hamil-overlay-date');
+    var saveBtn = document.getElementById('hamil-save-btn');
+
+    var size = hamil.sizeForWeek(Math.max(weeks || 4, 4));
+    var dateLabel = formatIndonesianDate(new Date());
+
+    if (weekEl) weekEl.textContent = 'Minggu ke-' + weeks;
+    if (fruitEl) fruitEl.textContent = 'Seukuran ' + size.fruit;
+    if (dateEl) dateEl.textContent = dateLabel + ' · Welvra';
+
+    if (stage) stage.classList.add('is-framed');
+    if (overlay) overlay.classList.add('is-visible');
+    if (saveBtn){
+      saveBtn.hidden = false;
+      requestAnimationFrame(function(){ saveBtn.classList.add('is-visible'); });
+    }
+
+    state.hamil.lastRenderState = 'rendering';
+    state.hamil.lastRenderWeek = weeks;
+    state.hamil.lastRenderDateLabel = dateLabel;
+    save();
+    bindCircleToggle();
+  }
+
+  function setVisualState(stateName){
+    var circle = document.getElementById('hamil-fetal-circle');
+    var stage = document.getElementById('hamil-fetal-stage');
+    var iconEl = document.getElementById('hamil-fetal-icon');
+    var canvas = document.getElementById('hamil-art-canvas');
+    var usgImg = document.getElementById('hamil-fetal-usg');
+    var renderImg = document.getElementById('hamil-fetal-render');
+    var labelEl = document.getElementById('hamil-fruit-label');
+    var overlay = document.getElementById('hamil-fetal-overlay');
+    var saveBtn = document.getElementById('hamil-save-btn');
+    if (!circle) return;
+
+    if (canvas) canvas.style.display = 'none';
+
+    if (stateName === 'rendering'){
+      if (iconEl) iconEl.style.display = 'none';
+      if (usgImg){ usgImg.style.display = 'block'; usgImg.style.opacity = '0'; }
+      if (renderImg){
+        renderImg.style.display = 'block';
+        renderImg.style.opacity = '';
+        renderImg.style.filter = '';
+        renderImg.style.transform = '';
+      }
+      if (labelEl) labelEl.style.display = 'none';
+      circle.classList.add('is-rendered');
+      if (stage) stage.classList.add('is-framed');
+      if (overlay) overlay.classList.add('is-visible');
+      if (saveBtn){ saveBtn.hidden = false; saveBtn.classList.add('is-visible'); }
+    } else if (stateName === 'usg'){
+      if (iconEl) iconEl.style.display = 'none';
+      if (usgImg){ usgImg.style.display = 'block'; usgImg.style.opacity = '1'; usgImg.style.filter = 'blur(0)'; usgImg.style.transform = 'scale(1)'; }
+      if (renderImg) renderImg.style.display = 'none';
+      if (labelEl){ labelEl.style.display = 'block'; labelEl.textContent = 'RENDER ESTETIK'; labelEl.style.color = '#C8860A'; }
+      circle.classList.remove('is-rendered');
+      if (stage) stage.classList.remove('is-framed');
+      if (overlay) overlay.classList.remove('is-visible');
+      if (saveBtn){ saveBtn.hidden = true; saveBtn.classList.remove('is-visible'); }
+    } else { // fruit
+      if (iconEl) iconEl.style.display = 'block';
+      if (usgImg) usgImg.style.display = 'none';
+      if (renderImg) renderImg.style.display = 'none';
+      if (labelEl){
+        labelEl.style.display = 'block';
+        labelEl.style.color = '';
+        var size = hamil.sizeForWeek(Math.max(state.hamil.currentWeek || 4, 4));
+        labelEl.textContent = state.hamil.currentWeek > 0 ? ('SEUKURAN ' + size.fruit.toUpperCase()) : '--';
+      }
+      circle.classList.remove('is-rendered');
+      if (stage) stage.classList.remove('is-framed');
+      if (overlay) overlay.classList.remove('is-visible');
+      if (saveBtn){ saveBtn.hidden = true; saveBtn.classList.remove('is-visible'); }
+    }
+  }
+
+  function cycleToggleState(){
+    if (morphInProgress) return;
+    var current = state.hamil.lastRenderState || 'fruit';
+    var hasUpload = state.hamil.ultrasoundUploads && state.hamil.ultrasoundUploads.length > 0;
+    var hasRender = !!state.hamil.lastRenderUrl;
+    var next;
+    if (current === 'rendering') next = 'usg';
+    else if (current === 'usg') next = 'fruit';
+    else next = hasRender ? 'rendering' : (hasUpload ? 'usg' : 'fruit');
+    if (next === 'rendering' && !hasRender) next = hasUpload ? 'usg' : 'fruit';
+    if (next === 'usg' && !hasUpload) next = 'fruit';
+    state.hamil.lastRenderState = next;
+    save();
+    setVisualState(next);
+  }
+
+  function bindCircleToggle(){
+    var circle = document.getElementById('hamil-fetal-circle');
+    if (!circle || circle.dataset.toggleBound === '1') return;
+    circle.dataset.toggleBound = '1';
+    circle.tabIndex = 0;
+    circle.style.cursor = 'pointer';
+    circle.addEventListener('click', cycleToggleState);
+    circle.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); cycleToggleState(); }
+    });
+  }
+
+  function restoreRenderState(){
+    var h = state.hamil;
+    var usgImg = document.getElementById('hamil-fetal-usg');
+    var renderImg = document.getElementById('hamil-fetal-render');
+    var weekEl = document.getElementById('hamil-overlay-week');
+    var fruitEl = document.getElementById('hamil-overlay-fruit');
+    var dateEl = document.getElementById('hamil-overlay-date');
+    if (!usgImg || !renderImg) return;
+
+    var hasUpload = h.ultrasoundUploads && h.ultrasoundUploads.length > 0;
+    if (hasUpload){
+      var latest = h.ultrasoundUploads[h.ultrasoundUploads.length - 1];
+      if (latest && latest.artisticDataUrl){
+        usgImg.src = latest.artisticDataUrl;
+      }
+    }
+    if (h.lastRenderUrl){
+      renderImg.src = h.lastRenderUrl;
+      var size = hamil.sizeForWeek(Math.max(h.lastRenderWeek || h.currentWeek || 4, 4));
+      if (weekEl) weekEl.textContent = 'Minggu ke-' + (h.lastRenderWeek || h.currentWeek);
+      if (fruitEl) fruitEl.textContent = 'Seukuran ' + size.fruit;
+      if (dateEl) dateEl.textContent = (h.lastRenderDateLabel || formatIndonesianDate(new Date())) + ' · Welvra';
+    }
+    var stateName = h.lastRenderState || 'fruit';
+    if (stateName === 'rendering' && !h.lastRenderUrl) stateName = hasUpload ? 'usg' : 'fruit';
+    if (stateName === 'usg' && !hasUpload) stateName = 'fruit';
+    if (stateName !== 'fruit') bindCircleToggle();
+    setVisualState(stateName);
+  }
+
+  function showRenderDisclaimer(){
+    if (state.hamil.disclaimerSeen) return;
+    var t = document.createElement('div');
+    t.className = 'welvra-siklus-toast';
+    t.style.maxWidth = '360px';
+    t.style.padding = '14px 20px';
+    t.style.lineHeight = '1.5';
+    t.style.bottom = '120px';
+    t.textContent = 'Visualisasi artistik berdasarkan minggu kehamilan-mu. Bukan hasil scan medis aktual. Foto USG asli kamu tetap tersimpan — tap lingkaran untuk lihat versi asli.';
+    document.body.appendChild(t);
+    setTimeout(function(){ t.classList.add('is-visible'); }, 10);
+    setTimeout(function(){
+      t.classList.remove('is-visible');
+      setTimeout(function(){ if (t.parentNode) t.parentNode.removeChild(t); }, 300);
+    }, 5000);
+    state.hamil.disclaimerSeen = true;
+    save();
+  }
+
+  function saveRender(){
+    var h = state.hamil;
+    var size = hamil.sizeForWeek(Math.max(h.lastRenderWeek || h.currentWeek || 4, 4));
+    var weekNum = h.lastRenderWeek || h.currentWeek || 0;
+    var dateLabel = h.lastRenderDateLabel || formatIndonesianDate(new Date());
+    var renderImg = document.getElementById('hamil-fetal-render');
+    if (!renderImg || !renderImg.src){
+      showToast('Belum ada render untuk disimpan');
+      return;
+    }
+
+    var canvas = document.createElement('canvas');
+    canvas.width = 1080; canvas.height = 1080;
+    var ctx = canvas.getContext('2d');
+
+    // Background gradient
+    var bgGrad = ctx.createLinearGradient(0, 0, 1080, 1080);
+    bgGrad.addColorStop(0, '#FAFAF7');
+    bgGrad.addColorStop(0.55, '#F4ECD8');
+    bgGrad.addColorStop(1, '#E8C9A0');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, 1080, 1080);
+
+    // Subtle radial glow behind circle
+    var glow = ctx.createRadialGradient(540, 470, 80, 540, 470, 480);
+    glow.addColorStop(0, 'rgba(255,255,255,0.6)');
+    glow.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, 1080, 1080);
+
+    // Clipped circle with rendering image
+    var cx = 540, cy = 470, r = 360;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.clip();
+    var imgEl = renderImg;
+    var iw = imgEl.naturalWidth || 1024;
+    var ih = imgEl.naturalHeight || 1024;
+    var scale = Math.max((r*2) / iw, (r*2) / ih);
+    var dw = iw * scale, dh = ih * scale;
+    var dx = cx - dw/2, dy = cy - dh/2;
+    try { ctx.drawImage(imgEl, dx, dy, dw, dh); } catch(e){}
+    ctx.restore();
+
+    // Gold ring
+    var goldGrad = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
+    goldGrad.addColorStop(0, '#FAE5A8');
+    goldGrad.addColorStop(0.4, '#E8C063');
+    goldGrad.addColorStop(1, '#A56F08');
+    ctx.strokeStyle = goldGrad;
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r + 6, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.lineWidth = 2;
+    ctx.globalAlpha = 0.5;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r + 18, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Corner ornaments
+    var corners = [[180,110],[900,110],[180,830],[900,830]];
+    ctx.strokeStyle = goldGrad;
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    corners.forEach(function(pt){
+      ctx.beginPath();
+      ctx.arc(pt[0], pt[1], 16, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(pt[0], pt[1], 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#C8860A';
+      ctx.fill();
+    });
+
+    // Text composition
+    ctx.fillStyle = '#1F3528';
+    ctx.textAlign = 'center';
+    ctx.font = 'italic 600 64px "Cormorant Garamond", serif';
+    ctx.fillText('Minggu ke-' + weekNum, cx, 920);
+
+    ctx.fillStyle = 'rgba(31,53,40,0.7)';
+    ctx.font = '600 28px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('SEUKURAN ' + size.fruit.toUpperCase(), cx, 970);
+
+    ctx.fillStyle = 'rgba(31,53,40,0.55)';
+    ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(dateLabel + '  ·  WELVRA', cx, 1015);
+
+    var dateStr = new Date().toISOString().slice(0,10).replace(/-/g, '');
+    var filename = 'Welvra-USG-Minggu-' + weekNum + '-' + dateStr + '.png';
+
+    canvas.toBlob(function(blob){
+      if (!blob){ showToast('Gagal menyimpan render. Coba lagi.'); return; }
+      try {
+        var file = new File([blob], filename, { type:'image/png' });
+        if (navigator.canShare && navigator.canShare({ files:[file] })){
+          navigator.share({ files:[file], title:'USG Minggu ke-' + weekNum, text:'Visualisasi 5D Welvra' }).catch(function(){});
+          return;
+        }
+      } catch(e){}
+      try {
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url; a.download = filename;
+        document.body.appendChild(a); a.click();
+        document.body.removeChild(a);
+        setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+        showToast('Render tersimpan ke perangkat');
+      } catch(e){
+        showToast('Gagal menyimpan render. Coba lagi.');
+      }
+    }, 'image/png', 0.95);
   }
 
   function applyArtisticFilter(img, callback){
@@ -12561,6 +13066,10 @@ Welvra.siklus = (function(){
     // ---- Hamil: Render Estetik USG ----
     var artBtn = document.getElementById('hamil-art-btn');
     if (artBtn) artBtn.addEventListener('click', function(){
+      if (!state.hamil.lmpDate || state.hamil.currentWeek <= 0){
+        showToast('Atur HPHT dulu untuk mulai render 5D');
+        return;
+      }
       var input = document.createElement('input');
       input.type = 'file';
       input.accept = 'image/*';
@@ -12572,31 +13081,18 @@ Welvra.siklus = (function(){
           var img = new Image();
           img.onload = function(){
             applyArtisticFilter(img, function(dataUrl){
-              var iconEl = document.getElementById('hamil-fetal-icon');
-              var canvas = document.getElementById('hamil-art-canvas');
-              var labelEl = document.getElementById('hamil-fruit-label');
-              if (iconEl) iconEl.style.display = 'none';
-              if (canvas) canvas.style.display = 'block';
-              if (labelEl){ labelEl.textContent = 'RENDER ESTETIK'; labelEl.style.color = '#C8860A'; }
+              var usgImg = document.getElementById('hamil-fetal-usg');
+              if (usgImg) usgImg.src = dataUrl;
               state.hamil.ultrasoundUploads.push({ date: todayKey(), artisticDataUrl: dataUrl });
+              var weeks = state.hamil.currentWeek;
+              var targetUrl = getFetalRenderForWeek(weeks);
+              state.hamil.lastRenderUrl = targetUrl;
               save();
-              showInsightHamil('drsly', 'Pesan dari Dr. Sly', 'Render estetik selesai. Foto USG-mu sekarang punya tone gold yang lebih hangat — cocok untuk simpan sebagai memori.');
-              var fcircle = document.getElementById('hamil-fetal-circle');
-              var showingArt = true;
-              fcircle.style.cursor = 'pointer';
-              fcircle.onclick = function(){
-                showingArt = !showingArt;
-                if (showingArt){
-                  canvas.style.display = 'block';
-                  iconEl.style.display = 'none';
-                  labelEl.textContent = 'RENDER ESTETIK';
-                } else {
-                  canvas.style.display = 'none';
-                  iconEl.style.display = 'block';
-                  var size = hamil.sizeForWeek(state.hamil.currentWeek);
-                  labelEl.textContent = 'SEUKURAN ' + size.fruit.toUpperCase();
-                }
-              };
+              showInsightHamil('drsly', 'Pesan dari Dr. Sly', 'Aku menyiapkan visualisasi 5D berdasarkan minggu kehamilan-mu. Foto USG asli tetap tersimpan — tap lingkaran untuk lihat versi asli.');
+              performMorph(targetUrl, weeks);
+              setTimeout(function(){
+                if (!state.hamil.disclaimerSeen) showRenderDisclaimer();
+              }, 3200);
             });
           };
           img.src = ev.target.result;
@@ -12605,6 +13101,10 @@ Welvra.siklus = (function(){
       };
       input.click();
     });
+
+    // ---- Hamil: Save Render ----
+    var saveBtnEl = document.getElementById('hamil-save-btn');
+    if (saveBtnEl) saveBtnEl.addEventListener('click', saveRender);
 
     // ---- Hamil: Partner Mode ----
     var partnerBtn = document.getElementById('hamil-partner-btn');
