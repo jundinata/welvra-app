@@ -7030,6 +7030,276 @@ html.dark .welvra-rekam-confirm__title{color:#F0EDE8}
 .welvra-rekam-confirm__delete:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 html.dark .welvra-rekam-confirm__cancel{background:rgba(10,123,108,.16);color:#7FD1C2}
 
+/* ============================================================ */
+/* PHASE 2G — OCR + Trend Charts + Cross-feature smart links    */
+/* ============================================================ */
+
+/* ----- A. OCR section ----- */
+.welvra-rekam-ocr{
+  margin-top:16px;padding:14px 14px 12px;
+  background:rgba(200,134,10,.05);
+  border:1px solid rgba(200,134,10,.16);
+  border-radius:14px;
+}
+.welvra-rekam-ocr[hidden]{display:none}
+html.dark .welvra-rekam-ocr{background:rgba(200,134,10,.06);border-color:rgba(200,134,10,.22)}
+.welvra-rekam-ocr-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:999px;border:none;
+  background:linear-gradient(135deg,var(--teal),var(--gold));color:#fff;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1px;
+  cursor:pointer;box-shadow:0 4px 14px rgba(10,123,108,.22);
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .15s,box-shadow .2s,filter .2s;
+}
+.welvra-rekam-ocr-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(10,123,108,.3)}
+.welvra-rekam-ocr-btn:active{transform:scale(.97)}
+.welvra-rekam-ocr-btn:disabled{opacity:.55;cursor:not-allowed;filter:saturate(.6);transform:none;box-shadow:none}
+.welvra-rekam-ocr-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.welvra-rekam-ocr-hint{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11.5px;
+  color:var(--txt-secondary);margin:8px 0 0;line-height:1.45;font-style:italic;
+}
+html.dark .welvra-rekam-ocr-hint{color:rgba(240,237,232,.55)}
+.welvra-rekam-ocr-status{
+  display:flex;flex-direction:column;gap:8px;margin-top:12px;padding:12px;
+  background:rgba(255,255,255,.5);border-radius:10px;
+  border:1px solid rgba(200,134,10,.14);
+}
+html.dark .welvra-rekam-ocr-status{background:rgba(255,255,255,.03);border-color:rgba(200,134,10,.2)}
+.welvra-rekam-ocr-status[hidden]{display:none}
+.welvra-rekam-ocr-status__spinner{
+  width:18px;height:18px;border-radius:50%;
+  border:2px solid rgba(200,134,10,.18);border-top-color:var(--gold);
+  animation:welvra-rekam-ocr-spin 1.1s linear infinite;
+  align-self:center;
+}
+@keyframes welvra-rekam-ocr-spin{to{transform:rotate(360deg)}}
+.welvra-rekam-ocr-status__text{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:500;
+  color:var(--teal-dark);text-align:center;
+}
+html.dark .welvra-rekam-ocr-status__text{color:#F0EDE8}
+.welvra-rekam-ocr-status__progress{
+  height:4px;border-radius:999px;background:rgba(200,134,10,.14);overflow:hidden;
+}
+.welvra-rekam-ocr-status__progress-fill{
+  height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));
+  width:0%;border-radius:inherit;transition:width .2s ease;
+}
+.welvra-rekam-ocr-result{
+  margin-top:12px;padding:12px;
+  background:rgba(255,255,255,.6);
+  border:1px solid rgba(107,158,120,.2);
+  border-radius:12px;
+}
+html.dark .welvra-rekam-ocr-result{background:rgba(255,255,255,.03);border-color:rgba(107,158,120,.25)}
+.welvra-rekam-ocr-result[hidden]{display:none}
+.welvra-rekam-ocr-result__head{
+  display:flex;flex-direction:column;gap:2px;margin-bottom:10px;
+}
+.welvra-rekam-ocr-result__title{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;
+  color:var(--sage);
+}
+.welvra-rekam-ocr-result__hint{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11.5px;
+  color:var(--txt-secondary);font-style:italic;
+}
+.welvra-rekam-ocr-result__list{
+  list-style:none;margin:0 0 12px;padding:0;
+  display:flex;flex-direction:column;gap:6px;
+  max-height:220px;overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+.welvra-rekam-ocr-result__item{
+  display:grid;grid-template-columns:40% 1fr;align-items:center;gap:10px;
+  padding:6px 0;border-bottom:1px solid rgba(200,134,10,.08);
+}
+.welvra-rekam-ocr-result__item:last-child{border-bottom:none}
+.welvra-rekam-ocr-result__key{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;
+  color:var(--teal-dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+html.dark .welvra-rekam-ocr-result__key{color:#F0EDE8}
+.welvra-rekam-ocr-result__value{
+  width:100%;box-sizing:border-box;
+  padding:7px 10px;border:1px solid rgba(200,134,10,.2);border-radius:8px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;
+  background:rgba(255,255,255,.7);color:var(--txt-primary);
+  -webkit-appearance:none;appearance:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.welvra-rekam-ocr-result__value:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,134,10,.12)}
+html.dark .welvra-rekam-ocr-result__value{background:rgba(255,255,255,.04);color:#F0EDE8;border-color:rgba(200,134,10,.25)}
+.welvra-rekam-ocr-result__actions{
+  display:flex;gap:8px;justify-content:flex-end;
+}
+.welvra-rekam-ocr-result__cancel,
+.welvra-rekam-ocr-result__apply{
+  padding:9px 14px;border-radius:999px;border:none;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:600;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:transform .15s,background .2s,box-shadow .2s;
+}
+.welvra-rekam-ocr-result__cancel{background:rgba(10,123,108,.08);color:var(--teal)}
+.welvra-rekam-ocr-result__cancel:hover{background:rgba(10,123,108,.16)}
+.welvra-rekam-ocr-result__cancel:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.welvra-rekam-ocr-result__apply{
+  background:linear-gradient(135deg,var(--sage),#5a8068);color:#fff;
+  box-shadow:0 3px 10px rgba(107,158,120,.28);
+}
+.welvra-rekam-ocr-result__apply:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(107,158,120,.36)}
+.welvra-rekam-ocr-result__apply:active{transform:scale(.97)}
+.welvra-rekam-ocr-result__apply:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-rekam-ocr-result__cancel{background:rgba(10,123,108,.18);color:#7FD1C2}
+.welvra-rekam-ocr-empty{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;
+  color:var(--txt-secondary);text-align:center;
+  padding:18px 12px;line-height:1.55;
+}
+
+/* ----- B. Vital trend charts ----- */
+.welvra-rekam-trends{
+  margin:0 0 18px;padding:4px 0 0;
+}
+.welvra-rekam-trends__title{
+  font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;
+  color:var(--teal-dark);margin:0 0 10px;letter-spacing:-.2px;
+}
+html.dark .welvra-rekam-trends__title{color:#F0EDE8}
+.welvra-rekam-trend-card{
+  background:#fff;border:1px solid rgba(200,134,10,.12);border-radius:14px;
+  padding:14px 16px 16px;margin-bottom:12px;
+}
+html.dark .welvra-rekam-trend-card{background:#1F1F1A;border-color:rgba(200,134,10,.18)}
+.welvra-rekam-trend-card--insufficient{background:rgba(10,123,108,.04);border-style:dashed}
+html.dark .welvra-rekam-trend-card--insufficient{background:rgba(200,134,10,.04);border-color:rgba(200,134,10,.18)}
+.welvra-rekam-trend-card__head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding-bottom:10px;
+}
+.welvra-rekam-trend-card__metric{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;
+  color:var(--teal-dark);letter-spacing:-.1px;
+}
+html.dark .welvra-rekam-trend-card__metric{color:#F0EDE8}
+.welvra-rekam-trend-card__count{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;
+  color:var(--txt-secondary);font-weight:500;letter-spacing:.04em;
+}
+.welvra-rekam-trend-card__hint{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;
+  color:var(--txt-secondary);font-style:italic;
+  margin:0;line-height:1.5;
+}
+.welvra-rekam-trend-canvas-wrap{
+  position:relative;width:100%;height:180px;
+}
+.welvra-rekam-trend-chart{width:100% !important;height:100% !important}
+
+/* ----- C1. Cek Tensi auto-log toggle ----- */
+.welvra-tensi-autolog-toggle{
+  margin:10px 0;padding:10px 14px;
+  background:rgba(10,123,108,.05);border:1px solid rgba(10,123,108,.15);
+  border-radius:10px;
+}
+html.dark .welvra-tensi-autolog-toggle{background:rgba(200,134,10,.06);border-color:rgba(200,134,10,.18)}
+.welvra-tensi-autolog-toggle__label{
+  display:flex;align-items:center;gap:10px;cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;
+  color:var(--txt-primary);
+}
+.welvra-tensi-autolog-toggle__label input[type="checkbox"]{
+  width:18px;height:18px;accent-color:var(--teal);cursor:pointer;flex-shrink:0;
+}
+.welvra-tensi-autolog-toggle__text{flex:1;line-height:1.4}
+html.dark .welvra-tensi-autolog-toggle__label{color:#F0EDE8}
+
+/* ----- C2. Periksa Gejala riwayat toggle ----- */
+.welvra-gejala-context-toggle{
+  margin:8px 0 14px;padding:12px 14px;
+  background:rgba(200,134,10,.05);border:1px solid rgba(200,134,10,.16);
+  border-radius:12px;
+}
+html.dark .welvra-gejala-context-toggle{background:rgba(200,134,10,.06);border-color:rgba(200,134,10,.22)}
+.welvra-gejala-context-toggle__label{
+  display:flex;align-items:flex-start;gap:10px;cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;
+  color:var(--txt-primary);line-height:1.45;
+}
+.welvra-gejala-context-toggle__label input[type="checkbox"]{
+  width:18px;height:18px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;margin-top:1px;
+}
+html.dark .welvra-gejala-context-toggle__label{color:#F0EDE8}
+.welvra-gejala-context-toggle__hint{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11.5px;
+  color:var(--txt-secondary);font-style:italic;margin:6px 0 0 28px;line-height:1.5;
+}
+html.dark .welvra-gejala-context-toggle__hint{color:rgba(240,237,232,.55)}
+
+/* ----- C3. Lab save banner ----- */
+.welvra-lab-save-banner{
+  position:fixed;left:50%;bottom:84px;
+  transform:translateX(-50%) translateY(20px);
+  z-index:990;
+  display:flex;align-items:center;gap:10px;
+  width:calc(100% - 32px);max-width:440px;
+  padding:12px 14px;
+  background:linear-gradient(135deg,#FAFAF7,rgba(255,253,247,.96));
+  border:1px solid rgba(200,134,10,.25);
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.14),0 2px 8px rgba(0,0,0,.06);
+  opacity:0;transition:opacity .28s ease,transform .32s cubic-bezier(.16,1,.3,1);
+}
+html.dark .welvra-lab-save-banner{
+  background:linear-gradient(135deg,#1F1F1A,rgba(26,26,22,.96));
+  border-color:rgba(200,134,10,.32);
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+.welvra-lab-save-banner--visible{opacity:1;transform:translateX(-50%) translateY(0)}
+.welvra-lab-save-banner__icon{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:rgba(200,134,10,.14);color:var(--gold-dark);
+  display:flex;align-items:center;justify-content:center;
+}
+html.dark .welvra-lab-save-banner__icon{color:var(--gold);background:rgba(200,134,10,.18)}
+.welvra-lab-save-banner__text{
+  flex:1;min-width:0;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:500;
+  color:var(--txt-primary);line-height:1.35;
+}
+html.dark .welvra-lab-save-banner__text{color:#F0EDE8}
+.welvra-lab-save-banner__btn{
+  padding:9px 16px;border:none;border-radius:999px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:600;
+  cursor:pointer;box-shadow:0 3px 10px rgba(200,134,10,.28);
+  flex-shrink:0;-webkit-tap-highlight-color:transparent;
+  transition:transform .15s,box-shadow .2s;
+}
+.welvra-lab-save-banner__btn:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(200,134,10,.36)}
+.welvra-lab-save-banner__btn:active{transform:scale(.97)}
+.welvra-lab-save-banner__btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.welvra-lab-save-banner__dismiss{
+  width:30px;height:30px;border:none;background:transparent;
+  font-size:20px;line-height:1;cursor:pointer;color:var(--txt-secondary);
+  border-radius:50%;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;
+  transition:background .2s,color .2s;
+}
+.welvra-lab-save-banner__dismiss:hover{background:rgba(0,0,0,.06);color:var(--txt-primary)}
+.welvra-lab-save-banner__dismiss:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-lab-save-banner__dismiss{color:rgba(240,237,232,.55)}
+html.dark .welvra-lab-save-banner__dismiss:hover{background:rgba(255,255,255,.06);color:#F0EDE8}
+
+/* ----- Reduced motion for Phase 2G ----- */
+@media (prefers-reduced-motion:reduce){
+  .welvra-rekam-ocr-status__spinner{animation-duration:3s}
+  .welvra-rekam-ocr-status__progress-fill{transition:none}
+  .welvra-rekam-ocr-btn,.welvra-rekam-ocr-result__apply,.welvra-rekam-ocr-result__cancel,
+  .welvra-lab-save-banner,.welvra-lab-save-banner__btn,.welvra-lab-save-banner__dismiss{transition:none}
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -7037,6 +7307,9 @@ html.dark .welvra-rekam-confirm__cancel{background:rgba(10,123,108,.16);color:#7
 <script>if(window.pdfjsLib){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';}</script>
 <!-- Supabase JS Client (Phase 3A) -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<!-- Phase 2G: OCR (Tesseract.js) + Charts (Chart.js) — defer-loaded so they don't block first paint -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.5/dist/tesseract.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
 </head>
 <body>
 
@@ -22133,7 +22406,16 @@ window.fpShowTermsInfo = fpShowTermsInfo;
       return;
     }
     var cards = records.map(function(r){ return renderRecordCard(category, r); }).join('');
-    content.innerHTML = '<div class="welvra-rekam-list">' + cards + '</div>';
+    // Phase 2G: prepend Vital trends section when applicable
+    var trendsHtml = '';
+    if (category === 'vital'){
+      trendsHtml = renderVitalTrendsSection(records);
+    }
+    content.innerHTML = trendsHtml + '<div class="welvra-rekam-list">' + cards + '</div>';
+    if (category === 'vital' && trendsHtml){
+      // Defer chart init one frame to let canvas mount
+      setTimeout(initVitalTrendCharts, 50);
+    }
   }
 
   function renderEmptyState(category){
@@ -22195,6 +22477,7 @@ window.fpShowTermsInfo = fpShowTermsInfo;
     state.editingRecord = existingRecord || null;
     var category = state.activeCategory;
     if (existingRecord && existingRecord.__category){ category = existingRecord.__category; }
+    window.__rekamFormCategory = category; // Phase 2G: tracked for OCR visibility
     window.__rekamFormPendingAttachment = existingRecord && existingRecord.attachment ? existingRecord.attachment : null;
     titleEl.textContent = (existingRecord ? 'Edit ' : 'Tambah ') + CATEGORY_FORM_TITLES[category];
     fields.innerHTML = renderRekamFormFields(category, existingRecord);
@@ -22203,6 +22486,7 @@ window.fpShowTermsInfo = fpShowTermsInfo;
     document.body.style.overflow = 'hidden';
     bindFormInteractions();
     renderRekamFilePreview();
+    updateRekamOcrVisibility();
     // Focus first input after open transition
     setTimeout(function(){
       var firstInput = modal.querySelector('input, select, textarea');
@@ -22246,7 +22530,8 @@ window.fpShowTermsInfo = fpShowTermsInfo;
         + field({id:'rmField_title', label:'Judul Tes', type:'text', value:r.title||'', placeholder:'mis. Cek Darah Lengkap', required:true, errorMsg:'Judul tes wajib diisi'})
         + field({id:'rmField_provider', label:'Penyelenggara', type:'text', value:r.provider||'', placeholder:'mis. Lab Prodia'})
         + commonNotes(r.notes, 4, 'Tulis nilai-nilai penting atau catatan lainnya...')
-        + commonAttach;
+        + commonAttach
+        + renderOcrSection();
     }
     if (category === 'obat'){
       return dateField
@@ -22384,6 +22669,7 @@ window.fpShowTermsInfo = fpShowTermsInfo;
         name: file.name, type: file.type, size: file.size, dataUrl: e.target.result
       };
       renderRekamFilePreview();
+      updateRekamOcrVisibility();
     };
     reader.onerror = function(){ toast('Gagal membaca file'); };
     reader.readAsDataURL(file);
@@ -22412,6 +22698,7 @@ window.fpShowTermsInfo = fpShowTermsInfo;
     var input = document.getElementById('rekamFileInput');
     if (input) input.value = '';
     renderRekamFilePreview();
+    updateRekamOcrVisibility();
   }
 
   // ----- Save -----
@@ -22725,6 +23012,570 @@ window.fpShowTermsInfo = fpShowTermsInfo;
     if (cat) switchCategory(cat);
   });
 
+  // ============================================================
+  // PHASE 2G — Feature A: OCR auto-parse lab values (Tesseract.js)
+  // ============================================================
+  function renderOcrSection(){
+    return '<div class="welvra-rekam-ocr" id="welvraRekamOcrSection" hidden>'
+      + '<button type="button" class="welvra-rekam-ocr-btn" id="welvraRekamOcrBtn" onclick="runRekamLabOcr()" aria-label="Auto-deteksi nilai dari foto hasil lab">'
+        + '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+          + '<path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2"/>'
+          + '<line x1="7" y1="12" x2="17" y2="12"/>'
+        + '</svg>'
+        + '<span>Coba Baca Otomatis</span>'
+      + '</button>'
+      + '<p class="welvra-rekam-ocr-hint">Auto-deteksi nilai dari foto hasil lab</p>'
+      + '<div class="welvra-rekam-ocr-status" id="welvraRekamOcrStatus" role="status" aria-live="polite" hidden>'
+        + '<div class="welvra-rekam-ocr-status__spinner" aria-hidden="true"></div>'
+        + '<span class="welvra-rekam-ocr-status__text">Menganalisa hasil lab... (10-20 detik)</span>'
+        + '<div class="welvra-rekam-ocr-status__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="welvra-rekam-ocr-status__progress-fill" id="welvraRekamOcrProgress"></div></div>'
+      + '</div>'
+      + '<div class="welvra-rekam-ocr-result" id="welvraRekamOcrResult" aria-live="polite" hidden></div>'
+    + '</div>';
+  }
+  function updateRekamOcrVisibility(){
+    var section = document.getElementById('welvraRekamOcrSection');
+    if (!section) return;
+    var att = window.__rekamFormPendingAttachment;
+    var isLabImage = window.__rekamFormCategory === 'lab' && att && att.type && att.type.indexOf('image/') === 0;
+    section.hidden = !isLabImage;
+  }
+
+  // 18 lab-value patterns covering common Indonesian lab tests
+  var LAB_VALUE_PATTERNS = [
+    { key:'Kolesterol Total', regex:/kolesterol\s*total[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'mg/dL' },
+    { key:'Kolesterol LDL', regex:/(?:kolesterol\s*)?ldl[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'mg/dL' },
+    { key:'Kolesterol HDL', regex:/(?:kolesterol\s*)?hdl[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'mg/dL' },
+    { key:'Trigliserida', regex:/trigliserida[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'mg/dL' },
+    { key:'Glukosa Puasa', regex:/(?:glukosa|gula\s*darah)\s*puasa[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'mg/dL' },
+    { key:'Glukosa Sewaktu', regex:/(?:gds|glukosa\s*(?:darah\s*)?sewaktu|gula\s*darah\s*sewaktu)[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'mg/dL' },
+    { key:'HbA1c', regex:/hba1c[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'%' },
+    { key:'Hemoglobin', regex:/(?:hemoglobin|\bhb\b)[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'g/dL' },
+    { key:'Eritrosit', regex:/eritrosit[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'juta/μL' },
+    { key:'Leukosit', regex:/leukosit[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'ribu/μL' },
+    { key:'Trombosit', regex:/trombosit[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'ribu/μL' },
+    { key:'Kreatinin', regex:/kreatinin[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'mg/dL' },
+    { key:'Ureum', regex:/ureum[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'mg/dL' },
+    { key:'Asam Urat', regex:/asam\s*urat[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'mg/dL' },
+    { key:'SGOT', regex:/(?:sgot|\bast\b)[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'U/L' },
+    { key:'SGPT', regex:/(?:sgpt|\balt\b)[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'U/L' },
+    { key:'Vitamin D', regex:/(?:vitamin\s*d|25.{0,3}oh)[\s:]*?(\d+(?:[.,]\d+)?)/i, unit:'ng/mL' },
+    { key:'Tekanan Darah', regex:/tekanan\s*darah[\s:]*?(\d{2,3})\s*\/\s*(\d{2,3})/i, unit:'mmHg', isCompound:true }
+  ];
+  function parseLabValues(rawText){
+    if (!rawText) return [];
+    var results = [];
+    LAB_VALUE_PATTERNS.forEach(function(p){
+      var match = rawText.match(p.regex);
+      if (match){
+        if (p.isCompound){
+          results.push({ key:p.key, value: match[1] + '/' + match[2] + ' ' + p.unit });
+        } else {
+          var v = (match[1] || '').replace(',', '.');
+          if (v) results.push({ key:p.key, value: v + ' ' + p.unit });
+        }
+      }
+    });
+    return results;
+  }
+
+  async function runRekamLabOcr(){
+    var att = window.__rekamFormPendingAttachment;
+    if (!att || !att.type || att.type.indexOf('image/') !== 0){
+      toast('Hanya tersedia untuk gambar');
+      return;
+    }
+    if (typeof window.Tesseract === 'undefined'){
+      toast('OCR engine belum siap, coba sebentar lagi');
+      return;
+    }
+    var btn = document.getElementById('welvraRekamOcrBtn');
+    var status = document.getElementById('welvraRekamOcrStatus');
+    var resultBox = document.getElementById('welvraRekamOcrResult');
+    var progressFill = document.getElementById('welvraRekamOcrProgress');
+    var progressBar = status.querySelector('.welvra-rekam-ocr-status__progress');
+    var statusText = status.querySelector('.welvra-rekam-ocr-status__text');
+    if (!btn) return;
+    btn.disabled = true;
+    status.hidden = false;
+    resultBox.hidden = true;
+    progressFill.style.width = '0%';
+    progressBar.setAttribute('aria-valuenow','0');
+    statusText.textContent = 'Mempersiapkan engine OCR...';
+    try {
+      var worker = await window.Tesseract.createWorker(['ind','eng'], 1, {
+        logger: function(m){
+          if (m && m.status === 'recognizing text' && typeof m.progress === 'number'){
+            var pct = Math.round(m.progress * 100);
+            progressFill.style.width = pct + '%';
+            progressBar.setAttribute('aria-valuenow', String(pct));
+            statusText.textContent = 'Membaca teks dari gambar... ' + pct + '%';
+          } else if (m && m.status){
+            statusText.textContent = 'Memuat language pack...';
+          }
+        }
+      });
+      var result = await worker.recognize(att.dataUrl);
+      await worker.terminate();
+      var rawText = (result && result.data && result.data.text) || '';
+      var parsed = parseLabValues(rawText);
+      renderOcrResult(parsed, rawText);
+    } catch (err){
+      console.error('OCR failed', err);
+      toast('Gagal memproses gambar — coba foto yang lebih jelas');
+      status.hidden = true;
+      btn.disabled = false;
+    }
+  }
+
+  function renderOcrResult(parsed, rawText){
+    var status = document.getElementById('welvraRekamOcrStatus');
+    var resultBox = document.getElementById('welvraRekamOcrResult');
+    var btn = document.getElementById('welvraRekamOcrBtn');
+    status.hidden = true;
+    btn.disabled = false;
+    if (!parsed || parsed.length === 0){
+      resultBox.innerHTML = '<div class="welvra-rekam-ocr-empty">Tidak ada nilai lab yang terdeteksi. Coba isi catatan manual atau gunakan foto yang lebih jelas.</div>'
+        + '<div class="welvra-rekam-ocr-result__actions">'
+        + '<button type="button" class="welvra-rekam-ocr-result__cancel" onclick="dismissOcrResult()">Tutup</button>'
+        + '</div>';
+      resultBox.hidden = false;
+      return;
+    }
+    var html = '<div class="welvra-rekam-ocr-result__head">'
+      + '<span class="welvra-rekam-ocr-result__title">' + parsed.length + ' nilai terdeteksi</span>'
+      + '<span class="welvra-rekam-ocr-result__hint">Review &amp; edit, lalu klik "Pakai ke Catatan"</span>'
+    + '</div>';
+    html += '<ul class="welvra-rekam-ocr-result__list">';
+    parsed.forEach(function(p, i){
+      html += '<li class="welvra-rekam-ocr-result__item">'
+        + '<span class="welvra-rekam-ocr-result__key">' + escHtml(p.key) + '</span>'
+        + '<input type="text" class="welvra-rekam-ocr-result__value" data-ocr-idx="' + i + '" value="' + escHtml(p.value) + '" aria-label="Nilai ' + escHtml(p.key) + '">'
+      + '</li>';
+    });
+    html += '</ul>';
+    html += '<div class="welvra-rekam-ocr-result__actions">'
+      + '<button type="button" class="welvra-rekam-ocr-result__cancel" onclick="dismissOcrResult()">Batal</button>'
+      + '<button type="button" class="welvra-rekam-ocr-result__apply" onclick="applyOcrResult()">Pakai ke Catatan</button>'
+    + '</div>';
+    resultBox.innerHTML = html;
+    resultBox.hidden = false;
+    window.__rekamOcrParsedDraft = parsed.slice();
+  }
+  function applyOcrResult(){
+    var draft = window.__rekamOcrParsedDraft || [];
+    var inputs = document.querySelectorAll('.welvra-rekam-ocr-result__value');
+    inputs.forEach(function(input){
+      var idx = parseInt(input.getAttribute('data-ocr-idx'), 10);
+      if (!isNaN(idx) && draft[idx]){ draft[idx].value = input.value.trim(); }
+    });
+    var notesField = document.getElementById('rmField_notes');
+    if (notesField){
+      var existing = (notesField.value || '').trim();
+      var ocrText = draft.map(function(p){ return p.key + ': ' + p.value; }).join('\n');
+      notesField.value = (existing ? existing + '\n\n' : '') + ocrText;
+    }
+    document.getElementById('welvraRekamOcrResult').hidden = true;
+    toast('Nilai terdeteksi diterapkan ke catatan');
+    window.__rekamOcrParsedDraft = null;
+  }
+  function dismissOcrResult(){
+    var box = document.getElementById('welvraRekamOcrResult');
+    if (box) box.hidden = true;
+    window.__rekamOcrParsedDraft = null;
+  }
+
+  // ============================================================
+  // PHASE 2G — Feature B: Trend charts for Vital (Chart.js)
+  // ============================================================
+  var TREND_METRIC_LABELS = {
+    tekanan_darah:'Tekanan Darah (mmHg)',
+    berat_badan:'Berat Badan (kg)',
+    tinggi_badan:'Tinggi Badan (cm)',
+    bmi:'BMI'
+  };
+  function groupVitalsByType(records){
+    var by = {};
+    (records || []).forEach(function(r){
+      if (!by[r.type]) by[r.type] = [];
+      by[r.type].push(r);
+    });
+    return by;
+  }
+  function renderVitalTrendsSection(records){
+    var byType = groupVitalsByType(records);
+    var metrics = ['tekanan_darah','berat_badan','tinggi_badan','bmi'];
+    var typeLabels = { tekanan_darah:'Tekanan Darah', berat_badan:'Berat Badan', tinggi_badan:'Tinggi Badan', bmi:'BMI' };
+    var html = '';
+    var hasAny = false;
+    metrics.forEach(function(metric){
+      var items = (byType[metric] || []).slice().sort(function(a,b){ return (a.date||'').localeCompare(b.date||''); });
+      if (items.length === 0) return;
+      hasAny = true;
+      if (items.length < 3){
+        html += '<div class="welvra-rekam-trend-card welvra-rekam-trend-card--insufficient">'
+          + '<div class="welvra-rekam-trend-card__head">'
+            + '<span class="welvra-rekam-trend-card__metric">' + escHtml(typeLabels[metric]) + '</span>'
+            + '<span class="welvra-rekam-trend-card__count">' + items.length + '/3 pengukuran</span>'
+          + '</div>'
+          + '<p class="welvra-rekam-trend-card__hint">Tambah minimal 3 pengukuran untuk melihat tren.</p>'
+        + '</div>';
+      } else {
+        html += '<div class="welvra-rekam-trend-card">'
+          + '<div class="welvra-rekam-trend-card__head">'
+            + '<span class="welvra-rekam-trend-card__metric">' + escHtml(typeLabels[metric]) + '</span>'
+            + '<span class="welvra-rekam-trend-card__count">' + items.length + ' pengukuran</span>'
+          + '</div>'
+          + '<div class="welvra-rekam-trend-canvas-wrap"><canvas class="welvra-rekam-trend-chart" id="welvraTrendChart-' + metric + '" data-metric="' + metric + '" aria-label="Grafik tren ' + escHtml(typeLabels[metric]) + ' (' + items.length + ' pengukuran)"></canvas></div>'
+        + '</div>';
+      }
+    });
+    if (!hasAny) return '';
+    return '<section class="welvra-rekam-trends"><h3 class="welvra-rekam-trends__title">Tren Pengukuran</h3>' + html + '</section>';
+  }
+  function formatTrendLabel(dateStr){
+    if (!dateStr) return '';
+    var parts = dateStr.split('-');
+    if (parts.length !== 3) return dateStr;
+    var d = parseInt(parts[2],10), m = parseInt(parts[1],10) - 1;
+    var months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+    if (isNaN(d) || isNaN(m) || m < 0 || m > 11) return dateStr;
+    return d + ' ' + months[m];
+  }
+  function initVitalTrendCharts(){
+    if (typeof window.Chart === 'undefined') return;
+    var data = welvraRekamLoad();
+    var records = data.vital || [];
+    var byType = groupVitalsByType(records);
+    var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    Object.keys(byType).forEach(function(metric){
+      var items = byType[metric].slice().sort(function(a,b){ return (a.date||'').localeCompare(b.date||''); });
+      if (items.length < 3) return;
+      var canvas = document.getElementById('welvraTrendChart-' + metric);
+      if (!canvas) return;
+      if (canvas.__chartInstance){ try { canvas.__chartInstance.destroy(); } catch(e){} }
+      var ctx = canvas.getContext('2d');
+      var labels = items.map(function(r){ return formatTrendLabel(r.date); });
+      var datasets = [];
+      if (metric === 'tekanan_darah'){
+        var sys = items.map(function(r){ var m = (r.value || '').match(/(\d+)\s*\/\s*(\d+)/); return m ? parseInt(m[1],10) : null; });
+        var dia = items.map(function(r){ var m = (r.value || '').match(/(\d+)\s*\/\s*(\d+)/); return m ? parseInt(m[2],10) : null; });
+        datasets = [
+          { label:'Sistolik', data:sys, borderColor:'#0A7B6C', backgroundColor:'rgba(10,123,108,0.18)', tension:0.3, fill:false, pointRadius:4, pointHoverRadius:6, borderWidth:2 },
+          { label:'Diastolik', data:dia, borderColor:'#C8860A', backgroundColor:'rgba(200,134,10,0.18)', tension:0.3, fill:false, pointRadius:4, pointHoverRadius:6, borderWidth:2 }
+        ];
+      } else {
+        var nums = items.map(function(r){ var m = (r.value || '').match(/(\d+(?:[.,]\d+)?)/); return m ? parseFloat(m[1].replace(',', '.')) : null; });
+        datasets = [{
+          label: TREND_METRIC_LABELS[metric] || metric,
+          data: nums,
+          borderColor:'#0A7B6C',
+          backgroundColor:'rgba(10,123,108,0.18)',
+          tension:0.3, fill:true, pointRadius:4, pointHoverRadius:6, borderWidth:2
+        }];
+      }
+      var isDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark';
+      var textColor = isDark ? 'rgba(240,237,232,0.85)' : 'rgba(45,42,38,0.85)';
+      var gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+      try {
+        canvas.__chartInstance = new window.Chart(ctx, {
+          type:'line',
+          data:{ labels:labels, datasets:datasets },
+          options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            plugins:{
+              legend:{ display: metric === 'tekanan_darah', labels:{ color:textColor, font:{ family:'Plus Jakarta Sans, sans-serif', size:11 }, boxWidth:14, padding:12 } },
+              tooltip:{
+                backgroundColor: isDark ? 'rgba(20,20,16,0.94)' : 'rgba(255,255,255,0.97)',
+                titleColor: textColor, bodyColor: textColor,
+                borderColor: isDark ? 'rgba(200,134,10,0.35)' : 'rgba(200,134,10,0.25)', borderWidth:1,
+                callbacks:{
+                  title:function(ctx){ var dateStr = items[ctx[0].dataIndex].date; return formatRekamDateLong ? formatRekamDateLong(dateStr) : dateStr; }
+                }
+              }
+            },
+            scales:{
+              x:{ ticks:{ color:textColor, font:{ family:'Plus Jakarta Sans, sans-serif', size:10 } }, grid:{ color:gridColor, drawBorder:false } },
+              y:{ ticks:{ color:textColor, font:{ family:'Plus Jakarta Sans, sans-serif', size:10 } }, grid:{ color:gridColor, drawBorder:false } }
+            },
+            animation: prefersReduced ? false : { duration:600, easing:'easeOutQuart' }
+          }
+        });
+      } catch (e){ console.warn('Chart init failed for ' + metric, e); }
+    });
+  }
+  // ============================================================
+  // PHASE 2G — Feature C1: Cek Tensi → Vital auto-log
+  // ============================================================
+  function welvraAutoLogTensiToVital(reading){
+    if (!reading || !reading.systolic || !reading.diastolic) return;
+    var autoLogEnabled = localStorage.getItem('welvra.tensi.autoLogToVital') !== 'false'; // default ON
+    if (!autoLogEnabled) return;
+    var data = welvraRekamLoad();
+    var dateIso;
+    if (reading.timestamp){
+      var d = new Date(reading.timestamp);
+      dateIso = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    } else {
+      dateIso = todayIso();
+    }
+    var notes = 'Otomatis dari Cek Tensi';
+    if (reading.pulse) notes += ' · nadi ' + reading.pulse + ' bpm';
+    if (reading.position) notes += ' · posisi ' + reading.position;
+    if (reading.notes) notes += ' · ' + reading.notes;
+    var newRecord = {
+      id: welvraRekamGenerateId('vital'),
+      date: dateIso,
+      type:'tekanan_darah',
+      value: reading.systolic + '/' + reading.diastolic + ' mmHg',
+      notes: notes,
+      attachment: null,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      autoSource:'cek-tensi'
+    };
+    data.vital = data.vital || [];
+    data.vital.unshift(newRecord);
+    if (welvraRekamSave(data)){
+      toast('Tersimpan ke Rekam Medis · Vital');
+      // Re-render if Vital tab is currently active
+      if (state.panelOpen && state.activeCategory === 'vital'){
+        renderRekamCategoryList('vital');
+      }
+    }
+  }
+
+  // Monkey-patch bpSaveReading after DOMContentLoaded so we don't race the BP module init
+  function hookBpSaveReading(){
+    if (typeof window.bpSaveReading !== 'function' || window.__bpSaveReadingHooked) return false;
+    var __originalBpSaveReading = window.bpSaveReading;
+    window.bpSaveReading = function(reading){
+      var result = __originalBpSaveReading.apply(this, arguments);
+      try { welvraAutoLogTensiToVital(reading); }
+      catch(e){ console.warn('Auto-log to Vital failed', e); }
+      return result;
+    };
+    window.__bpSaveReadingHooked = true;
+    return true;
+  }
+  // Try immediately, then poll briefly (BP module may load slightly later)
+  if (!hookBpSaveReading()){
+    var __bpHookAttempts = 0;
+    var __bpHookInterval = setInterval(function(){
+      if (hookBpSaveReading() || ++__bpHookAttempts > 30){ clearInterval(__bpHookInterval); }
+    }, 200);
+  }
+
+  // ============================================================
+  // PHASE 2G — Feature C2: Periksa Gejala → riwayat context
+  // ============================================================
+  function buildRekamRiwayatContext(){
+    var data = welvraRekamLoad();
+    var lines = [];
+    var vitalTypeLabels = { tekanan_darah:'Tekanan darah', berat_badan:'Berat badan', tinggi_badan:'Tinggi badan', bmi:'BMI', lainnya:'Pengukuran' };
+    var vitalByType = groupVitalsByType(data.vital || []);
+    Object.keys(vitalByType).forEach(function(type){
+      var items = vitalByType[type].slice()
+        .sort(function(a,b){ return (b.date || '').localeCompare(a.date || ''); })
+        .slice(0, 3);
+      if (items.length === 0) return;
+      var typeLabel = vitalTypeLabels[type] || 'Pengukuran';
+      lines.push(typeLabel + ' terakhir: ' + items.map(function(r){
+        return r.value + ' (' + formatRekamDate(r.date) + ')';
+      }).join(', '));
+    });
+    var activeMeds = (data.obat || []).filter(function(o){ return o.status === 'aktif'; });
+    if (activeMeds.length > 0){
+      lines.push('Obat yang sedang dikonsumsi: ' + activeMeds.map(function(o){
+        return o.name + (o.dosage ? ' ' + o.dosage : '') + (o.frequency ? ' (' + o.frequency + ')' : '');
+      }).join(', '));
+    }
+    if (lines.length === 0) return null;
+    return 'Riwayat kesehatan saya: ' + lines.join('. ');
+  }
+
+  // ============================================================
+  // PHASE 2G — Feature C3: Baca Hasil Lab → quick save to Rekam Medis
+  // ============================================================
+  function offerSaveLabToRekam(labAttachment, drSlyAnalysis){
+    // labAttachment: { name, type, size, dataUrl }
+    if (!labAttachment || !labAttachment.dataUrl) return;
+    // Remove any existing banner first
+    var existing = document.querySelector('.welvra-lab-save-banner');
+    if (existing) existing.remove();
+    var banner = document.createElement('div');
+    banner.className = 'welvra-lab-save-banner';
+    banner.setAttribute('role','region');
+    banner.setAttribute('aria-label','Simpan hasil lab ke Rekam Medis');
+    banner.innerHTML =
+      '<div class="welvra-lab-save-banner__icon" aria-hidden="true">'
+        + '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>'
+      + '</div>'
+      + '<div class="welvra-lab-save-banner__text">Simpan hasil ini ke Rekam Medis?</div>'
+      + '<button type="button" class="welvra-lab-save-banner__btn" onclick="quickSaveLabToRekam()">Simpan</button>'
+      + '<button type="button" class="welvra-lab-save-banner__dismiss" onclick="this.parentElement.remove()" aria-label="Tutup">&times;</button>';
+    document.body.appendChild(banner);
+    requestAnimationFrame(function(){ banner.classList.add('welvra-lab-save-banner--visible'); });
+    window.__rekamLabQuickSavePayload = { attachment: labAttachment, drSlyAnalysis: drSlyAnalysis || '' };
+  }
+  function quickSaveLabToRekam(){
+    var payload = window.__rekamLabQuickSavePayload;
+    if (!payload){
+      var b = document.querySelector('.welvra-lab-save-banner'); if (b) b.remove();
+      return;
+    }
+    var data = welvraRekamLoad();
+    var newRecord = {
+      id: welvraRekamGenerateId('lab'),
+      date: todayIso(),
+      title:'Hasil Lab (dari Baca Hasil Lab)',
+      provider:'',
+      notes: payload.drSlyAnalysis ? ('Interpretasi Dr. Sly:\n' + payload.drSlyAnalysis) : '',
+      attachment: payload.attachment,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      autoSource:'baca-hasil-lab'
+    };
+    data.lab = data.lab || [];
+    data.lab.unshift(newRecord);
+    if (welvraRekamSave(data)){
+      var b = document.querySelector('.welvra-lab-save-banner'); if (b) b.remove();
+      toast('Tersimpan di Rekam Medis · Hasil Lab');
+    }
+    window.__rekamLabQuickSavePayload = null;
+  }
+
+  // Monkey-patch renderResults('lab', ...) to surface the save-to-rekam banner
+  function hookRenderResultsForLab(){
+    if (typeof window.renderResults !== 'function' || window.__renderResultsHooked) return false;
+    var __originalRenderResults = window.renderResults;
+    window.renderResults = function(type, text){
+      __originalRenderResults.apply(this, arguments);
+      try {
+        if (type === 'lab' && window.imageData && window.imageData.lab && window.imageData.lab.sourceType !== 'pdf'){
+          var img = window.imageData.lab;
+          var att = {
+            name: 'lab-' + Date.now() + '.' + ((img.mediaType || 'image/jpeg').split('/')[1] || 'jpg'),
+            type: img.mediaType || 'image/jpeg',
+            size: (img.base64 || '').length,
+            dataUrl: 'data:' + (img.mediaType || 'image/jpeg') + ';base64,' + img.base64
+          };
+          // Avoid double-prompt — defer banner one frame so result render finishes first
+          setTimeout(function(){ offerSaveLabToRekam(att, text); }, 200);
+        }
+      } catch(e){ console.warn('Lab save banner inject failed', e); }
+    };
+    window.__renderResultsHooked = true;
+    return true;
+  }
+  if (!hookRenderResultsForLab()){
+    var __rrAttempts = 0;
+    var __rrInterval = setInterval(function(){
+      if (hookRenderResultsForLab() || ++__rrAttempts > 30){ clearInterval(__rrInterval); }
+    }, 200);
+  }
+
+  // Hook into Periksa Gejala message build: prepend riwayat when toggle ON
+  function hookAnalyzeFotoForRiwayat(){
+    if (typeof window.analyzeFoto !== 'function' || window.__analyzeFotoHooked) return false;
+    var __originalAnalyzeFoto = window.analyzeFoto;
+    window.analyzeFoto = async function(){
+      var includeRiwayat = localStorage.getItem('welvra.gejala.includeRiwayat') === 'true';
+      if (includeRiwayat){
+        try {
+          var riwayatContext = buildRekamRiwayatContext();
+          if (riwayatContext){
+            var complaintEl = document.getElementById('complaint-foto');
+            if (complaintEl){
+              var existing = (complaintEl.value || '').trim();
+              if (existing.indexOf('Riwayat kesehatan saya:') !== 0){
+                complaintEl.value = riwayatContext + '\n\n' + existing;
+                complaintEl.__rekamRiwayatPrepended = true;
+              }
+            }
+          }
+        } catch(e){ console.warn('Riwayat injection failed', e); }
+      }
+      var result = await __originalAnalyzeFoto.apply(this, arguments);
+      // Restore complaint field if we prepended (so it doesn't pollute next send)
+      try {
+        var complaintEl = document.getElementById('complaint-foto');
+        if (complaintEl && complaintEl.__rekamRiwayatPrepended){
+          var v = complaintEl.value || '';
+          var splitIdx = v.indexOf('\n\n');
+          if (v.indexOf('Riwayat kesehatan saya:') === 0 && splitIdx !== -1){
+            complaintEl.value = v.slice(splitIdx + 2);
+          }
+          complaintEl.__rekamRiwayatPrepended = false;
+        }
+      } catch(e){}
+      return result;
+    };
+    window.__analyzeFotoHooked = true;
+    return true;
+  }
+  if (!hookAnalyzeFotoForRiwayat()){
+    var __afAttempts = 0;
+    var __afInterval = setInterval(function(){
+      if (hookAnalyzeFotoForRiwayat() || ++__afAttempts > 30){ clearInterval(__afInterval); }
+    }, 200);
+  }
+
+  // Inject Periksa Gejala "Sertakan riwayat" toggle into modal-foto (once DOM ready)
+  function injectGejalaRiwayatToggle(){
+    var modal = document.getElementById('modal-foto');
+    if (!modal || modal.querySelector('.welvra-gejala-context-toggle')) return false;
+    var analyzeBtn = modal.querySelector('#btn-foto');
+    if (!analyzeBtn) return false;
+    var saved = localStorage.getItem('welvra.gejala.includeRiwayat') === 'true';
+    var wrap = document.createElement('div');
+    wrap.className = 'welvra-gejala-context-toggle';
+    wrap.innerHTML = '<label class="welvra-gejala-context-toggle__label">'
+      + '<input type="checkbox" id="welvraGejalaIncludeRiwayat"' + (saved ? ' checked' : '') + ' onchange="updateGejalaContextPreference(this)">'
+      + '<span class="welvra-gejala-context-toggle__text">Sertakan riwayat kesehatan saya (vital + obat aktif)</span>'
+    + '</label>'
+    + '<p class="welvra-gejala-context-toggle__hint">Bantu Dr. Sly memberi analisa yang lebih sesuai kondisi Anda.</p>';
+    analyzeBtn.parentNode.insertBefore(wrap, analyzeBtn);
+    return true;
+  }
+  function updateGejalaContextPreference(checkbox){
+    localStorage.setItem('welvra.gejala.includeRiwayat', checkbox.checked ? 'true' : 'false');
+  }
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', injectGejalaRiwayatToggle);
+  } else {
+    injectGejalaRiwayatToggle();
+  }
+
+  // Inject Cek Tensi auto-log toggle into BP modal (bp-save section)
+  function injectTensiAutoLogToggle(){
+    var bpModal = document.getElementById('modal-tensi');
+    if (!bpModal || bpModal.querySelector('.welvra-tensi-autolog-toggle')) return false;
+    // Find a stable insertion point — prefer near bp-save-btn manual entry
+    var saveBtn = bpModal.querySelector('.bp-save-btn');
+    if (!saveBtn) return false;
+    var saved = localStorage.getItem('welvra.tensi.autoLogToVital') !== 'false'; // default ON
+    var wrap = document.createElement('div');
+    wrap.className = 'welvra-tensi-autolog-toggle';
+    wrap.innerHTML = '<label class="welvra-tensi-autolog-toggle__label">'
+      + '<input type="checkbox" id="welvraTensiAutoLogCheckbox"' + (saved ? ' checked' : '') + ' onchange="toggleTensiAutoLog(this)">'
+      + '<span class="welvra-tensi-autolog-toggle__text">Simpan ke Rekam Medis otomatis</span>'
+    + '</label>';
+    saveBtn.parentNode.insertBefore(wrap, saveBtn);
+    return true;
+  }
+  function toggleTensiAutoLog(checkbox){
+    localStorage.setItem('welvra.tensi.autoLogToVital', checkbox.checked ? 'true' : 'false');
+  }
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', injectTensiAutoLogToggle);
+  } else {
+    injectTensiAutoLogToggle();
+  }
+  // Retry once after a short delay in case BP modal mounts later
+  setTimeout(injectTensiAutoLogToggle, 800);
+
   // ----- Expose -----
   window.openRekamPanel = openRekamPanel;
   window.closeRekamPanel = closeRekamPanel;
@@ -22740,6 +23591,24 @@ window.fpShowTermsInfo = fpShowTermsInfo;
   window.askDrSlyAboutRecord = askDrSlyAboutRecord;
   window.handleRekamFileSelect = handleRekamFileSelect;
   window.clearRekamFile = clearRekamFile;
+  // Phase 2G OCR
+  window.runRekamLabOcr = runRekamLabOcr;
+  window.applyOcrResult = applyOcrResult;
+  window.dismissOcrResult = dismissOcrResult;
+  window.updateRekamOcrVisibility = updateRekamOcrVisibility;
+  window.parseLabValues = parseLabValues;
+  // Phase 2G C1
+  window.welvraAutoLogTensiToVital = welvraAutoLogTensiToVital;
+  window.toggleTensiAutoLog = toggleTensiAutoLog;
+  // Phase 2G C2
+  window.buildRekamRiwayatContext = buildRekamRiwayatContext;
+  window.updateGejalaContextPreference = updateGejalaContextPreference;
+  // Phase 2G C3
+  window.offerSaveLabToRekam = offerSaveLabToRekam;
+  window.quickSaveLabToRekam = quickSaveLabToRekam;
+  // Trend init (Phase 2G B)
+  window.initVitalTrendCharts = initVitalTrendCharts;
+  window.renderVitalTrendsSection = renderVitalTrendsSection;
   // For testing/inspection
   window.welvraRekamLoad = welvraRekamLoad;
   window.welvraRekamSave = welvraRekamSave;
