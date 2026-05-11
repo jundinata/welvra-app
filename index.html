@@ -5824,20 +5824,49 @@ html.dark .wisdom-highlight{color:var(--gold)}
 /* ----- Empty state ----- */
 .wisdom-empty{
   flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:48px 32px;text-align:center;
+  padding:48px 32px;text-align:center;gap:8px;
 }
 .wisdom-empty[hidden]{display:none}
-.wisdom-empty-illustration{margin-bottom:18px;opacity:.85}
+.wisdom-empty-illustration{margin-bottom:10px;opacity:.85}
 .wisdom-empty-title{
   font-family:'Cormorant Garamond',serif;
   font-size:24px;font-weight:500;color:var(--teal-dark);
-  margin:0 0 6px 0;letter-spacing:-.3px;
+  margin:0 0 4px 0;letter-spacing:-.3px;
 }
 html.dark .wisdom-empty-title{color:#F0EDE8}
 .wisdom-empty-body{
   font-family:'Plus Jakarta Sans',sans-serif;
-  font-size:14px;color:var(--txt-secondary);margin:0;
+  font-size:14px;color:var(--txt-secondary);margin:0;max-width:280px;line-height:1.55;
 }
+.wisdom-empty-term{font-weight:600;color:var(--gold-dark)}
+html.dark .wisdom-empty-term{color:var(--gold)}
+.wisdom-empty-cta{
+  margin-top:14px;padding:11px 22px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:600;font-size:13px;letter-spacing:.2px;
+  border:none;border-radius:999px;cursor:pointer;
+  box-shadow:0 4px 14px rgba(200,134,10,.28);
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .16s ease;
+}
+.wisdom-empty-cta:active{transform:scale(.96)}
+.wisdom-empty-cta:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wisdom-empty-cta[hidden]{display:none}
+
+/* ----- Offline banner ----- */
+.wisdom-offline-banner{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:8px 16px;flex-shrink:0;
+  background:rgba(200,134,10,.12);
+  border-bottom:1px solid rgba(200,134,10,.18);
+  color:var(--gold-dark);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:12px;font-weight:500;letter-spacing:.1px;
+}
+.wisdom-offline-banner[hidden]{display:none}
+html.dark .wisdom-offline-banner{color:var(--gold);background:rgba(200,134,10,.15);border-bottom-color:rgba(200,134,10,.22)}
+.wisdom-offline-banner svg{color:currentColor;flex-shrink:0}
 
 /* ===== PHASE 2D: HEADER COLLAPSE ===== */
 .wisdom-hero{
@@ -6400,6 +6429,9 @@ html.dark .drawer-auth-name{color:#F0EDE8}
   .welvra-onboarding,.welvra-onboarding-progress-fill{transition:none}
   .welvra-onboarding-success-icon{animation:none}
   .welvra-profile-screen,.welvra-profile-edit-modal-inner,.welvra-info-modal-inner{transition:none}
+  /* Phase 2C+2D + 2E */
+  .wisdom-followup__chip,.w-home-wisdom-cta,.wisdom-empty-cta{transition:none}
+  .wisdom-followup__chip:active,.w-home-wisdom-cta:active,.wisdom-empty-cta:active{transform:none}
 }
 
 </style>
@@ -6925,7 +6957,7 @@ html.dark .drawer-auth-name{color:#F0EDE8}
         <span class="w-home-wisdom-cta__sub">Artikel pilihan untuk hari ini</span>
       </span>
       <span class="w-home-wisdom-cta__chevron" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="9 18 15 12 9 6"/>
         </svg>
       </span>
@@ -8399,6 +8431,19 @@ html.dark .drawer-auth-name{color:#F0EDE8}
       </button>
     </div>
 
+    <div class="wisdom-offline-banner" id="wisdomOfflineBanner" role="status" aria-live="polite" hidden>
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="1" y1="1" x2="23" y2="23"/>
+        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+        <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
+        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+        <line x1="12" y1="20" x2="12.01" y2="20"/>
+      </svg>
+      <span>Mode offline &middot; artikel yang sudah dibuka tetap bisa dibaca</span>
+    </div>
+
     <div class="wisdom-content" id="wisdomContent" aria-live="polite"></div>
 
     <div class="wisdom-empty" id="wisdomEmpty" role="status" aria-live="polite" hidden>
@@ -8409,8 +8454,9 @@ html.dark .drawer-auth-name{color:#F0EDE8}
           <path d="M32 30 Q40 22 46 26 Q42 32 32 30" fill="#C8860A" opacity="0.4"/>
         </svg>
       </div>
-      <h2 class="wisdom-empty-title">Belum ditemukan</h2>
-      <p class="wisdom-empty-body">Coba kata kunci lain</p>
+      <h2 class="wisdom-empty-title" id="wisdomEmptyTitle">Belum ditemukan</h2>
+      <p class="wisdom-empty-body" id="wisdomEmptyBody">Coba kata kunci lain</p>
+      <button class="wisdom-empty-cta" id="wisdomEmptyCta" type="button" hidden></button>
     </div>
   </div>
 </aside>
@@ -18846,19 +18892,77 @@ window.fpShowTermsInfo = fpShowTermsInfo;
     if (!empty || !content) return;
     var emptyTitle = empty.querySelector('.wisdom-empty-title');
     var emptyBody = empty.querySelector('.wisdom-empty-body');
+    var emptyCta = empty.querySelector('.wisdom-empty-cta');
     if (query){
-      if (emptyTitle) emptyTitle.textContent = 'Belum ditemukan';
-      if (emptyBody) emptyBody.textContent = 'Coba kata kunci lain untuk "' + query + '"';
+      if (emptyTitle) emptyTitle.textContent = 'Tidak Ada Artikel Ditemukan';
+      if (emptyBody){
+        emptyBody.innerHTML = 'Tidak ada artikel yang cocok dengan "<span class="wisdom-empty-term"></span>". Coba kata kunci lain.';
+        var termEl = emptyBody.querySelector('.wisdom-empty-term');
+        if (termEl) termEl.textContent = query;
+      }
+      if (emptyCta){
+        emptyCta.textContent = 'Hapus Pencarian';
+        emptyCta.dataset.action = 'clear-search';
+        emptyCta.hidden = false;
+      }
     } else if (category === 'saved'){
-      if (emptyTitle) emptyTitle.textContent = 'Belum ada simpanan';
-      if (emptyBody) emptyBody.textContent = 'Tap ikon bookmark pada artikel untuk menyimpan';
+      if (emptyTitle) emptyTitle.textContent = 'Belum Ada Artikel Tersimpan';
+      if (emptyBody) emptyBody.textContent = 'Tap ikon bookmark pada artikel untuk menyimpan dan baca lagi nanti.';
+      if (emptyCta){
+        emptyCta.textContent = 'Jelajahi Artikel Pilihan';
+        emptyCta.dataset.action = 'view-discover';
+        emptyCta.hidden = false;
+      }
+    } else if (category && category !== 'discover' && category !== 'all'){
+      if (emptyTitle) emptyTitle.textContent = 'Belum Ada Artikel di Kategori Ini';
+      if (emptyBody) emptyBody.textContent = 'Artikel baru akan ditambahkan secara berkala.';
+      if (emptyCta){
+        emptyCta.textContent = 'Lihat Semua Artikel';
+        emptyCta.dataset.action = 'view-all';
+        emptyCta.hidden = false;
+      }
     } else {
-      if (emptyTitle) emptyTitle.textContent = 'Belum ada artikel';
-      if (emptyBody) emptyBody.textContent = 'Konten segera hadir';
+      if (emptyTitle) emptyTitle.textContent = 'Belum Ada Artikel';
+      if (emptyBody) emptyBody.textContent = 'Konten segera hadir.';
+      if (emptyCta){ emptyCta.hidden = true; emptyCta.removeAttribute('data-action'); }
     }
     content.hidden = true;
     empty.hidden = false;
   }
+
+  // CTA click handler — wired once on first empty render.
+  function bindWisdomEmptyCta(){
+    var cta = $('wisdomEmptyCta');
+    if (!cta || cta.dataset.bound === 'true') return;
+    cta.dataset.bound = 'true';
+    cta.addEventListener('click', function(){
+      var action = cta.dataset.action;
+      if (action === 'clear-search'){
+        var input = $('wisdomSearch');
+        if (input){ input.value = ''; input.dispatchEvent(new Event('input', { bubbles:true })); input.focus(); }
+        welvraWisdomState.searchQuery = '';
+        renderWisdomContent();
+      } else if (action === 'view-all'){
+        welvraWisdomState.activeCategory = 'all';
+        renderWisdomPills();
+        renderWisdomContent();
+      } else if (action === 'view-discover'){
+        welvraWisdomState.activeCategory = 'discover';
+        renderWisdomPills();
+        renderWisdomContent();
+      }
+    });
+  }
+
+  // ----- Offline banner -----
+  function updateWisdomOfflineBanner(){
+    var banner = document.getElementById('wisdomOfflineBanner');
+    if (!banner) return;
+    banner.hidden = (typeof navigator.onLine === 'boolean') ? navigator.onLine : true;
+  }
+  window.addEventListener('online', updateWisdomOfflineBanner);
+  window.addEventListener('offline', updateWisdomOfflineBanner);
+  updateWisdomOfflineBanner();
 
   // ----- Wisdom counter -----
   function updateWisdomCounter(){
@@ -18924,6 +19028,7 @@ window.fpShowTermsInfo = fpShowTermsInfo;
 
     if (!articles || articles.length === 0){
       showWisdomEmptyState(query, activeCategory);
+      bindWisdomEmptyCta();
       return;
     }
 
@@ -19401,9 +19506,9 @@ window.fpShowTermsInfo = fpShowTermsInfo;
         + '<div class="wisdom-followup__list">';
       for (var i = 0; i < data.followUps.length; i++) {
         var q = data.followUps[i];
-        html += '<button type="button" class="wisdom-followup__chip" data-followup-question="' + escHtml(q) + '">'
+        html += '<button type="button" class="wisdom-followup__chip" data-followup-question="' + escHtml(q) + '" aria-label="Tanya Dr. Sly: ' + escHtml(q) + '">'
           + '<span>' + escHtml(q) + '</span>'
-          + '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>'
+          + '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>'
         + '</button>';
       }
       html += '</div></section>';
@@ -19438,7 +19543,7 @@ window.fpShowTermsInfo = fpShowTermsInfo;
     }
     var relatedHtml = renderArticleRelated(article.id);
     var html = '<div class="wisdom-detail-hero" style="background:' + dominantColor + '">'
-      + '<img class="wisdom-detail-hero-img" src="' + escHtml(imgUrl) + '" alt="' + escHtml(imgAlt) + '" fetchpriority="high" onload="this.classList.add(\'loaded\')">'
+      + '<img class="wisdom-detail-hero-img" src="' + escHtml(imgUrl) + '" alt="' + escHtml(imgAlt) + '" decoding="async" width="800" height="450" fetchpriority="high" onload="this.classList.add(\'loaded\')" onerror="this.style.display=\'none\'">'
       + '<div class="wisdom-detail-hero-gradient"></div>'
       + creditHtml
       + '</div>'
@@ -19447,7 +19552,7 @@ window.fpShowTermsInfo = fpShowTermsInfo;
         + '<h1 id="wisdomDetailTitle" class="wisdom-detail-title">' + escHtml(article.title) + '</h1>'
         + '<p class="wisdom-detail-excerpt">' + escHtml(excerpt) + '</p>'
         + '<div class="wisdom-detail-byline">'
-          + '<img class="wisdom-detail-author-avatar" src="' + escHtml(author.avatarUrl || '/avatars/dr_sly.svg') + '" alt="' + escHtml(author.name) + '">'
+          + '<img class="wisdom-detail-author-avatar" src="' + escHtml(author.avatarUrl || '/avatars/dr_sly.svg') + '" alt="' + escHtml(author.name) + '" loading="lazy" decoding="async" width="40" height="40" onerror="this.style.display=\'none\'">'
           + '<div class="wisdom-detail-byline-text">'
             + '<span class="wisdom-detail-author-name">' + escHtml(author.name) + '</span>'
             + '<span class="wisdom-detail-author-role">' + escHtml(author.role || '') + '</span>'
@@ -19646,20 +19751,12 @@ window.fpShowTermsInfo = fpShowTermsInfo;
         var question = chip.getAttribute('data-followup-question');
         if (question) {
           var article = getArticleById(detailState.currentArticleId);
-          var prefilledMessage = question;
-          window.__welvraDrSlyContext = {
-            context: {source:'article-followup',articleId:detailState.currentArticleId,articleTitle:article ? article.title : '',question:question},
-            prefilledMessage: prefilledMessage
-          };
-          closeWisdomDetail();
-          setTimeout(function(){
-            if (typeof openModal === 'function'){
-              closeWisdomPanel();
-              setTimeout(function(){ openModal('chat'); hookDrSlyContext(); }, 300);
-            } else if (typeof showToast === 'function') {
-              showToast('Konsultasi Dr. Sly akan segera tersedia');
-            }
-          }, 200);
+          welvraOpenDrSlyWithQuestion(question, {
+            source:'article-followup',
+            articleId:detailState.currentArticleId,
+            articleTitle:article ? article.title : '',
+            question:question
+          });
         }
         return;
       }
@@ -19697,22 +19794,50 @@ window.fpShowTermsInfo = fpShowTermsInfo;
   }
 
   // --- Dr. Sly contextual consult ---
+  // Phase 2E: unified entry point with proper transition timing + fallback path.
+  // Sequence: close detail (360ms) → close wisdom panel (400ms) → openModal('chat') → hook context after mount.
+  function welvraOpenDrSlyWithQuestion(question, sourceContext){
+    if (!question) return;
+    window.__welvraDrSlyContext = {
+      context: sourceContext || {},
+      prefilledMessage: question
+    };
+
+    closeWisdomDetail();
+    setTimeout(function(){
+      if (typeof closeWisdomPanel === 'function') closeWisdomPanel();
+    }, 360);
+
+    setTimeout(function(){
+      if (typeof openModal === 'function'){
+        openModal('chat');
+        // Wait one frame past modal-open transition before hooking context.
+        setTimeout(hookDrSlyContext, 120);
+        return;
+      }
+      // Fallback: open chat panel directly if openModal isn't available.
+      var chatPanel = document.getElementById('modal-chat');
+      if (chatPanel){
+        chatPanel.classList.add('open');
+        var overlay = document.getElementById('overlay-chat');
+        if (overlay) overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        setTimeout(hookDrSlyContext, 120);
+      } else if (typeof showToast === 'function'){
+        showToast('Konsultasi Dr. Sly tidak tersedia saat ini');
+      }
+    }, 760);
+  }
+
   function openDrSlyContextualConsult(article){
     if (!article) return;
     var prefilledMessage = "Saya baru saja membaca '" + article.title + "'. Boleh tolong jelaskan lebih dalam tentang topik ini, atau bagaimana saya bisa menerapkannya dalam keseharian?";
-    window.__welvraDrSlyContext = {
-      context: {source:'article',articleId:article.id,articleTitle:article.title,articleCategory:article.category},
-      prefilledMessage: prefilledMessage
-    };
-    closeWisdomDetail();
-    setTimeout(function(){
-      if (typeof openModal === 'function'){
-        closeWisdomPanel();
-        setTimeout(function(){ openModal('chat'); hookDrSlyContext(); }, 300);
-      } else {
-        if (typeof showToast === 'function') showToast('Konsultasi Dr. Sly akan segera tersedia');
-      }
-    }, 200);
+    welvraOpenDrSlyWithQuestion(prefilledMessage, {
+      source:'article',
+      articleId:article.id,
+      articleTitle:article.title,
+      articleCategory:article.category
+    });
   }
 
   function hookDrSlyContext(){
@@ -19720,10 +19845,13 @@ window.fpShowTermsInfo = fpShowTermsInfo;
     var input = document.getElementById('chat-input');
     if (input && window.__welvraDrSlyContext.prefilledMessage){
       input.value = window.__welvraDrSlyContext.prefilledMessage;
-      input.focus();
+      try { input.focus({ preventScroll:true }); } catch(e){ input.focus(); }
+      input.dispatchEvent(new Event('input', { bubbles:true }));
     }
     window.__welvraDrSlyContext = null;
   }
+  // Expose for external triggers / Playwright validation.
+  window.welvraOpenDrSlyWithQuestion = welvraOpenDrSlyWithQuestion;
 
   // --- Popstate handler ---
   var _detailClosing = false;
