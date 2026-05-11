@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "assets": {
+    "mockup_reference": {
+      "path": "assets/references/home-mockup.png",
+      "purpose": "Visual reference for home screen redesign",
+      "do_not_modify": true
+    },
+    "avatar_default": {
+      "path": "assets/avatars/default.webp",
+      "purpose": "Default avatar",
+      "size": "240x240",
+      "format": "webp",
+      "fallback": "assets/avatars/default.svg",
+      "status": "READY"
+    },
+    "drsly_portrait": {
+      "path": "assets/illustrations/dr-sly-portrait.webp",
+      "purpose": "Dr. Sly doctor portrait",
+      "size": "200x200",
+      "format": "webp",
+      "fallback": "assets/illustrations/dr-sly-portrait.svg",
+      "status": "READY"
+    }
+  }
+}
