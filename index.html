@@ -5913,6 +5913,39 @@ html.dark .wisdom-detail-author-name{color:#F0EDE8}
 .wisdom-detail-related-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--teal);margin:0 0 16px;letter-spacing:-.2px}
 html.dark .wisdom-detail-related-title{color:#F0EDE8}
 .wisdom-detail-related-list{display:flex;flex-direction:column;gap:12px;padding-bottom:100px}
+
+/* ===== PHASE 2C+2D: Dr. Sly Summary + Follow-up Chips ===== */
+.wisdom-drsly-summary{margin:28px 24px 0;padding:18px 18px 20px;background:linear-gradient(145deg,rgba(200,134,10,.10) 0%,rgba(158,136,98,.06) 100%);border:1px solid rgba(200,134,10,.18);border-radius:16px}
+.wisdom-drsly-summary__head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.wisdom-drsly-summary__avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0;background:rgba(200,134,10,.1)}
+.wisdom-drsly-summary__name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--text,#2D2A26)}
+html.dark .wisdom-drsly-summary__name{color:#F0EDE8}
+.wisdom-drsly-summary__tagline{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--gold)}
+.wisdom-drsly-summary__text{font-family:'Plus Jakarta Sans',sans-serif;font-size:14.5px;line-height:1.65;color:var(--text,#2D2A26);margin:0}
+html.dark .wisdom-drsly-summary__text{color:#F0EDE8}
+.wisdom-followup{margin:20px 24px 0}
+.wisdom-followup__title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--text,#2D2A26);margin:0 0 12px}
+html.dark .wisdom-followup__title{color:#F0EDE8}
+.wisdom-followup__list{display:flex;flex-direction:column;gap:8px}
+.wisdom-followup__chip{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:12px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(200,134,10,.12);border-radius:12px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;font-weight:500;color:var(--text,#2D2A26);text-align:left;transition:background .16s,transform .12s;-webkit-tap-highlight-color:transparent}
+html.dark .wisdom-followup__chip{color:#F0EDE8;border-color:rgba(200,134,10,.18);background:rgba(255,255,255,.03)}
+.wisdom-followup__chip:hover{background:rgba(200,134,10,.06)}
+.wisdom-followup__chip:active{transform:scale(.99)}
+.wisdom-followup__chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wisdom-followup__chip svg{color:var(--text-light,#6B7A8D);flex-shrink:0}
+
+/* ===== PHASE 2C+2D: Home Wisdom CTA ===== */
+.w-home-wisdom-cta{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;margin:16px 0 0;background:rgba(255,255,255,.04);border:1px solid rgba(200,134,10,.12);border-radius:16px;cursor:pointer;font-family:inherit;color:var(--text,#2D2A26);text-align:left;transition:transform .16s ease;-webkit-tap-highlight-color:transparent}
+html.dark .w-home-wisdom-cta{border-color:rgba(200,134,10,.18);background:rgba(255,255,255,.03);color:#F0EDE8}
+.w-home-wisdom-cta:active{transform:scale(.985)}
+.w-home-wisdom-cta:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.w-home-wisdom-cta__icon{width:40px;height:40px;border-radius:12px;background:rgba(200,134,10,.12);color:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.w-home-wisdom-cta__label{flex:1;display:flex;flex-direction:column;gap:2px}
+.w-home-wisdom-cta__title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--text,#2D2A26)}
+html.dark .w-home-wisdom-cta__title{color:#F0EDE8}
+.w-home-wisdom-cta__sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:400;color:var(--text-light,#6B7A8D)}
+.w-home-wisdom-cta__chevron{color:var(--text-light,#6B7A8D)}
+
 .wisdom-detail-consult-cta{
   position:fixed;bottom:20px;right:20px;z-index:970;padding:12px 20px;border-radius:999px;border:none;
   background:linear-gradient(135deg,var(--gold),#8B5E06);color:white;font-family:'Plus Jakarta Sans',sans-serif;
@@ -6878,6 +6911,26 @@ html.dark .drawer-auth-name{color:#F0EDE8}
 
       </div>
     </section>
+
+    <!-- PHASE 2C+2D: Wisdom Hub Home Entry Point -->
+    <button type="button" class="w-home-wisdom-cta" onclick="if(typeof openWisdomPanel === 'function') openWisdomPanel(this);" aria-label="Buka Wawasan Kesehatan">
+      <span class="w-home-wisdom-cta__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 5 C6 4 9 4 12 6 C15 4 18 4 21 5 V19 C18 18 15 18 12 20 C9 18 6 18 3 19 Z"/>
+          <line x1="12" y1="6" x2="12" y2="20"/>
+        </svg>
+      </span>
+      <span class="w-home-wisdom-cta__label">
+        <span class="w-home-wisdom-cta__title">Wawasan Kesehatan</span>
+        <span class="w-home-wisdom-cta__sub">Artikel pilihan untuk hari ini</span>
+      </span>
+      <span class="w-home-wisdom-cta__chevron" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </span>
+    </button>
+
     <script>
       // Editorial feature card dispatcher — routes to existing feature handlers
       window.welvraOpenFeature = function(feature, el){
@@ -19159,6 +19212,205 @@ window.fpShowTermsInfo = fpShowTermsInfo;
     bindDetailEvents();
   }
 
+  // --- PHASE 2C+2D: Dr. Sly Summary + Follow-up Data ---
+  var DR_SLY_ARTICLE_DATA = {
+    'art_ku_001': {
+      summary: 'Tidur tujuh jam bukan soal disiplin, tapi soal memberi tubuh waktu untuk deep sleep dan REM. Prioritaskan rutinitas tidur yang konsisten, matikan layar satu jam sebelum tidur, dan buat kamar senyaman mungkin. Mulai malam ini, bukan besok.',
+      followUps: ['Bagaimana kalau saya hanya bisa tidur 5 jam karena kerja?', 'Apakah tidur siang bisa mengganti jam tidur malam?', 'Apa tanda utama tubuh kekurangan tidur?']
+    },
+    'art_ku_002': {
+      summary: 'Hidrasi bukan cuma soal minum delapan gelas. Kebutuhan air tiap orang berbeda tergantung aktivitas, suhu, dan kondisi tubuh. Perhatikan warna urine sebagai indikator — kuning pucat berarti cukup. Variasikan sumber hidrasi dari buah dan sup.',
+      followUps: ['Apakah teh dan kopi dihitung sebagai hidrasi?', 'Berapa banyak air yang ideal untuk ibu hamil?', 'Apa tanda dehidrasi ringan yang sering tidak disadari?']
+    },
+    'art_ku_003': {
+      summary: 'Bahan-bahan dapur Indonesia seperti kunyit, jahe, dan temulawak punya kandungan antioksidan dan anti-inflamasi yang mendukung imunitas. Konsumsi rutin dalam bentuk jamu atau bumbu masakan sudah cukup. Tidak perlu suplemen mahal kalau dapur lengkap.',
+      followUps: ['Berapa dosis kunyit harian yang aman?', 'Bolehkah anak kecil minum jamu tradisional?', 'Apa bedanya imunitas dari makanan vs suplemen?']
+    },
+    'art_kr_001': {
+      summary: 'Siklus haid bukan sekadar menstruasi, tapi empat fase yang memengaruhi energi, mood, dan produktivitas. Kenali fase folikular, ovulasi, luteal, dan menstruasi. Dengan memahami pola ini, kamu bisa menyesuaikan aktivitas dan self-care lebih baik.',
+      followUps: ['Bagaimana cara tracking siklus yang paling mudah?', 'Apa yang normal dan tidak normal dari siklus haid?', 'Apakah stres bisa mengubah panjang siklus?']
+    },
+    'art_kr_002': {
+      summary: 'Keseimbangan hormon bukan soal angka lab yang sempurna, tapi soal gaya hidup yang mendukung. Tidur cukup, kelola stres, makan seimbang, dan olahraga teratur adalah fondasi utama. Jika ada gejala persisten, konsultasi ke dokter untuk pemeriksaan.',
+      followUps: ['Apa gejala awal ketidakseimbangan hormon?', 'Makanan apa yang membantu keseimbangan hormon?', 'Kapan sebaiknya periksa hormon ke dokter?']
+    },
+    'art_kh_001': {
+      summary: 'Trimester pertama penuh perubahan besar — mual, lelah, dan emosi naik-turun itu normal. Yang penting: jangan bandingkan pengalamanmu dengan orang lain. Istirahat cukup, makan sedikit-sedikit tapi sering, dan jangan ragu konsultasi jika ada kekhawatiran.',
+      followUps: ['Mual pagi hari kapan biasanya mereda?', 'Makanan apa yang aman saat trimester pertama?', 'Kapan harus ke dokter darurat selama hamil muda?']
+    },
+    'art_kh_002': {
+      summary: 'Makan untuk dua bukan berarti porsi dua kali lipat. Fokus pada kualitas nutrisi — asam folat, zat besi, kalsium, dan omega-3 sangat penting. Tambahan kalori yang dibutuhkan hanya sekitar 300 kkal per hari di trimester kedua dan ketiga.',
+      followUps: ['Suplemen apa saja yang wajib selama hamil?', 'Makanan apa yang harus dihindari ibu hamil?', 'Bagaimana mengatasi ngidam yang tidak sehat?']
+    },
+    'art_kh_003': {
+      summary: 'Baby blues dan depresi pasca-melahirkan itu berbeda. Baby blues biasanya mereda dalam dua minggu, tapi jika perasaan sedih, cemas, atau sulit bonding berlanjut lebih lama, itu bisa jadi PPD. Jangan malu minta bantuan — ini bukan soal kekuatan.',
+      followUps: ['Apa bedanya baby blues dan depresi pasca-melahirkan?', 'Bagaimana pasangan bisa membantu?', 'Di mana bisa dapat bantuan profesional untuk PPD?']
+    },
+    'art_kh_004': {
+      summary: 'Trimester kedua sering disebut masa paling nyaman — energi kembali, mual mereda. Ini waktu yang baik untuk mulai olahraga ringan, mempersiapkan ruang bayi, dan menikmati koneksi dengan si kecil lewat gerakan pertamanya.',
+      followUps: ['Kapan biasanya mulai merasakan gerakan bayi?', 'Olahraga apa yang aman di trimester kedua?', 'Tes kehamilan apa saja yang perlu di trimester ini?']
+    },
+    'art_kh_005': {
+      summary: 'Trimester ketiga adalah persiapan akhir — tubuh makin berat, tidur jadi sulit, dan kontraksi Braxton Hicks mulai terasa. Manfaatkan waktu ini untuk persiapan tas persalinan, latihan pernapasan, dan berdiskusi dengan dokter tentang rencana persalinan.',
+      followUps: ['Apa yang harus disiapkan di tas persalinan?', 'Bagaimana membedakan kontraksi palsu dan asli?', 'Kapan waktu yang tepat pergi ke rumah sakit?']
+    },
+    'art_kh_009': {
+      summary: 'Beberapa tanda kehamilan memerlukan pemeriksaan segera — pendarahan, nyeri perut hebat, demam tinggi, atau pembengkakan tiba-tiba. Percaya instingmu: jika sesuatu terasa tidak benar, lebih baik periksa daripada menunggu.',
+      followUps: ['Pendarahan ringan apakah selalu berbahaya?', 'Apa yang harus dilakukan saat tidak bisa ke dokter segera?', 'Seberapa sering harus kontrol selama hamil?']
+    },
+    'art_kh_012': {
+      summary: 'Kontraksi palsu (Braxton Hicks) biasanya tidak teratur, tidak bertambah kuat, dan mereda saat berganti posisi. Kontraksi asli teratur, makin kuat, dan interval makin pendek. Catat waktunya — jika sudah 5-1-1, waktunya ke rumah sakit.',
+      followUps: ['Apa itu aturan 5-1-1 untuk kontraksi?', 'Bisakah kontraksi palsu berubah jadi asli?', 'Apa yang harus dilakukan sambil menunggu kontraksi teratur?']
+    },
+    'art_po_001': {
+      summary: 'MPASI bukan lomba — setiap bayi punya kecepatan sendiri. Mulai dari tekstur halus, satu bahan baru setiap 3-5 hari untuk deteksi alergi, dan biarkan bayi eksplorasi rasa tanpa paksaan. Suasana makan yang positif lebih penting dari jumlah yang dimakan.',
+      followUps: ['Kapan waktu terbaik mulai MPASI?', 'Tanda apa yang menunjukkan bayi siap MPASI?', 'Bagaimana kalau bayi menolak makanan baru?']
+    },
+    'art_po_003': {
+      summary: 'Pola tidur bayi 0-3 bulan memang tidak teratur — itu normal. Bayi belum punya ritme sirkadian matang. Kunci bertahan: tidur saat bayi tidur, minta bantuan bergantian, dan ingat bahwa fase ini sementara. Konsistensi rutinitas tidur mulai dibangun pelan-pelan.',
+      followUps: ['Berapa jam total tidur normal bayi baru lahir?', 'Apa yang bisa dilakukan kalau bayi susah tidur?', 'Kapan bayi mulai bisa tidur sepanjang malam?']
+    },
+    'art_po_005': {
+      summary: 'Tantrum adalah cara balita mengekspresikan emosi yang belum bisa mereka verbalisasi. Tetap tenang, validasi perasaannya, dan berikan ruang aman. Jangan balas dengan marah — itu hanya memperburuk. Setelah reda, baru ajak bicara tentang perasaannya.',
+      followUps: ['Berapa lama fase tantrum biasanya berlangsung?', 'Bagaimana kalau tantrum terjadi di tempat umum?', 'Kapan tantrum menunjukkan masalah yang lebih serius?']
+    },
+    'art_po_009': {
+      summary: 'Mengajarkan anak mengenali dan mengelola emosi sejak dini adalah investasi seumur hidup. Mulai dengan memberi nama pada emosi, validasi perasaan mereka, dan tunjukkan cara ekspresi yang sehat lewat contoh. Kecerdasan emosional dimulai dari rumah.',
+      followUps: ['Dari usia berapa sebaiknya mulai edukasi emosi?', 'Buku atau media apa yang bisa membantu?', 'Bagaimana kalau anak sulit mengekspresikan perasaan?']
+    },
+    'art_po_010': {
+      summary: 'Saat anak sakit malam hari, yang paling penting adalah tetap tenang. Pantau suhu, pastikan hidrasi, dan ketahui tanda bahaya yang memerlukan UGD. Sediakan pertolongan pertama di rumah dan simpan nomor hotline dokter anak.',
+      followUps: ['Kapan demam anak harus dibawa ke UGD?', 'Obat apa saja yang aman diberikan tanpa resep?', 'Bagaimana menurunkan demam anak tanpa obat?']
+    },
+    'art_wm_001': {
+      summary: 'Kecemasan ringan bisa dikelola dengan teknik grounding 5-4-3-2-1, pernapasan kotak, dan journaling singkat. Kuncinya: jangan menunggu sampai panik baru bertindak. Latih teknik-teknik ini saat tenang agar otomatis saat dibutuhkan.',
+      followUps: ['Apa itu teknik grounding 5-4-3-2-1?', 'Seberapa sering saya harus latihan teknik ini?', 'Kapan kecemasan perlu ditangani profesional?']
+    },
+    'art_wm_002': {
+      summary: 'Mengatakan tidak bukan berarti egois atau jahat. Batas sehat melindungi energi dan kesejahteraan mental. Mulai dengan hal kecil, gunakan kalimat yang jelas tapi sopan, dan ingat: setiap ya yang terpaksa adalah tidak untuk dirimu sendiri.',
+      followUps: ['Bagaimana menolak tanpa merusak hubungan?', 'Kenapa sulit sekali bilang tidak?', 'Apa tanda kalau saya sudah terlalu banyak bilang ya?']
+    },
+    'art_wm_003': {
+      summary: 'Self-compassion bukan memanjakan diri — ini tentang memperlakukan diri sendiri dengan kebaikan yang sama seperti yang kamu berikan ke sahabat. Saat gagal atau kesulitan, ganti inner critic dengan inner friend. Latih dengan menulis surat untuk dirimu sendiri.',
+      followUps: ['Bagaimana memulai latihan self-compassion?', 'Apa bedanya self-compassion dan self-esteem?', 'Kenapa kita lebih keras pada diri sendiri daripada orang lain?']
+    },
+    'art_wm_004': {
+      summary: 'Burnout bukan sekadar capek — ini kelelahan emosional, sinisme, dan penurunan efektivitas yang berkepanjangan. Tanda awalnya: dreading Senin pagi, merasa disconnected, dan prestasi menurun. Recovery butuh perubahan sistemik, bukan cuma liburan.',
+      followUps: ['Apa bedanya burnout dan stres biasa?', 'Bisakah burnout terjadi di luar pekerjaan?', 'Langkah pertama apa untuk recovery dari burnout?']
+    },
+    'art_wm_005': {
+      summary: 'Mempertimbangkan terapi bukan berarti kamu lemah. Justru itu langkah berani. Terapi cocok saat masalah sudah mengganggu fungsi harian, hubungan, atau tidur. Ada banyak jenis terapi — mulai dari konsultasi awal untuk menemukan yang cocok.',
+      followUps: ['Bagaimana cara mencari terapis yang tepat?', 'Berapa biaya terapi di Indonesia?', 'Apa yang terjadi di sesi terapi pertama?']
+    },
+    'art_wm_006': {
+      summary: 'Overthinking di malam hari bisa diatasi dengan brain dump — tulis semua yang ada di pikiran sebelum tidur. Teknik worry time juga membantu: alokasikan 15 menit khusus di sore hari untuk khawatir, lalu stop. Otak butuh sinyal bahwa waktunya istirahat.',
+      followUps: ['Apa itu teknik brain dump?', 'Bagaimana kalau pikiran tetap racing meski sudah menulis?', 'Apakah meditasi sebelum tidur efektif?']
+    },
+    'art_wm_008': {
+      summary: 'Stres kronis bukan cuma masalah mental — tubuh merespons dengan peradangan, gangguan pencernaan, sakit kepala, dan penurunan imunitas. Koneksi pikiran-tubuh ini nyata. Kelola stres dengan olahraga teratur, tidur cukup, dan teknik relaksasi.',
+      followUps: ['Bagaimana stres memengaruhi pencernaan?', 'Apa tanda tubuh sudah terlalu stres?', 'Olahraga apa yang paling baik untuk mengurangi stres?']
+    },
+    'art_wm_010': {
+      summary: 'Imposter syndrome membuat kamu merasa pencapaianmu hanya keberuntungan. Fakta: ini dialami 70% orang setidaknya sekali seumur hidup. Cara mengatasinya: dokumentasikan pencapaianmu, terima pujian dengan gratitude, dan ingat bahwa belajar sambil jalan itu normal.',
+      followUps: ['Apakah imposter syndrome bisa disembuhkan?', 'Bagaimana membedakan rendah hati dan imposter syndrome?', 'Apa yang dilakukan orang sukses untuk mengatasi ini?']
+    },
+    'art_ng_001': {
+      summary: 'Indonesia punya superfood luar biasa yang kalah pamor: tempe, daun kelor, ubi ungu, dan jali. Kandungan nutrisinya setara bahkan melebihi quinoa dan acai yang diimpor mahal. Mulai dari yang lokal — lebih segar, lebih murah, dan mendukung petani kita.',
+      followUps: ['Apa kandungan nutrisi tempe dibanding daging?', 'Bagaimana cara mengolah daun kelor yang enak?', 'Superfood lokal apa yang cocok untuk anak-anak?']
+    },
+    'art_ng_002': {
+      summary: 'Usus bukan sekadar organ pencernaan — ini rumah bagi triliunan bakteri yang memengaruhi mood, imunitas, dan bahkan berat badan. Jaga keseimbangan microbiome dengan makanan fermentasi, serat, dan kurangi gula olahan. Usus sehat = pikiran sehat.',
+      followUps: ['Makanan fermentasi apa yang paling mudah didapat?', 'Berapa lama untuk memperbaiki kesehatan usus?', 'Apakah probiotik suplemen diperlukan?']
+    },
+    'art_ng_003': {
+      summary: 'Teh herbal bukan sekadar minuman — ini ritual yang memberikan jeda dari kesibukan. Pilih chamomile untuk relaksasi, jahe untuk pencernaan, atau peppermint untuk fokus. Siapkan dengan sadar, nikmati perlahan, dan jadikan ini quality time untuk dirimu.',
+      followUps: ['Teh herbal apa yang aman diminum setiap hari?', 'Bisakah teh herbal menggantikan obat?', 'Berapa gelas teh herbal yang ideal per hari?']
+    },
+    'art_kb_001': {
+      summary: 'Yoga untuk pemula tidak harus rumit. Tujuh pose fondasi — mountain, downward dog, warrior I dan II, tree, child, dan shavasana — sudah cukup untuk membangun kekuatan, fleksibilitas, dan ketenangan. Mulai 15 menit per hari, fokus pada napas.',
+      followUps: ['Berapa kali seminggu idealnya latihan yoga?', 'Apakah yoga bisa membantu sakit punggung?', 'Pose yoga apa yang cocok sebelum tidur?']
+    },
+    'art_kb_003': {
+      summary: 'Strength training untuk perempuan tidak akan bikin badan besar seperti binaragawan — itu mitos. Latihan beban justru membantu menjaga kepadatan tulang, meningkatkan metabolisme, dan membentuk postur lebih baik. Mulai dengan bodyweight exercises.',
+      followUps: ['Berapa berat ideal untuk pemula?', 'Bisakah strength training dilakukan saat hamil?', 'Seberapa cepat hasilnya terlihat?']
+    },
+    'art_hi_001': {
+      summary: 'Kunyit asam bukan sekadar tradisi — kurkumin dalam kunyit terbukti anti-inflamasi dan antioksidan kuat. Asam jawa menambah vitamin C. Minum rutin bisa membantu mengurangi nyeri haid dan mendukung pencernaan. Resep nenek memang bijaksana.',
+      followUps: ['Berapa banyak kunyit asam yang aman diminum per hari?', 'Bolehkah ibu hamil minum kunyit asam?', 'Apa efek samping kalau kebanyakan kunyit?']
+    },
+    'art_hi_003': {
+      summary: 'Daun kelor mengandung lebih banyak vitamin A dari wortel, lebih banyak kalsium dari susu, dan protein sebanding telur — per gram. Tumbuh di mana-mana di Indonesia tapi sering diabaikan. Tambahkan ke sup, pecel, atau smoothie.',
+      followUps: ['Bagaimana cara menyimpan daun kelor agar tahan lama?', 'Bolehkah daun kelor diberikan untuk bayi?', 'Apakah kelor bubuk sama baiknya dengan daun segar?']
+    },
+    'art_ls_001': {
+      summary: 'Skincare tidak harus 10 langkah. Tiga langkah fundamental — bersihkan, lindungi dari matahari, dan pelembab — sudah mencukupi untuk kebanyakan orang. Produk mahal belum tentu lebih baik. Kenali jenis kulitmu dulu, baru pilih produk.',
+      followUps: ['SPF berapa yang sebaiknya dipakai sehari-hari?', 'Apakah skincare routine perlu berubah sesuai musim?', 'Kapan sebaiknya mulai pakai anti-aging?']
+    },
+    'art_ls_002': {
+      summary: 'Slow living bukan soal malas atau tidak produktif — ini tentang intentional living. Pilih kualitas daripada kuantitas dalam segala hal. Kurangi multitasking, hadir penuh di momen sekarang, dan berhenti mengukur nilai diri dari kesibukan.',
+      followUps: ['Bagaimana memulai slow living kalau pekerjaan menuntut?', 'Apakah slow living cocok untuk keluarga muda?', 'Apa langkah pertama menuju slow living?']
+    },
+    'art_ls_003': {
+      summary: 'Self-care bukan egois — ini maintenance yang kamu butuhkan untuk bisa hadir penuh bagi orang lain. Jadwalkan waktu khusus setiap minggu, meski hanya 30 menit. Aktivitasnya bisa sederhana: mandi air hangat, baca buku, atau jalan pagi sendirian.',
+      followUps: ['Self-care apa yang tidak butuh biaya?', 'Bagaimana kalau merasa bersalah mengambil waktu sendiri?', 'Apa bedanya self-care dan self-indulgence?']
+    },
+    'art_is_001': {
+      summary: 'Stigma kesehatan mental di Indonesia masih kuat — banyak yang menganggap ini kelemahan atau kurang ibadah. Padahal gangguan mental sama nyatanya dengan penyakit fisik. Langkah pertama melawan stigma: normalisasi pembicaraan tentang kesehatan mental.',
+      followUps: ['Bagaimana cara bicara tentang kesehatan mental dengan keluarga?', 'Apa saja sumber bantuan kesehatan mental di Indonesia?', 'Kenapa stigma kesehatan mental masih kuat di Indonesia?']
+    },
+    'art_is_002': {
+      summary: 'Burnout kerja bukan badge of honor — ini kondisi serius yang diakui WHO. Gejalanya: kelelahan fisik dan emosional, sinisme terhadap pekerjaan, dan penurunan performa. Solusinya bukan cuma liburan, tapi evaluasi sistem kerja dan batasan yang sehat.',
+      followUps: ['Bagaimana bicara tentang burnout ke atasan?', 'Apa hak karyawan terkait kesehatan mental?', 'Bisakah burnout menyebabkan penyakit fisik?']
+    },
+    'art_is_003': {
+      summary: 'Body shaming meninggalkan luka yang lebih dalam dari kelihatannya. Dampaknya bisa berupa gangguan makan, depresi, dan rendahnya harga diri. Mulai dari diri sendiri: hentikan komentar tentang tubuh orang lain, dan perlakukan tubuhmu dengan respect.',
+      followUps: ['Bagaimana merespons body shaming dari keluarga?', 'Apa tanda gangguan makan yang perlu diwaspadai?', 'Bagaimana membangun body positivity?']
+    },
+    'art_is_004': {
+      summary: 'KDRT bukan urusan rumah tangga pribadi — ini masalah hukum dan kesehatan. Kenali polanya: kontrol, isolasi, ancaman, dan kekerasan fisik atau emosional. Kalau kamu atau seseorang yang kamu kenal mengalami ini, ada bantuan tersedia. Kamu tidak sendirian.',
+      followUps: ['Apa langkah pertama jika mengalami KDRT?', 'Nomor hotline apa yang bisa dihubungi?', 'Bagaimana membantu teman yang kemungkinan mengalami KDRT?']
+    },
+    'art_is_007': {
+      summary: 'Laki-laki juga bisa depresi, cemas, dan butuh bantuan — tapi budaya sering menghalangi mereka untuk mengakuinya. Ruang aman untuk ekspresi emosi laki-laki perlu diciptakan. Meminta bantuan bukan tanda kelemahan, itu keberanian.',
+      followUps: ['Kenapa laki-laki lebih sulit bicara tentang perasaan?', 'Apa tanda depresi pada laki-laki yang sering terlewat?', 'Bagaimana mendukung laki-laki yang sedang berjuang?']
+    },
+    'art_kr_004': {
+      summary: 'Pap smear bukanlah prosedur yang menakutkan. Ini skrining penting untuk deteksi dini kanker serviks yang hanya memakan waktu beberapa menit. Rekomendasi: mulai usia 21 tahun, rutin setiap 3 tahun. Komunikasikan kekhawatiranmu ke dokter.',
+      followUps: ['Mulai usia berapa harus pap smear?', 'Apakah pap smear sakit?', 'Apa yang harus dipersiapkan sebelum pap smear?']
+    }
+  };
+
+  // --- Render Dr. Sly summary + follow-up section ---
+  function renderDrSlySummarySection(article) {
+    if (!article || !article.id) return '';
+    var data = DR_SLY_ARTICLE_DATA[article.id];
+    if (!data || !data.summary) return '';
+    var html = '<section class="wisdom-drsly-summary">'
+      + '<div class="wisdom-drsly-summary__head">'
+        + '<img class="wisdom-drsly-summary__avatar" src="/avatars/dr_sly.svg" alt="" aria-hidden="true" width="44" height="44" loading="lazy" decoding="async">'
+        + '<div>'
+          + '<div class="wisdom-drsly-summary__name">Catatan Dr. Sly</div>'
+          + '<div class="wisdom-drsly-summary__tagline">Ringkasan untuk Anda</div>'
+        + '</div>'
+      + '</div>'
+      + '<p class="wisdom-drsly-summary__text">' + escHtml(data.summary) + '</p>'
+    + '</section>';
+    if (data.followUps && data.followUps.length) {
+      html += '<section class="wisdom-followup">'
+        + '<h3 class="wisdom-followup__title">Lanjut Tanya Dr. Sly</h3>'
+        + '<div class="wisdom-followup__list">';
+      for (var i = 0; i < data.followUps.length; i++) {
+        var q = data.followUps[i];
+        html += '<button type="button" class="wisdom-followup__chip" data-followup-question="' + escHtml(q) + '">'
+          + '<span>' + escHtml(q) + '</span>'
+          + '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>'
+        + '</button>';
+      }
+      html += '</div></section>';
+    }
+    return html;
+  }
+
   // --- Render detail content ---
   function renderArticleDetail(article){
     var articleEl = $('wisdomDetailArticle');
@@ -19204,6 +19456,7 @@ window.fpShowTermsInfo = fpShowTermsInfo;
         + '</div>'
       + '</div>'
       + '<div class="wisdom-detail-body">' + bodyHtml + '</div>'
+      + renderDrSlySummarySection(article)
       + sourceHtml
       + relatedHtml;
     articleEl.innerHTML = html;
@@ -19383,9 +19636,33 @@ window.fpShowTermsInfo = fpShowTermsInfo;
       var article = getArticleById(detailState.currentArticleId);
       if (article) openShareSheet(article);
     });
-    // Related card clicks (delegated)
+    // Related card clicks + follow-up chips (delegated)
     var articleEl = $('wisdomDetailArticle');
     if (articleEl) articleEl.addEventListener('click', function(e){
+      // Follow-up chip → open Dr. Sly with question
+      var chip = e.target.closest('.wisdom-followup__chip');
+      if (chip) {
+        e.stopPropagation();
+        var question = chip.getAttribute('data-followup-question');
+        if (question) {
+          var article = getArticleById(detailState.currentArticleId);
+          var prefilledMessage = question;
+          window.__welvraDrSlyContext = {
+            context: {source:'article-followup',articleId:detailState.currentArticleId,articleTitle:article ? article.title : '',question:question},
+            prefilledMessage: prefilledMessage
+          };
+          closeWisdomDetail();
+          setTimeout(function(){
+            if (typeof openModal === 'function'){
+              closeWisdomPanel();
+              setTimeout(function(){ openModal('chat'); hookDrSlyContext(); }, 300);
+            } else if (typeof showToast === 'function') {
+              showToast('Konsultasi Dr. Sly akan segera tersedia');
+            }
+          }, 200);
+        }
+        return;
+      }
       var bmk = e.target.closest('.wisdom-card-bookmark');
       if (bmk){ e.stopPropagation(); var card = bmk.closest('.wisdom-card'); if (card) toggleBookmark(card.dataset.articleId); return; }
       var card = e.target.closest('.wisdom-card');

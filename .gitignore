@@ -14,4 +14,13 @@ Welvra API Key Anthropic.txt
 .vscode/
 .idea/
 
+<<<<<<< Updated upstream
 assets/references/home-mockup.png
+=======
+# Local Netlify folder
+.netlify
+
+# Playwright MCP testing screenshots (root-level PNGs)
+/*.png
+.playwright-mcp/
+>>>>>>> Stashed changes
