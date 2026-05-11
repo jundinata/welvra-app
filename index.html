@@ -129,7 +129,7 @@ body.w-home-v2-active main.container { padding: 0; background: var(--bg-canvas);
 .w-home-wrap { padding: 0 20px; max-width: 480px; margin: 0 auto; }
 
 /* HEADER */
-.w-home-header { display: flex; justify-content: space-between; align-items: flex-start; padding-top: 16px; margin-bottom: 24px; }
+.w-home-header { display: flex; justify-content: space-between; align-items: flex-start; padding-top: 14px; margin-bottom: 18px; }
 .w-home-header__left { flex: 1; min-width: 0; }
 .w-avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-hairline); display: block; margin-bottom: 18px; }
 .w-greeting { font-family: var(--font-serif); line-height: 1.0; letter-spacing: -0.01em; margin: 0; }
@@ -145,7 +145,7 @@ body.w-home-v2-active main.container { padding: 0; background: var(--bg-canvas);
 .w-weather__temp { font-family: var(--font-sans); font-size: 30px; font-weight: 600; color: var(--text-primary); line-height: 1; letter-spacing: -0.02em; }
 
 /* HERO CARD */
-.w-hero-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: var(--radius-hero); padding: 18px 18px 20px; box-shadow: var(--shadow-card-elev); margin-bottom: 20px; }
+.w-hero-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: var(--radius-hero); padding: 16px 18px 18px; box-shadow: var(--shadow-card-elev); margin-bottom: 16px; }
 .w-hero-card__title { font-family: var(--font-sans); font-size: 16px; font-weight: 600; color: var(--text-primary); margin: 0 0 14px; }
 .w-hero-card__grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; }
 .w-hero-col__head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
@@ -153,10 +153,10 @@ body.w-home-v2-active main.container { padding: 0; background: var(--bg-canvas);
 .w-hero-col__icon--gold { border-radius: 50%; background: radial-gradient(circle, var(--accent-gold-soft) 0%, var(--accent-gold) 100%); }
 .w-hero-col__icon--green { border-radius: 9px; background: var(--accent-sage-dark); }
 .w-hero-col__label { font-family: var(--font-sans); font-size: 15px; font-weight: 600; color: var(--text-primary); }
-.w-hero-col__caption { font-family: var(--font-sans); font-size: 11px; color: var(--text-muted); }
+.w-hero-col__caption { font-family: var(--font-sans); font-size: 10.5px; color: var(--text-muted); letter-spacing: 0.02em; margin-top: 2px; }
 .w-hero-col__value-row { display: flex; align-items: center; justify-content: space-between; margin-top: 2px; gap: 8px; }
-.w-hero-col__value { font-family: var(--font-sans); font-size: 17px; font-weight: 700; color: var(--text-primary); }
-.w-hero-col__sparkline { width: 60px; height: 18px; flex-shrink: 0; }
+.w-hero-col__value { font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: var(--text-primary); white-space: nowrap; letter-spacing: -0.01em; }
+.w-hero-col__sparkline { width: 52px; height: 16px; flex-shrink: 0; }
 .w-hero-col__track-row { display: flex; align-items: center; justify-content: space-between; margin-top: 2px; gap: 8px; }
 .w-hero-col__steps { font-family: var(--font-sans); font-size: 15px; font-weight: 700; color: var(--text-primary); }
 .w-hero-col__cal { font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-top: 2px; }
@@ -164,12 +164,12 @@ body.w-home-v2-active main.container { padding: 0; background: var(--bg-canvas);
 [data-theme="light"] .w-hero-col__rings { background: rgba(0,0,0,0.04); }
 
 /* 2x2 FEATURE GRID */
-.w-feature-grid { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 14px; margin-bottom: 100px; }
-.w-feature-card { border-radius: var(--radius-feature); padding: 18px; position: relative; overflow: hidden; border: none; cursor: pointer; text-align: left; font-family: inherit; color: var(--text-primary); min-height: 180px; }
-.w-feature-card--drsly { background: linear-gradient(155deg, var(--card-amber-grad-start) 0%, var(--card-amber-grad-mid) 55%, var(--card-amber-grad-end) 100%); color: #FCFDFE; }
+.w-feature-grid { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 12px; margin-bottom: 96px; }
+.w-feature-card { border-radius: var(--radius-feature); padding: 16px 16px 18px; position: relative; overflow: hidden; border: none; cursor: pointer; text-align: left; font-family: inherit; color: var(--text-primary); min-height: 168px; }
+.w-feature-card--drsly { background: linear-gradient(148deg, #A89571 0%, var(--card-amber-grad-mid) 50%, var(--card-amber-grad-end) 100%); color: #FCFDFE; }
 .w-feature-card--wawasan { background: var(--card-glass-a); border: 1px solid var(--border-hairline); }
 .w-feature-card--faceprint { background: var(--card-glass-b); border: 1px solid var(--border-hairline); }
-.w-feature-card--siklus { background: linear-gradient(155deg, var(--card-burgundy-grad-start) 0%, var(--card-burgundy-grad-mid) 55%, var(--card-burgundy-grad-end) 100%); color: #FCFDFE; display: flex; flex-direction: column; justify-content: space-between; }
+.w-feature-card--siklus { background: linear-gradient(148deg, #9A6260 0%, var(--card-burgundy-grad-mid) 50%, var(--card-burgundy-grad-end) 100%); color: #FCFDFE; display: flex; flex-direction: column; justify-content: space-between; }
 .w-feature-card--drsly .w-feature-card__title,
 .w-feature-card--drsly .w-feature-card__block-label,
 .w-feature-card--siklus .w-feature-card__title { color: #FCFDFE; }
@@ -253,7 +253,51 @@ body.w-home-v2-active .bottom-nav:not(.w-bottom-nav) { display: none !important;
 .w-feature-card__block-icon svg { display: block; }
 
 /* ============================================================
-   END PHASE 1+2 tokens + layout
+   PHASE 3 — a11y additions (focus-visible + reduced-motion)
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .w-ring { transition: none !important; }
+  .w-ring--outer, .w-ring--middle, .w-ring--inner { transition-delay: 0s !important; }
+}
+.w-nav-tab:focus-visible,
+.w-feature-card:focus-visible,
+.w-theme-toggle__seg:focus-visible,
+.w-avatar:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+.w-feature-card:focus-visible { border-radius: var(--radius-feature); }
+
+/* Phase 3 polish: narrow viewport (iPhone SE / 320px) — shrink TrackFit rings + tighten hero col gap
+   to prevent the 44px rings from pushing the column past the card edge */
+@media (max-width: 360px) {
+  .w-home-wrap { padding: 0 16px; }
+  .w-hero-card__grid { column-gap: 10px; }
+  .w-hero-card { padding: 14px; }
+  .w-hero-col__rings { width: 36px; height: 36px; }
+  .w-hero-col__rings svg { width: 36px; height: 36px; }
+  .w-hero-col__steps { font-size: 13px; }
+  .w-hero-col__cal { font-size: 11px; }
+  .w-hero-col__value { font-size: 13px; }
+  .w-hero-col__sparkline { width: 42px; }
+  .w-hero-col__sparkline svg { width: 42px; }
+  .w-greeting__l1, .w-greeting__l2 { font-size: 32px; }
+  .w-weather__temp { font-size: 26px; }
+}
+
+/* Phase 3 polish: ensure off-screen profile-panel doesn't leak its border into the viewport.
+   The legacy panel uses translateX(100%) but a few sub-pixel rounding pixels bleed at the
+   right edge on certain viewport widths. visibility:hidden until .open closes the gap. */
+.profile-panel:not(.open) { visibility: hidden; }
+.profile-overlay.open + .profile-panel,
+.profile-panel.open { visibility: visible; }
+
+/* Phase 3 polish: card title leading tightened so 2-line wraps feel intentional, not loose */
+.w-feature-card__title { line-height: 1.12; }
+
+/* ============================================================
+   END PHASE 1+2+3 tokens + layout
    ============================================================ */
 
 :root{
@@ -6460,9 +6504,9 @@ html.dark .drawer-auth-name{color:#F0EDE8}
               <div class="w-hero-col__value-row">
                 <div class="w-hero-col__value">120/80 mmHg</div>
                 <div class="w-hero-col__sparkline" aria-hidden="true">
-                  <svg viewBox="0 0 60 18" width="60" height="18" fill="none" stroke="var(--accent-gold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <polyline points="2,13 12,9 22,11 32,6 42,8 58,3"/>
-                    <circle cx="58" cy="3" r="1.4" fill="var(--accent-gold)" stroke="none"/>
+                  <svg viewBox="0 0 52 16" width="52" height="16" fill="none" stroke="var(--accent-gold)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="1,12 10,9 18,11 27,6 35,8 44,4 50,2"/>
+                    <circle cx="50" cy="2" r="1.5" fill="var(--accent-gold)" stroke="none"/>
                   </svg>
                 </div>
               </div>
@@ -6488,12 +6532,12 @@ html.dark .drawer-auth-name{color:#F0EDE8}
                 </div>
                 <div class="w-hero-col__rings" aria-hidden="true">
                   <svg class="w-rings-svg" viewBox="0 0 44 44" width="44" height="44" aria-hidden="true">
-                    <g fill="none" stroke-width="4" opacity="0.12">
+                    <g fill="none" stroke-width="3.6" opacity="0.14">
                       <circle cx="22" cy="22" r="18" stroke="var(--ring-red)"/>
                       <circle cx="22" cy="22" r="13" stroke="var(--ring-green)"/>
                       <circle cx="22" cy="22" r="8" stroke="var(--ring-blue)"/>
                     </g>
-                    <g transform="rotate(-90 22 22)" fill="none" stroke-width="4" stroke-linecap="round">
+                    <g transform="rotate(-90 22 22)" fill="none" stroke-width="3.6" stroke-linecap="round">
                       <circle class="w-ring w-ring--outer" cx="22" cy="22" r="18" stroke="var(--ring-red)"
                               stroke-dasharray="113.097" stroke-dashoffset="113.097"
                               data-progress="0.75" data-circumference="113.097"/>
