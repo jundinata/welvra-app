@@ -7300,6 +7300,270 @@ html.dark .welvra-lab-save-banner__dismiss:hover{background:rgba(255,255,255,.06
   .welvra-lab-save-banner,.welvra-lab-save-banner__btn,.welvra-lab-save-banner__dismiss{transition:none}
 }
 
+/* ============================================================ */
+/* PHASE 2H — Multi-profile + Faceprint lock + Share PDF        */
+/* ============================================================ */
+
+/* ----- Profile switcher in panel header ----- */
+.welvra-rekam-header__center{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.welvra-rekam-profile-switcher{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 10px 5px 6px;border-radius:999px;border:none;
+  background:rgba(200,134,10,.08);color:var(--teal-dark);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:500;
+  cursor:pointer;max-width:240px;
+  -webkit-tap-highlight-color:transparent;
+  transition:background 200ms,transform 150ms;
+}
+html.dark .welvra-rekam-profile-switcher{background:rgba(200,134,10,.12);color:#F0EDE8}
+.welvra-rekam-profile-switcher:hover{background:rgba(200,134,10,.18)}
+.welvra-rekam-profile-switcher:active{transform:scale(.97)}
+.welvra-rekam-profile-switcher:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.welvra-rekam-profile-switcher__avatar{
+  width:22px;height:22px;border-radius:50%;
+  background:linear-gradient(135deg,var(--teal),var(--gold));color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;
+  flex-shrink:0;
+}
+.welvra-rekam-profile-switcher__name{
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;
+}
+
+/* ----- Profiles list modal ----- */
+.welvra-rekam-profiles-overlay,
+.welvra-rekam-profile-form-overlay{
+  position:fixed;inset:0;z-index:963;
+  background:rgba(15,30,30,0.42);
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  opacity:0;transition:opacity 280ms ease;
+}
+.welvra-rekam-profiles-overlay:not([hidden]),
+.welvra-rekam-profile-form-overlay:not([hidden]){opacity:1}
+.welvra-rekam-profile-form-overlay{z-index:965}
+
+.welvra-rekam-profiles-modal,
+.welvra-rekam-profile-form-modal{
+  position:fixed;left:0;right:0;bottom:0;z-index:964;
+  max-width:480px;margin:0 auto;
+  max-height:80vh;
+  background:#FAFAF7;
+  border-radius:24px 24px 0 0;
+  display:flex;flex-direction:column;overflow:hidden;
+  transform:translateY(100%);
+  transition:transform 360ms cubic-bezier(.16,1,.3,1);
+  box-shadow:0 -12px 36px rgba(0,0,0,.14);
+}
+.welvra-rekam-profile-form-modal{z-index:966}
+.welvra-rekam-profiles-modal[hidden],
+.welvra-rekam-profile-form-modal[hidden]{display:none}
+.welvra-rekam-profiles-modal:not([hidden]),
+.welvra-rekam-profile-form-modal:not([hidden]){transform:translateY(0)}
+html.dark .welvra-rekam-profiles-modal,
+html.dark .welvra-rekam-profile-form-modal{background:#1A1A16}
+
+.welvra-rekam-profiles-list{
+  flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  margin:0;padding:8px 14px;list-style:none;
+  display:flex;flex-direction:column;gap:6px;
+}
+.welvra-rekam-profile-item{
+  display:flex;align-items:center;gap:4px;
+  background:#fff;border:1px solid rgba(200,134,10,.12);
+  border-radius:14px;padding:6px;
+  transition:border-color 200ms,box-shadow 200ms;
+}
+html.dark .welvra-rekam-profile-item{background:#1F1F1A;border-color:rgba(200,134,10,.18)}
+.welvra-rekam-profile-item.active{border-color:var(--gold);box-shadow:0 0 0 1px rgba(200,134,10,.2)}
+.welvra-rekam-profile-item__main{
+  flex:1;min-width:0;display:flex;align-items:center;gap:12px;
+  padding:8px 10px;border:none;background:transparent;cursor:pointer;
+  font-family:inherit;text-align:left;color:var(--txt-primary);
+  border-radius:10px;
+  transition:background 200ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-profile-item__main:hover{background:rgba(200,134,10,.04)}
+.welvra-rekam-profile-item__main:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-rekam-profile-item__main{color:#F0EDE8}
+.welvra-rekam-profile-item__avatar{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--teal),var(--gold));color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;
+}
+.welvra-rekam-profile-item__text{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.welvra-rekam-profile-item__name{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;
+  color:var(--teal-dark);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+html.dark .welvra-rekam-profile-item__name{color:#F0EDE8}
+.welvra-rekam-profile-item__relation{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;
+  color:var(--txt-secondary);letter-spacing:.04em;
+}
+.welvra-rekam-profile-item__check{color:var(--gold);flex-shrink:0}
+.welvra-rekam-profile-item__edit,
+.welvra-rekam-profile-item__delete{
+  width:38px;height:38px;border-radius:50%;border:none;
+  background:transparent;color:var(--txt-secondary);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background 200ms,color 200ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-profile-item__edit:hover{background:rgba(10,123,108,.1);color:var(--teal)}
+.welvra-rekam-profile-item__delete:hover{background:rgba(200,75,75,.1);color:#C84B4B}
+.welvra-rekam-profile-item__edit:focus-visible,
+.welvra-rekam-profile-item__delete:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.welvra-rekam-profiles-footer{
+  padding:12px 16px max(env(safe-area-inset-bottom),16px);
+  border-top:1px solid rgba(200,134,10,.1);
+  flex-shrink:0;
+}
+html.dark .welvra-rekam-profiles-footer{border-top-color:rgba(200,134,10,.18)}
+.welvra-rekam-profiles-add{
+  width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 16px;border:1px dashed rgba(200,134,10,.4);border-radius:999px;
+  background:rgba(200,134,10,.05);color:var(--gold-dark);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:background 200ms,border-color 200ms,transform 150ms;
+}
+html.dark .welvra-rekam-profiles-add{color:var(--gold);background:rgba(200,134,10,.08);border-color:rgba(200,134,10,.45)}
+.welvra-rekam-profiles-add:hover{background:rgba(200,134,10,.12);border-color:rgba(200,134,10,.6)}
+.welvra-rekam-profiles-add:active{transform:scale(.98)}
+.welvra-rekam-profiles-add:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ----- Faceprint scan modal ----- */
+.welvra-rekam-faceprint-overlay{
+  position:fixed;inset:0;z-index:980;
+  background:rgba(10,16,18,.85);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  opacity:0;transition:opacity 280ms ease;
+}
+.welvra-rekam-faceprint-overlay:not([hidden]){opacity:1}
+.welvra-rekam-faceprint-modal{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.95);
+  z-index:981;width:calc(100% - 40px);max-width:340px;
+  background:rgba(20,24,28,.96);
+  border-radius:24px;
+  padding:32px 24px 26px;text-align:center;
+  border:1px solid rgba(200,134,10,.22);
+  box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.04);
+  opacity:0;
+  transition:opacity 280ms ease,transform 320ms cubic-bezier(.16,1,.3,1);
+}
+.welvra-rekam-faceprint-modal[hidden]{display:none}
+.welvra-rekam-faceprint-modal:not([hidden]){opacity:1;transform:translate(-50%,-50%) scale(1)}
+.welvra-rekam-faceprint-close{
+  position:absolute;top:14px;right:14px;
+  width:34px;height:34px;border-radius:50%;border:none;
+  background:rgba(255,255,255,.08);color:rgba(240,237,232,.7);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 200ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-faceprint-close:hover{background:rgba(255,255,255,.16);color:#fff}
+.welvra-rekam-faceprint-close:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.welvra-rekam-faceprint__visual{
+  position:relative;width:120px;height:120px;margin:0 auto 18px;
+  display:flex;align-items:center;justify-content:center;
+}
+.welvra-rekam-faceprint__icon{
+  position:relative;z-index:2;width:80px;height:80px;border-radius:50%;
+  background:rgba(200,134,10,.14);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  border:1.5px solid rgba(200,134,10,.4);
+  transition:background 280ms,color 280ms,border-color 280ms;
+}
+.welvra-rekam-faceprint__icon.success{
+  background:rgba(107,158,120,.22);color:#a3d4b1;border-color:rgba(107,158,120,.6);
+}
+.welvra-rekam-faceprint__pulse{
+  position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle, rgba(200,134,10,.3) 0%, rgba(200,134,10,0) 70%);
+  animation:welvraFaceprintPulse 1.8s ease-out infinite;
+}
+.welvra-rekam-faceprint__icon.success ~ .welvra-rekam-faceprint__pulse,
+.welvra-rekam-faceprint__icon.success + .welvra-rekam-faceprint__pulse{animation:none;opacity:.4}
+@keyframes welvraFaceprintPulse{
+  0%{transform:scale(.9);opacity:.65}
+  100%{transform:scale(1.4);opacity:0}
+}
+.welvra-rekam-faceprint__title{
+  font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;
+  color:#F0EDE8;margin:0 0 6px;letter-spacing:-.2px;
+}
+.welvra-rekam-faceprint__status{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;
+  color:rgba(240,237,232,.7);margin:0;line-height:1.5;min-height:38px;
+}
+
+/* ----- Faceprint lock toggle row in Profil ----- */
+.welvra-rekam-lock-section{padding:18px 24px}
+.welvra-rekam-lock-row{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.welvra-rekam-lock-row__label{flex:1;min-width:0}
+.welvra-rekam-lock-row__title{
+  display:block;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;
+  color:var(--teal-dark);margin-bottom:4px;
+}
+html.dark .welvra-rekam-lock-row__title{color:#F0EDE8}
+.welvra-rekam-lock-row__sub{
+  display:block;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11.5px;
+  color:var(--txt-secondary);line-height:1.45;
+}
+
+/* iOS-style toggle switch */
+.welvra-toggle{
+  flex-shrink:0;width:46px;height:26px;
+  background:rgba(0,0,0,.12);border:none;border-radius:999px;
+  padding:0;cursor:pointer;position:relative;
+  transition:background 200ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-toggle.on{background:linear-gradient(135deg,var(--teal),var(--gold))}
+.welvra-toggle:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.welvra-toggle__thumb{
+  position:absolute;top:3px;left:3px;
+  width:20px;height:20px;border-radius:50%;
+  background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.18);
+  transition:transform 220ms cubic-bezier(.16,1,.3,1);
+}
+.welvra-toggle.on .welvra-toggle__thumb{transform:translateX(20px)}
+html.dark .welvra-toggle{background:rgba(255,255,255,.12)}
+
+/* ----- Share button in detail footer ----- */
+.welvra-rekam-detail-share{
+  flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:11px 8px;border-radius:999px;border:none;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;
+  cursor:pointer;background:rgba(107,158,120,.14);color:var(--sage);
+  transition:transform 150ms,background 200ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-detail-share:hover{background:rgba(107,158,120,.22)}
+.welvra-rekam-detail-share:active{transform:scale(.97)}
+.welvra-rekam-detail-share:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4b1}
+
+/* ----- Reduced motion for Phase 2H ----- */
+@media (prefers-reduced-motion:reduce){
+  .welvra-rekam-profiles-modal,.welvra-rekam-profile-form-modal,
+  .welvra-rekam-faceprint-modal,.welvra-rekam-faceprint-overlay,
+  .welvra-rekam-profiles-overlay,.welvra-rekam-profile-form-overlay{transition:none}
+  .welvra-rekam-faceprint__pulse{animation:none;opacity:.3}
+  .welvra-rekam-faceprint__icon{transition:none}
+  .welvra-toggle__thumb,.welvra-toggle{transition:none}
+  .welvra-rekam-profile-switcher,.welvra-rekam-profile-item__main,
+  .welvra-rekam-profiles-add,.welvra-rekam-detail-share{transition:none}
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -7310,6 +7574,8 @@ html.dark .welvra-lab-save-banner__dismiss:hover{background:rgba(255,255,255,.06
 <!-- Phase 2G: OCR (Tesseract.js) + Charts (Chart.js) — defer-loaded so they don't block first paint -->
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.5/dist/tesseract.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<!-- Phase 2H: jsPDF for share-to-doctor PDF export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 </head>
 <body>
 
@@ -9343,7 +9609,14 @@ html.dark .welvra-lab-save-banner__dismiss:hover{background:rgba(255,255,255,.06
           <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
       </button>
-      <h2 id="rekamPanelTitle" class="welvra-rekam-title">Rekam Medis</h2>
+      <div class="welvra-rekam-header__center">
+        <h2 id="rekamPanelTitle" class="welvra-rekam-title">Rekam Medis</h2>
+        <button type="button" class="welvra-rekam-profile-switcher" id="welvraRekamProfileSwitcher" onclick="openRekamProfilesModal()" aria-label="Ganti profil">
+          <span class="welvra-rekam-profile-switcher__avatar" id="welvraRekamProfileSwitcherAvatar" aria-hidden="true">S</span>
+          <span class="welvra-rekam-profile-switcher__name" id="welvraRekamProfileSwitcherName">Saya</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
       <span class="welvra-rekam-header__spacer" aria-hidden="true"></span>
     </header>
 
@@ -9414,6 +9687,14 @@ html.dark .welvra-lab-save-banner__dismiss:hover{background:rgba(255,255,255,.06
       </svg>
       <span>Edit</span>
     </button>
+    <button type="button" class="welvra-rekam-detail-share" id="welvraRekamDetailShareBtn" onclick="shareRekamToDoctor()" aria-label="Bagikan ke dokter (PDF)">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/>
+        <polyline points="16 6 12 2 8 6"/>
+        <line x1="12" y1="2" x2="12" y2="15"/>
+      </svg>
+      <span>Bagikan</span>
+    </button>
     <button type="button" class="welvra-rekam-detail-delete" onclick="confirmDeleteRekamRecord()" aria-label="Hapus catatan">
       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <polyline points="3 6 5 6 21 6"/>
@@ -9441,6 +9722,92 @@ html.dark .welvra-lab-save-banner__dismiss:hover{background:rgba(255,255,255,.06
     <button type="button" class="welvra-rekam-confirm__delete" onclick="doDeleteRekamRecord()">Hapus</button>
   </div>
 </div>
+
+<!-- ============================================================ -->
+<!-- PHASE 2H — Profiles modal + Profile form + Faceprint scan    -->
+<!-- ============================================================ -->
+<div class="welvra-rekam-profiles-overlay" id="welvraRekamProfilesOverlay" hidden onclick="closeRekamProfilesModal()"></div>
+<aside class="welvra-rekam-profiles-modal" id="welvraRekamProfilesModal" role="dialog" aria-modal="true"
+       aria-labelledby="rekamProfilesTitle" hidden>
+  <header class="welvra-rekam-form-header">
+    <button class="welvra-rekam-form-close" type="button" onclick="closeRekamProfilesModal()" aria-label="Tutup">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <h3 id="rekamProfilesTitle" class="welvra-rekam-form-title">Profil</h3>
+    <span class="welvra-rekam-form-header__spacer" aria-hidden="true"></span>
+  </header>
+  <ul class="welvra-rekam-profiles-list" id="welvraRekamProfilesList" aria-label="Daftar profil"></ul>
+  <footer class="welvra-rekam-profiles-footer">
+    <button type="button" class="welvra-rekam-profiles-add" onclick="openRekamProfileForm()" aria-label="Tambah profil baru">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      <span>Tambah Profil</span>
+    </button>
+  </footer>
+</aside>
+
+<div class="welvra-rekam-profile-form-overlay" id="welvraRekamProfileFormOverlay" hidden onclick="closeRekamProfileForm()"></div>
+<aside class="welvra-rekam-profile-form-modal" id="welvraRekamProfileFormModal" role="dialog" aria-modal="true"
+       aria-labelledby="welvraRekamProfileFormTitle" hidden>
+  <header class="welvra-rekam-form-header">
+    <button class="welvra-rekam-form-close" type="button" onclick="closeRekamProfileForm()" aria-label="Tutup">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <h3 id="welvraRekamProfileFormTitle" class="welvra-rekam-form-title">Tambah Profil</h3>
+    <span class="welvra-rekam-form-header__spacer" aria-hidden="true"></span>
+  </header>
+  <form class="welvra-rekam-form" onsubmit="event.preventDefault(); saveRekamProfile();" novalidate>
+    <div class="welvra-rekam-field">
+      <label class="welvra-rekam-field__label welvra-rekam-field__label--required" for="welvraRekamProfileFormName">Nama</label>
+      <input type="text" id="welvraRekamProfileFormName" class="welvra-rekam-field__input" placeholder="mis. Siti" aria-required="true">
+      <div class="welvra-rekam-field__error">Nama wajib diisi</div>
+    </div>
+    <div class="welvra-rekam-field">
+      <label class="welvra-rekam-field__label" for="welvraRekamProfileFormRelation">Hubungan</label>
+      <select id="welvraRekamProfileFormRelation" class="welvra-rekam-field__select">
+        <option value="pasangan">Pasangan</option>
+        <option value="anak">Anak</option>
+        <option value="orangtua">Orang Tua</option>
+        <option value="lainnya">Lainnya</option>
+      </select>
+    </div>
+    <div class="welvra-rekam-field">
+      <label class="welvra-rekam-field__label" for="welvraRekamProfileFormBirthDate">Tanggal Lahir (opsional)</label>
+      <input type="date" id="welvraRekamProfileFormBirthDate" class="welvra-rekam-field__input">
+    </div>
+  </form>
+  <footer class="welvra-rekam-form-actions">
+    <button type="button" class="welvra-rekam-form-cancel" onclick="closeRekamProfileForm()">Batal</button>
+    <button type="button" class="welvra-rekam-form-save" onclick="saveRekamProfile()">Simpan</button>
+  </footer>
+</aside>
+
+<!-- Faceprint scan modal for Rekam Medis lock -->
+<div class="welvra-rekam-faceprint-overlay" id="welvraRekamFaceprintOverlay" hidden></div>
+<aside class="welvra-rekam-faceprint-modal" id="welvraRekamFaceprintModal" role="dialog" aria-modal="true"
+       aria-labelledby="rekamFaceprintTitle" hidden>
+  <button class="welvra-rekam-faceprint-close" type="button" onclick="cancelRekamFaceprintScan()" aria-label="Batal">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+  <div class="welvra-rekam-faceprint__visual">
+    <div class="welvra-rekam-faceprint__pulse" aria-hidden="true"></div>
+    <div class="welvra-rekam-faceprint__icon" id="welvraRekamFaceprintIcon" aria-hidden="true">
+      <svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 8H10a2 2 0 00-2 2v6M48 8h6a2 2 0 012 2v6M16 56H10a2 2 0 01-2-2v-6M48 56h6a2 2 0 002-2v-6"/>
+        <circle cx="24" cy="28" r="2.5"/><circle cx="40" cy="28" r="2.5"/>
+        <path d="M32 28v8l-3 3"/>
+        <path d="M24 42c2 2 5 3 8 3s6-1 8-3"/>
+      </svg>
+    </div>
+  </div>
+  <h2 id="rekamFaceprintTitle" class="welvra-rekam-faceprint__title">Buka Rekam Medis</h2>
+  <p class="welvra-rekam-faceprint__status" id="welvraRekamFaceprintStatus">Tatap kamera untuk verifikasi...</p>
+</aside>
 
 <script>
 // ===== PHASE 3A: SUPABASE AUTH =====
@@ -22265,20 +22632,128 @@ window.fpShowTermsInfo = fpShowTermsInfo;
   };
 
   // ----- Helpers (exposed for testing) -----
-  function welvraRekamLoad(){
-    try {
-      var raw = localStorage.getItem(STORAGE_KEY);
-      var data = raw ? JSON.parse(raw) : null;
-      if (!data || typeof data !== 'object') data = {};
-      CATEGORIES.forEach(function(k){ if (!Array.isArray(data[k])) data[k] = []; });
-      return data;
-    } catch (e) {
-      return { lab:[], obat:[], vital:[], catatan:[] };
+  // PHASE 2H — Profile-scoped data layer with backward-compatible migration from Phase 2F flat schema.
+  var PROFILES_KEY = 'welvra.rekamMedis.profiles';
+  var CURRENT_PROFILE_KEY = 'welvra.rekamMedis.currentProfileId';
+  var FACEPRINT_LOCK_KEY = 'welvra.rekamMedis.faceprintLock';
+
+  function welvraRekamMigrate(){
+    // Idempotent: if profiles array exists, migration already ran.
+    var profilesRaw = localStorage.getItem(PROFILES_KEY);
+    if (profilesRaw){
+      try {
+        var existing = JSON.parse(profilesRaw);
+        if (Array.isArray(existing) && existing.length > 0) return;
+      } catch(e){}
     }
-  }
-  function welvraRekamSave(data){
+    var raw = localStorage.getItem(STORAGE_KEY);
+    var data = null;
+    try { data = raw ? JSON.parse(raw) : null; } catch(e){ data = null; }
+    if (!data || typeof data !== 'object') data = {};
+
+    // Detect Phase 2F flat structure: has lab/obat/vital/catatan arrays at top level
+    var isFlat = !!(Array.isArray(data.lab) || Array.isArray(data.obat)
+      || Array.isArray(data.vital) || Array.isArray(data.catatan));
+    var defaultName = '';
+    try { defaultName = localStorage.getItem('welvra_username') || ''; } catch(e){}
+    if (!defaultName) defaultName = 'Saya';
+    var defaultProfile = {
+      id:'default', name:defaultName, relation:'self', birthDate:null, createdAt:Date.now()
+    };
+    var newData;
+    if (isFlat){
+      // Wrap existing Phase 2F flat data under default profile
+      var normalized = { lab:[], obat:[], vital:[], catatan:[] };
+      CATEGORIES.forEach(function(k){ if (Array.isArray(data[k])) normalized[k] = data[k]; });
+      newData = { 'default': normalized };
+    } else {
+      newData = { 'default': { lab:[], obat:[], vital:[], catatan:[] } };
+    }
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      localStorage.setItem(PROFILES_KEY, JSON.stringify([defaultProfile]));
+      localStorage.setItem(CURRENT_PROFILE_KEY, 'default');
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+    } catch(e){ console.warn('Phase 2H migration failed', e); }
+  }
+
+  function welvraRekamGetProfiles(){
+    welvraRekamMigrate();
+    try {
+      var arr = JSON.parse(localStorage.getItem(PROFILES_KEY) || '[]');
+      return Array.isArray(arr) ? arr : [];
+    } catch(e){ return []; }
+  }
+  function welvraRekamGetCurrentProfile(){
+    var profiles = welvraRekamGetProfiles();
+    var currentId = localStorage.getItem(CURRENT_PROFILE_KEY) || 'default';
+    return profiles.find(function(p){ return p.id === currentId; }) || profiles[0] || null;
+  }
+  function welvraRekamSetCurrentProfile(profileId){
+    if (!profileId) return false;
+    var profiles = welvraRekamGetProfiles();
+    if (!profiles.some(function(p){ return p.id === profileId; })) return false;
+    localStorage.setItem(CURRENT_PROFILE_KEY, profileId);
+    return true;
+  }
+  function welvraRekamAddProfile(name, relation, birthDate){
+    var profiles = welvraRekamGetProfiles();
+    var newProfile = {
+      id: 'profile_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
+      name: name, relation: relation || 'lainnya', birthDate: birthDate || null,
+      createdAt: Date.now()
+    };
+    profiles.push(newProfile);
+    localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles));
+    var allData = {};
+    try { allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e){}
+    allData[newProfile.id] = { lab:[], obat:[], vital:[], catatan:[] };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
+    return newProfile;
+  }
+  function welvraRekamUpdateProfile(profileId, updates){
+    var profiles = welvraRekamGetProfiles();
+    var idx = profiles.findIndex(function(p){ return p.id === profileId; });
+    if (idx === -1) return false;
+    profiles[idx] = Object.assign({}, profiles[idx], updates);
+    localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles));
+    return true;
+  }
+  function welvraRekamDeleteProfile(profileId){
+    if (profileId === 'default') return false;
+    var profiles = welvraRekamGetProfiles().filter(function(p){ return p.id !== profileId; });
+    localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles));
+    var allData = {};
+    try { allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e){}
+    delete allData[profileId];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
+    if ((localStorage.getItem(CURRENT_PROFILE_KEY) || '') === profileId){
+      localStorage.setItem(CURRENT_PROFILE_KEY, 'default');
+    }
+    return true;
+  }
+
+  function welvraRekamLoad(){
+    welvraRekamMigrate();
+    var allData = {};
+    try { allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e){}
+    if (!allData || typeof allData !== 'object') allData = {};
+    var currentId = localStorage.getItem(CURRENT_PROFILE_KEY) || 'default';
+    var profileData = allData[currentId];
+    if (!profileData || typeof profileData !== 'object'){
+      profileData = { lab:[], obat:[], vital:[], catatan:[] };
+    }
+    CATEGORIES.forEach(function(k){ if (!Array.isArray(profileData[k])) profileData[k] = []; });
+    return profileData;
+  }
+  function welvraRekamSave(profileData){
+    welvraRekamMigrate();
+    var allData = {};
+    try { allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e){}
+    if (!allData || typeof allData !== 'object') allData = {};
+    var currentId = localStorage.getItem(CURRENT_PROFILE_KEY) || 'default';
+    allData[currentId] = profileData;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
       return true;
     } catch (e) {
       var msg = 'Penyimpanan penuh — hapus attachment besar atau record lama';
@@ -22924,30 +23399,42 @@ window.fpShowTermsInfo = fpShowTermsInfo;
     if (!record || !category) return;
     var formattedDate = formatRekamDateLong(record.date);
     var message = '';
-    var context = { source:'rekam-medis', category:category, recordId:record.id };
+    // Phase 2H: profile-aware subject prefix
+    var profile = welvraRekamGetCurrentProfile();
+    var relationSubject = { self:'saya', pasangan:'istri saya', anak:'anak saya', orangtua:'orang tua saya', lainnya:'keluarga saya' };
+    var subjectShort = profile ? (relationSubject[profile.relation] || 'saya') : 'saya';
+    var isSelf = !profile || profile.relation === 'self';
+    var subjectFull = isSelf ? 'saya' : (subjectShort + ' (' + profile.name + ')');
+    var context = {
+      source:'rekam-medis', category:category, recordId:record.id,
+      profileId: profile ? profile.id : 'default',
+      profileName: profile ? profile.name : '',
+      profileRelation: profile ? profile.relation : 'self'
+    };
 
     if (category === 'lab'){
-      message = 'Saya ingin konsultasi tentang hasil lab "' + record.title + '"';
+      message = 'Saya ingin konsultasi tentang hasil lab "' + record.title + '"' + (isSelf ? '' : ' untuk ' + subjectFull);
       if (record.provider) message += ' dari ' + record.provider;
       message += ' tanggal ' + formattedDate + '.';
       if (record.notes) message += ' Berikut catatannya: ' + record.notes;
       message += ' Boleh tolong dijelaskan dan kasih saran?';
     } else if (category === 'obat'){
-      message = 'Saya ' + (record.status === 'selesai' ? 'pernah' : 'sedang') + ' mengonsumsi obat ' + record.name;
+      var subjectCap = subjectShort.charAt(0).toUpperCase() + subjectShort.slice(1);
+      message = subjectCap + ' ' + (record.status === 'selesai' ? 'pernah' : 'sedang') + ' mengonsumsi obat ' + record.name;
       if (record.dosage) message += ' ' + record.dosage;
       if (record.frequency) message += ', ' + record.frequency;
       if (record.doctor) message += ', diresepkan oleh ' + record.doctor;
       message += ' sejak ' + formattedDate + '.';
       if (record.notes) message += ' Catatan: ' + record.notes;
-      message += ' Apa yang perlu saya perhatikan?';
+      message += ' Apa yang perlu diperhatikan?';
     } else if (category === 'vital'){
       var typeMap = { tekanan_darah:'tekanan darah', berat_badan:'berat badan', tinggi_badan:'tinggi badan', bmi:'BMI', lainnya:'pengukuran' };
       var typeLabel = typeMap[record.type] || 'pengukuran';
-      message = 'Pengukuran ' + typeLabel + ' saya tanggal ' + formattedDate + ' adalah ' + record.value + '.';
+      message = 'Pengukuran ' + typeLabel + ' ' + (isSelf ? 'saya' : 'untuk ' + subjectFull) + ' tanggal ' + formattedDate + ' adalah ' + record.value + '.';
       if (record.notes) message += ' Catatan: ' + record.notes;
       message += ' Bagaimana interpretasinya?';
     } else if (category === 'catatan'){
-      message = 'Tanggal ' + formattedDate + ' saya konsultasi dengan ' + record.doctor;
+      message = 'Tanggal ' + formattedDate + ', ' + subjectFull + ' konsultasi dengan ' + record.doctor;
       if (record.clinic) message += ' di ' + record.clinic;
       message += '. Diagnosis: ' + record.diagnosis + '.';
       if (record.advice) message += ' Saran yang diberikan: ' + record.advice;
@@ -23576,6 +24063,556 @@ window.fpShowTermsInfo = fpShowTermsInfo;
   // Retry once after a short delay in case BP modal mounts later
   setTimeout(injectTensiAutoLogToggle, 800);
 
+  // ============================================================
+  // PHASE 2H — Multi-profile UI + Faceprint lock + PDF share
+  // ============================================================
+
+  // ----- Profile switcher header sync -----
+  function renderRekamProfileSwitcher(){
+    var btn = document.getElementById('welvraRekamProfileSwitcher');
+    var avatarEl = document.getElementById('welvraRekamProfileSwitcherAvatar');
+    var nameEl = document.getElementById('welvraRekamProfileSwitcherName');
+    if (!btn || !avatarEl || !nameEl) return;
+    var profile = welvraRekamGetCurrentProfile();
+    var name = profile ? profile.name : 'Saya';
+    avatarEl.textContent = (name.charAt(0) || 'S').toUpperCase();
+    nameEl.textContent = name;
+    btn.setAttribute('aria-label', 'Ganti profil — saat ini ' + name);
+  }
+
+  // Run on panel open
+  var __originalOpenRekamPanelInternal = openRekamPanel;
+  function openRekamPanelWithSync(){
+    __originalOpenRekamPanelInternal();
+    renderRekamProfileSwitcher();
+  }
+
+  // ----- Profiles modal -----
+  var RELATION_LABELS = { self:'Saya', pasangan:'Pasangan', anak:'Anak', orangtua:'Orang Tua', lainnya:'Keluarga' };
+  function openRekamProfilesModal(){
+    var modal = document.getElementById('welvraRekamProfilesModal');
+    var overlay = document.getElementById('welvraRekamProfilesOverlay');
+    if (!modal) return;
+    state.lastFocusedBeforeProfiles = document.activeElement;
+    renderRekamProfilesList();
+    overlay.hidden = false;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){
+      var active = modal.querySelector('.welvra-rekam-profile-item.active .welvra-rekam-profile-item__main')
+        || modal.querySelector('.welvra-rekam-profile-item__main');
+      if (active) try { active.focus({ preventScroll:true }); } catch(e){}
+    }, 280);
+  }
+  function closeRekamProfilesModal(){
+    var modal = document.getElementById('welvraRekamProfilesModal');
+    var overlay = document.getElementById('welvraRekamProfilesOverlay');
+    if (!modal || modal.hidden) return;
+    modal.hidden = true;
+    overlay.hidden = true;
+    if (state.lastFocusedBeforeProfiles && document.body.contains(state.lastFocusedBeforeProfiles)){
+      try { state.lastFocusedBeforeProfiles.focus({ preventScroll:true }); } catch(e){}
+    }
+    if (!state.panelOpen && !isAnyOtherRekamModalOpen()){
+      document.body.style.overflow = '';
+    }
+  }
+  function renderRekamProfilesList(){
+    var list = document.getElementById('welvraRekamProfilesList');
+    if (!list) return;
+    var profiles = welvraRekamGetProfiles();
+    var currentId = localStorage.getItem(CURRENT_PROFILE_KEY) || 'default';
+    list.innerHTML = profiles.map(function(p){
+      var isActive = p.id === currentId;
+      var isDefault = p.id === 'default';
+      var relationLabel = RELATION_LABELS[p.relation] || 'Keluarga';
+      var initial = (p.name || '?').charAt(0).toUpperCase();
+      var checkmark = isActive
+        ? '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>'
+        : '';
+      var editBtn = !isDefault
+        ? '<button class="welvra-rekam-profile-item__edit" type="button" onclick="editRekamProfile(\'' + escHtml(p.id) + '\')" aria-label="Edit profil ' + escHtml(p.name) + '"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>'
+        : '';
+      var deleteBtn = !isDefault
+        ? '<button class="welvra-rekam-profile-item__delete" type="button" onclick="confirmDeleteRekamProfile(\'' + escHtml(p.id) + '\')" aria-label="Hapus profil ' + escHtml(p.name) + '"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></button>'
+        : '';
+      return '<li class="welvra-rekam-profile-item' + (isActive ? ' active' : '') + '">'
+        + '<button class="welvra-rekam-profile-item__main" type="button" onclick="selectRekamProfile(\'' + escHtml(p.id) + '\')" aria-current="' + (isActive ? 'true' : 'false') + '">'
+          + '<span class="welvra-rekam-profile-item__avatar" aria-hidden="true">' + escHtml(initial) + '</span>'
+          + '<span class="welvra-rekam-profile-item__text">'
+            + '<span class="welvra-rekam-profile-item__name">' + escHtml(p.name) + '</span>'
+            + '<span class="welvra-rekam-profile-item__relation">' + escHtml(relationLabel) + '</span>'
+          + '</span>'
+          + '<span class="welvra-rekam-profile-item__check" aria-hidden="true">' + checkmark + '</span>'
+        + '</button>'
+        + editBtn + deleteBtn
+      + '</li>';
+    }).join('');
+  }
+  function selectRekamProfile(profileId){
+    if (!welvraRekamSetCurrentProfile(profileId)) return;
+    renderRekamProfileSwitcher();
+    renderRekamCategoryList(state.activeCategory);
+    closeRekamProfilesModal();
+    var p = welvraRekamGetCurrentProfile();
+    if (p) toast('Profil: ' + p.name);
+  }
+
+  // ----- Profile form (add/edit) -----
+  function openRekamProfileForm(existingProfileId){
+    var modal = document.getElementById('welvraRekamProfileFormModal');
+    var overlay = document.getElementById('welvraRekamProfileFormOverlay');
+    var titleEl = document.getElementById('welvraRekamProfileFormTitle');
+    var nameEl = document.getElementById('welvraRekamProfileFormName');
+    var relationEl = document.getElementById('welvraRekamProfileFormRelation');
+    var birthDateEl = document.getElementById('welvraRekamProfileFormBirthDate');
+    if (!modal || !nameEl) return;
+    state.lastFocusedBeforeProfileForm = document.activeElement;
+    if (existingProfileId){
+      var p = welvraRekamGetProfiles().find(function(x){ return x.id === existingProfileId; });
+      if (!p) return;
+      titleEl.textContent = 'Edit Profil';
+      nameEl.value = p.name || '';
+      relationEl.value = (p.relation && p.relation !== 'self') ? p.relation : 'pasangan';
+      birthDateEl.value = p.birthDate || '';
+      window.__rekamProfileFormEditingId = existingProfileId;
+    } else {
+      titleEl.textContent = 'Tambah Profil';
+      nameEl.value = '';
+      relationEl.value = 'pasangan';
+      birthDateEl.value = '';
+      window.__rekamProfileFormEditingId = null;
+    }
+    // Clear error states
+    modal.querySelectorAll('.welvra-rekam-field--error').forEach(function(f){ f.classList.remove('welvra-rekam-field--error'); });
+    overlay.hidden = false;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ try { nameEl.focus({ preventScroll:true }); } catch(e){} }, 280);
+  }
+  function closeRekamProfileForm(){
+    var modal = document.getElementById('welvraRekamProfileFormModal');
+    var overlay = document.getElementById('welvraRekamProfileFormOverlay');
+    if (!modal || modal.hidden) return;
+    modal.hidden = true;
+    overlay.hidden = true;
+    window.__rekamProfileFormEditingId = null;
+    if (state.lastFocusedBeforeProfileForm && document.body.contains(state.lastFocusedBeforeProfileForm)){
+      try { state.lastFocusedBeforeProfileForm.focus({ preventScroll:true }); } catch(e){}
+    }
+    if (!state.panelOpen && !isAnyOtherRekamModalOpen()){
+      document.body.style.overflow = '';
+    }
+  }
+  function editRekamProfile(profileId){
+    closeRekamProfilesModal();
+    setTimeout(function(){ openRekamProfileForm(profileId); }, 220);
+  }
+  function saveRekamProfile(){
+    var nameEl = document.getElementById('welvraRekamProfileFormName');
+    var relationEl = document.getElementById('welvraRekamProfileFormRelation');
+    var birthDateEl = document.getElementById('welvraRekamProfileFormBirthDate');
+    var name = (nameEl.value || '').trim();
+    var relation = relationEl.value || 'lainnya';
+    var birthDate = birthDateEl.value || null;
+    var nameField = nameEl.closest('.welvra-rekam-field');
+    if (!name){
+      if (nameField) nameField.classList.add('welvra-rekam-field--error');
+      try { nameEl.focus(); } catch(e){}
+      toast('Nama wajib diisi');
+      return;
+    }
+    var editingId = window.__rekamProfileFormEditingId;
+    if (editingId){
+      welvraRekamUpdateProfile(editingId, { name:name, relation:relation, birthDate:birthDate });
+      toast('Profil diperbarui');
+    } else {
+      var newP = welvraRekamAddProfile(name, relation, birthDate);
+      welvraRekamSetCurrentProfile(newP.id);
+      toast('Profil baru ditambahkan: ' + name);
+    }
+    closeRekamProfileForm();
+    renderRekamProfileSwitcher();
+    renderRekamCategoryList(state.activeCategory);
+    // If profiles modal is open, refresh it
+    if (!document.getElementById('welvraRekamProfilesModal').hidden){
+      renderRekamProfilesList();
+    }
+  }
+  function confirmDeleteRekamProfile(profileId){
+    if (profileId === 'default') return;
+    var p = welvraRekamGetProfiles().find(function(x){ return x.id === profileId; });
+    if (!p) return;
+    // Use existing welvra-rekam-confirm modal repurposed for profile delete
+    state.pendingProfileDelete = profileId;
+    var modal = document.getElementById('welvraRekamConfirm');
+    var overlay = document.getElementById('welvraRekamConfirmOverlay');
+    var titleEl = document.getElementById('rekamConfirmTitle');
+    var descEl = document.getElementById('rekamConfirmDesc');
+    var deleteBtn = modal.querySelector('.welvra-rekam-confirm__delete');
+    titleEl.textContent = 'Hapus profil "' + p.name + '"?';
+    descEl.textContent = 'Profil beserta seluruh rekam medisnya akan dihapus permanen.';
+    deleteBtn.setAttribute('data-confirm-mode', 'profile');
+    deleteBtn.onclick = function(){ doDeleteRekamProfile(); };
+    overlay.hidden = false;
+    modal.hidden = false;
+  }
+  function doDeleteRekamProfile(){
+    var profileId = state.pendingProfileDelete;
+    if (!profileId) return;
+    welvraRekamDeleteProfile(profileId);
+    state.pendingProfileDelete = null;
+    // Reset confirm modal to default record-delete mode
+    var modal = document.getElementById('welvraRekamConfirm');
+    var overlay = document.getElementById('welvraRekamConfirmOverlay');
+    var titleEl = document.getElementById('rekamConfirmTitle');
+    var descEl = document.getElementById('rekamConfirmDesc');
+    var deleteBtn = modal.querySelector('.welvra-rekam-confirm__delete');
+    titleEl.textContent = 'Yakin hapus catatan ini?';
+    descEl.textContent = 'Catatan yang dihapus tidak bisa dikembalikan.';
+    deleteBtn.removeAttribute('data-confirm-mode');
+    // Restore default record-delete handler (the inline onclick attribute was overridden in JS)
+    deleteBtn.onclick = function(){ doDeleteRekamRecord(); };
+    modal.hidden = true;
+    overlay.hidden = true;
+    renderRekamProfilesList();
+    renderRekamProfileSwitcher();
+    renderRekamCategoryList(state.activeCategory);
+    toast('Profil dihapus');
+  }
+
+  // ----- Faceprint biometric lock -----
+  function toggleRekamFaceprintLock(){
+    var current = localStorage.getItem(FACEPRINT_LOCK_KEY) === 'true';
+    var next = !current;
+    localStorage.setItem(FACEPRINT_LOCK_KEY, next ? 'true' : 'false');
+    var toggle = document.getElementById('welvraFaceprintLockToggle');
+    if (toggle){
+      toggle.setAttribute('aria-checked', next ? 'true' : 'false');
+      toggle.classList.toggle('on', next);
+    }
+    toast(next ? 'Kunci Rekam Medis aktif' : 'Kunci Rekam Medis nonaktif');
+  }
+  function isRekamFaceprintLockEnabled(){
+    return localStorage.getItem(FACEPRINT_LOCK_KEY) === 'true';
+  }
+  function showRekamFaceprintScan(){
+    var modal = document.getElementById('welvraRekamFaceprintModal');
+    var overlay = document.getElementById('welvraRekamFaceprintOverlay');
+    var icon = document.getElementById('welvraRekamFaceprintIcon');
+    var statusEl = document.getElementById('welvraRekamFaceprintStatus');
+    if (!modal) return;
+    icon.classList.remove('success','failed');
+    statusEl.textContent = 'Tatap kamera untuk verifikasi...';
+    overlay.hidden = false;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    state.lastFocusedBeforeFaceprint = document.activeElement;
+    state.faceprintCancelled = false;
+    // Mock scan: 1.8s then success
+    state.faceprintScanTimer = setTimeout(function(){
+      if (state.faceprintCancelled) return;
+      icon.classList.add('success');
+      statusEl.textContent = 'Verifikasi berhasil';
+      setTimeout(function(){
+        if (state.faceprintCancelled) return;
+        closeRekamFaceprintScan();
+        __originalOpenRekamPanelInternal();
+        renderRekamProfileSwitcher();
+      }, 600);
+    }, 1800);
+  }
+  function closeRekamFaceprintScan(){
+    var modal = document.getElementById('welvraRekamFaceprintModal');
+    var overlay = document.getElementById('welvraRekamFaceprintOverlay');
+    if (!modal || modal.hidden) return;
+    modal.hidden = true;
+    overlay.hidden = true;
+    if (state.faceprintScanTimer){ clearTimeout(state.faceprintScanTimer); state.faceprintScanTimer = null; }
+    if (state.lastFocusedBeforeFaceprint && document.body.contains(state.lastFocusedBeforeFaceprint)){
+      try { state.lastFocusedBeforeFaceprint.focus({ preventScroll:true }); } catch(e){}
+    }
+    if (!state.panelOpen) document.body.style.overflow = '';
+  }
+  function cancelRekamFaceprintScan(){
+    state.faceprintCancelled = true;
+    closeRekamFaceprintScan();
+  }
+
+  // Override openRekamPanel to gate via Faceprint when enabled
+  openRekamPanel = function(){
+    if (isRekamFaceprintLockEnabled()){
+      showRekamFaceprintScan();
+      return;
+    }
+    openRekamPanelWithSync();
+  };
+  // Re-expose immediately so the wrapper takes effect
+  window.openRekamPanel = openRekamPanel;
+
+  // ----- Profil settings injection: Faceprint lock toggle -----
+  function injectFaceprintLockToggle(){
+    var screen = document.getElementById('welvra-profile-screen') || document.querySelector('.welvra-profile-screen');
+    if (!screen) return false;
+    if (screen.querySelector('#welvraFaceprintLockToggle')) return true;
+    var signOutSection = screen.querySelector('#profileSignOutSection') || screen.querySelector('.welvra-profile-signout');
+    var lockEnabled = isRekamFaceprintLockEnabled();
+    var section = document.createElement('section');
+    section.className = 'welvra-profile-section welvra-rekam-lock-section';
+    section.innerHTML = '<div class="welvra-rekam-lock-row">'
+      + '<div class="welvra-rekam-lock-row__label">'
+        + '<span class="welvra-rekam-lock-row__title">Kunci Rekam Medis</span>'
+        + '<span class="welvra-rekam-lock-row__sub">Verifikasi Faceprint sebelum membuka tab Rekam Medis</span>'
+      + '</div>'
+      + '<button type="button" class="welvra-toggle' + (lockEnabled ? ' on' : '') + '" id="welvraFaceprintLockToggle" role="switch" aria-checked="' + (lockEnabled ? 'true' : 'false') + '" aria-label="Kunci Rekam Medis dengan Faceprint" onclick="toggleRekamFaceprintLock()">'
+        + '<span class="welvra-toggle__thumb" aria-hidden="true"></span>'
+      + '</button>'
+    + '</div>';
+    if (signOutSection && signOutSection.parentNode === screen){
+      screen.insertBefore(section, signOutSection);
+    } else {
+      // Fallback: append to scrollable content
+      var content = screen.querySelector('.welvra-profile-content') || screen;
+      content.appendChild(section);
+    }
+    return true;
+  }
+  // Profile screen mounts lazily — try now and on first openProfilePanel call
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ injectFaceprintLockToggle(); });
+  } else {
+    injectFaceprintLockToggle();
+  }
+  setTimeout(injectFaceprintLockToggle, 500);
+  setTimeout(injectFaceprintLockToggle, 1500);
+  // Also retry every time Profil tab opens
+  if (typeof window.openProfilePanel === 'function' && !window.__profilePanelHookedForLock){
+    var __origOpenProfilePanel = window.openProfilePanel;
+    window.openProfilePanel = function(){
+      var res = __origOpenProfilePanel.apply(this, arguments);
+      setTimeout(injectFaceprintLockToggle, 100);
+      setTimeout(injectFaceprintLockToggle, 500);
+      return res;
+    };
+    window.__profilePanelHookedForLock = true;
+  } else {
+    // Profile panel may load later; poll briefly
+    var __profilePanelAttempts = 0;
+    var __profilePanelInterval = setInterval(function(){
+      if (typeof window.openProfilePanel === 'function' && !window.__profilePanelHookedForLock){
+        var __origOpenProfilePanel = window.openProfilePanel;
+        window.openProfilePanel = function(){
+          var res = __origOpenProfilePanel.apply(this, arguments);
+          setTimeout(injectFaceprintLockToggle, 100);
+          setTimeout(injectFaceprintLockToggle, 500);
+          return res;
+        };
+        window.__profilePanelHookedForLock = true;
+        clearInterval(__profilePanelInterval);
+      } else if (++__profilePanelAttempts > 30){
+        clearInterval(__profilePanelInterval);
+      }
+    }, 200);
+  }
+
+  // ----- PDF share (jsPDF) -----
+  function formatPdfDate(date){
+    if (!(date instanceof Date) || isNaN(date.getTime())) return '';
+    var months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
+  }
+  function buildPdfFields(record, category){
+    var f = [];
+    if (category === 'lab'){
+      if (record.provider) f.push({ label:'Penyelenggara', value:record.provider });
+      if (record.notes) f.push({ label:'Catatan Hasil', value:record.notes });
+    } else if (category === 'obat'){
+      if (record.dosage) f.push({ label:'Dosis', value:record.dosage });
+      if (record.frequency) f.push({ label:'Frekuensi', value:record.frequency });
+      if (record.doctor) f.push({ label:'Diresepkan oleh', value:record.doctor });
+      if (record.status) f.push({ label:'Status', value: record.status === 'aktif' ? 'Sedang dikonsumsi' : 'Selesai' });
+      if (record.notes) f.push({ label:'Catatan', value:record.notes });
+    } else if (category === 'vital'){
+      var typeLabels = { tekanan_darah:'Tekanan Darah', berat_badan:'Berat Badan', tinggi_badan:'Tinggi Badan', bmi:'BMI', lainnya:'Pengukuran' };
+      f.push({ label:'Jenis Pengukuran', value: typeLabels[record.type] || 'Pengukuran' });
+      f.push({ label:'Nilai', value: record.value || '' });
+      if (record.notes) f.push({ label:'Catatan', value:record.notes });
+    } else if (category === 'catatan'){
+      f.push({ label:'Dokter', value: record.doctor || '' });
+      if (record.clinic) f.push({ label:'Klinik / RS', value:record.clinic });
+      f.push({ label:'Diagnosis', value: record.diagnosis || '' });
+      if (record.advice) f.push({ label:'Saran / Tindakan', value:record.advice });
+      if (record.nextVisit) f.push({ label:'Kontrol Berikutnya', value: formatPdfDate(parseIsoDate(record.nextVisit)) });
+      if (record.notes) f.push({ label:'Catatan Tambahan', value:record.notes });
+    }
+    return f;
+  }
+  function parseIsoDate(iso){
+    if (!iso) return new Date(NaN);
+    var parts = iso.split('-');
+    if (parts.length !== 3) return new Date(NaN);
+    return new Date(parseInt(parts[0],10), parseInt(parts[1],10)-1, parseInt(parts[2],10));
+  }
+  function generateRekamPDF(record, category){
+    var jspdfLib = window.jspdf;
+    if (!jspdfLib || !jspdfLib.jsPDF){
+      toast('Library PDF belum siap, coba lagi');
+      return null;
+    }
+    var doc = new jspdfLib.jsPDF({ unit:'mm', format:'a4' });
+    var pageWidth = doc.internal.pageSize.getWidth();
+    var pageHeight = doc.internal.pageSize.getHeight();
+    var margin = 20;
+    var y = margin;
+    var profile = welvraRekamGetCurrentProfile() || { name:'Saya', relation:'self', birthDate:null };
+    var categoryLabels = { lab:'HASIL LAB', obat:'RESEP & OBAT', vital:'PENGUKURAN VITAL', catatan:'CATATAN KONSULTASI' };
+
+    // Header
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(16);
+    doc.setTextColor(10,123,108);
+    doc.text('Welvra', margin, y);
+    doc.setFontSize(10);
+    doc.setFont('helvetica','normal');
+    doc.setTextColor(100);
+    doc.text('Rekam Medis', pageWidth - margin, y, { align:'right' });
+    y += 5;
+    doc.setDrawColor(220);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 10;
+
+    // Patient info block
+    var nameDisplay = profile.name + (profile.relation !== 'self' ? ' (' + (RELATION_LABELS[profile.relation] || 'Keluarga') + ')' : '');
+    doc.setFontSize(9); doc.setTextColor(120); doc.setFont('helvetica','bold');
+    doc.text('NAMA', margin, y);
+    doc.setFontSize(12); doc.setTextColor(40); doc.setFont('helvetica','normal');
+    doc.text(nameDisplay, margin, y + 5);
+    doc.setFontSize(9); doc.setTextColor(120); doc.setFont('helvetica','bold');
+    doc.text('TANGGAL CETAK', pageWidth - margin, y, { align:'right' });
+    doc.setFontSize(12); doc.setTextColor(40); doc.setFont('helvetica','normal');
+    doc.text(formatPdfDate(new Date()), pageWidth - margin, y + 5, { align:'right' });
+    y += 14;
+    if (profile.birthDate){
+      doc.setFontSize(9); doc.setTextColor(120); doc.setFont('helvetica','bold');
+      doc.text('TANGGAL LAHIR', margin, y);
+      doc.setFontSize(11); doc.setTextColor(40); doc.setFont('helvetica','normal');
+      doc.text(formatPdfDate(parseIsoDate(profile.birthDate)), margin, y + 5);
+      y += 12;
+    }
+
+    // Category badge
+    doc.setFontSize(9); doc.setTextColor(200,134,10); doc.setFont('helvetica','bold');
+    doc.text(categoryLabels[category] || 'REKAM MEDIS', margin, y);
+    y += 8;
+
+    // Title
+    doc.setFontSize(18); doc.setTextColor(20); doc.setFont('helvetica','bold');
+    var title = record.title || record.name || record.diagnosis || (category === 'vital' ? 'Pengukuran' : 'Catatan');
+    var titleLines = doc.splitTextToSize(title, pageWidth - 2*margin);
+    doc.text(titleLines, margin, y);
+    y += titleLines.length * 7 + 1;
+
+    doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(120);
+    var recordDate = parseIsoDate(record.date);
+    doc.text(formatPdfDate(recordDate), margin, y);
+    y += 12;
+
+    // Fields
+    var fields = buildPdfFields(record, category);
+    fields.forEach(function(f){
+      if (y > pageHeight - 40){ doc.addPage(); y = margin; }
+      doc.setFontSize(9); doc.setTextColor(120); doc.setFont('helvetica','bold');
+      doc.text(f.label.toUpperCase(), margin, y);
+      y += 5;
+      doc.setFontSize(11); doc.setTextColor(40); doc.setFont('helvetica','normal');
+      var lines = doc.splitTextToSize(String(f.value || '—'), pageWidth - 2*margin);
+      doc.text(lines, margin, y);
+      y += lines.length * 5 + 4;
+    });
+
+    // Attachment
+    if (record.attachment){
+      if (y > pageHeight - 90){ doc.addPage(); y = margin; }
+      doc.setFontSize(9); doc.setTextColor(120); doc.setFont('helvetica','bold');
+      doc.text('LAMPIRAN', margin, y);
+      y += 5;
+      if (record.attachment.type && record.attachment.type.indexOf('image/') === 0 && record.attachment.dataUrl){
+        try {
+          var imgFormat = record.attachment.type.indexOf('png') > -1 ? 'PNG' : 'JPEG';
+          doc.addImage(record.attachment.dataUrl, imgFormat, margin, y, 80, 80, undefined, 'MEDIUM');
+          y += 84;
+        } catch(e){
+          doc.setFontSize(10); doc.setTextColor(120); doc.setFont('helvetica','normal');
+          doc.text('Gambar tidak dapat dimuat: ' + (record.attachment.name || ''), margin, y);
+          y += 6;
+        }
+      } else {
+        doc.setFontSize(10); doc.setTextColor(120); doc.setFont('helvetica','normal');
+        doc.text('Lampiran PDF: ' + (record.attachment.name || ''), margin, y);
+        y += 6;
+      }
+    }
+
+    // Footer on every page
+    var pages = doc.internal.getNumberOfPages();
+    for (var i = 1; i <= pages; i++){
+      doc.setPage(i);
+      doc.setFontSize(8); doc.setTextColor(150);
+      doc.text('Disiapkan via Welvra · welvra-health.com', pageWidth / 2, pageHeight - 12, { align:'center' });
+      if (pages > 1) doc.text('Halaman ' + i + ' dari ' + pages, pageWidth - margin, pageHeight - 12, { align:'right' });
+    }
+    return doc;
+  }
+  async function shareRekamToDoctor(){
+    var record = state.currentDetailRecord;
+    var category = state.currentDetailCategory;
+    if (!record || !category) return;
+    toast('Menyiapkan PDF...');
+    try {
+      var doc = generateRekamPDF(record, category);
+      if (!doc) return;
+      var filename = 'rekam-medis-' + category + '-' + (record.date || 'catatan') + '.pdf';
+      // Try Web Share API for files
+      if (navigator.share && navigator.canShare){
+        try {
+          var blob = doc.output('blob');
+          var file = new File([blob], filename, { type:'application/pdf' });
+          if (navigator.canShare({ files:[file] })){
+            await navigator.share({
+              files:[file],
+              title: 'Rekam Medis · ' + (record.title || record.name || record.diagnosis || 'Catatan'),
+              text: 'Dokumen rekam medis untuk konsultasi'
+            });
+            return;
+          }
+        } catch(shareErr){
+          // User cancelled or share failed silently — fall through to download
+          if (shareErr && shareErr.name === 'AbortError') return;
+        }
+      }
+      // Fallback: trigger download
+      doc.save(filename);
+      toast('PDF berhasil disimpan');
+    } catch(err){
+      console.error('Share PDF failed', err);
+      toast('Gagal membuat PDF — coba lagi');
+    }
+  }
+
+  // ----- ESC handling for Phase 2H modals -----
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Escape') return;
+    var fp = document.getElementById('welvraRekamFaceprintModal');
+    if (fp && !fp.hidden){ e.preventDefault(); cancelRekamFaceprintScan(); return; }
+    var profForm = document.getElementById('welvraRekamProfileFormModal');
+    if (profForm && !profForm.hidden){ e.preventDefault(); closeRekamProfileForm(); return; }
+    var profModal = document.getElementById('welvraRekamProfilesModal');
+    if (profModal && !profModal.hidden){ e.preventDefault(); closeRekamProfilesModal(); return; }
+  });
+
+  // Run initial profile switcher render on first availability
+  setTimeout(renderRekamProfileSwitcher, 50);
+
   // ----- Expose -----
   window.openRekamPanel = openRekamPanel;
   window.closeRekamPanel = closeRekamPanel;
@@ -23597,21 +24634,46 @@ window.fpShowTermsInfo = fpShowTermsInfo;
   window.dismissOcrResult = dismissOcrResult;
   window.updateRekamOcrVisibility = updateRekamOcrVisibility;
   window.parseLabValues = parseLabValues;
-  // Phase 2G C1
+  // Phase 2G C1/C2/C3
   window.welvraAutoLogTensiToVital = welvraAutoLogTensiToVital;
   window.toggleTensiAutoLog = toggleTensiAutoLog;
-  // Phase 2G C2
   window.buildRekamRiwayatContext = buildRekamRiwayatContext;
   window.updateGejalaContextPreference = updateGejalaContextPreference;
-  // Phase 2G C3
   window.offerSaveLabToRekam = offerSaveLabToRekam;
   window.quickSaveLabToRekam = quickSaveLabToRekam;
-  // Trend init (Phase 2G B)
   window.initVitalTrendCharts = initVitalTrendCharts;
   window.renderVitalTrendsSection = renderVitalTrendsSection;
-  // For testing/inspection
+  // Phase 2H profile helpers
   window.welvraRekamLoad = welvraRekamLoad;
   window.welvraRekamSave = welvraRekamSave;
+  window.welvraRekamMigrate = welvraRekamMigrate;
+  window.welvraRekamGetProfiles = welvraRekamGetProfiles;
+  window.welvraRekamGetCurrentProfile = welvraRekamGetCurrentProfile;
+  window.welvraRekamSetCurrentProfile = welvraRekamSetCurrentProfile;
+  window.welvraRekamAddProfile = welvraRekamAddProfile;
+  window.welvraRekamUpdateProfile = welvraRekamUpdateProfile;
+  window.welvraRekamDeleteProfile = welvraRekamDeleteProfile;
+  // Phase 2H UI
+  window.openRekamProfilesModal = openRekamProfilesModal;
+  window.closeRekamProfilesModal = closeRekamProfilesModal;
+  window.selectRekamProfile = selectRekamProfile;
+  window.openRekamProfileForm = openRekamProfileForm;
+  window.closeRekamProfileForm = closeRekamProfileForm;
+  window.editRekamProfile = editRekamProfile;
+  window.saveRekamProfile = saveRekamProfile;
+  window.confirmDeleteRekamProfile = confirmDeleteRekamProfile;
+  window.doDeleteRekamProfile = doDeleteRekamProfile;
+  window.renderRekamProfileSwitcher = renderRekamProfileSwitcher;
+  window.renderRekamProfilesList = renderRekamProfilesList;
+  // Phase 2H Faceprint lock
+  window.toggleRekamFaceprintLock = toggleRekamFaceprintLock;
+  window.showRekamFaceprintScan = showRekamFaceprintScan;
+  window.closeRekamFaceprintScan = closeRekamFaceprintScan;
+  window.cancelRekamFaceprintScan = cancelRekamFaceprintScan;
+  window.isRekamFaceprintLockEnabled = isRekamFaceprintLockEnabled;
+  // Phase 2H PDF share
+  window.shareRekamToDoctor = shareRekamToDoctor;
+  window.generateRekamPDF = generateRekamPDF;
 })();
 </script>
 
