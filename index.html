@@ -6432,7 +6432,603 @@ html.dark .drawer-auth-name{color:#F0EDE8}
   /* Phase 2C+2D + 2E */
   .wisdom-followup__chip,.w-home-wisdom-cta,.wisdom-empty-cta{transition:none}
   .wisdom-followup__chip:active,.w-home-wisdom-cta:active,.wisdom-empty-cta:active{transform:none}
+  /* Phase 2F */
+  .welvra-rekam-panel,.welvra-rekam-form-modal,.welvra-rekam-detail-modal,
+  .welvra-rekam-overlay,.welvra-rekam-form-overlay,.welvra-rekam-detail-overlay,
+  .welvra-rekam-confirm,.welvra-rekam-confirm-overlay,
+  .welvra-rekam-fab,.welvra-rekam-card,.welvra-rekam-tab,
+  .welvra-rekam-file-btn,.welvra-rekam-empty__cta{transition:none}
+  .welvra-rekam-fab:active,.welvra-rekam-card:active,.welvra-rekam-empty__cta:active{transform:none}
 }
+
+/* ============================================================ */
+/* PHASE 2F — REKAM MEDIS                                       */
+/* ============================================================ */
+
+/* Overlay backdrops */
+.welvra-rekam-overlay,
+.welvra-rekam-form-overlay,
+.welvra-rekam-detail-overlay,
+.welvra-rekam-confirm-overlay{
+  position:fixed;inset:0;z-index:951;
+  background:rgba(15,30,30,0.42);
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  opacity:0;transition:opacity 280ms ease;
+}
+.welvra-rekam-overlay:not([hidden]),
+.welvra-rekam-form-overlay:not([hidden]),
+.welvra-rekam-detail-overlay:not([hidden]),
+.welvra-rekam-confirm-overlay:not([hidden]){opacity:1}
+.welvra-rekam-form-overlay,.welvra-rekam-detail-overlay{z-index:961}
+.welvra-rekam-confirm-overlay{z-index:971}
+
+/* ----- Main panel ----- */
+.welvra-rekam-panel{
+  position:fixed;inset:0;z-index:952;
+  background:#FAFAF7;
+  transform:translateY(100%);
+  transition:transform 360ms cubic-bezier(.16,1,.3,1);
+  display:flex;flex-direction:column;overflow:hidden;
+  contain:layout paint;
+}
+.welvra-rekam-panel[hidden]{display:none}
+.welvra-rekam-panel[data-open="true"]{transform:translateY(0)}
+html.dark .welvra-rekam-panel{background:#14140F}
+
+.welvra-rekam-panel-inner{
+  max-width:480px;margin:0 auto;width:100%;height:100%;
+  display:flex;flex-direction:column;position:relative;
+}
+
+.welvra-rekam-header{
+  display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:8px;
+  padding:max(env(safe-area-inset-top),20px) 16px 14px;
+  border-bottom:1px solid rgba(200,134,10,.10);
+  background:transparent;flex-shrink:0;
+}
+html.dark .welvra-rekam-header{border-bottom-color:rgba(200,134,10,.18)}
+.welvra-rekam-close{
+  width:40px;height:40px;border-radius:50%;border:none;
+  background:rgba(200,134,10,.08);color:var(--teal);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 200ms,transform 150ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-close:hover{background:rgba(200,134,10,.16)}
+.welvra-rekam-close:active{transform:scale(.92)}
+.welvra-rekam-close:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+html.dark .welvra-rekam-close{background:rgba(200,134,10,.12);color:var(--gold)}
+.welvra-rekam-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:500;color:var(--teal);
+  margin:0;text-align:center;letter-spacing:-.3px;
+}
+html.dark .welvra-rekam-title{color:#F0EDE8}
+.welvra-rekam-header__spacer{display:block;width:40px;height:40px}
+
+/* ----- Category tabs ----- */
+.welvra-rekam-tabs{
+  display:flex;gap:6px;
+  padding:14px 16px 12px;flex-shrink:0;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;-ms-overflow-style:none;
+  border-bottom:1px solid rgba(200,134,10,.08);
+}
+.welvra-rekam-tabs::-webkit-scrollbar{display:none;width:0;height:0}
+html.dark .welvra-rekam-tabs{border-bottom-color:rgba(200,134,10,.15)}
+.welvra-rekam-tab{
+  flex:0 0 auto;min-height:44px;padding:0 16px;
+  border:1px solid rgba(200,134,10,.18);border-radius:999px;
+  background:transparent;color:var(--txt-secondary);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.1px;
+  cursor:pointer;white-space:nowrap;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background 200ms,color 200ms,border-color 200ms,transform 200ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-tab:hover{color:var(--teal);background:rgba(10,123,108,.05)}
+.welvra-rekam-tab:active{transform:scale(.97)}
+.welvra-rekam-tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.welvra-rekam-tab[aria-selected="true"]{
+  background:linear-gradient(135deg,var(--teal),var(--gold));
+  color:#fff;border-color:transparent;
+  box-shadow:0 4px 12px rgba(10,123,108,.22);
+}
+html.dark .welvra-rekam-tab{color:rgba(240,237,232,.7);border-color:rgba(200,134,10,.22)}
+html.dark .welvra-rekam-tab:hover{color:var(--gold);background:rgba(200,134,10,.08)}
+
+/* ----- Content area ----- */
+.welvra-rekam-content{
+  flex:1;overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding:16px 16px max(120px,env(safe-area-inset-bottom)) 16px;
+}
+
+/* ----- Record card ----- */
+.welvra-rekam-list{display:flex;flex-direction:column;gap:10px}
+.welvra-rekam-card{
+  display:flex;flex-direction:column;gap:6px;
+  width:100%;padding:14px 16px;text-align:left;
+  background:#fff;border:1px solid rgba(200,134,10,.12);border-radius:14px;
+  cursor:pointer;font-family:inherit;color:var(--txt-primary);
+  transition:transform 180ms,box-shadow 180ms,border-color 180ms;
+  -webkit-tap-highlight-color:transparent;position:relative;
+}
+.welvra-rekam-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(10,123,108,.08);border-color:rgba(200,134,10,.22)}
+.welvra-rekam-card:active{transform:scale(.99)}
+.welvra-rekam-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+html.dark .welvra-rekam-card{background:#1F1F1A;border-color:rgba(200,134,10,.18);color:#F0EDE8}
+html.dark .welvra-rekam-card:hover{border-color:rgba(200,134,10,.32);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.welvra-rekam-card__date{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gold-dark);
+}
+html.dark .welvra-rekam-card__date{color:var(--gold)}
+.welvra-rekam-card__title{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:16px;font-weight:600;line-height:1.35;
+  color:var(--teal-dark);margin:0;letter-spacing:-.1px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+html.dark .welvra-rekam-card__title{color:#F0EDE8}
+.welvra-rekam-card__sub{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:400;line-height:1.45;
+  color:var(--txt-secondary);margin:0;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+html.dark .welvra-rekam-card__sub{color:rgba(240,237,232,.65)}
+.welvra-rekam-card__status{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 10px;border-radius:999px;
+  font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.welvra-rekam-card__status--aktif{background:rgba(107,158,120,.16);color:var(--sage)}
+.welvra-rekam-card__status--selesai{background:rgba(200,134,10,.12);color:var(--gold-dark)}
+html.dark .welvra-rekam-card__status--selesai{color:var(--gold)}
+.welvra-rekam-card__attach-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:500;color:var(--gold-dark);
+  margin-top:2px;
+}
+html.dark .welvra-rekam-card__attach-badge{color:var(--gold)}
+.welvra-rekam-card__attach-badge svg{flex-shrink:0}
+
+/* ----- FAB ----- */
+.welvra-rekam-fab{
+  position:absolute;bottom:24px;right:24px;z-index:5;
+  width:56px;height:56px;border-radius:50%;border:none;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(200,134,10,.32),0 2px 6px rgba(0,0,0,.12);
+  transition:transform 200ms cubic-bezier(.34,1.56,.64,1),box-shadow 200ms ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-fab:hover{transform:scale(1.06);box-shadow:0 12px 28px rgba(200,134,10,.4)}
+.welvra-rekam-fab:active{transform:scale(.92)}
+.welvra-rekam-fab:focus-visible{outline:3px solid rgba(200,134,10,.4);outline-offset:3px}
+
+/* ----- Empty state ----- */
+.welvra-rekam-empty{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:48px 24px;text-align:center;gap:10px;min-height:calc(100vh - 220px);
+}
+.welvra-rekam-empty__icon{
+  width:88px;height:88px;border-radius:50%;
+  background:rgba(10,123,108,.06);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--teal);margin-bottom:6px;
+}
+html.dark .welvra-rekam-empty__icon{background:rgba(200,134,10,.08);color:var(--gold)}
+.welvra-rekam-empty__title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:500;color:var(--teal-dark);
+  margin:0;letter-spacing:-.3px;
+}
+html.dark .welvra-rekam-empty__title{color:#F0EDE8}
+.welvra-rekam-empty__desc{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;line-height:1.6;color:var(--txt-secondary);
+  margin:0;max-width:300px;
+}
+.welvra-rekam-empty__cta{
+  margin-top:14px;padding:12px 24px;
+  border:none;border-radius:999px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.2px;
+  cursor:pointer;
+  box-shadow:0 4px 14px rgba(200,134,10,.28);
+  transition:transform .16s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-empty__cta:active{transform:scale(.96)}
+.welvra-rekam-empty__cta:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ----- Form modal (slide-up) ----- */
+.welvra-rekam-form-modal,
+.welvra-rekam-detail-modal{
+  position:fixed;left:0;right:0;bottom:0;z-index:962;
+  max-width:480px;margin:0 auto;
+  height:92vh;max-height:92vh;
+  background:#FAFAF7;
+  border-radius:24px 24px 0 0;
+  display:flex;flex-direction:column;overflow:hidden;
+  transform:translateY(100%);
+  transition:transform 360ms cubic-bezier(.16,1,.3,1);
+  box-shadow:0 -12px 36px rgba(0,0,0,.14);
+}
+.welvra-rekam-form-modal[hidden],
+.welvra-rekam-detail-modal[hidden]{display:none}
+.welvra-rekam-form-modal:not([hidden]),
+.welvra-rekam-detail-modal:not([hidden]){transform:translateY(0)}
+html.dark .welvra-rekam-form-modal,
+html.dark .welvra-rekam-detail-modal{background:#1A1A16}
+
+.welvra-rekam-form-header,
+.welvra-rekam-detail-header{
+  display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:8px;
+  padding:16px 16px 12px;
+  border-bottom:1px solid rgba(200,134,10,.1);
+  flex-shrink:0;
+}
+html.dark .welvra-rekam-form-header,
+html.dark .welvra-rekam-detail-header{border-bottom-color:rgba(200,134,10,.18)}
+.welvra-rekam-form-close,
+.welvra-rekam-detail-close{
+  width:40px;height:40px;border-radius:50%;border:none;
+  background:rgba(200,134,10,.08);color:var(--teal);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 200ms,transform 150ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-form-close:active,
+.welvra-rekam-detail-close:active{transform:scale(.92)}
+.welvra-rekam-form-close:focus-visible,
+.welvra-rekam-detail-close:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-rekam-form-close,
+html.dark .welvra-rekam-detail-close{background:rgba(200,134,10,.12);color:var(--gold)}
+.welvra-rekam-form-title,
+.welvra-rekam-detail-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:500;color:var(--teal-dark);
+  margin:0;text-align:center;letter-spacing:-.2px;
+}
+html.dark .welvra-rekam-form-title,
+html.dark .welvra-rekam-detail-title{color:#F0EDE8}
+.welvra-rekam-form-header__spacer,
+.welvra-rekam-detail-header__spacer{display:block;width:40px;height:40px}
+
+.welvra-rekam-form{
+  flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:18px 20px;
+}
+.welvra-rekam-form-actions{
+  display:flex;gap:10px;padding:14px 20px max(env(safe-area-inset-bottom),20px);
+  border-top:1px solid rgba(200,134,10,.1);
+  background:rgba(250,250,247,.96);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  flex-shrink:0;
+}
+html.dark .welvra-rekam-form-actions{border-top-color:rgba(200,134,10,.18);background:rgba(26,26,22,.96)}
+.welvra-rekam-form-cancel,
+.welvra-rekam-form-save{
+  flex:1;padding:13px 16px;border-radius:999px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;font-weight:600;letter-spacing:.1px;
+  cursor:pointer;border:none;
+  transition:transform 150ms,background 200ms,box-shadow 200ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-form-cancel{
+  background:transparent;color:var(--txt-secondary);
+  border:1px solid rgba(200,134,10,.2);
+}
+.welvra-rekam-form-cancel:hover{background:rgba(10,123,108,.04)}
+.welvra-rekam-form-cancel:active{transform:scale(.97)}
+.welvra-rekam-form-cancel:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.welvra-rekam-form-save{
+  background:linear-gradient(135deg,var(--teal),var(--gold));
+  color:#fff;
+  box-shadow:0 4px 14px rgba(10,123,108,.22);
+}
+.welvra-rekam-form-save:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(10,123,108,.28)}
+.welvra-rekam-form-save:active{transform:scale(.97)}
+.welvra-rekam-form-save:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+html.dark .welvra-rekam-form-cancel{color:rgba(240,237,232,.7);border-color:rgba(200,134,10,.25)}
+
+/* Form field elements */
+.welvra-rekam-field{margin-bottom:16px}
+.welvra-rekam-field:last-child{margin-bottom:0}
+.welvra-rekam-field__label{
+  display:block;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:12px;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase;
+  color:var(--gold-dark);margin:0 0 6px;
+}
+html.dark .welvra-rekam-field__label{color:var(--gold)}
+.welvra-rekam-field__label--required::after{
+  content:' *';color:#C8860A;font-weight:700;
+}
+.welvra-rekam-field__input,
+.welvra-rekam-field__textarea,
+.welvra-rekam-field__select{
+  width:100%;box-sizing:border-box;
+  padding:12px 14px;
+  border:1px solid rgba(200,134,10,.2);border-radius:12px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;
+  background:rgba(255,255,255,.7);color:var(--txt-primary);
+  -webkit-appearance:none;appearance:none;
+  transition:border-color 200ms,box-shadow 200ms,background 200ms;
+}
+.welvra-rekam-field__textarea{resize:vertical;min-height:80px;font-family:inherit;line-height:1.5}
+.welvra-rekam-field__select{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230A7B6C' stroke-width='2' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat:no-repeat;background-position:right 14px center;
+  padding-right:36px;
+}
+.welvra-rekam-field__input:focus,
+.welvra-rekam-field__textarea:focus,
+.welvra-rekam-field__select:focus{
+  outline:none;border-color:var(--teal);
+  background:rgba(255,255,255,.95);
+  box-shadow:0 0 0 3px rgba(10,123,108,.12);
+}
+html.dark .welvra-rekam-field__input,
+html.dark .welvra-rekam-field__textarea,
+html.dark .welvra-rekam-field__select{
+  background:rgba(255,255,255,.04);color:#F0EDE8;border-color:rgba(200,134,10,.25);
+}
+html.dark .welvra-rekam-field__input:focus,
+html.dark .welvra-rekam-field__textarea:focus,
+html.dark .welvra-rekam-field__select:focus{background:rgba(255,255,255,.08)}
+.welvra-rekam-field--error .welvra-rekam-field__input,
+.welvra-rekam-field--error .welvra-rekam-field__textarea,
+.welvra-rekam-field--error .welvra-rekam-field__select{border-color:#C84B4B;box-shadow:0 0 0 3px rgba(200,75,75,.12)}
+.welvra-rekam-field__error{
+  display:none;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:12px;color:#C84B4B;margin-top:6px;
+}
+.welvra-rekam-field--error .welvra-rekam-field__error{display:block}
+
+/* Segmented control (Aktif/Selesai) */
+.welvra-rekam-segment{
+  display:flex;gap:0;padding:3px;
+  background:rgba(200,134,10,.06);
+  border:1px solid rgba(200,134,10,.18);
+  border-radius:999px;
+}
+html.dark .welvra-rekam-segment{background:rgba(200,134,10,.08);border-color:rgba(200,134,10,.22)}
+.welvra-rekam-segment__option{
+  flex:1;padding:9px 12px;border:none;background:transparent;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:600;color:var(--txt-secondary);
+  cursor:pointer;border-radius:999px;
+  transition:background 200ms,color 200ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-segment__option[aria-pressed="true"]{
+  background:linear-gradient(135deg,var(--sage),#5a8068);
+  color:#fff;box-shadow:0 2px 6px rgba(107,158,120,.28);
+}
+.welvra-rekam-segment__option[data-value="selesai"][aria-pressed="true"]{
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  box-shadow:0 2px 6px rgba(200,134,10,.28);
+}
+.welvra-rekam-segment__option:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-rekam-segment__option{color:rgba(240,237,232,.65)}
+
+/* File picker */
+.welvra-rekam-file-picker{margin-top:4px}
+.welvra-rekam-file-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 16px;border:1.5px dashed rgba(200,134,10,.3);
+  border-radius:12px;background:rgba(200,134,10,.04);
+  color:var(--gold-dark);cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.1px;
+  transition:background 200ms,border-color 200ms,transform 150ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-file-btn:hover{background:rgba(200,134,10,.08);border-color:rgba(200,134,10,.5)}
+.welvra-rekam-file-btn:active{transform:scale(.97)}
+.welvra-rekam-file-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-rekam-file-btn{color:var(--gold);border-color:rgba(200,134,10,.35);background:rgba(200,134,10,.06)}
+.welvra-rekam-file-preview{
+  margin-top:10px;display:flex;align-items:center;gap:10px;
+  padding:10px;border:1px solid rgba(200,134,10,.18);border-radius:12px;
+  background:rgba(255,255,255,.6);
+}
+html.dark .welvra-rekam-file-preview{background:rgba(255,255,255,.03);border-color:rgba(200,134,10,.22)}
+.welvra-rekam-file-thumb{
+  width:60px;height:60px;border-radius:8px;object-fit:cover;flex-shrink:0;
+  background:#E8E0D0;
+}
+.welvra-rekam-file-pdf{
+  width:60px;height:60px;border-radius:8px;background:rgba(200,134,10,.12);
+  color:var(--gold-dark);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+html.dark .welvra-rekam-file-pdf{color:var(--gold);background:rgba(200,134,10,.16)}
+.welvra-rekam-file-meta{flex:1;min-width:0;display:flex;align-items:center;gap:8px;justify-content:space-between}
+.welvra-rekam-file-meta span{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;
+  color:var(--txt-primary);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;
+}
+html.dark .welvra-rekam-file-meta span{color:#F0EDE8}
+.welvra-rekam-file-remove{
+  width:28px;height:28px;border-radius:50%;border:none;
+  background:rgba(200,75,75,.1);color:#C84B4B;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:18px;line-height:1;
+  -webkit-tap-highlight-color:transparent;
+  transition:background 200ms;
+}
+.welvra-rekam-file-remove:hover{background:rgba(200,75,75,.18)}
+.welvra-rekam-file-remove:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* Detail view content */
+.welvra-rekam-detail-content{
+  flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:20px 20px 24px;
+}
+.welvra-rekam-detail__date{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gold-dark);margin:0 0 8px;
+}
+html.dark .welvra-rekam-detail__date{color:var(--gold)}
+.welvra-rekam-detail__heading{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:500;color:var(--teal-dark);
+  line-height:1.25;letter-spacing:-.2px;margin:0 0 18px;
+}
+html.dark .welvra-rekam-detail__heading{color:#F0EDE8}
+.welvra-rekam-detail__field{margin:0 0 14px}
+.welvra-rekam-detail__field-label{
+  display:block;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--txt-secondary);margin-bottom:4px;
+}
+html.dark .welvra-rekam-detail__field-label{color:rgba(240,237,232,.5)}
+.welvra-rekam-detail__field-value{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:15px;line-height:1.55;color:var(--txt-primary);
+  margin:0;white-space:pre-wrap;word-wrap:break-word;
+}
+html.dark .welvra-rekam-detail__field-value{color:#F0EDE8}
+.welvra-rekam-detail__attachment{
+  margin-top:16px;padding:14px;
+  background:rgba(10,123,108,.04);border:1px solid rgba(200,134,10,.12);
+  border-radius:14px;
+}
+html.dark .welvra-rekam-detail__attachment{background:rgba(200,134,10,.06);border-color:rgba(200,134,10,.18)}
+.welvra-rekam-detail__attachment-label{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--txt-secondary);margin:0 0 10px;
+}
+html.dark .welvra-rekam-detail__attachment-label{color:rgba(240,237,232,.5)}
+.welvra-rekam-detail__attachment img{
+  width:100%;max-height:280px;object-fit:contain;border-radius:8px;display:block;
+  background:#E8E0D0;
+}
+.welvra-rekam-detail__attachment-pdf{
+  display:flex;align-items:center;gap:12px;padding:12px;
+  background:rgba(200,134,10,.08);border-radius:10px;
+}
+.welvra-rekam-detail__attachment-pdf-icon{
+  width:48px;height:48px;border-radius:10px;background:var(--gold);color:#fff;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.welvra-rekam-detail__attachment-pdf a{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;
+  color:var(--gold-dark);text-decoration:none;
+}
+html.dark .welvra-rekam-detail__attachment-pdf a{color:var(--gold)}
+
+/* Detail action footer */
+.welvra-rekam-detail-actions{
+  display:flex;gap:8px;padding:12px 16px max(env(safe-area-inset-bottom),16px);
+  border-top:1px solid rgba(200,134,10,.1);
+  background:rgba(250,250,247,.96);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  flex-shrink:0;
+}
+html.dark .welvra-rekam-detail-actions{border-top-color:rgba(200,134,10,.18);background:rgba(26,26,22,.96)}
+.welvra-rekam-detail-drsly,
+.welvra-rekam-detail-edit,
+.welvra-rekam-detail-delete{
+  flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:11px 8px;border-radius:999px;border:none;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;
+  transition:transform 150ms,background 200ms,box-shadow 200ms;
+  -webkit-tap-highlight-color:transparent;
+}
+.welvra-rekam-detail-drsly{
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;box-shadow:0 4px 14px rgba(200,134,10,.28);
+  flex:1.6;
+}
+.welvra-rekam-detail-drsly:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(200,134,10,.36)}
+.welvra-rekam-detail-drsly:active{transform:scale(.97)}
+.welvra-rekam-detail-edit{
+  background:rgba(10,123,108,.1);color:var(--teal);
+}
+.welvra-rekam-detail-edit:hover{background:rgba(10,123,108,.18)}
+.welvra-rekam-detail-edit:active{transform:scale(.97)}
+.welvra-rekam-detail-delete{
+  background:rgba(200,134,10,.08);color:var(--gold-dark);
+}
+.welvra-rekam-detail-delete:hover{background:rgba(200,75,75,.1);color:#C84B4B}
+.welvra-rekam-detail-delete:active{transform:scale(.97)}
+.welvra-rekam-detail-drsly:focus-visible,
+.welvra-rekam-detail-edit:focus-visible,
+.welvra-rekam-detail-delete:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-rekam-detail-edit{background:rgba(10,123,108,.18);color:#7FD1C2}
+html.dark .welvra-rekam-detail-delete{background:rgba(200,134,10,.12);color:var(--gold)}
+
+/* Confirm modal (amber-toned) */
+.welvra-rekam-confirm{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.95);
+  z-index:972;width:calc(100% - 40px);max-width:340px;
+  background:#FAFAF7;border-radius:20px;padding:24px 22px 20px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.22);
+  opacity:0;transition:opacity 220ms ease,transform 240ms cubic-bezier(.16,1,.3,1);
+}
+.welvra-rekam-confirm[hidden]{display:none}
+.welvra-rekam-confirm:not([hidden]){opacity:1;transform:translate(-50%,-50%) scale(1)}
+html.dark .welvra-rekam-confirm{background:#1F1F1A}
+.welvra-rekam-confirm__icon{
+  display:flex;align-items:center;justify-content:center;
+  width:56px;height:56px;border-radius:50%;
+  background:rgba(200,134,10,.14);color:var(--gold-dark);
+  margin:0 auto 14px;
+}
+html.dark .welvra-rekam-confirm__icon{color:var(--gold)}
+.welvra-rekam-confirm__title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:500;color:var(--teal-dark);
+  margin:0 0 6px;letter-spacing:-.2px;
+}
+html.dark .welvra-rekam-confirm__title{color:#F0EDE8}
+.welvra-rekam-confirm__desc{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;line-height:1.55;color:var(--txt-secondary);margin:0 0 18px;
+}
+.welvra-rekam-confirm__actions{display:flex;gap:8px}
+.welvra-rekam-confirm__cancel,
+.welvra-rekam-confirm__delete{
+  flex:1;padding:12px;border:none;border-radius:999px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;font-weight:600;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform 150ms,background 200ms;
+}
+.welvra-rekam-confirm__cancel{background:rgba(10,123,108,.08);color:var(--teal)}
+.welvra-rekam-confirm__cancel:hover{background:rgba(10,123,108,.16)}
+.welvra-rekam-confirm__cancel:active{transform:scale(.97)}
+.welvra-rekam-confirm__delete{
+  background:linear-gradient(135deg,var(--gold),#8B5E06);color:#fff;
+  box-shadow:0 4px 14px rgba(200,134,10,.28);
+}
+.welvra-rekam-confirm__delete:hover{transform:translateY(-1px)}
+.welvra-rekam-confirm__delete:active{transform:scale(.97)}
+.welvra-rekam-confirm__cancel:focus-visible,
+.welvra-rekam-confirm__delete:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-rekam-confirm__cancel{background:rgba(10,123,108,.16);color:#7FD1C2}
 
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
@@ -8460,6 +9056,118 @@ html.dark .drawer-auth-name{color:#F0EDE8}
     </div>
   </div>
 </aside>
+
+<!-- ============================================================ -->
+<!-- PHASE 2F — REKAM MEDIS PANEL                                 -->
+<!-- ============================================================ -->
+<div class="welvra-rekam-overlay" id="welvraRekamOverlay" hidden onclick="closeRekamPanel()"></div>
+<aside class="welvra-rekam-panel welvra-glass-medium" id="welvraRekamPanel" role="dialog" aria-modal="true"
+       aria-labelledby="rekamPanelTitle" data-open="false" hidden>
+  <div class="welvra-rekam-panel-inner">
+    <header class="welvra-rekam-header">
+      <button class="welvra-rekam-close" type="button" onclick="closeRekamPanel()" aria-label="Tutup Rekam Medis">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <h2 id="rekamPanelTitle" class="welvra-rekam-title">Rekam Medis</h2>
+      <span class="welvra-rekam-header__spacer" aria-hidden="true"></span>
+    </header>
+
+    <nav class="welvra-rekam-tabs" role="tablist" aria-label="Kategori rekam medis">
+      <button class="welvra-rekam-tab" role="tab" aria-selected="true" data-category="lab" type="button" tabindex="0">Hasil Lab</button>
+      <button class="welvra-rekam-tab" role="tab" aria-selected="false" data-category="obat" type="button" tabindex="-1">Resep &amp; Obat</button>
+      <button class="welvra-rekam-tab" role="tab" aria-selected="false" data-category="vital" type="button" tabindex="-1">Vital</button>
+      <button class="welvra-rekam-tab" role="tab" aria-selected="false" data-category="catatan" type="button" tabindex="-1">Catatan</button>
+    </nav>
+
+    <div class="welvra-rekam-content" id="welvraRekamContent" role="tabpanel" aria-live="polite"></div>
+
+    <button class="welvra-rekam-fab" id="welvraRekamFab" type="button" onclick="openRekamForm()" aria-label="Tambah catatan baru">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+    </button>
+  </div>
+</aside>
+
+<!-- Add/Edit Form Modal -->
+<div class="welvra-rekam-form-overlay" id="welvraRekamFormOverlay" hidden onclick="closeRekamForm()"></div>
+<aside class="welvra-rekam-form-modal" id="welvraRekamFormModal" role="dialog" aria-modal="true"
+       aria-labelledby="rekamFormTitle" hidden>
+  <header class="welvra-rekam-form-header">
+    <button class="welvra-rekam-form-close" type="button" onclick="closeRekamForm()" aria-label="Tutup form">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <h3 id="rekamFormTitle" class="welvra-rekam-form-title">Tambah Catatan</h3>
+    <span class="welvra-rekam-form-header__spacer" aria-hidden="true"></span>
+  </header>
+  <form class="welvra-rekam-form" id="welvraRekamForm" onsubmit="event.preventDefault(); saveRekamRecord();" novalidate>
+    <div id="welvraRekamFormFields"></div>
+  </form>
+  <footer class="welvra-rekam-form-actions">
+    <button type="button" class="welvra-rekam-form-cancel" onclick="closeRekamForm()">Batal</button>
+    <button type="button" class="welvra-rekam-form-save" onclick="saveRekamRecord()">Simpan</button>
+  </footer>
+</aside>
+
+<!-- Detail View Modal -->
+<div class="welvra-rekam-detail-overlay" id="welvraRekamDetailOverlay" hidden onclick="closeRekamDetail()"></div>
+<aside class="welvra-rekam-detail-modal" id="welvraRekamDetailModal" role="dialog" aria-modal="true"
+       aria-labelledby="rekamDetailTitle" hidden>
+  <header class="welvra-rekam-detail-header">
+    <button class="welvra-rekam-detail-close" type="button" onclick="closeRekamDetail()" aria-label="Tutup detail">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <h3 id="rekamDetailTitle" class="welvra-rekam-detail-title">Detail</h3>
+    <span class="welvra-rekam-detail-header__spacer" aria-hidden="true"></span>
+  </header>
+  <div class="welvra-rekam-detail-content" id="welvraRekamDetailContent"></div>
+  <footer class="welvra-rekam-detail-actions">
+    <button type="button" class="welvra-rekam-detail-drsly" id="welvraRekamDetailDrSly" onclick="askDrSlyAboutRecord()">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+      </svg>
+      <span>Tanya Dr. Sly</span>
+    </button>
+    <button type="button" class="welvra-rekam-detail-edit" onclick="editRekamRecord()" aria-label="Edit catatan">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+        <path d="M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+      </svg>
+      <span>Edit</span>
+    </button>
+    <button type="button" class="welvra-rekam-detail-delete" onclick="confirmDeleteRekamRecord()" aria-label="Hapus catatan">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="3 6 5 6 21 6"/>
+        <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+        <path d="M10 11v6M14 11v6"/>
+      </svg>
+      <span>Hapus</span>
+    </button>
+  </footer>
+</aside>
+
+<!-- Delete confirmation -->
+<div class="welvra-rekam-confirm-overlay" id="welvraRekamConfirmOverlay" hidden onclick="cancelDeleteRekamRecord()"></div>
+<div class="welvra-rekam-confirm" id="welvraRekamConfirm" role="alertdialog" aria-modal="true"
+     aria-labelledby="rekamConfirmTitle" aria-describedby="rekamConfirmDesc" hidden>
+  <div class="welvra-rekam-confirm__icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+  </div>
+  <h3 id="rekamConfirmTitle" class="welvra-rekam-confirm__title">Yakin hapus catatan ini?</h3>
+  <p id="rekamConfirmDesc" class="welvra-rekam-confirm__desc">Catatan yang dihapus tidak bisa dikembalikan.</p>
+  <div class="welvra-rekam-confirm__actions">
+    <button type="button" class="welvra-rekam-confirm__cancel" onclick="cancelDeleteRekamRecord()">Batal</button>
+    <button type="button" class="welvra-rekam-confirm__delete" onclick="doDeleteRekamRecord()">Hapus</button>
+  </div>
+</div>
 
 <script>
 // ===== PHASE 3A: SUPABASE AUTH =====
@@ -17840,7 +18548,8 @@ window.fpShowTermsInfo = fpShowTermsInfo;
     } else if (tab === 'jadwal') {
       window.showWelvraToast('Jadwal segera hadir');
     } else if (tab === 'rekam') {
-      window.showWelvraToast('Rekam Medis segera hadir');
+      if (typeof window.openRekamPanel === 'function') window.openRekamPanel();
+      else window.showWelvraToast('Rekam Medis segera hadir');
     } else if (tab === 'profil') {
       if (typeof openProfilePanel === 'function') openProfilePanel();
       else window.showWelvraToast('Profil segera hadir');
@@ -21217,6 +21926,823 @@ window.fpShowTermsInfo = fpShowTermsInfo;
   window.openWisdomPanel = openWisdomPanel;
   window.closeWisdomPanel = closeWisdomPanel;
   window.openWisdomDetail = openWisdomDetail;
+})();
+</script>
+
+<!-- =========================================================== -->
+<!-- PHASE 2F — Rekam Medis (CRUD + file upload + Dr. Sly handoff)
+     Discovery findings (integration points):
+       - welvraSwitchTab @ ~17824 — places where `tab === 'rekam'` previously
+         routed to showWelvraToast placeholder. We hook openRekamPanel() here.
+       - welvraOpenDrSlyWithQuestion @ ~19799 (Phase 2E) — reused for Dr. Sly
+         contextual ask from each record's detail action button.
+       - showWelvraToast @ ~17807 — premium toast for success/error feedback.
+       - showToast @ 8549 — legacy fallback toast.
+       - Slide-up panel mechanics + dark/light parity mirrored from Wisdom Hub.
+=========================================================== -->
+<script>
+(function(){
+  'use strict';
+  var STORAGE_KEY = 'welvra.rekamMedis.data';
+  var CATEGORIES = ['lab','obat','vital','catatan'];
+  var CATEGORY_LABELS = {
+    lab: 'Hasil Lab',
+    obat: 'Resep & Obat',
+    vital: 'Vital',
+    catatan: 'Catatan'
+  };
+  var CATEGORY_FORM_TITLES = {
+    lab: 'Hasil Lab',
+    obat: 'Resep & Obat',
+    vital: 'Catatan Vital',
+    catatan: 'Catatan Konsultasi'
+  };
+  var VITAL_TYPES = [
+    { value:'tekanan_darah', label:'Tekanan Darah', placeholder:'mis. 120/80 mmHg' },
+    { value:'berat_badan', label:'Berat Badan', placeholder:'mis. 65 kg' },
+    { value:'tinggi_badan', label:'Tinggi Badan', placeholder:'mis. 170 cm' },
+    { value:'bmi', label:'BMI', placeholder:'mis. 22.5' },
+    { value:'lainnya', label:'Lainnya', placeholder:'mis. Suhu 37°C' }
+  ];
+  var EMPTY_COPY = {
+    lab:'Simpan hasil lab Anda di sini agar mudah dirujuk saat konsultasi.',
+    obat:'Catat resep dan obat yang sedang dikonsumsi untuk pengingat dan tracking.',
+    vital:'Pantau tekanan darah, berat badan, dan ukuran vital lain dari waktu ke waktu.',
+    catatan:'Rangkum hasil konsultasi dengan dokter agar tidak terlupa.'
+  };
+  // Empty state line illustration per category (line-style SVG, 56x56)
+  var EMPTY_ICONS = {
+    lab:'<svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 6h20v14l8 22a6 6 0 01-5.7 8H19.7a6 6 0 01-5.7-8l8-22V6z"/><line x1="22" y1="14" x2="42" y2="14"/><circle cx="28" cy="36" r="2"/><circle cx="36" cy="44" r="2.5"/></svg>',
+    obat:'<svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="18" y="14" width="28" height="36" rx="14"/><line x1="18" y1="32" x2="46" y2="32"/></svg>',
+    vital:'<svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 32h10l4-10 8 22 6-16 4 8 4-4h16"/></svg>',
+    catatan:'<svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 10h28l8 8v36a4 4 0 01-4 4H14a4 4 0 01-4-4V14a4 4 0 014-4z"/><polyline points="42 10 42 18 50 18"/><line x1="20" y1="28" x2="44" y2="28"/><line x1="20" y1="36" x2="44" y2="36"/><line x1="20" y1="44" x2="36" y2="44"/></svg>'
+  };
+
+  // ----- State -----
+  var state = {
+    activeCategory: 'lab',
+    panelOpen: false,
+    editingRecord: null,
+    currentDetailRecord: null,
+    currentDetailCategory: null,
+    pendingDelete: null,
+    lastFocusedBeforeOpen: null,
+    lastFocusedBeforeForm: null,
+    lastFocusedBeforeDetail: null
+  };
+
+  // ----- Helpers (exposed for testing) -----
+  function welvraRekamLoad(){
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      var data = raw ? JSON.parse(raw) : null;
+      if (!data || typeof data !== 'object') data = {};
+      CATEGORIES.forEach(function(k){ if (!Array.isArray(data[k])) data[k] = []; });
+      return data;
+    } catch (e) {
+      return { lab:[], obat:[], vital:[], catatan:[] };
+    }
+  }
+  function welvraRekamSave(data){
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      return true;
+    } catch (e) {
+      var msg = 'Penyimpanan penuh — hapus attachment besar atau record lama';
+      if (typeof window.showWelvraToast === 'function') window.showWelvraToast(msg);
+      else if (typeof window.showToast === 'function') window.showToast(msg);
+      return false;
+    }
+  }
+  function welvraRekamGenerateId(category){
+    return 'rm_' + category + '_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
+  }
+  function formatRekamDate(iso){
+    if (!iso) return '—';
+    var parts = iso.split('-');
+    if (parts.length !== 3) return iso;
+    var d = parseInt(parts[2],10), m = parseInt(parts[1],10)-1, y = parseInt(parts[0],10);
+    var months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+    if (isNaN(d) || isNaN(m) || isNaN(y) || m < 0 || m > 11) return iso;
+    return d + ' ' + months[m] + ' ' + y;
+  }
+  function formatRekamDateLong(iso){
+    if (!iso) return '';
+    var parts = iso.split('-');
+    if (parts.length !== 3) return iso;
+    var d = parseInt(parts[2],10), m = parseInt(parts[1],10)-1, y = parseInt(parts[0],10);
+    var months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    if (isNaN(d) || isNaN(m) || isNaN(y) || m < 0 || m > 11) return iso;
+    return d + ' ' + months[m] + ' ' + y;
+  }
+  function escHtml(s){
+    if (s == null) return '';
+    return String(s).replace(/[&<>"']/g, function(c){
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+    });
+  }
+  function todayIso(){
+    var d = new Date();
+    var y = d.getFullYear();
+    var m = String(d.getMonth()+1).padStart(2,'0');
+    var day = String(d.getDate()).padStart(2,'0');
+    return y + '-' + m + '-' + day;
+  }
+  function toast(msg){
+    if (typeof window.showWelvraToast === 'function') window.showWelvraToast(msg);
+    else if (typeof window.showToast === 'function') window.showToast(msg);
+  }
+
+  // ----- Panel open/close -----
+  function openRekamPanel(){
+    var panel = document.getElementById('welvraRekamPanel');
+    var overlay = document.getElementById('welvraRekamOverlay');
+    if (!panel) return;
+    state.lastFocusedBeforeOpen = document.activeElement;
+    state.panelOpen = true;
+    overlay.hidden = false;
+    panel.hidden = false;
+    document.body.style.overflow = 'hidden';
+    // Trigger transition next frame
+    requestAnimationFrame(function(){ panel.setAttribute('data-open','true'); });
+    state.activeCategory = state.activeCategory || 'lab';
+    syncCategoryTabs();
+    renderRekamCategoryList(state.activeCategory);
+    // Focus first tab after open transition
+    setTimeout(function(){
+      var firstTab = panel.querySelector('.welvra-rekam-tab[aria-selected="true"]');
+      if (firstTab) try { firstTab.focus({ preventScroll:true }); } catch(e){ firstTab.focus(); }
+    }, 380);
+  }
+  function closeRekamPanel(){
+    var panel = document.getElementById('welvraRekamPanel');
+    var overlay = document.getElementById('welvraRekamOverlay');
+    if (!panel || !state.panelOpen) return;
+    state.panelOpen = false;
+    panel.setAttribute('data-open','false');
+    overlay.hidden = true;
+    setTimeout(function(){
+      panel.hidden = true;
+      // Restore body scroll if nothing else is open
+      if (!isAnyOtherRekamModalOpen() && !document.querySelector('.modal-panel.open, .profile-panel.open')){
+        document.body.style.overflow = '';
+      }
+    }, 380);
+    // Restore focus
+    if (state.lastFocusedBeforeOpen && document.body.contains(state.lastFocusedBeforeOpen)){
+      try { state.lastFocusedBeforeOpen.focus({ preventScroll:true }); } catch(e){}
+    }
+  }
+  function isAnyOtherRekamModalOpen(){
+    return !document.getElementById('welvraRekamFormModal').hidden
+        || !document.getElementById('welvraRekamDetailModal').hidden
+        || !document.getElementById('welvraRekamConfirm').hidden;
+  }
+
+  // ----- Tab switching -----
+  function syncCategoryTabs(){
+    var tabs = document.querySelectorAll('.welvra-rekam-tab');
+    tabs.forEach(function(t){
+      var active = t.dataset.category === state.activeCategory;
+      t.setAttribute('aria-selected', active);
+      t.setAttribute('tabindex', active ? '0' : '-1');
+    });
+  }
+  function switchCategory(category){
+    if (!CATEGORIES.includes(category)) return;
+    state.activeCategory = category;
+    syncCategoryTabs();
+    renderRekamCategoryList(category);
+    var fab = document.getElementById('welvraRekamFab');
+    if (fab) fab.setAttribute('aria-label','Tambah ' + CATEGORY_LABELS[category] + ' baru');
+  }
+
+  // ----- Render list per category -----
+  function renderRekamCategoryList(category){
+    var content = document.getElementById('welvraRekamContent');
+    if (!content) return;
+    var data = welvraRekamLoad();
+    var records = (data[category] || []).slice().sort(function(a,b){
+      // Sort by date desc, then createdAt desc
+      var ad = a.date || '', bd = b.date || '';
+      if (ad !== bd) return bd.localeCompare(ad);
+      return (b.createdAt || 0) - (a.createdAt || 0);
+    });
+    if (records.length === 0){
+      content.innerHTML = renderEmptyState(category);
+      return;
+    }
+    var cards = records.map(function(r){ return renderRecordCard(category, r); }).join('');
+    content.innerHTML = '<div class="welvra-rekam-list">' + cards + '</div>';
+  }
+
+  function renderEmptyState(category){
+    return '<div class="welvra-rekam-empty">'
+      + '<div class="welvra-rekam-empty__icon">' + EMPTY_ICONS[category] + '</div>'
+      + '<h3 class="welvra-rekam-empty__title">Belum Ada ' + escHtml(CATEGORY_LABELS[category]) + '</h3>'
+      + '<p class="welvra-rekam-empty__desc">' + escHtml(EMPTY_COPY[category]) + '</p>'
+      + '<button type="button" class="welvra-rekam-empty__cta" onclick="openRekamForm()">Tambah ' + escHtml(CATEGORY_LABELS[category]) + ' Pertama</button>'
+    + '</div>';
+  }
+
+  function renderRecordCard(category, r){
+    var title = '', sub = '', statusBadge = '';
+    if (category === 'lab'){
+      title = r.title || 'Tanpa judul';
+      sub = (r.provider ? r.provider : '') + (r.provider && r.notes ? ' · ' : '') + (r.notes ? truncate(r.notes, 100) : '');
+    } else if (category === 'obat'){
+      title = r.name + (r.dosage ? ' · ' + r.dosage : '');
+      sub = r.frequency || '';
+      if (r.status){
+        statusBadge = '<span class="welvra-rekam-card__status welvra-rekam-card__status--' + r.status + '">' + (r.status === 'aktif' ? 'Aktif' : 'Selesai') + '</span>';
+      }
+    } else if (category === 'vital'){
+      var typeObj = VITAL_TYPES.find(function(t){ return t.value === r.type; });
+      var typeLabel = typeObj ? typeObj.label : 'Pengukuran';
+      title = typeLabel + ' · ' + (r.value || '—');
+      sub = r.notes ? truncate(r.notes, 100) : '';
+    } else if (category === 'catatan'){
+      title = r.diagnosis || 'Konsultasi';
+      sub = (r.doctor || '') + (r.doctor && r.clinic ? ' · ' : '') + (r.clinic || '');
+    }
+    var attachBadge = r.attachment
+      ? '<span class="welvra-rekam-card__attach-badge"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>Lampiran</span>'
+      : '';
+    return '<button type="button" class="welvra-rekam-card" data-record-id="' + escHtml(r.id) + '"'
+      + ' onclick="openRekamDetail(\'' + escHtml(category) + '\',\'' + escHtml(r.id) + '\')"'
+      + ' aria-label="Buka detail: ' + escHtml(title) + '">'
+      + '<span class="welvra-rekam-card__date">' + escHtml(formatRekamDate(r.date)) + '</span>'
+      + '<h3 class="welvra-rekam-card__title">' + escHtml(title) + '</h3>'
+      + (sub ? '<p class="welvra-rekam-card__sub">' + escHtml(sub) + '</p>' : '')
+      + (statusBadge ? '<div>' + statusBadge + '</div>' : '')
+      + attachBadge
+    + '</button>';
+  }
+  function truncate(s, n){
+    if (!s) return '';
+    s = String(s);
+    return s.length > n ? s.slice(0, n - 1) + '…' : s;
+  }
+
+  // ----- Form: open / render fields / save -----
+  function openRekamForm(existingRecord){
+    var modal = document.getElementById('welvraRekamFormModal');
+    var overlay = document.getElementById('welvraRekamFormOverlay');
+    var titleEl = document.getElementById('rekamFormTitle');
+    var fields = document.getElementById('welvraRekamFormFields');
+    if (!modal || !fields) return;
+    state.lastFocusedBeforeForm = document.activeElement;
+    state.editingRecord = existingRecord || null;
+    var category = state.activeCategory;
+    if (existingRecord && existingRecord.__category){ category = existingRecord.__category; }
+    window.__rekamFormPendingAttachment = existingRecord && existingRecord.attachment ? existingRecord.attachment : null;
+    titleEl.textContent = (existingRecord ? 'Edit ' : 'Tambah ') + CATEGORY_FORM_TITLES[category];
+    fields.innerHTML = renderRekamFormFields(category, existingRecord);
+    overlay.hidden = false;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    bindFormInteractions();
+    renderRekamFilePreview();
+    // Focus first input after open transition
+    setTimeout(function(){
+      var firstInput = modal.querySelector('input, select, textarea');
+      if (firstInput) try { firstInput.focus({ preventScroll:true }); } catch(e){}
+    }, 380);
+  }
+  function closeRekamForm(){
+    var modal = document.getElementById('welvraRekamFormModal');
+    var overlay = document.getElementById('welvraRekamFormOverlay');
+    if (!modal || modal.hidden) return;
+    overlay.hidden = true;
+    modal.hidden = true;
+    state.editingRecord = null;
+    window.__rekamFormPendingAttachment = null;
+    if (state.lastFocusedBeforeForm && document.body.contains(state.lastFocusedBeforeForm)){
+      try { state.lastFocusedBeforeForm.focus({ preventScroll:true }); } catch(e){}
+    }
+    // If no other modal open and panel closed, restore scroll
+    if (!state.panelOpen && !isAnyOtherRekamModalOpen()){
+      document.body.style.overflow = '';
+    }
+  }
+
+  function renderRekamFormFields(category, r){
+    r = r || {};
+    var dateVal = r.date || todayIso();
+    var commonAttach = renderFilePicker();
+    var commonNotes = function(value, rows, placeholder){
+      return field({
+        id:'rmField_notes', label:'Catatan', textarea:true,
+        rows: rows || 3, value: value || '', placeholder: placeholder || 'Catatan tambahan...'
+      });
+    };
+    var dateField = field({
+      id:'rmField_date', label:(category==='catatan'?'Tanggal Kunjungan':'Tanggal'),
+      type:'date', value:dateVal, required:true, errorMsg:'Tanggal wajib diisi'
+    });
+
+    if (category === 'lab'){
+      return dateField
+        + field({id:'rmField_title', label:'Judul Tes', type:'text', value:r.title||'', placeholder:'mis. Cek Darah Lengkap', required:true, errorMsg:'Judul tes wajib diisi'})
+        + field({id:'rmField_provider', label:'Penyelenggara', type:'text', value:r.provider||'', placeholder:'mis. Lab Prodia'})
+        + commonNotes(r.notes, 4, 'Tulis nilai-nilai penting atau catatan lainnya...')
+        + commonAttach;
+    }
+    if (category === 'obat'){
+      return dateField
+        + field({id:'rmField_name', label:'Nama Obat', type:'text', value:r.name||'', placeholder:'mis. Amlodipine', required:true, errorMsg:'Nama obat wajib diisi'})
+        + field({id:'rmField_dosage', label:'Dosis', type:'text', value:r.dosage||'', placeholder:'mis. 5mg'})
+        + field({id:'rmField_frequency', label:'Frekuensi', type:'text', value:r.frequency||'', placeholder:'mis. 1x sehari pagi'})
+        + field({id:'rmField_doctor', label:'Diresepkan oleh', type:'text', value:r.doctor||'', placeholder:'Nama dokter'})
+        + renderSegmentField(r.status || 'aktif')
+        + commonNotes(r.notes, 3)
+        + commonAttach;
+    }
+    if (category === 'vital'){
+      var typeVal = r.type || 'tekanan_darah';
+      var placeholder = (VITAL_TYPES.find(function(t){return t.value===typeVal;}) || VITAL_TYPES[0]).placeholder;
+      return dateField
+        + renderVitalTypeField(typeVal)
+        + field({id:'rmField_value', label:'Nilai', type:'text', value:r.value||'', placeholder:placeholder, required:true, errorMsg:'Nilai wajib diisi'})
+        + commonNotes(r.notes, 3)
+        + commonAttach;
+    }
+    if (category === 'catatan'){
+      return dateField
+        + field({id:'rmField_doctor', label:'Nama Dokter', type:'text', value:r.doctor||'', placeholder:'dr. Nama Sp.???', required:true, errorMsg:'Nama dokter wajib diisi'})
+        + field({id:'rmField_clinic', label:'Klinik / RS', type:'text', value:r.clinic||'', placeholder:'mis. RS Permata'})
+        + field({id:'rmField_diagnosis', label:'Diagnosis', type:'text', value:r.diagnosis||'', placeholder:'Diagnosis dari dokter', required:true, errorMsg:'Diagnosis wajib diisi'})
+        + field({id:'rmField_advice', label:'Saran / Tindakan', textarea:true, rows:3, value:r.advice||'', placeholder:'Saran atau tindakan yang diberikan'})
+        + field({id:'rmField_nextVisit', label:'Kontrol Berikutnya', type:'date', value:r.nextVisit||''})
+        + commonNotes(r.notes, 2)
+        + commonAttach;
+    }
+    return '';
+  }
+  function field(opts){
+    var labelClass = 'welvra-rekam-field__label' + (opts.required ? ' welvra-rekam-field__label--required' : '');
+    var input;
+    if (opts.textarea){
+      input = '<textarea id="' + opts.id + '" class="welvra-rekam-field__textarea" rows="' + (opts.rows||3) + '" placeholder="' + escHtml(opts.placeholder||'') + '"'
+        + (opts.required ? ' aria-required="true"' : '') + '>' + escHtml(opts.value||'') + '</textarea>';
+    } else {
+      input = '<input id="' + opts.id + '" class="welvra-rekam-field__input" type="' + (opts.type||'text') + '" value="' + escHtml(opts.value||'') + '" placeholder="' + escHtml(opts.placeholder||'') + '"'
+        + (opts.required ? ' aria-required="true"' : '') + '>';
+    }
+    var errorMsg = opts.errorMsg || 'Wajib diisi';
+    return '<div class="welvra-rekam-field" data-field-id="' + opts.id + '">'
+      + '<label class="' + labelClass + '" for="' + opts.id + '">' + escHtml(opts.label) + '</label>'
+      + input
+      + '<div class="welvra-rekam-field__error">' + escHtml(errorMsg) + '</div>'
+    + '</div>';
+  }
+  function renderSegmentField(currentValue){
+    return '<div class="welvra-rekam-field">'
+      + '<span class="welvra-rekam-field__label">Status</span>'
+      + '<div class="welvra-rekam-segment" role="radiogroup" aria-label="Status obat">'
+        + '<button type="button" role="radio" class="welvra-rekam-segment__option" data-value="aktif" aria-pressed="' + (currentValue==='aktif') + '">Aktif</button>'
+        + '<button type="button" role="radio" class="welvra-rekam-segment__option" data-value="selesai" aria-pressed="' + (currentValue==='selesai') + '">Selesai</button>'
+      + '</div>'
+      + '<input type="hidden" id="rmField_status" value="' + (currentValue||'aktif') + '">'
+    + '</div>';
+  }
+  function renderVitalTypeField(currentValue){
+    var options = VITAL_TYPES.map(function(t){
+      return '<option value="' + t.value + '"' + (t.value===currentValue?' selected':'') + '>' + escHtml(t.label) + '</option>';
+    }).join('');
+    return '<div class="welvra-rekam-field">'
+      + '<label class="welvra-rekam-field__label welvra-rekam-field__label--required" for="rmField_type">Jenis Pengukuran</label>'
+      + '<select id="rmField_type" class="welvra-rekam-field__select" aria-required="true">' + options + '</select>'
+      + '<div class="welvra-rekam-field__error">Wajib diisi</div>'
+    + '</div>';
+  }
+  function renderFilePicker(){
+    return '<div class="welvra-rekam-field">'
+      + '<span class="welvra-rekam-field__label">Lampiran (opsional)</span>'
+      + '<div class="welvra-rekam-file-picker">'
+        + '<input type="file" id="rekamFileInput" accept="image/*,application/pdf" hidden onchange="handleRekamFileSelect(this)">'
+        + '<button type="button" class="welvra-rekam-file-btn" onclick="document.getElementById(\'rekamFileInput\').click()" aria-label="Pilih foto atau PDF">'
+          + '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>'
+          + 'Pilih File (Foto / PDF)'
+        + '</button>'
+        + '<div class="welvra-rekam-file-preview" id="rekamFilePreview" hidden></div>'
+      + '</div>'
+    + '</div>';
+  }
+
+  function bindFormInteractions(){
+    // Segmented control wiring
+    var segOptions = document.querySelectorAll('#welvraRekamForm .welvra-rekam-segment__option');
+    segOptions.forEach(function(opt){
+      opt.addEventListener('click', function(){
+        var group = opt.parentElement;
+        group.querySelectorAll('.welvra-rekam-segment__option').forEach(function(o){
+          o.setAttribute('aria-pressed', o === opt);
+        });
+        var hidden = document.getElementById('rmField_status');
+        if (hidden) hidden.value = opt.dataset.value;
+      });
+    });
+    // Vital type dynamic placeholder
+    var typeSelect = document.getElementById('rmField_type');
+    if (typeSelect){
+      typeSelect.addEventListener('change', function(){
+        var found = VITAL_TYPES.find(function(t){return t.value===typeSelect.value;});
+        var valueInput = document.getElementById('rmField_value');
+        if (valueInput && found) valueInput.placeholder = found.placeholder;
+      });
+    }
+    // Live error clearing
+    var form = document.getElementById('welvraRekamForm');
+    if (form){
+      form.addEventListener('input', function(e){
+        var fieldWrap = e.target.closest('.welvra-rekam-field');
+        if (fieldWrap && fieldWrap.classList.contains('welvra-rekam-field--error') && e.target.value){
+          fieldWrap.classList.remove('welvra-rekam-field--error');
+        }
+      });
+    }
+  }
+
+  // ----- File handling -----
+  function handleRekamFileSelect(input){
+    var file = input.files && input.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024){
+      toast('Ukuran file maksimal 2MB');
+      input.value = '';
+      return;
+    }
+    if (file.type.indexOf('image/') !== 0 && file.type !== 'application/pdf'){
+      toast('Hanya foto atau PDF yang didukung');
+      input.value = '';
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(e){
+      window.__rekamFormPendingAttachment = {
+        name: file.name, type: file.type, size: file.size, dataUrl: e.target.result
+      };
+      renderRekamFilePreview();
+    };
+    reader.onerror = function(){ toast('Gagal membaca file'); };
+    reader.readAsDataURL(file);
+  }
+  function renderRekamFilePreview(){
+    var preview = document.getElementById('rekamFilePreview');
+    if (!preview) return;
+    var att = window.__rekamFormPendingAttachment;
+    if (!att){ preview.hidden = true; preview.innerHTML = ''; return; }
+    var isImage = att.type && att.type.indexOf('image/') === 0;
+    preview.hidden = false;
+    if (isImage){
+      preview.innerHTML = '<img src="' + att.dataUrl + '" alt="' + escHtml(att.name) + '" class="welvra-rekam-file-thumb">'
+        + '<div class="welvra-rekam-file-meta"><span>' + escHtml(att.name) + '</span>'
+        + '<button type="button" class="welvra-rekam-file-remove" onclick="clearRekamFile()" aria-label="Hapus lampiran">&times;</button></div>';
+    } else {
+      preview.innerHTML = '<div class="welvra-rekam-file-pdf">'
+        + '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>'
+        + '</div>'
+        + '<div class="welvra-rekam-file-meta"><span>' + escHtml(att.name) + '</span>'
+        + '<button type="button" class="welvra-rekam-file-remove" onclick="clearRekamFile()" aria-label="Hapus lampiran">&times;</button></div>';
+    }
+  }
+  function clearRekamFile(){
+    window.__rekamFormPendingAttachment = null;
+    var input = document.getElementById('rekamFileInput');
+    if (input) input.value = '';
+    renderRekamFilePreview();
+  }
+
+  // ----- Save -----
+  function saveRekamRecord(){
+    var category = state.activeCategory;
+    if (state.editingRecord && state.editingRecord.__category) category = state.editingRecord.__category;
+    var data = welvraRekamLoad();
+    var record = state.editingRecord ? Object.assign({}, state.editingRecord) : { id: welvraRekamGenerateId(category), createdAt: Date.now() };
+    delete record.__category;
+    var ok = true;
+
+    function v(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+    function markError(id){
+      var wrap = document.querySelector('[data-field-id="'+id+'"]');
+      if (wrap) wrap.classList.add('welvra-rekam-field--error');
+      ok = false;
+    }
+
+    // Common
+    var dateVal = v('rmField_date');
+    if (!dateVal){ markError('rmField_date'); }
+    record.date = dateVal;
+
+    if (category === 'lab'){
+      var titleVal = v('rmField_title');
+      if (!titleVal) markError('rmField_title');
+      record.title = titleVal;
+      record.provider = v('rmField_provider');
+      record.notes = v('rmField_notes');
+    } else if (category === 'obat'){
+      var nameVal = v('rmField_name');
+      if (!nameVal) markError('rmField_name');
+      record.name = nameVal;
+      record.dosage = v('rmField_dosage');
+      record.frequency = v('rmField_frequency');
+      record.doctor = v('rmField_doctor');
+      record.status = v('rmField_status') || 'aktif';
+      record.notes = v('rmField_notes');
+    } else if (category === 'vital'){
+      var typeVal = v('rmField_type') || 'tekanan_darah';
+      var valueVal = v('rmField_value');
+      if (!valueVal) markError('rmField_value');
+      record.type = typeVal;
+      record.value = valueVal;
+      record.notes = v('rmField_notes');
+    } else if (category === 'catatan'){
+      var doctorVal = v('rmField_doctor');
+      var diagnosisVal = v('rmField_diagnosis');
+      if (!doctorVal) markError('rmField_doctor');
+      if (!diagnosisVal) markError('rmField_diagnosis');
+      record.doctor = doctorVal;
+      record.clinic = v('rmField_clinic');
+      record.diagnosis = diagnosisVal;
+      record.advice = v('rmField_advice');
+      record.nextVisit = v('rmField_nextVisit');
+      record.notes = v('rmField_notes');
+    }
+
+    if (!ok){
+      toast('Lengkapi kolom yang ditandai');
+      // Focus first error field
+      var firstError = document.querySelector('.welvra-rekam-field--error input, .welvra-rekam-field--error textarea, .welvra-rekam-field--error select');
+      if (firstError) try { firstError.focus(); } catch(e){}
+      return;
+    }
+    record.attachment = window.__rekamFormPendingAttachment || null;
+    record.updatedAt = Date.now();
+
+    // Insert or update
+    if (state.editingRecord){
+      var idx = data[category].findIndex(function(x){ return x.id === record.id; });
+      if (idx >= 0) data[category][idx] = record;
+      else data[category].unshift(record);
+    } else {
+      data[category].unshift(record);
+    }
+    if (welvraRekamSave(data)){
+      toast(state.editingRecord ? 'Catatan diperbarui' : 'Berhasil disimpan');
+      closeRekamForm();
+      renderRekamCategoryList(category);
+    }
+  }
+
+  // ----- Detail view -----
+  function openRekamDetail(category, recordId){
+    var data = welvraRekamLoad();
+    var record = (data[category] || []).find(function(r){ return r.id === recordId; });
+    if (!record){ toast('Catatan tidak ditemukan'); return; }
+    state.lastFocusedBeforeDetail = document.activeElement;
+    state.currentDetailRecord = record;
+    state.currentDetailCategory = category;
+    var modal = document.getElementById('welvraRekamDetailModal');
+    var overlay = document.getElementById('welvraRekamDetailOverlay');
+    var titleEl = document.getElementById('rekamDetailTitle');
+    var content = document.getElementById('welvraRekamDetailContent');
+    var drslyBtn = document.getElementById('welvraRekamDetailDrSly');
+    if (!modal || !content) return;
+    titleEl.textContent = CATEGORY_FORM_TITLES[category];
+    content.innerHTML = renderDetailContent(category, record);
+    if (drslyBtn) drslyBtn.setAttribute('aria-label', 'Tanya Dr. Sly tentang ' + getRecordDisplayTitle(category, record));
+    overlay.hidden = false;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){
+      if (drslyBtn) try { drslyBtn.focus({ preventScroll:true }); } catch(e){}
+    }, 380);
+  }
+  function closeRekamDetail(){
+    var modal = document.getElementById('welvraRekamDetailModal');
+    var overlay = document.getElementById('welvraRekamDetailOverlay');
+    if (!modal || modal.hidden) return;
+    overlay.hidden = true;
+    modal.hidden = true;
+    state.currentDetailRecord = null;
+    state.currentDetailCategory = null;
+    if (state.lastFocusedBeforeDetail && document.body.contains(state.lastFocusedBeforeDetail)){
+      try { state.lastFocusedBeforeDetail.focus({ preventScroll:true }); } catch(e){}
+    }
+    if (!state.panelOpen && !isAnyOtherRekamModalOpen()){
+      document.body.style.overflow = '';
+    }
+  }
+  function getRecordDisplayTitle(category, r){
+    if (category === 'lab') return r.title || 'hasil lab';
+    if (category === 'obat') return r.name || 'obat';
+    if (category === 'vital'){
+      var t = VITAL_TYPES.find(function(x){return x.value===r.type;});
+      return (t ? t.label : 'pengukuran') + (r.value ? ' ' + r.value : '');
+    }
+    if (category === 'catatan') return r.diagnosis || 'konsultasi';
+    return 'catatan';
+  }
+  function renderDetailContent(category, r){
+    var html = '<div class="welvra-rekam-detail__date">' + escHtml(formatRekamDateLong(r.date)) + '</div>';
+    html += '<h2 class="welvra-rekam-detail__heading">' + escHtml(getRecordDisplayTitle(category, r)) + '</h2>';
+    var fields = [];
+    if (category === 'lab'){
+      if (r.provider) fields.push({label:'Penyelenggara', value:r.provider});
+      if (r.notes) fields.push({label:'Catatan', value:r.notes});
+    } else if (category === 'obat'){
+      if (r.dosage) fields.push({label:'Dosis', value:r.dosage});
+      if (r.frequency) fields.push({label:'Frekuensi', value:r.frequency});
+      if (r.doctor) fields.push({label:'Diresepkan oleh', value:r.doctor});
+      if (r.status) fields.push({label:'Status', value: r.status === 'aktif' ? 'Aktif' : 'Selesai'});
+      if (r.notes) fields.push({label:'Catatan', value:r.notes});
+    } else if (category === 'vital'){
+      if (r.notes) fields.push({label:'Catatan', value:r.notes});
+    } else if (category === 'catatan'){
+      if (r.clinic) fields.push({label:'Klinik / RS', value:r.clinic});
+      if (r.advice) fields.push({label:'Saran / Tindakan', value:r.advice});
+      if (r.nextVisit) fields.push({label:'Kontrol berikutnya', value:formatRekamDateLong(r.nextVisit)});
+      if (r.notes) fields.push({label:'Catatan Tambahan', value:r.notes});
+    }
+    fields.forEach(function(f){
+      html += '<div class="welvra-rekam-detail__field">'
+        + '<span class="welvra-rekam-detail__field-label">' + escHtml(f.label) + '</span>'
+        + '<p class="welvra-rekam-detail__field-value">' + escHtml(f.value) + '</p>'
+      + '</div>';
+    });
+    if (r.attachment){
+      var att = r.attachment;
+      var isImage = att.type && att.type.indexOf('image/') === 0;
+      html += '<div class="welvra-rekam-detail__attachment">'
+        + '<div class="welvra-rekam-detail__attachment-label">Lampiran</div>';
+      if (isImage){
+        html += '<img src="' + att.dataUrl + '" alt="' + escHtml(att.name) + '" loading="lazy" decoding="async">';
+      } else {
+        html += '<div class="welvra-rekam-detail__attachment-pdf">'
+          + '<div class="welvra-rekam-detail__attachment-pdf-icon">'
+            + '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>'
+          + '</div>'
+          + '<a href="' + att.dataUrl + '" target="_blank" rel="noopener" download="' + escHtml(att.name) + '">' + escHtml(att.name) + '</a>'
+        + '</div>';
+      }
+      html += '</div>';
+    }
+    return html;
+  }
+
+  // ----- Edit + Delete -----
+  function editRekamRecord(){
+    if (!state.currentDetailRecord) return;
+    var record = Object.assign({}, state.currentDetailRecord, { __category: state.currentDetailCategory });
+    closeRekamDetail();
+    setTimeout(function(){ openRekamForm(record); }, 200);
+  }
+  function confirmDeleteRekamRecord(){
+    if (!state.currentDetailRecord) return;
+    state.pendingDelete = {
+      id: state.currentDetailRecord.id,
+      category: state.currentDetailCategory
+    };
+    var overlay = document.getElementById('welvraRekamConfirmOverlay');
+    var modal = document.getElementById('welvraRekamConfirm');
+    overlay.hidden = false;
+    modal.hidden = false;
+    var cancelBtn = modal.querySelector('.welvra-rekam-confirm__cancel');
+    setTimeout(function(){ if (cancelBtn) try { cancelBtn.focus(); } catch(e){} }, 100);
+  }
+  function cancelDeleteRekamRecord(){
+    var overlay = document.getElementById('welvraRekamConfirmOverlay');
+    var modal = document.getElementById('welvraRekamConfirm');
+    overlay.hidden = true;
+    modal.hidden = true;
+    state.pendingDelete = null;
+  }
+  function doDeleteRekamRecord(){
+    if (!state.pendingDelete) return;
+    var data = welvraRekamLoad();
+    var cat = state.pendingDelete.category;
+    data[cat] = (data[cat] || []).filter(function(r){ return r.id !== state.pendingDelete.id; });
+    welvraRekamSave(data);
+    cancelDeleteRekamRecord();
+    closeRekamDetail();
+    renderRekamCategoryList(state.activeCategory);
+    toast('Catatan dihapus');
+  }
+
+  // ----- Dr. Sly handoff -----
+  function askDrSlyAboutRecord(){
+    var record = state.currentDetailRecord;
+    var category = state.currentDetailCategory;
+    if (!record || !category) return;
+    var formattedDate = formatRekamDateLong(record.date);
+    var message = '';
+    var context = { source:'rekam-medis', category:category, recordId:record.id };
+
+    if (category === 'lab'){
+      message = 'Saya ingin konsultasi tentang hasil lab "' + record.title + '"';
+      if (record.provider) message += ' dari ' + record.provider;
+      message += ' tanggal ' + formattedDate + '.';
+      if (record.notes) message += ' Berikut catatannya: ' + record.notes;
+      message += ' Boleh tolong dijelaskan dan kasih saran?';
+    } else if (category === 'obat'){
+      message = 'Saya ' + (record.status === 'selesai' ? 'pernah' : 'sedang') + ' mengonsumsi obat ' + record.name;
+      if (record.dosage) message += ' ' + record.dosage;
+      if (record.frequency) message += ', ' + record.frequency;
+      if (record.doctor) message += ', diresepkan oleh ' + record.doctor;
+      message += ' sejak ' + formattedDate + '.';
+      if (record.notes) message += ' Catatan: ' + record.notes;
+      message += ' Apa yang perlu saya perhatikan?';
+    } else if (category === 'vital'){
+      var typeMap = { tekanan_darah:'tekanan darah', berat_badan:'berat badan', tinggi_badan:'tinggi badan', bmi:'BMI', lainnya:'pengukuran' };
+      var typeLabel = typeMap[record.type] || 'pengukuran';
+      message = 'Pengukuran ' + typeLabel + ' saya tanggal ' + formattedDate + ' adalah ' + record.value + '.';
+      if (record.notes) message += ' Catatan: ' + record.notes;
+      message += ' Bagaimana interpretasinya?';
+    } else if (category === 'catatan'){
+      message = 'Tanggal ' + formattedDate + ' saya konsultasi dengan ' + record.doctor;
+      if (record.clinic) message += ' di ' + record.clinic;
+      message += '. Diagnosis: ' + record.diagnosis + '.';
+      if (record.advice) message += ' Saran yang diberikan: ' + record.advice;
+      message += ' Boleh tolong dijelaskan lebih dalam?';
+    }
+
+    closeRekamDetail();
+    setTimeout(function(){
+      closeRekamPanel();
+      setTimeout(function(){
+        if (typeof window.welvraOpenDrSlyWithQuestion === 'function'){
+          window.welvraOpenDrSlyWithQuestion(message, context);
+        } else {
+          toast('Konsultasi Dr. Sly tidak tersedia');
+        }
+      }, 320);
+    }, 200);
+  }
+
+  // ----- ESC handling -----
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Escape') return;
+    var confirm = document.getElementById('welvraRekamConfirm');
+    if (confirm && !confirm.hidden){
+      e.preventDefault(); cancelDeleteRekamRecord(); return;
+    }
+    var detail = document.getElementById('welvraRekamDetailModal');
+    if (detail && !detail.hidden){
+      e.preventDefault(); closeRekamDetail(); return;
+    }
+    var form = document.getElementById('welvraRekamFormModal');
+    if (form && !form.hidden){
+      e.preventDefault(); closeRekamForm(); return;
+    }
+    if (state.panelOpen){
+      e.preventDefault(); closeRekamPanel();
+    }
+  });
+
+  // Tab keyboard navigation (arrow left/right between category tabs)
+  document.addEventListener('keydown', function(e){
+    if (!state.panelOpen) return;
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    var active = document.activeElement;
+    if (!active || !active.classList.contains('welvra-rekam-tab')) return;
+    e.preventDefault();
+    var tabs = Array.from(document.querySelectorAll('.welvra-rekam-tab'));
+    var idx = tabs.indexOf(active);
+    var nextIdx = e.key === 'ArrowRight' ? (idx + 1) % tabs.length : (idx - 1 + tabs.length) % tabs.length;
+    var next = tabs[nextIdx];
+    if (next){
+      switchCategory(next.dataset.category);
+      try { next.focus(); } catch(err){}
+    }
+  });
+
+  // Tab click delegation
+  document.addEventListener('click', function(e){
+    var tab = e.target.closest('.welvra-rekam-tab');
+    if (!tab) return;
+    var cat = tab.dataset.category;
+    if (cat) switchCategory(cat);
+  });
+
+  // ----- Expose -----
+  window.openRekamPanel = openRekamPanel;
+  window.closeRekamPanel = closeRekamPanel;
+  window.openRekamForm = openRekamForm;
+  window.closeRekamForm = closeRekamForm;
+  window.openRekamDetail = openRekamDetail;
+  window.closeRekamDetail = closeRekamDetail;
+  window.saveRekamRecord = saveRekamRecord;
+  window.editRekamRecord = editRekamRecord;
+  window.confirmDeleteRekamRecord = confirmDeleteRekamRecord;
+  window.cancelDeleteRekamRecord = cancelDeleteRekamRecord;
+  window.doDeleteRekamRecord = doDeleteRekamRecord;
+  window.askDrSlyAboutRecord = askDrSlyAboutRecord;
+  window.handleRekamFileSelect = handleRekamFileSelect;
+  window.clearRekamFile = clearRekamFile;
+  // For testing/inspection
+  window.welvraRekamLoad = welvraRekamLoad;
+  window.welvraRekamSave = welvraRekamSave;
 })();
 </script>
 
