@@ -3827,7 +3827,7 @@ html.dark .section-label::after{box-shadow:0 1px 0 rgba(0,0,0,.4) !important}
 /* ======================================================================= */
 
 /* ======================================================================= */
-/* =================== FACEPRINT FEATURE — CSS ========================== */
+/* =================== ANALISA WAJAH FEATURE — CSS (formerly Faceprint) === */
 /* ======================================================================= */
 .fp-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .35s cubic-bezier(.16,1,.3,1)}
 .fp-modal.open{display:flex;opacity:1}
@@ -4122,7 +4122,7 @@ html.dark .fp-result__actions .fp-action-secondary:hover{
 .fp-result__disclaimer{font-size:11px;font-style:italic;color:rgba(200,134,10,.6);margin-top:12px;line-height:1.5}
 
 /* ======================================================================= */
-/* =================== FACEPRINT PHASE 3 — HISTORY/COMPARE/SHARE ======== */
+/* =================== ANALISA WAJAH PHASE 3 — HISTORY/COMPARE/SHARE ==== */
 /* ======================================================================= */
 /* History list */
 .fp-history{padding:20px 16px;text-align:left}
@@ -4231,7 +4231,7 @@ html.dark .fp-delete-modal__card{background:rgba(30,34,42,.92);border-color:rgba
 .fp-delete-modal__card p{font-size:14px;color:var(--txt-secondary,#6B6661);margin:0 0 20px;line-height:1.5}
 
 /* ======================================================================= */
-/* =================== FACEPRINT PHASE 4 — TREND/CLOUD/REPORT/WIDGET ==== */
+/* =================== ANALISA WAJAH PHASE 4 — TREND/CLOUD/REPORT/WIDGET = */
 /* ======================================================================= */
 /* Trend */
 .fp-trend{padding:20px 16px;text-align:left}
@@ -7700,7 +7700,7 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
             </div>
           </button>
 
-          <button class="w-feature-card w-feature-card--faceprint" aria-label="Keamanan Faceprint" onclick="welvraOpenFeature('faceprint', this)">
+          <button class="w-feature-card w-feature-card--faceprint" aria-label="Buka Analisa Wajah" onclick="welvraOpenFeature('faceprint', this)">
             <div class="w-feature-card__face-head">
               <span class="w-feature-card__face-icon" aria-hidden="true">
                 <svg class="w-icon-stroke" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -7714,9 +7714,9 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
                   <path d="M12.5 21 q3.5 2 7 0"/>
                 </svg>
               </span>
-              <h3 class="w-feature-card__title w-feature-card__title--inline">Keamanan Faceprint</h3>
+              <h3 class="w-feature-card__title w-feature-card__title--inline">Analisa Wajah</h3>
             </div>
-            <p class="w-feature-card__block-copy w-feature-card__block-copy--full">Keamanan dengan pemindaian biometrik</p>
+            <p class="w-feature-card__block-copy w-feature-card__block-copy--full">Periksa kondisi kulit wajah Anda</p>
           </button>
 
           <button class="w-feature-card w-feature-card--siklus" aria-label="Kesehatan Siklus" onclick="welvraOpenFeature('mens', this)">
@@ -7887,13 +7887,13 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
 
         <button type="button" class="welvra-feature-card-thin" data-feature="faceprint"
                 onclick="welvraOpenFeature('faceprint', this)"
-                aria-label="Faceprint — pemeriksaan kondisi kulit">
+                aria-label="Analisa Wajah — pemeriksaan kondisi kulit">
           <span class="welvra-feature-card-thin__thumb">
             <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80" alt="" loading="lazy" decoding="async" width="64" height="64">
           </span>
           <span class="welvra-feature-card-thin__label">
             <span class="welvra-feature-card-thin__eyebrow">PEMERIKSAAN KULIT</span>
-            <h3 class="welvra-feature-card-thin__title">Faceprint</h3>
+            <h3 class="welvra-feature-card-thin__title">Analisa Wajah</h3>
           </span>
           <svg class="welvra-feature-card-thin__chevron" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
         </button>
@@ -16231,7 +16231,7 @@ function aktivShowToast(msg) {
 })();
 
 /* ======================================================================= */
-/* ==================== FACEPRINT FEATURE — JAVASCRIPT =================== */
+/* ==================== ANALISA WAJAH FEATURE — JAVASCRIPT (formerly Faceprint) === */
 /* ======================================================================= */
 </script>
 <script>
@@ -16421,7 +16421,7 @@ function fpEnsureDom(){
   modal.id = 'welvraFaceprintModal';
   modal.setAttribute('role', 'dialog');
   modal.setAttribute('aria-modal', 'true');
-  modal.setAttribute('aria-label', 'Faceprint pemeriksaan kulit');
+  modal.setAttribute('aria-label', 'Analisa Wajah — pemeriksaan kulit');
 
   var hasHistory = fpLoadHistory().length > 0;
 
@@ -16433,7 +16433,7 @@ function fpEnsureDom(){
       /* WELCOME */
       '<div class="fp-step" data-step="welcome">' +
         '<div class="fp-eyebrow">PEMERIKSAAN KULIT</div>' +
-        '<h2 class="fp-heading fp-heading--lg">Faceprint</h2>' +
+        '<h2 class="fp-heading fp-heading--lg">Analisa Wajah</h2>' +
         '<p class="fp-tagline">Lihat kondisi kulit wajahmu hari ini</p>' +
         '<p class="fp-desc">Pemeriksaan menyeluruh hidrasi, jerawat, pori, kerutan, hiperpigmentasi, dan kemerahan. Hasil personal berdasarkan profilmu.</p>' +
         '<p class="fp-disclaimer">Hanya untuk panduan dan edukasi. Bukan diagnosis medis.</p>' +
@@ -16477,7 +16477,7 @@ function fpEnsureDom(){
 
       /* PRIVACY */
       '<div class="fp-step fp-privacy" data-step="privacy">' +
-        '<h2 class="fp-heading fp-heading--sm">Tentang Pemeriksaan Faceprint</h2>' +
+        '<h2 class="fp-heading fp-heading--sm">Tentang Analisa Wajah</h2>' +
         '<ul class="fp-privacy__list">' +
           '<li><svg class="fp-privacy__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span>Foto dianalisa oleh sistem pemeriksaan kami</span></li>' +
           '<li><svg class="fp-privacy__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span>Data dikirim terenkripsi end-to-end</span></li>' +
@@ -17324,7 +17324,7 @@ function fpRenderHistoryList(){
 
   /* Header */
   html += '<div class="fp-history__header">';
-  html += '<h2 class="fp-history__title">Riwayat Faceprint</h2>';
+  html += '<h2 class="fp-history__title">Riwayat Analisa Wajah</h2>';
   html += '<p class="fp-history__sub">Lihat perjalanan kulitmu</p>';
   html += '</div>';
 
@@ -17781,7 +17781,7 @@ function fpCloseShareModal(){
 
 function fpGenerateShareText(entry){
   var lines = [];
-  lines.push('Welvra Faceprint');
+  lines.push('Welvra Analisa Wajah');
   lines.push('Skor: ' + (entry.overall_score || 0) + '/100 -- ' + fpGetScoreLabel(entry.overall_score || 0));
   lines.push('Tipe: ' + (FP_SKIN_TYPE_MAP[entry.skin_type] || entry.skin_type || ''));
   lines.push('');
@@ -17802,7 +17802,7 @@ function fpGenerateShareText(entry){
 function fpGenerateCompareShareText(prev, curr){
   var od = (curr.overall_score||0) - (prev.overall_score||0);
   var lines = [];
-  lines.push('Welvra Faceprint — Progress');
+  lines.push('Welvra Analisa Wajah — Progress');
   lines.push(fpFormatDateShort(prev.created_at) + ' -> ' + fpFormatDateShort(curr.created_at));
   lines.push('Skor: ' + (prev.overall_score||0) + ' -> ' + (curr.overall_score||0) + ' (' + (od >= 0 ? '+' : '') + od + ')');
   lines.push('');
@@ -17833,7 +17833,7 @@ function fpGenerateShareImage(data, type, cb){
   ctx.fillText('WELVRA', 540, 140);
   ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
   ctx.globalAlpha = 0.85;
-  ctx.fillText('Faceprint', 540, 180);
+  ctx.fillText('Analisa Wajah', 540, 180);
   ctx.globalAlpha = 1;
 
   if (type === 'compare' && data.prev && data.curr){
@@ -17950,7 +17950,7 @@ function fpShareViaWebAPI(){
   canvas.toBlob(function(blob){
     var file = new File([blob], 'welvra-faceprint.jpg', { type: 'image/jpeg' });
     if (navigator.canShare({ files: [file] })){
-      navigator.share({ files: [file], title: 'Welvra Faceprint' }).catch(function(){});
+      navigator.share({ files: [file], title: 'Welvra Analisa Wajah' }).catch(function(){});
     } else {
       fpDownloadShareImage();
     }
@@ -18059,7 +18059,7 @@ function fpRenderTrendCharts(){
   var range = fpState.trendRange || '3months';
   var ranges = [{id:'month',label:'1 Bulan'},{id:'3months',label:'3 Bulan'},{id:'6months',label:'6 Bulan'},{id:'all',label:'Semua'}];
 
-  var html = '<h2 class="fp-trend__title">Trend Faceprint</h2>';
+  var html = '<h2 class="fp-trend__title">Trend Analisa Wajah</h2>';
   html += '<p class="fp-trend__sub">Pantau perubahan kulitmu dari waktu ke waktu</p>';
   html += '<div class="fp-trend__pills">';
   for (var i = 0; i < ranges.length; i++){
@@ -18294,7 +18294,7 @@ function fpRenderHomeWidget(){
   if (!entries.length){
     container.innerHTML =
       '<div class="fp-home-widget" style="text-align:center;cursor:pointer" onclick="if(window.openFaceprint)openFaceprint()">' +
-        '<div style="font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:22px;color:var(--teal,#0A7B6C);margin-bottom:4px">Mulai Faceprint Pertamamu</div>' +
+        '<div style="font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:22px;color:var(--teal,#0A7B6C);margin-bottom:4px">Mulai Analisa Wajah Pertamamu</div>' +
         '<div style="font-size:13px;color:var(--txt-secondary,#6B6661)">Pemeriksaan kulit dengan panduan ahli — gratis dan privat</div>' +
       '</div>';
     return;
@@ -18316,7 +18316,7 @@ function fpRenderHomeWidget(){
   html += '<div class="fp-home-widget__row">';
   html += '<div class="fp-home-widget__score">' + score + '</div>';
   html += '<div class="fp-home-widget__info">';
-  html += '<div class="fp-home-widget__label">Faceprint Terakhir</div>';
+  html += '<div class="fp-home-widget__label">Analisa Wajah Terakhir</div>';
   html += '<div class="fp-home-widget__type">' + fpEsc(FP_SKIN_TYPE_MAP[latest.skin_type] || '') + ' · ' + fpEsc(fpFormatDate(latest.created_at)) + '</div>';
 
   /* Delta */
@@ -18387,8 +18387,8 @@ function fpRenderSettings(){
   var html = '<h2 class="fp-settings__title">Pengaturan</h2>';
 
   /* Data section */
-  html += '<div class="fp-settings__section"><div class="fp-settings__section-label">Data Faceprint</div>';
-  html += '<div class="fp-settings__row"><div><div class="fp-settings__row-label">Unduh Data Faceprint</div><div class="fp-settings__row-sub">' + entries.length + ' hasil pemeriksaan</div></div>';
+  html += '<div class="fp-settings__section"><div class="fp-settings__section-label">Data Analisa Wajah</div>';
+  html += '<div class="fp-settings__row"><div><div class="fp-settings__row-label">Unduh Data Analisa</div><div class="fp-settings__row-sub">' + entries.length + ' hasil pemeriksaan</div></div>';
   html += '<button class="fp-settings__row-btn" onclick="fpExportData()"' + (entries.length ? '' : ' disabled style="opacity:.4"') + '>Unduh</button></div>';
   html += '<div class="fp-settings__row"><div><div class="fp-settings__row-label">Hapus Semua Data</div><div class="fp-settings__row-sub">Hapus dari perangkat dan cloud</div></div>';
   html += '<button class="fp-settings__row-btn fp-settings__row-btn--danger" onclick="fpStartDeleteAll()"' + (entries.length ? '' : ' disabled style="opacity:.4"') + '>Hapus</button></div>';
@@ -18434,7 +18434,7 @@ function fpSignOut(){
   });
 }
 function fpShowPrivacyInfo(){
-  if (window.showWelvraToast) window.showWelvraToast('Data Faceprint disimpan di perangkat dan cloud (jika sign in). Hanya kamu yang bisa akses.');
+  if (window.showWelvraToast) window.showWelvraToast('Hasil analisa wajah disimpan di perangkat dan cloud (jika sign in). Hanya kamu yang bisa akses.');
 }
 function fpShowTermsInfo(){
   if (window.showWelvraToast) window.showWelvraToast('Welvra panduan edukasi, bukan diagnosis medis. Konsultasi profesional kesehatan untuk concern serius.');
@@ -18465,7 +18465,7 @@ function fpStartDeleteAll(){
   var card = m ? m.querySelector('.fp-delete-modal__card') : null;
   if (!card) return;
   card.innerHTML =
-    '<h3>Hapus Semua Data Faceprint?</h3>' +
+    '<h3>Hapus Semua Data Analisa Wajah?</h3>' +
     '<p>Semua riwayat pemeriksaan akan dihapus dari perangkat ini dan cloud (jika tersinkronisasi). Tindakan ini tidak bisa dibatalkan.</p>' +
     '<p style="font-size:13px;color:var(--txt-secondary);margin-bottom:12px">Ketik <strong>HAPUS</strong> untuk konfirmasi:</p>' +
     '<input type="text" id="fp-delete-confirm-input" style="width:100%;padding:12px;border-radius:12px;border:1px solid rgba(200,134,10,.2);font-size:14px;text-align:center;margin-bottom:16px" placeholder="Ketik HAPUS">' +
@@ -18509,7 +18509,7 @@ function fpExecuteDeleteAll(){
   } catch(e){ console.warn('Cloud delete error:', e); }
 
   fpCancelDelete();
-  if (window.showWelvraToast) window.showWelvraToast('Semua data Faceprint sudah dihapus');
+  if (window.showWelvraToast) window.showWelvraToast('Semua hasil analisa wajah sudah dihapus');
   closeFaceprint();
   fpRenderHomeWidget();
 }
@@ -21502,7 +21502,29 @@ window.fpShowTermsInfo = fpShowTermsInfo;
       });
     });
   }
-  window.openProfileScreen=openProfileScreen;
+  // ============================================================
+  // PHASE 2J — PROFILE UI CONSOLIDATION (2026-05-12)
+  // ------------------------------------------------------------
+  // Canonical profile UI = legacy #profile-panel (NOT this welvraProfileScreen).
+  // Reasoning: legacy panel is the only one wired to bottom nav + header avatar,
+  // and is deeply integrated with getHealthProfile / buildProfileContext (Dr. Sly).
+  // welvraProfileScreen has no user-facing callers — orphan code.
+  //
+  // To unify UX without risking data flow:
+  //  - openProfileScreen is aliased to openProfilePanel (both → legacy panel).
+  //  - This IIFE still owns shared utilities (onboarding, magic-link, cloud
+  //    sync, info modals, welvraProfileContext data layer) and stays put.
+  //  - The 7-tab welvraProfileScreen DOM is never appended (alias short-circuits
+  //    ensureProfileScreenDom).
+  // TODO(phase2j): future cleanup — extract data layer (welvraProfileContext,
+  //   loadLocalProfile, etc.) out of this IIFE, then remove dead screen code.
+  // ============================================================
+  window.openProfileScreen=function(){
+    if(typeof window.openProfilePanel==='function')window.openProfilePanel();
+  };
+  window.closeProfileScreen=function(){
+    if(typeof window.closeProfilePanel==='function')window.closeProfilePanel();
+  };
 
   // ===== PROFILE CONTEXT (consumed by Dr. Sly chat, Analisa Makanku, etc.) =====
   window.welvraProfileContext=function(){
@@ -23907,11 +23929,15 @@ window.fpShowTermsInfo = fpShowTermsInfo;
   window.openRekamPanel = openRekamPanel;
 
   // ----- Profil settings injection: Faceprint lock toggle -----
+  // PHASE 2J: target canonical legacy #profile-panel (was previously targeting
+  // .welvra-profile-screen which is orphan code never mounted in production).
   function injectFaceprintLockToggle(){
-    var screen = document.getElementById('welvra-profile-screen') || document.querySelector('.welvra-profile-screen');
-    if (!screen) return false;
-    if (screen.querySelector('#welvraFaceprintLockToggle')) return true;
-    var signOutSection = screen.querySelector('#profileSignOutSection') || screen.querySelector('.welvra-profile-signout');
+    var host = document.getElementById('profile-panel');
+    if (!host) return false;
+    if (host.querySelector('#welvraFaceprintLockToggle')) return true;
+    var enrollSection = host.querySelector('#welvraFaceprintEnrollSection');
+    var helpSection = host.querySelector('#welvraProfileHelpSection');
+    var signOutSection = host.querySelector('#profileSignOutSection') || host.querySelector('.welvra-profile-signout');
     var lockEnabled = isRekamFaceprintLockEnabled();
     var section = document.createElement('section');
     section.className = 'welvra-profile-section welvra-rekam-lock-section';
@@ -23924,12 +23950,12 @@ window.fpShowTermsInfo = fpShowTermsInfo;
         + '<span class="welvra-toggle__thumb" aria-hidden="true"></span>'
       + '</button>'
     + '</div>';
-    if (signOutSection && signOutSection.parentNode === screen){
-      screen.insertBefore(section, signOutSection);
+    // Insertion order: place lock above enroll section (so toggle reads top-to-bottom: Lock → Enroll → Help → SignOut).
+    var anchor = enrollSection || helpSection || signOutSection;
+    if (anchor && anchor.parentNode){
+      anchor.parentNode.insertBefore(section, anchor);
     } else {
-      // Fallback: append to scrollable content
-      var content = screen.querySelector('.welvra-profile-content') || screen;
-      content.appendChild(section);
+      host.appendChild(section);
     }
     return true;
   }
@@ -24713,21 +24739,17 @@ html.dark .welvra-fp-notice-desc{color:rgba(240,237,232,.7)}
   }
 
   // ----- Profile-section injection + render -----
+  // PHASE 2J: single-target injection on canonical legacy #profile-panel.
+  // Removed dual-target logic (welvraFaceprintEnrollSection2) — see consolidation note above.
   function injectFaceprintEnrollSection(){
-    var targets = [];
-    var legacy = document.getElementById('profile-panel');
-    if (legacy) targets.push(legacy);
-    var screen = document.getElementById('welvraProfileScreen') || document.querySelector('.welvra-profile-screen');
-    if (screen) targets.push(screen);
-    if (!targets.length) return false;
-    targets.forEach(function(host, idx){
-      var sectionId = idx === 0 ? 'welvraFaceprintEnrollSection' : 'welvraFaceprintEnrollSection2';
-      if (host.querySelector('#' + sectionId)) return;
+    var host = document.getElementById('profile-panel');
+    if (!host) return false;
+    if (!host.querySelector('#welvraFaceprintEnrollSection')){
       var lockSection = host.querySelector('.welvra-rekam-lock-section');
       var signOutSection = host.querySelector('#profileSignOutSection');
       var section = document.createElement('section');
       section.className = 'welvra-profile-section welvra-fp-enroll-section';
-      section.id = sectionId;
+      section.id = 'welvraFaceprintEnrollSection';
       if (lockSection && lockSection.parentNode){
         lockSection.parentNode.insertBefore(section, lockSection);
       } else if (signOutSection && signOutSection.parentNode){
@@ -24735,14 +24757,14 @@ html.dark .welvra-fp-notice-desc{color:rgba(240,237,232,.7)}
       } else {
         host.appendChild(section);
       }
-    });
+    }
     renderFaceprintEnrollSection();
     return true;
   }
   function renderFaceprintEnrollSection(){
-    var sections = document.querySelectorAll('#welvraFaceprintEnrollSection, #welvraFaceprintEnrollSection2');
-    if (!sections.length) return;
-    sections.forEach(function(section){ renderFaceprintEnrollSectionInto(section); });
+    var section = document.getElementById('welvraFaceprintEnrollSection');
+    if (!section) return;
+    renderFaceprintEnrollSectionInto(section);
   }
   function renderFaceprintEnrollSectionInto(section){
     var enrolled = welvraFaceprintLoad();
@@ -24779,7 +24801,7 @@ html.dark .welvra-fp-notice-desc{color:rgba(240,237,232,.7)}
   }
   function escapeHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
 
-  // Hook profile panel mount
+  // Hook profile panel mount — single target (legacy canonical, Phase 2J consolidation)
   function tryInject(){
     setTimeout(function(){ injectFaceprintEnrollSection(); }, 60);
   }
@@ -24787,11 +24809,7 @@ html.dark .welvra-fp-notice-desc{color:rgba(240,237,232,.7)}
     var __orig = window.openProfilePanel;
     window.openProfilePanel = function(){ var r = __orig.apply(this, arguments); tryInject(); return r; };
   }
-  if (typeof window.openProfileScreen === 'function'){
-    var __origS = window.openProfileScreen;
-    window.openProfileScreen = function(){ var r = __origS.apply(this, arguments); tryInject(); return r; };
-  }
-  // Also try once on DOM ready in case screen is already mounted
+  // Also try once on DOM ready in case panel is already mounted
   if (document.readyState === 'complete' || document.readyState === 'interactive') tryInject();
   else document.addEventListener('DOMContentLoaded', tryInject);
 
@@ -24880,38 +24898,33 @@ html.dark .welvra-profile-help-row--danger .welvra-profile-help-label-text{color
   // ============================================================
   var APP_VERSION = '2.9.0';
 
+  // PHASE 2J: single-target injection on canonical legacy #profile-panel.
+  // Removed dual-target logic (welvraProfileHelpSection2) — see consolidation note in welvraProfileScreen IIFE.
   function injectProfilHelpSection(){
-    var targets = [];
-    var legacy = document.getElementById('profile-panel');
-    if (legacy) targets.push(legacy);
-    var screen = document.getElementById('welvraProfileScreen') || document.querySelector('.welvra-profile-screen');
-    if (screen) targets.push(screen);
-    if (!targets.length) return false;
-    targets.forEach(function(host, idx){
-      var sectionId = idx === 0 ? 'welvraProfileHelpSection' : 'welvraProfileHelpSection2';
-      if (host.querySelector('#' + sectionId)) return;
-      var content = host.querySelector('.welvra-profile-content') || host;
-      var signOutSection = content.querySelector('#profileSignOutSection');
-      var section = document.createElement('section');
-      section.className = 'welvra-profile-section welvra-profile-help-section';
-      section.id = sectionId;
-      section.innerHTML = ''
-        + '<span class="welvra-profile-help-label">Bantuan &amp; Info</span>'
-        + helpRow({ icon:iconBook(), label:'Tutorial Welvra', action:"showWelvraToast('Tutorial Welvra segera hadir')" })
-        + helpRow({ icon:iconMail(), label:'Beri Masukan', action:"if(window.openModal)openModal('feedback')" })
-        + helpRow({ icon:iconQuestion(), label:'Pusat Bantuan', action:"if(window.openInfoModal)openInfoModal('helpModal')" })
-        + helpRow({ icon:iconInfo(), label:'Tentang Welvra', action:"if(window.openInfoModal)openInfoModal('aboutWelvraModal')" })
-        + helpRow({ icon:iconShield(), label:'Kebijakan Privasi', action:"if(window.openInfoModal)openInfoModal('privacyModal')" })
-        + helpRow({ icon:iconDoc(), label:'Syarat Layanan', action:"showWelvraToast('Syarat Layanan segera hadir')" })
-        + helpRowInfo({ icon:iconTag(), label:'Versi Aplikasi', value:APP_VERSION })
-        + '<span class="welvra-profile-help-label" style="margin-top:8px">Zona Berbahaya</span>'
-        + helpRowDanger({ icon:iconReset(), label:'Reset Data Welvra', action:'if(window.openWelvraResetConfirm)openWelvraResetConfirm()' });
-      if (signOutSection && signOutSection.parentNode){
-        signOutSection.parentNode.insertBefore(section, signOutSection);
-      } else {
-        content.appendChild(section);
-      }
-    });
+    var host = document.getElementById('profile-panel');
+    if (!host) return false;
+    if (host.querySelector('#welvraProfileHelpSection')) return true;
+    var content = host.querySelector('.welvra-profile-content') || host;
+    var signOutSection = content.querySelector('#profileSignOutSection');
+    var section = document.createElement('section');
+    section.className = 'welvra-profile-section welvra-profile-help-section';
+    section.id = 'welvraProfileHelpSection';
+    section.innerHTML = ''
+      + '<span class="welvra-profile-help-label">Bantuan &amp; Info</span>'
+      + helpRow({ icon:iconBook(), label:'Tutorial Welvra', action:"showWelvraToast('Tutorial Welvra segera hadir')" })
+      + helpRow({ icon:iconMail(), label:'Beri Masukan', action:"if(window.openModal)openModal('feedback')" })
+      + helpRow({ icon:iconQuestion(), label:'Pusat Bantuan', action:"if(window.openInfoModal)openInfoModal('helpModal')" })
+      + helpRow({ icon:iconInfo(), label:'Tentang Welvra', action:"if(window.openInfoModal)openInfoModal('aboutWelvraModal')" })
+      + helpRow({ icon:iconShield(), label:'Kebijakan Privasi', action:"if(window.openInfoModal)openInfoModal('privacyModal')" })
+      + helpRow({ icon:iconDoc(), label:'Syarat Layanan', action:"showWelvraToast('Syarat Layanan segera hadir')" })
+      + helpRowInfo({ icon:iconTag(), label:'Versi Aplikasi', value:APP_VERSION })
+      + '<span class="welvra-profile-help-label" style="margin-top:8px">Zona Berbahaya</span>'
+      + helpRowDanger({ icon:iconReset(), label:'Reset Data Welvra', action:'if(window.openWelvraResetConfirm)openWelvraResetConfirm()' });
+    if (signOutSection && signOutSection.parentNode){
+      signOutSection.parentNode.insertBefore(section, signOutSection);
+    } else {
+      content.appendChild(section);
+    }
     return true;
   }
 
@@ -24945,14 +24958,11 @@ html.dark .welvra-profile-help-row--danger .welvra-profile-help-label-text{color
   function iconTag(){ return '<svg viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/></svg>'; }
   function iconReset(){ return '<svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 11-3-6.3"/><polyline points="20 4 20 9 15 9"/></svg>'; }
 
+  // PHASE 2J: single hook on canonical legacy openProfilePanel
   function tryInject(){ setTimeout(injectProfilHelpSection, 80); }
   if (typeof window.openProfilePanel === 'function'){
     var __orig = window.openProfilePanel;
     window.openProfilePanel = function(){ var r = __orig.apply(this, arguments); tryInject(); return r; };
-  }
-  if (typeof window.openProfileScreen === 'function'){
-    var __origS = window.openProfileScreen;
-    window.openProfileScreen = function(){ var r = __origS.apply(this, arguments); tryInject(); return r; };
   }
   if (document.readyState === 'complete' || document.readyState === 'interactive') tryInject();
   else document.addEventListener('DOMContentLoaded', tryInject);
