@@ -293,7 +293,9 @@ html.dark .w-drsly-portrait,
 .w-feature-card--faceprint > .w-feature-card__face-head,
 .w-feature-card--faceprint > .w-feature-card__block-copy,
 .w-feature-card--siklus > .w-feature-card__title,
-.w-feature-card--siklus > .w-feature-card__block-copy {
+.w-feature-card--siklus > .w-feature-card__block-copy,
+.w-feature-card--wawasan > .w-feature-card__title,
+.w-feature-card--wawasan > .w-feature-card__block {
   position: relative;
   z-index: 2;
 }
@@ -335,6 +337,72 @@ html.dark .w-feature-card--siklus .w-feature-card__overlay,
     rgba(50, 20, 28, 0.70) 30%,
     rgba(50, 20, 28, 0.25) 60%,
     rgba(50, 20, 28, 0.00) 95%);
+}
+/* Wawasan Nutrisi — warm cream overlay; stronger middle coverage since this card
+   has two label+copy blocks (subtitles run further down into illustration zone). */
+.w-feature-card--wawasan .w-feature-card__overlay {
+  background: linear-gradient(180deg,
+    rgba(245, 240, 229, 0.96) 0%,
+    rgba(245, 240, 229, 0.86) 35%,
+    rgba(245, 240, 229, 0.55) 65%,
+    rgba(245, 240, 229, 0.12) 88%,
+    rgba(245, 240, 229, 0.00) 100%);
+}
+.w-feature-card--wawasan .w-feature-card__hero-img {
+  object-position: center bottom;
+}
+html.dark .w-feature-card--wawasan .w-feature-card__overlay,
+[data-theme="dark"] .w-feature-card--wawasan .w-feature-card__overlay {
+  background: linear-gradient(180deg,
+    rgba(40, 32, 22, 0.94) 0%,
+    rgba(40, 32, 22, 0.82) 35%,
+    rgba(40, 32, 22, 0.50) 65%,
+    rgba(40, 32, 22, 0.10) 88%,
+    rgba(40, 32, 22, 0.00) 100%);
+}
+
+/* ============================================================
+   EMBOSSED ELEVATION — "timbul" 3D effect on all home cards
+   Subtle inset highlight + warm outer drop shadow + edge hairline.
+   Applied uniformly to: hero summary, block feature cards, thin row.
+   ============================================================ */
+.w-hero-card,
+.w-feature-card,
+.welvra-feature-card-thin {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(60, 40, 20, 0.05),
+    0 1px 2px rgba(60, 40, 20, 0.06),
+    0 6px 16px rgba(60, 40, 20, 0.10),
+    0 18px 40px rgba(60, 40, 20, 0.07);
+  border: 1px solid rgba(200, 134, 10, 0.12);
+}
+/* Solid-gradient block cards (Dr. Sly amber, Siklus burgundy) use a slightly
+   warmer edge to match their tone */
+.w-feature-card--drsly,
+.w-feature-card--siklus {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+/* Dark mode — deeper shadow, subtler highlight */
+html.dark .w-hero-card,
+html.dark .w-feature-card,
+html.dark .welvra-feature-card-thin,
+[data-theme="dark"] .w-hero-card,
+[data-theme="dark"] .w-feature-card,
+[data-theme="dark"] .welvra-feature-card-thin {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.30),
+    0 1px 2px rgba(0, 0, 0, 0.32),
+    0 6px 18px rgba(0, 0, 0, 0.42),
+    0 18px 44px rgba(0, 0, 0, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+html.dark .w-feature-card--drsly,
+html.dark .w-feature-card--siklus,
+[data-theme="dark"] .w-feature-card--drsly,
+[data-theme="dark"] .w-feature-card--siklus {
+  border-color: rgba(255, 255, 255, 0.10);
 }
 
 /* ============================================================
@@ -7750,6 +7818,8 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
           </button>
 
           <button class="w-feature-card w-feature-card--wawasan" aria-label="Wawasan Nutrisi dan Data" onclick="welvraOpenFeature('makan', this)">
+            <img class="w-feature-card__hero-img" src="assets/illustrations/wawasan-nutrisi-hero.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="600" height="600">
+            <span class="w-feature-card__overlay" aria-hidden="true"></span>
             <h3 class="w-feature-card__title">Wawasan Nutrisi &amp; Data</h3>
             <div class="w-feature-card__block">
               <div class="w-feature-card__block-head">
