@@ -253,6 +253,79 @@ body.w-home-v2-active .bottom-nav:not(.w-bottom-nav) { display: none !important;
 .w-feature-card__block-icon svg { display: block; }
 
 /* ============================================================
+   HERO ILLUSTRATIONS — full-bleed background on block cards
+   Used by Analisa Wajah + Siklus Mens cards. Image absolute-positioned,
+   gradient overlay anchored top-left for text readability.
+   ============================================================ */
+.w-feature-card__hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.w-feature-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+/* Bring meaningful content above hero+overlay */
+.w-feature-card--faceprint > .w-feature-card__face-head,
+.w-feature-card--faceprint > .w-feature-card__block-copy,
+.w-feature-card--siklus > .w-feature-card__title,
+.w-feature-card--siklus > .w-feature-card__block-copy {
+  position: relative;
+  z-index: 2;
+}
+/* Analisa Wajah — ivory overlay fades from top-left for text readability */
+.w-feature-card--faceprint .w-feature-card__overlay {
+  background: linear-gradient(150deg,
+    rgba(250, 250, 247, 1.00) 0%,
+    rgba(250, 250, 247, 0.94) 32%,
+    rgba(250, 250, 247, 0.55) 58%,
+    rgba(250, 250, 247, 0.12) 82%,
+    rgba(250, 250, 247, 0.00) 100%);
+}
+.w-feature-card--faceprint .w-feature-card__hero-img {
+  object-position: 82% center; /* shift face firmly right so title area reads clean ivory */
+}
+/* Siklus Mens — burgundy overlay matching existing card hue */
+.w-feature-card--siklus .w-feature-card__overlay {
+  background: linear-gradient(150deg,
+    rgba(120, 60, 70, 0.92) 0%,
+    rgba(120, 60, 70, 0.70) 32%,
+    rgba(120, 60, 70, 0.28) 60%,
+    rgba(120, 60, 70, 0.00) 100%);
+}
+.w-feature-card--siklus .w-feature-card__hero-img {
+  object-position: 70% center;
+}
+/* Dark mode — deeper overlay tones */
+html.dark .w-feature-card--faceprint .w-feature-card__overlay,
+[data-theme="dark"] .w-feature-card--faceprint .w-feature-card__overlay {
+  background: linear-gradient(150deg,
+    rgba(20, 20, 15, 0.96) 0%,
+    rgba(20, 20, 15, 0.85) 32%,
+    rgba(20, 20, 15, 0.45) 58%,
+    rgba(20, 20, 15, 0.10) 82%,
+    rgba(20, 20, 15, 0.00) 100%);
+}
+html.dark .w-feature-card--siklus .w-feature-card__overlay,
+[data-theme="dark"] .w-feature-card--siklus .w-feature-card__overlay {
+  background: linear-gradient(150deg,
+    rgba(50, 20, 28, 0.94) 0%,
+    rgba(50, 20, 28, 0.72) 32%,
+    rgba(50, 20, 28, 0.28) 60%,
+    rgba(50, 20, 28, 0.00) 100%);
+}
+
+/* ============================================================
    PHASE 3 — a11y additions (focus-visible + reduced-motion)
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
@@ -7701,6 +7774,8 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
           </button>
 
           <button class="w-feature-card w-feature-card--faceprint" aria-label="Buka Analisa Wajah" onclick="welvraOpenFeature('faceprint', this)">
+            <img class="w-feature-card__hero-img" src="assets/illustrations/analisa-wajah-hero.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="600" height="600">
+            <span class="w-feature-card__overlay" aria-hidden="true"></span>
             <div class="w-feature-card__face-head">
               <span class="w-feature-card__face-icon" aria-hidden="true">
                 <svg class="w-icon-stroke" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -7719,20 +7794,10 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
             <p class="w-feature-card__block-copy w-feature-card__block-copy--full">Periksa kondisi kulit wajah Anda</p>
           </button>
 
-          <button class="w-feature-card w-feature-card--siklus" aria-label="Kesehatan Siklus" onclick="welvraOpenFeature('mens', this)">
-            <h3 class="w-feature-card__title">Kesehatan Siklus</h3>
-            <span class="w-feature-card__siklus-deco" aria-hidden="true">
-              <svg viewBox="0 0 60 60" width="60" height="60" fill="none" stroke="#E5B9B5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="3" y="7" width="24" height="20" rx="2"/>
-                <line x1="9" y1="4" x2="9" y2="9"/>
-                <line x1="21" y1="4" x2="21" y2="9"/>
-                <line x1="3" y1="13" x2="27" y2="13"/>
-                <circle cx="9" cy="18" r="0.8" fill="#E5B9B5" stroke="none"/>
-                <circle cx="15" cy="18" r="0.8" fill="#E5B9B5" stroke="none"/>
-                <circle cx="21" cy="18" r="0.8" fill="#E5B9B5" stroke="none"/>
-                <path d="M52 32 a14 14 0 1 1 -14 -14 a11 11 0 0 0 14 14 z" fill="#E5B9B5" stroke="#E5B9B5"/>
-              </svg>
-            </span>
+          <button class="w-feature-card w-feature-card--siklus" aria-label="Siklus Mens" onclick="welvraOpenFeature('mens', this)">
+            <img class="w-feature-card__hero-img" src="assets/illustrations/siklus-mens-hero.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="600" height="600">
+            <span class="w-feature-card__overlay" aria-hidden="true"></span>
+            <h3 class="w-feature-card__title">Siklus Mens</h3>
             <p class="w-feature-card__block-copy w-feature-card__block-copy--full w-feature-card__block-copy--bottom">Pelacakan siklus menstruasi</p>
           </button>
         </section>
