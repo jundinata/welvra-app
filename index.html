@@ -5056,164 +5056,7 @@ html.dark .welvra-feature-card-thin__resume{
   .welvra-feature-card-thin:active{ transform: none; }
 }
 
-/* ===== HAMBURGER ===== */
-.hamburger-btn{
-  width:44px;height:44px;display:flex;align-items:center;justify-content:center;
-  background:transparent;border:none;cursor:pointer;padding:0;margin-right:6px;
-  border-radius:12px;transition:background var(--dur-base) var(--ease-decelerate);
-  -webkit-tap-highlight-color:transparent;flex-shrink:0;
-}
-.hamburger-btn:hover,.hamburger-btn:focus-visible{background:rgba(200,134,10,.08)}
-.hamburger-btn:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
-.hamburger-btn svg{width:22px;height:18px;display:block;stroke:var(--primary);transition:stroke var(--dur-base) var(--ease-decelerate),transform var(--dur-base) var(--ease-decelerate)}
-.hamburger-btn:hover svg,.hamburger-btn[aria-expanded="true"] svg{stroke:var(--gold);transform:translateX(.5px)}
-html.dark .hamburger-btn svg{stroke:#E5D8B8}
-html.dark .hamburger-btn:hover svg{stroke:var(--gold-shimmer)}
-
-/* ===== DRAWER OVERLAY ===== */
-.drawer-overlay{
-  position:fixed;inset:0;background:rgba(10,47,41,.22);
-  opacity:0;visibility:hidden;z-index:999;
-  transition:opacity 350ms var(--ease-decelerate),visibility 0s 350ms,backdrop-filter 350ms var(--ease-decelerate);
-}
-html.dark .drawer-overlay{background:rgba(0,0,0,.42)}
-.drawer-overlay.open{
-  opacity:1;visibility:visible;
-  -webkit-backdrop-filter:blur(10px) saturate(1.1) brightness(.92);
-  backdrop-filter:blur(10px) saturate(1.1) brightness(.92);
-  transition:opacity 350ms var(--ease-decelerate),visibility 0s 0s,backdrop-filter 350ms var(--ease-decelerate);
-}
-
-/* ===== DRAWER CONTAINER (glass via .welvra-glass utility) ===== */
-.welvra-drawer{
-  position:fixed;top:0;left:0;bottom:0;
-  width:min(85vw,360px);height:100vh;height:100dvh;
-  border-radius:0 28px 28px 0;
-  overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
-  transform:translateX(-100%);
-  transition:transform 350ms var(--ease-out-expo);
-  z-index:1000;
-}
-.welvra-drawer.welvra-glass-medium{
-  box-shadow:
-    inset -1px 0 0 rgba(255,255,255,0.10),
-    inset 0 1px 0 rgba(255,255,255,0.45),
-    inset 0 -1px 0 rgba(10,123,108,0.04),
-    4px 0 32px rgba(10,79,69,0.18),
-    0 2px 8px rgba(10,123,108,0.06);
-}
-html.dark .welvra-drawer.welvra-glass-medium{
-  box-shadow:
-    inset -1px 0 0 rgba(255,255,255,0.06),
-    inset 0 1px 0 rgba(255,255,255,0.06),
-    inset 0 -1px 0 rgba(0,0,0,0.20),
-    4px 0 32px rgba(0,0,0,0.55),
-    0 2px 8px rgba(0,0,0,0.30);
-}
-@media (max-width:359px){.welvra-drawer{width:90vw}}
-.welvra-drawer.open{transform:translateX(0)}
-.welvra-drawer::-webkit-scrollbar{width:4px}
-.welvra-drawer::-webkit-scrollbar-track{background:transparent}
-.welvra-drawer::-webkit-scrollbar-thumb{background:var(--border-subtle);border-radius:2px}
-
-/* ===== DRAWER HEADER ===== */
-.drawer-header{
-  position:relative;padding:32px 24px 28px;
-  background:linear-gradient(135deg,var(--cream) 0%,#FAFAF7 50%,var(--gold-cream) 100%);
-}
-html.dark .drawer-header{background:linear-gradient(135deg,#1A1F2E 0%,#1C2030 50%,rgba(200,134,10,.12) 100%)}
-.drawer-ornament{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px}
-.drawer-ornament.bottom{margin-bottom:0;margin-top:24px}
-.ornament-line{flex:1;max-width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 50%,transparent)}
-.ornament-diamond{font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--gold);opacity:.85}
-.drawer-avatar-wrapper{position:relative;width:88px;height:88px;margin:0 auto}
-.drawer-avatar-ring{
-  position:absolute;inset:0;border-radius:50%;
-  background:conic-gradient(from 0deg,var(--gold) 0deg,var(--gold-shimmer) 90deg,var(--sage) 180deg,var(--primary) 270deg,var(--gold) 360deg);
-  animation:drawerRingRotate 30s linear infinite;
-  filter:blur(.5px);
-}
-@keyframes drawerRingRotate{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-.drawer-avatar{
-  position:absolute;inset:4px;border-radius:50%;
-  background:#FAFAF7;display:flex;align-items:center;justify-content:center;
-  box-shadow:inset 0 0 20px rgba(200,134,10,.08),0 4px 16px rgba(200,134,10,.2);
-}
-html.dark .drawer-avatar{background:#1C2030;box-shadow:inset 0 0 20px rgba(200,134,10,.12),0 4px 16px rgba(200,134,10,.18)}
-.drawer-avatar-initials{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:32px;font-weight:500;color:var(--gold);letter-spacing:-.5px}
-@media (prefers-reduced-motion:reduce){.drawer-avatar-ring{animation:none}}
-.drawer-username{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--teal-dark);text-align:center;margin:16px 0 4px;letter-spacing:-.3px}
-html.dark .drawer-username{color:#F0EDE8}
-.drawer-email{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary);text-align:center;margin:0 0 8px}
-.drawer-member-since{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:var(--gold);text-align:center;margin:0;letter-spacing:.3px}
-.drawer-close{
-  position:absolute;top:16px;right:16px;width:36px;height:36px;
-  background:rgba(255,255,255,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  border:1px solid var(--border-subtle);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;
-  transition:background var(--dur-base) var(--ease-decelerate),transform var(--dur-base) var(--ease-decelerate);
-}
-html.dark .drawer-close{background:rgba(255,255,255,.08)}
-.drawer-close:hover{background:var(--gold-cream);transform:rotate(90deg)}
-.drawer-close svg{width:14px;height:14px;stroke:var(--teal-dark);stroke-width:1.5;stroke-linecap:round;fill:none}
-html.dark .drawer-close svg{stroke:#F0EDE8}
-
-/* ===== DRAWER MENU ===== */
-.drawer-section-label{
-  display:block;font-family:'Plus Jakarta Sans',sans-serif;
-  font-size:11px;font-weight:600;letter-spacing:2px;
-  color:var(--sage-muted);text-transform:uppercase;
-  padding:24px 24px 12px;
-}
-html.dark .drawer-section-label{color:rgba(140,180,150,.6)}
-.drawer-menu-item{
-  position:relative;display:flex;align-items:center;gap:16px;
-  padding:14px 24px;cursor:pointer;
-  transition:background 250ms var(--ease-decelerate);
-  border:none;background:transparent;width:100%;text-align:left;
-  font-family:inherit;color:inherit;
-}
-.drawer-menu-item:hover,.drawer-menu-item:active,.drawer-menu-item:focus-visible{background:rgba(245,230,200,.5)}
-html.dark .drawer-menu-item:hover,html.dark .drawer-menu-item:focus-visible{background:rgba(200,134,10,.08)}
-.drawer-menu-item:focus-visible{outline:none}
-.drawer-menu-item::after{
-  content:'';position:absolute;bottom:8px;left:56px;right:24px;height:1px;
-  background:linear-gradient(90deg,var(--gold) 0%,transparent 100%);
-  transform:scaleX(0);transform-origin:left;
-  transition:transform 400ms var(--ease-decelerate);
-}
-.drawer-menu-item:hover::after,.drawer-menu-item:focus-visible::after{transform:scaleX(1)}
-.drawer-menu-icon{display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex-shrink:0;transition:transform 250ms var(--ease-spring)}
-.drawer-menu-item:hover .drawer-menu-icon{transform:scale(1.15)}
-.drawer-menu-icon svg{width:22px;height:22px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.drawer-menu-icon[data-color="gold"] svg{stroke:var(--gold)}
-.drawer-menu-icon[data-color="sage"] svg{stroke:var(--sage)}
-.drawer-menu-icon[data-color="teal"] svg{stroke:var(--primary)}
-.drawer-menu-icon[data-color="danger"] svg{stroke:#C84B30}
-html.dark .drawer-menu-icon[data-color="teal"] svg{stroke:var(--teal-light)}
-.drawer-menu-label{flex:1;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:500;color:var(--txt-primary);letter-spacing:-.1px}
-html.dark .drawer-menu-label{color:#F0EDE8}
-.drawer-menu-chevron{font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt-tertiary);font-size:18px;font-weight:300;transition:transform 250ms var(--ease-decelerate),color 250ms var(--ease-decelerate);line-height:1}
-.drawer-menu-item:hover .drawer-menu-chevron{color:var(--gold);transform:translateX(4px)}
-.drawer-divider{height:1px;margin:12px 24px;background:linear-gradient(90deg,transparent,var(--border-medium) 50%,transparent)}
-.drawer-footer{padding:12px 0 32px}
-.drawer-menu-danger:hover,.drawer-menu-danger:focus-visible{background:rgba(200,75,48,.06) !important}
-.drawer-menu-danger .drawer-menu-label{color:#C84B30}
-html.dark .drawer-menu-danger .drawer-menu-label{color:#E07555}
-
-/* iOS toggle */
-.ios-toggle{position:relative;display:inline-block;width:44px;height:24px;background:rgba(0,0,0,.1);border-radius:12px;transition:background 250ms var(--ease-decelerate);flex-shrink:0;border:none;padding:0;cursor:pointer}
-html.dark .ios-toggle{background:rgba(255,255,255,.12)}
-.ios-toggle[data-state="on"]{background:var(--primary)}
-.ios-toggle-thumb{position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2);transition:transform 250ms var(--ease-spring)}
-.ios-toggle[data-state="on"] .ios-toggle-thumb{transform:translateX(20px)}
-
-/* Stagger reveal */
-.welvra-drawer .drawer-menu-item,.welvra-drawer .drawer-section-label,.welvra-drawer .drawer-divider{opacity:0;transform:translateX(-20px);transition:opacity 300ms var(--ease-decelerate),transform 300ms var(--ease-decelerate)}
-.welvra-drawer.open .drawer-menu-item,.welvra-drawer.open .drawer-section-label,.welvra-drawer.open .drawer-divider{opacity:1;transform:translateX(0)}
-@media (prefers-reduced-motion:reduce){
-  .welvra-drawer .drawer-menu-item,.welvra-drawer .drawer-section-label,.welvra-drawer .drawer-divider{transition:none;opacity:1;transform:none}
-}
+/* Drawer + hamburger CSS removed in Phase 2I (Task C). Bottom nav handles navigation. */
 
 /* ============================================================ */
 /* BOTTOM NAVIGATION                                            */
@@ -6394,15 +6237,7 @@ html.dark .welvra-info-section h3{color:#F0EDE8}
 html.dark .welvra-faq-item h3{color:#F0EDE8}
 .welvra-faq-item p{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;line-height:1.7;color:var(--txt-secondary);margin:0}
 .welvra-info-contact a{color:var(--gold);text-decoration:none}
-/* Drawer auth header */
-.drawer-auth-info{display:flex;align-items:center;gap:12px;padding:8px 0}
-.drawer-auth-photo{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0}
-.drawer-auth-initial{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--sage));color:white;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;flex-shrink:0}
-.drawer-auth-text{min-width:0}
-.drawer-auth-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;color:var(--teal);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-html.dark .drawer-auth-name{color:#F0EDE8}
-.drawer-auth-email{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;color:var(--txt-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.drawer-auth-signin{width:100%;padding:12px;border:1.5px solid var(--gold);border-radius:999px;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;color:var(--gold);cursor:pointer;-webkit-tap-highlight-color:transparent}
+/* Drawer auth header CSS removed in Phase 2I (Task C). */
 
 /* ----- Reduced motion ----- */
 @media (prefers-reduced-motion:reduce){
@@ -7662,7 +7497,7 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
       </div>
       <div class="welvra-header-premium__right">
         <button class="welvra-header-premium__avatar" id="profile-avatar-btn"
-                onclick="openWelvraDrawer(this)" aria-label="Buka menu pengguna" aria-controls="welvra-drawer">
+                onclick="if(typeof openProfilePanel==='function')openProfilePanel();" aria-label="Buka profil">
           <span class="welvra-header-premium__avatar-letter profile-avatar-letter" id="profile-avatar-letter">W</span>
         </button>
         <button type="button" class="welvra-header-premium__settings" onclick="openModal('settings')" aria-label="Pengaturan">
@@ -8873,177 +8708,6 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
     <button class="btn-primary" onclick="saveHealthProfile()">Simpan Profil <svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10Z"/></svg></button>
   </div>
 </div>
-
-<!-- WELVRA DRAWER -->
-<div class="drawer-overlay" id="welvra-drawer-overlay" onclick="closeWelvraDrawer()" aria-hidden="true"></div>
-<aside class="welvra-drawer welvra-glass-medium" id="welvra-drawer" role="navigation" aria-label="Menu utama" aria-hidden="true">
-  <div class="drawer-header">
-    <button class="drawer-close" onclick="closeWelvraDrawer()" aria-label="Tutup menu">
-      <svg viewBox="0 0 14 14" aria-hidden="true"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
-    </button>
-    <div class="drawer-ornament"><span class="ornament-line"></span><span class="ornament-diamond">&#9670;</span><span class="ornament-line"></span></div>
-    <div class="drawer-avatar-wrapper">
-      <div class="drawer-avatar-ring"></div>
-      <div class="drawer-avatar"><span class="drawer-avatar-initials" id="drawer-avatar-initials">W</span></div>
-    </div>
-    <h2 class="drawer-username" id="drawer-username">Pengguna</h2>
-    <p class="drawer-email" id="drawer-email">welvra.app</p>
-    <p class="drawer-member-since" id="drawer-member-since">Member sejak 2026</p>
-    <div class="drawer-ornament bottom"><span class="ornament-line"></span><span class="ornament-diamond">&#9670;</span><span class="ornament-line"></span></div>
-  </div>
-
-  <span class="drawer-section-label">Profil &amp; Riwayat</span>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.openProfileScreen)openProfileScreen();else openProfilePanel()},290)">
-    <span class="drawer-menu-icon" data-color="gold">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 22a8 8 0 0116 0" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-    </span>
-    <span class="drawer-menu-label">Profil Saya</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Analitik Kesehatan segera hadir')">
-    <span class="drawer-menu-icon" data-color="gold">
-      <svg viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/><line x1="3" y1="21" x2="21" y2="21"/></svg>
-    </span>
-    <span class="drawer-menu-label">Analitik Kesehatan</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){openModal('history')},290)">
-    <span class="drawer-menu-icon" data-color="gold">
-      <svg viewBox="0 0 24 24"><path d="M5 5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-4 3z"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="13.5" x2="13" y2="13.5"/></svg>
-    </span>
-    <span class="drawer-menu-label">Riwayat Konsultasi</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.fpOpenHistory)fpOpenHistory();else if(window.openFaceprint)openFaceprint()},290)">
-    <span class="drawer-menu-icon" data-color="gold">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 9.5a1 1 0 1 1 0-.01" fill="currentColor"/><path d="M15 9.5a1 1 0 1 1 0-.01" fill="currentColor"/><path d="M9.5 12.5c1 1.2 3.5 1.2 5 0" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M12 16v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-    </span>
-    <span class="drawer-menu-label">Riwayat Faceprint</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){openModal('tensi')},290)">
-    <span class="drawer-menu-icon" data-color="gold">
-      <svg viewBox="0 0 24 24"><polyline points="3 12 7 12 9 7 12 17 14 10 16 12 21 12"/><path d="M12 21 C8 18 4 15 4 10 C4 7 6 5 9 5 C10.5 5 11.5 6 12 7 C12.5 6 13.5 5 15 5 C18 5 20 7 20 10 C20 15 16 18 12 21 Z" opacity=".25"/></svg>
-    </span>
-    <span class="drawer-menu-label">Riwayat Tensi</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Catatan Kesehatan segera hadir')">
-    <span class="drawer-menu-icon" data-color="gold">
-      <svg viewBox="0 0 24 24"><path d="M6 4 H17 A2 2 0 0 1 19 6 V20 A2 2 0 0 1 17 22 H6 Z"/><line x1="6" y1="4" x2="6" y2="22"/><line x1="9" y1="9" x2="16" y2="9"/><line x1="9" y1="13" x2="16" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
-    </span>
-    <span class="drawer-menu-label">Catatan Kesehatan</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.openBookmarksPanel)openBookmarksPanel()},290)">
-    <span class="drawer-menu-icon" data-color="gold">
-      <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-    </span>
-    <span class="drawer-menu-label">Bacaan Tersimpan</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.openHistoryPanel)openHistoryPanel()},290)">
-    <span class="drawer-menu-icon" data-color="gold">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-    </span>
-    <span class="drawer-menu-label">Riwayat Bacaan</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-
-  <div class="drawer-divider"></div>
-
-  <span class="drawer-section-label">Pengaturan</span>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){openModal('settings')},290)">
-    <span class="drawer-menu-icon" data-color="sage">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2 V5 M12 19 V22 M2 12 H5 M19 12 H22 M4.9 4.9 L7 7 M17 17 L19.1 19.1 M4.9 19.1 L7 17 M17 7 L19.1 4.9"/></svg>
-    </span>
-    <span class="drawer-menu-label">Pengaturan Umum</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="welvraToggleDarkFromDrawer()" type="button">
-    <span class="drawer-menu-icon" data-color="sage">
-      <svg viewBox="0 0 24 24"><path d="M20 14.5 A8 8 0 1 1 9.5 4 A6.5 6.5 0 0 0 20 14.5 Z"/></svg>
-    </span>
-    <span class="drawer-menu-label">Mode Gelap</span>
-    <span class="ios-toggle" id="drawer-dark-toggle" data-state="off" aria-hidden="true"><span class="ios-toggle-thumb"></span></span>
-  </button>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){openModal('reminder')},290)">
-    <span class="drawer-menu-icon" data-color="sage">
-      <svg viewBox="0 0 24 24"><path d="M6 16 V11 A6 6 0 0 1 18 11 V16 L20 18 H4 Z"/><path d="M10 21 A2 2 0 0 0 14 21"/></svg>
-    </span>
-    <span class="drawer-menu-label">Notifikasi</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Bahasa: Bahasa Indonesia')">
-    <span class="drawer-menu-icon" data-color="sage">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
-    </span>
-    <span class="drawer-menu-label">Bahasa</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-
-  <div class="drawer-divider"></div>
-
-  <span class="drawer-section-label">Bantuan &amp; Info</span>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Tutorial Welvra segera hadir')">
-    <span class="drawer-menu-icon" data-color="teal">
-      <svg viewBox="0 0 24 24"><path d="M3 5 C6 4 9 4 12 6 C15 4 18 4 21 5 V19 C18 18 15 18 12 20 C9 18 6 18 3 19 Z"/><line x1="12" y1="6" x2="12" y2="20"/></svg>
-    </span>
-    <span class="drawer-menu-label">Tutorial Welvra</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){openModal('feedback')},290)">
-    <span class="drawer-menu-icon" data-color="teal">
-      <svg viewBox="0 0 24 24"><path d="M3 6 L12 13 L21 6"/><path d="M3 6 H21 V17 A1 1 0 0 1 20 18 H4 A1 1 0 0 1 3 17 Z"/><path d="M12 11.5 C11 10.5 9.5 11 9.5 12.3 C9.5 13.5 12 15 12 15 C12 15 14.5 13.5 14.5 12.3 C14.5 11 13 10.5 12 11.5 Z"/></svg>
-    </span>
-    <span class="drawer-menu-label">Beri Masukan</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.openInfoModal)openInfoModal('helpModal')},290)">
-    <span class="drawer-menu-icon" data-color="teal">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9 C9.5 7.5 10.7 6.5 12 6.5 C13.3 6.5 14.5 7.5 14.5 8.8 C14.5 10.5 12 11 12 12.5"/><circle cx="12" cy="16.5" r=".7" fill="currentColor"/></svg>
-    </span>
-    <span class="drawer-menu-label">Pusat Bantuan</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.openInfoModal)openInfoModal('aboutWelvraModal')},290)">
-    <span class="drawer-menu-icon" data-color="teal">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="8" r=".8" fill="currentColor"/></svg>
-    </span>
-    <span class="drawer-menu-label">Tentang Welvra</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.openInfoModal)openInfoModal('privacyModal')},290)">
-    <span class="drawer-menu-icon" data-color="teal">
-      <svg viewBox="0 0 24 24"><path d="M12 3 L20 6 V12 C20 17 16 20 12 21 C8 20 4 17 4 12 V6 Z"/><polyline points="9 12 11 14 15 10"/></svg>
-    </span>
-    <span class="drawer-menu-label">Kebijakan Privasi</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="showWelvraToast('Syarat Layanan segera hadir')">
-    <span class="drawer-menu-icon" data-color="teal">
-      <svg viewBox="0 0 24 24"><path d="M7 3 H15 L19 7 V20 A1 1 0 0 1 18 21 H7 A1 1 0 0 1 6 20 V4 A1 1 0 0 1 7 3 Z"/><polyline points="14 3 14 8 19 8"/><line x1="9" y1="13" x2="16" y2="13"/><line x1="9" y1="16.5" x2="14" y2="16.5"/></svg>
-    </span>
-    <span class="drawer-menu-label">Syarat Layanan</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-  <button class="drawer-menu-item" onclick="closeWelvraDrawer();setTimeout(function(){if(window.fpOpenSettings)fpOpenSettings()},290)">
-    <span class="drawer-menu-icon" data-color="gold">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-    </span>
-    <span class="drawer-menu-label">Pengaturan Faceprint</span>
-    <span class="drawer-menu-chevron" aria-hidden="true">&rsaquo;</span>
-  </button>
-
-  <div class="drawer-footer">
-    <button class="drawer-menu-item drawer-menu-danger" onclick="openWelvraResetConfirm()">
-      <span class="drawer-menu-icon" data-color="danger">
-        <svg viewBox="0 0 24 24"><path d="M20 12 A8 8 0 1 1 17 6.3"/><polyline points="20 4 20 9 15 9"/></svg>
-      </span>
-      <span class="drawer-menu-label">Reset Data Welvra</span>
-    </button>
-  </div>
-</aside>
 
 <!-- WELVRA RESET CONFIRM -->
 <div class="welvra-confirm-overlay" id="welvra-reset-confirm" role="dialog" aria-modal="true" aria-labelledby="welvra-reset-title" onclick="if(event.target===this)closeWelvraResetConfirm()">
@@ -19031,125 +18695,13 @@ window.fpShowTermsInfo = fpShowTermsInfo;
 </script>
 
 <!-- =========================================================== -->
-<!-- PHASE 2A — Drawer + Bottom Navigation behavior              -->
+<!-- PHASE 2A — Bottom Navigation + premium toast + reset flow.  -->
+<!-- (Drawer JS removed in Phase 2I Task C; bottom nav owns all  -->
+<!--  primary navigation, Profil tab owns Bantuan & Info links.) -->
 <!-- =========================================================== -->
 <script>
 (function(){
-  var lastDrawerTrigger = null;
-  var swipeStartX = 0;
-
   function $(id){ return document.getElementById(id); }
-
-  function isDrawerOpen(){
-    var d = $('welvra-drawer');
-    return !!(d && d.classList.contains('open'));
-  }
-
-  function bodyScrollLock(on){
-    if (on) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      var anyModalOpen = document.querySelector('.modal-panel.open, .profile-panel.open, .apikey-overlay.open, .onboard-overlay.open');
-      if (!anyModalOpen && !isDrawerOpen()) document.body.style.overflow = '';
-    }
-  }
-
-  function syncDrawerProfile(){
-    var name = (window.getUserName && window.getUserName()) || 'Pengguna';
-    var initial = (name.trim().charAt(0) || 'W').toUpperCase();
-    var u = $('drawer-username'); if (u) u.textContent = name;
-    var ai = $('drawer-avatar-initials'); if (ai) ai.textContent = initial;
-    var months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-    var d = new Date();
-    var ms = $('drawer-member-since'); if (ms) ms.textContent = 'Member sejak ' + months[d.getMonth()] + ' ' + d.getFullYear();
-    try {
-      var p = JSON.parse(localStorage.getItem('welvra_health_profile') || '{}');
-      var em = $('drawer-email');
-      if (em) em.textContent = (p && p.email) ? p.email : 'welvra.app';
-    } catch(e){}
-    var dt = $('drawer-dark-toggle');
-    if (dt) dt.dataset.state = (localStorage.getItem('welvra_darkmode') === 'true') ? 'on' : 'off';
-  }
-
-  window.openWelvraDrawer = function(trigger){
-    lastDrawerTrigger = trigger || $('hamburger-btn');
-    syncDrawerProfile();
-    var drawer = $('welvra-drawer');
-    var overlay = $('welvra-drawer-overlay');
-    var hamb = $('hamburger-btn');
-    if (!drawer || !overlay) return;
-    drawer.classList.add('open');
-    overlay.classList.add('open');
-    drawer.setAttribute('aria-hidden','false');
-    overlay.setAttribute('aria-hidden','false');
-    if (hamb) hamb.setAttribute('aria-expanded','true');
-    bodyScrollLock(true);
-    var items = drawer.querySelectorAll('.drawer-section-label, .drawer-menu-item, .drawer-divider');
-    items.forEach(function(el,i){ el.style.transitionDelay = (60 + i*40) + 'ms'; });
-    setTimeout(function(){
-      var c = drawer.querySelector('.drawer-close');
-      if (c) c.focus();
-    }, 360);
-  };
-
-  window.closeWelvraDrawer = function(){
-    var drawer = $('welvra-drawer');
-    var overlay = $('welvra-drawer-overlay');
-    var hamb = $('hamburger-btn');
-    if (!drawer || !overlay) return;
-    drawer.classList.remove('open');
-    overlay.classList.remove('open');
-    drawer.setAttribute('aria-hidden','true');
-    overlay.setAttribute('aria-hidden','true');
-    if (hamb) hamb.setAttribute('aria-expanded','false');
-    setTimeout(function(){
-      bodyScrollLock(false);
-      drawer.querySelectorAll('.drawer-section-label, .drawer-menu-item, .drawer-divider').forEach(function(el){ el.style.transitionDelay = ''; });
-      if (lastDrawerTrigger && typeof lastDrawerTrigger.focus === 'function') {
-        try { lastDrawerTrigger.focus(); } catch(e){}
-      }
-    }, 290);
-  };
-
-  // ESC + tab trap
-  document.addEventListener('keydown', function(e){
-    if (!isDrawerOpen()) return;
-    if (e.key === 'Escape') { e.preventDefault(); window.closeWelvraDrawer(); return; }
-    if (e.key === 'Tab') {
-      var drawer = $('welvra-drawer');
-      var f = drawer.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])');
-      if (!f.length) return;
-      var first = f[0], last = f[f.length-1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-  });
-
-  // Swipe to close
-  document.addEventListener('DOMContentLoaded', function(){
-    var d = $('welvra-drawer');
-    if (!d) return;
-    d.addEventListener('touchstart', function(e){ swipeStartX = e.changedTouches[0].screenX; }, { passive:true });
-    d.addEventListener('touchend', function(e){
-      var ex = e.changedTouches[0].screenX;
-      if (swipeStartX - ex > 50) window.closeWelvraDrawer();
-    }, { passive:true });
-  });
-
-  // Dark-mode toggle from drawer (delegates to existing toggleDarkMode so legacy toggle stays in sync)
-  window.welvraToggleDarkFromDrawer = function(){
-    var legacy = document.getElementById('darkmode-toggle');
-    if (window.toggleDarkMode && legacy) {
-      window.toggleDarkMode();
-    } else {
-      // Fallback if legacy toggle absent: directly flip class + storage
-      var nowDark = !document.documentElement.classList.contains('dark');
-      document.documentElement.classList.toggle('dark', nowDark);
-      localStorage.setItem('welvra_darkmode', nowDark);
-    }
-    var dt = $('drawer-dark-toggle');
-    if (dt) dt.dataset.state = (localStorage.getItem('welvra_darkmode') === 'true') ? 'on' : 'off';
-  };
 
   // Premium toast (kept separate from legacy showToast to avoid breaking callers)
   window.showWelvraToast = function(msg, dur){
@@ -19186,7 +18738,8 @@ window.fpShowTermsInfo = fpShowTermsInfo;
       document.body.style.overflow = '';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (tab === 'jadwal') {
-      window.showWelvraToast('Jadwal segera hadir');
+      if (typeof window.openJadwalPanel === 'function') window.openJadwalPanel();
+      else window.showWelvraToast('Jadwal segera hadir');
     } else if (tab === 'rekam') {
       if (typeof window.openRekamPanel === 'function') window.openRekamPanel();
       else window.showWelvraToast('Rekam Medis segera hadir');
@@ -19218,11 +18771,6 @@ window.fpShowTermsInfo = fpShowTermsInfo;
     location.reload();
   };
 
-  // Initial sync of drawer dark toggle on load
-  document.addEventListener('DOMContentLoaded', function(){
-    var dt = $('drawer-dark-toggle');
-    if (dt) dt.dataset.state = (localStorage.getItem('welvra_darkmode') === 'true') ? 'on' : 'off';
-  });
 })();
 </script>
 
@@ -19825,7 +19373,7 @@ window.fpShowTermsInfo = fpShowTermsInfo;
   }
 
   function isAnyOtherModalOpen(){
-    return !!document.querySelector('.modal-panel.open, .profile-panel.open, .apikey-overlay.open, .onboard-overlay.open, .welvra-drawer.open');
+    return !!document.querySelector('.modal-panel.open, .profile-panel.open, .apikey-overlay.open, .onboard-overlay.open');
   }
 
   function renderWisdomPills(){
@@ -21334,10 +20882,8 @@ window.fpShowTermsInfo = fpShowTermsInfo;
   window.openHistoryPanel=openHistoryPanel;
 
   // ===== PHASE 3A.4: PROFILE SCREEN + PHOTO UPLOAD =====
-  // Audit: drawer Profil item at ~line 5358, openProfilePanel at ~7576
   // Bookmarks: welvra.wisdomHub.v1.bookmarks = [{articleId, savedAt}]
   // ReadHistory: welvra.wisdomHub.v1.readHistory = [{articleId, readAt, scrollDepth}]
-  // Drawer close: closeWelvraDrawer()
   // current/pending hold the full nested shape (see emptyProfileShape, declared below).
   var profileState={isOpen:false,isEditMode:false,domBuilt:false,isAnonymous:true,activeTab:'basic',current:null,pending:null,id:null,email:'',photo_url:null};
 
@@ -24297,6 +23843,14 @@ window.fpShowTermsInfo = fpShowTermsInfo;
     return localStorage.getItem(FACEPRINT_LOCK_KEY) === 'true';
   }
   function showRekamFaceprintScan(){
+    // Phase 2I — Gate by enrollment. If user not enrolled, show notice modal
+    // that points them to Profil → Pengenalan Faceprint instead of doing mock scan.
+    if (typeof window.welvraFaceprintIsEnrolled === 'function' && !window.welvraFaceprintIsEnrolled()){
+      if (typeof window.showFaceprintNotEnrolledNotice === 'function'){
+        window.showFaceprintNotEnrolledNotice();
+        return;
+      }
+    }
     var modal = document.getElementById('welvraRekamFaceprintModal');
     var overlay = document.getElementById('welvraRekamFaceprintOverlay');
     var icon = document.getElementById('welvraRekamFaceprintIcon');
@@ -24314,6 +23868,8 @@ window.fpShowTermsInfo = fpShowTermsInfo;
       if (state.faceprintCancelled) return;
       icon.classList.add('success');
       statusEl.textContent = 'Verifikasi berhasil';
+      // Phase 2I — Touch lastUsedAt on successful verification.
+      try { if (typeof window.welvraFaceprintTouchLastUsed === 'function') window.welvraFaceprintTouchLastUsed(); } catch(e){}
       setTimeout(function(){
         if (state.faceprintCancelled) return;
         closeRekamFaceprintScan();
@@ -24674,6 +24230,1982 @@ window.fpShowTermsInfo = fpShowTermsInfo;
   // Phase 2H PDF share
   window.shareRekamToDoctor = shareRekamToDoctor;
   window.generateRekamPDF = generateRekamPDF;
+})();
+</script>
+
+<!-- =========================================================== -->
+<!-- PHASE 2I — Task B: Faceprint Enrollment Persistence         -->
+<!-- =========================================================== -->
+<style>
+/* ----- Faceprint enrollment section in Profil ----- */
+.welvra-fp-enroll-section{padding:18px 24px}
+.welvra-fp-enroll-row{display:flex;align-items:flex-start;gap:14px}
+.welvra-fp-enroll-icon{
+  width:44px;height:44px;border-radius:14px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(10,123,108,.12),rgba(200,134,10,.10));
+  color:var(--teal);
+}
+.welvra-fp-enroll-icon svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.welvra-fp-enroll-icon.enrolled{background:linear-gradient(135deg,rgba(107,158,120,.20),rgba(10,123,108,.18));color:var(--sage,#6B9E78)}
+html.dark .welvra-fp-enroll-icon{background:linear-gradient(135deg,rgba(10,123,108,.22),rgba(200,134,10,.16));color:#7FD1C2}
+.welvra-fp-enroll-text{flex:1;min-width:0}
+.welvra-fp-enroll-title{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;color:var(--text-primary,#15191D);
+  display:flex;align-items:center;gap:8px;margin:0 0 4px;letter-spacing:-.1px
+}
+html.dark .welvra-fp-enroll-title{color:#F0EDE8}
+.welvra-fp-enroll-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:2px 8px;border-radius:999px;
+  background:rgba(107,158,120,.16);color:var(--sage,#6B9E78);
+  font-size:10px;font-weight:600;letter-spacing:.2px;text-transform:uppercase
+}
+html.dark .welvra-fp-enroll-badge{background:rgba(107,158,120,.24);color:#A8D6B0}
+.welvra-fp-enroll-badge svg{width:10px;height:10px}
+.welvra-fp-enroll-sub{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--txt-secondary,#5B6470);
+  margin:0;line-height:1.45
+}
+html.dark .welvra-fp-enroll-sub{color:rgba(240,237,232,.65)}
+.welvra-fp-enroll-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.welvra-fp-btn{
+  padding:10px 16px;border-radius:999px;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  border:none;transition:transform 180ms ease,background 180ms ease,opacity 180ms ease;
+  min-height:40px;display:inline-flex;align-items:center;justify-content:center;gap:6px
+}
+.welvra-fp-btn:active{transform:scale(.97)}
+.welvra-fp-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.welvra-fp-btn--primary{background:linear-gradient(135deg,var(--teal,#0A7B6C),#0D9488);color:#fff}
+.welvra-fp-btn--primary:hover{transform:translateY(-1px)}
+.welvra-fp-btn--ghost{background:rgba(10,123,108,.08);color:var(--teal,#0A7B6C)}
+.welvra-fp-btn--ghost:hover{background:rgba(10,123,108,.16)}
+html.dark .welvra-fp-btn--ghost{background:rgba(10,123,108,.16);color:#7FD1C2}
+.welvra-fp-btn--danger{background:rgba(200,75,75,.10);color:#C84B4B}
+.welvra-fp-btn--danger:hover{background:rgba(200,75,75,.18)}
+html.dark .welvra-fp-btn--danger{background:rgba(200,75,75,.18);color:#E78A8A}
+
+/* ----- Enrollment modal ----- */
+.welvra-fp-overlay{position:fixed;inset:0;background:rgba(10,47,41,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);z-index:1080;opacity:0;transition:opacity 280ms cubic-bezier(.16,1,.3,1)}
+.welvra-fp-overlay[hidden]{display:none}
+.welvra-fp-overlay:not([hidden]){opacity:1}
+.welvra-fp-modal{
+  position:fixed;left:50%;bottom:0;transform:translateX(-50%) translateY(100%);
+  width:100%;max-width:480px;background:#FAFAF7;border-radius:24px 24px 0 0;
+  z-index:1081;padding:24px 24px 32px;display:flex;flex-direction:column;align-items:center;gap:16px;
+  transition:transform 360ms cubic-bezier(.16,1,.3,1);max-height:90vh;overflow-y:auto;
+  box-shadow:0 -8px 32px rgba(0,0,0,.18)
+}
+.welvra-fp-modal[hidden]{display:none}
+.welvra-fp-modal:not([hidden]){transform:translateX(-50%) translateY(0)}
+html.dark .welvra-fp-modal{background:#1F1F1A}
+.welvra-fp-modal__handle{width:40px;height:4px;border-radius:2px;background:rgba(20,20,15,.18);align-self:center}
+html.dark .welvra-fp-modal__handle{background:rgba(255,255,255,.22)}
+.welvra-fp-modal__title{
+  font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;font-style:italic;
+  color:var(--teal-dark,#0A2F29);text-align:center;margin:4px 0 0;letter-spacing:-.3px
+}
+html.dark .welvra-fp-modal__title{color:#F0EDE8}
+.welvra-fp-modal__desc{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary);
+  text-align:center;margin:0 8px 8px;line-height:1.5;max-width:340px
+}
+html.dark .welvra-fp-modal__desc{color:rgba(240,237,232,.7)}
+.welvra-fp-camera-frame{
+  position:relative;width:260px;height:260px;border-radius:50%;overflow:hidden;
+  background:linear-gradient(180deg,#0A2F29,#000);
+  box-shadow:0 8px 32px rgba(10,123,108,.25),inset 0 0 0 2px rgba(200,134,10,.4)
+}
+.welvra-fp-camera-frame video,.welvra-fp-camera-frame canvas{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover
+}
+.welvra-fp-camera-guide{position:absolute;inset:0;pointer-events:none;z-index:2}
+.welvra-fp-camera-guide ellipse{
+  stroke:var(--gold,#C8860A);stroke-width:2;stroke-dasharray:8 6;fill:none;
+  animation:welvraFpGuidePulse 2s ease-in-out infinite
+}
+@keyframes welvraFpGuidePulse{
+  0%,100%{opacity:.55;stroke-dashoffset:0}
+  50%{opacity:.95;stroke-dashoffset:-14}
+}
+@media(prefers-reduced-motion:reduce){.welvra-fp-camera-guide ellipse{animation:none;opacity:.7}}
+.welvra-fp-camera-frame.processing::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle,rgba(10,123,108,.35),transparent 70%);
+  animation:welvraFpProcessPulse 1.4s ease-out infinite;z-index:3
+}
+@keyframes welvraFpProcessPulse{
+  0%{opacity:.2;transform:scale(.95)}
+  50%{opacity:.7}
+  100%{opacity:0;transform:scale(1.1)}
+}
+.welvra-fp-status{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--text-primary,#15191D);
+  text-align:center;margin:0;min-height:18px;letter-spacing:.1px
+}
+html.dark .welvra-fp-status{color:#F0EDE8}
+.welvra-fp-modal__actions{display:flex;gap:8px;width:100%;max-width:340px;margin-top:4px}
+.welvra-fp-modal__actions .welvra-fp-btn{flex:1}
+
+/* ----- Not-enrolled notice (replaces scan modal) ----- */
+.welvra-fp-notice-modal{
+  position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.94);
+  width:calc(100% - 48px);max-width:360px;background:#FAFAF7;border-radius:20px;
+  padding:28px 24px;z-index:1081;text-align:center;
+  transition:opacity 220ms ease,transform 220ms cubic-bezier(.16,1,.3,1);
+  box-shadow:0 12px 48px rgba(0,0,0,.32);opacity:0
+}
+.welvra-fp-notice-modal[hidden]{display:none}
+.welvra-fp-notice-modal:not([hidden]){opacity:1;transform:translate(-50%,-50%) scale(1)}
+html.dark .welvra-fp-notice-modal{background:#1F1F1A}
+.welvra-fp-notice-icon{
+  width:56px;height:56px;border-radius:50%;margin:0 auto 12px;
+  background:linear-gradient(135deg,rgba(200,134,10,.18),rgba(10,123,108,.14));
+  display:flex;align-items:center;justify-content:center;color:var(--gold,#C8860A)
+}
+.welvra-fp-notice-icon svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.welvra-fp-notice-title{
+  font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;font-style:italic;
+  color:var(--teal-dark,#0A2F29);margin:0 0 8px
+}
+html.dark .welvra-fp-notice-title{color:#F0EDE8}
+.welvra-fp-notice-desc{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary);
+  line-height:1.55;margin:0 0 18px
+}
+html.dark .welvra-fp-notice-desc{color:rgba(240,237,232,.7)}
+.welvra-fp-notice-actions{display:flex;gap:8px}
+.welvra-fp-notice-actions .welvra-fp-btn{flex:1}
+
+@media(prefers-reduced-motion:reduce){
+  .welvra-fp-modal,.welvra-fp-overlay,.welvra-fp-notice-modal{transition:none}
+  .welvra-fp-camera-frame.processing::after{animation:none}
+}
+</style>
+<script>
+(function(){
+  'use strict';
+  // ============================================================
+  // PHASE 2I — Task B: Faceprint Enrollment Persistence
+  // ------------------------------------------------------------
+  // NOTE: Browser-side Faceprint is a MOCK / SIMULATION. Real biometric
+  // matching requires native API (FaceID on iOS, BiometricPrompt on Android).
+  // This persistence layer stores enrollment state and a mock vector so the
+  // UX doesn't ask user to re-enroll every session. Real verification will
+  // be wired in Phase 4A/B native wrapper.
+  // ============================================================
+  var ENROLL_KEY = 'welvra.faceprint.enrollment';
+  var LOCK_KEY = 'welvra.rekamMedis.faceprintLock';
+  var state = {
+    modalBuilt:false, noticeBuilt:false, isModalOpen:false, cameraStream:null,
+    capturedDataUrl:null, cameraAvailable:false,
+    lastFocusedBefore:null, mode:'idle' // 'idle' | 'capturing' | 'processing'
+  };
+
+  // ----- Storage -----
+  function welvraFaceprintLoad(){
+    try {
+      var raw = localStorage.getItem(ENROLL_KEY);
+      if (!raw) return null;
+      var obj = JSON.parse(raw);
+      if (!obj || typeof obj !== 'object' || !obj.profileId || !obj.enrolledAt) return null;
+      return obj;
+    } catch(e){ return null; }
+  }
+  function welvraFaceprintSave(enrollment){
+    try { localStorage.setItem(ENROLL_KEY, JSON.stringify(enrollment)); return true; }
+    catch(e){
+      try { window.showWelvraToast && window.showWelvraToast('Penyimpanan penuh — gagal menyimpan'); } catch(_){}
+      return false;
+    }
+  }
+  function welvraFaceprintDelete(){
+    try { localStorage.removeItem(ENROLL_KEY); } catch(e){}
+    // If Rekam Medis lock is active, auto-disable it (user can't unlock without enrollment).
+    var lockWasOn = false;
+    try { lockWasOn = localStorage.getItem(LOCK_KEY) === 'true'; } catch(e){}
+    if (lockWasOn){
+      try { localStorage.setItem(LOCK_KEY, 'false'); } catch(e){}
+      var toggle = document.getElementById('welvraFaceprintLockToggle');
+      if (toggle){ toggle.classList.remove('on'); toggle.setAttribute('aria-checked','false'); }
+      try { window.showWelvraToast && window.showWelvraToast('Kunci Rekam Medis ikut dinonaktifkan'); } catch(e){}
+    }
+    return true;
+  }
+  function welvraFaceprintIsEnrolled(){ return !!welvraFaceprintLoad(); }
+  function welvraFaceprintTouchLastUsed(){
+    var e = welvraFaceprintLoad();
+    if (!e) return false;
+    e.lastUsedAt = Date.now();
+    return welvraFaceprintSave(e);
+  }
+
+  function getActiveProfileId(){
+    try { return (window.welvraRekamGetCurrentProfile && window.welvraRekamGetCurrentProfile() || {}).id || 'default'; }
+    catch(e){ return 'default'; }
+  }
+  function formatRelative(ms){
+    if (!ms) return '—';
+    var d = Date.now() - ms;
+    if (d < 0) return 'baru saja';
+    if (d < 60000) return 'baru saja';
+    if (d < 3600000) return Math.floor(d/60000) + ' menit lalu';
+    if (d < 86400000) return Math.floor(d/3600000) + ' jam lalu';
+    if (d < 7*86400000) return Math.floor(d/86400000) + ' hari lalu';
+    try { return new Date(ms).toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' }); }
+    catch(e){ return new Date(ms).toLocaleDateString(); }
+  }
+
+  // ----- Enrollment modal -----
+  function ensureFaceprintModalDom(){
+    if (state.modalBuilt) return;
+    state.modalBuilt = true;
+    var overlay = document.createElement('div');
+    overlay.className = 'welvra-fp-overlay';
+    overlay.id = 'welvraFaceprintOverlay';
+    overlay.hidden = true;
+    overlay.addEventListener('click', closeFaceprintEnrollModal);
+
+    var modal = document.createElement('aside');
+    modal.className = 'welvra-fp-modal';
+    modal.id = 'welvraFaceprintEnrollModal';
+    modal.setAttribute('role','dialog');
+    modal.setAttribute('aria-modal','true');
+    modal.setAttribute('aria-labelledby','welvraFpEnrollTitle');
+    modal.hidden = true;
+    modal.innerHTML = ''
+      + '<span class="welvra-fp-modal__handle" aria-hidden="true"></span>'
+      + '<h2 id="welvraFpEnrollTitle" class="welvra-fp-modal__title">Daftarkan Faceprint</h2>'
+      + '<p class="welvra-fp-modal__desc" id="welvraFpEnrollDesc">Posisikan wajah Anda dalam bingkai oval. Pendaftaran ini hanya tersimpan di perangkat ini.</p>'
+      + '<div class="welvra-fp-camera-frame" id="welvraFpFrame">'
+      +   '<video id="welvraFpVideo" autoplay playsinline muted></video>'
+      +   '<canvas id="welvraFpCanvas" style="display:none"></canvas>'
+      +   '<svg class="welvra-fp-camera-guide" viewBox="0 0 260 260" aria-hidden="true"><ellipse cx="130" cy="130" rx="78" ry="104"/></svg>'
+      + '</div>'
+      + '<p class="welvra-fp-status" id="welvraFpStatus">Menyiapkan kamera...</p>'
+      + '<div class="welvra-fp-modal__actions">'
+      +   '<button type="button" class="welvra-fp-btn welvra-fp-btn--ghost" id="welvraFpCancelBtn">Batal</button>'
+      +   '<button type="button" class="welvra-fp-btn welvra-fp-btn--primary" id="welvraFpEnrollBtn" disabled style="opacity:.5">Daftarkan</button>'
+      + '</div>';
+    document.body.appendChild(overlay);
+    document.body.appendChild(modal);
+    document.getElementById('welvraFpCancelBtn').addEventListener('click', closeFaceprintEnrollModal);
+    document.getElementById('welvraFpEnrollBtn').addEventListener('click', submitFaceprintEnrollment);
+  }
+
+  function openFaceprintEnrollModal(){
+    ensureFaceprintModalDom();
+    var overlay = document.getElementById('welvraFaceprintOverlay');
+    var modal = document.getElementById('welvraFaceprintEnrollModal');
+    var btn = document.getElementById('welvraFpEnrollBtn');
+    var statusEl = document.getElementById('welvraFpStatus');
+    state.lastFocusedBefore = document.activeElement;
+    state.isModalOpen = true;
+    state.capturedDataUrl = null;
+    state.cameraAvailable = false;
+    state.mode = 'capturing';
+    btn.disabled = true; btn.style.opacity = '.5';
+    statusEl.textContent = 'Menyiapkan kamera...';
+    overlay.hidden = false; modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    requestCamera();
+  }
+
+  function requestCamera(){
+    var video = document.getElementById('welvraFpVideo');
+    var statusEl = document.getElementById('welvraFpStatus');
+    var btn = document.getElementById('welvraFpEnrollBtn');
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+      statusEl.textContent = 'Kamera tidak tersedia — pendaftaran simulasi';
+      state.cameraAvailable = false;
+      btn.disabled = false; btn.style.opacity = '';
+      try { window.showWelvraToast && window.showWelvraToast('Mode demo — kamera tidak tersedia, pendaftaran akan dicatat sebagai simulasi'); } catch(e){}
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({ video: { facingMode:'user', width:{ideal:640}, height:{ideal:640} }, audio:false })
+      .then(function(stream){
+        state.cameraStream = stream;
+        state.cameraAvailable = true;
+        if (video){ video.srcObject = stream; }
+        statusEl.textContent = 'Posisikan wajah di dalam oval, lalu tekan Daftarkan';
+        btn.disabled = false; btn.style.opacity = '';
+      })
+      .catch(function(){
+        state.cameraAvailable = false;
+        statusEl.textContent = 'Kamera ditolak — pendaftaran akan dicatat sebagai simulasi';
+        btn.disabled = false; btn.style.opacity = '';
+        try { window.showWelvraToast && window.showWelvraToast('Mode demo — kamera tidak tersedia, pendaftaran akan dicatat sebagai simulasi'); } catch(e){}
+      });
+  }
+
+  function captureFrameAsDataUrl(){
+    if (!state.cameraAvailable) return null;
+    var video = document.getElementById('welvraFpVideo');
+    var canvas = document.getElementById('welvraFpCanvas');
+    if (!video || !canvas || !video.videoWidth) return null;
+    var size = 200;
+    canvas.width = size; canvas.height = size;
+    var ctx = canvas.getContext('2d');
+    var sw = Math.min(video.videoWidth, video.videoHeight);
+    var sx = (video.videoWidth - sw) / 2;
+    var sy = (video.videoHeight - sw) / 2;
+    try {
+      ctx.drawImage(video, sx, sy, sw, sw, 0, 0, size, size);
+      return canvas.toDataURL('image/jpeg', 0.7);
+    } catch(e){ return null; }
+  }
+
+  function submitFaceprintEnrollment(){
+    var frame = document.getElementById('welvraFpFrame');
+    var statusEl = document.getElementById('welvraFpStatus');
+    var btn = document.getElementById('welvraFpEnrollBtn');
+    var cancelBtn = document.getElementById('welvraFpCancelBtn');
+    if (state.mode === 'processing') return;
+    state.mode = 'processing';
+    btn.disabled = true; btn.style.opacity = '.5';
+    cancelBtn.disabled = true; cancelBtn.style.opacity = '.5';
+    if (frame) frame.classList.add('processing');
+    statusEl.textContent = 'Memproses...';
+    var imageData = captureFrameAsDataUrl();
+    setTimeout(function(){
+      var enrollment = {
+        profileId: getActiveProfileId(),
+        enrolledAt: Date.now(),
+        lastUsedAt: Date.now(),
+        faceImageBase64: imageData,
+        faceVectorMock: 'wfp_' + Math.random().toString(36).slice(2,10) + Date.now().toString(36)
+      };
+      var ok = welvraFaceprintSave(enrollment);
+      stopCamera();
+      if (frame) frame.classList.remove('processing');
+      state.mode = 'idle';
+      if (ok){
+        statusEl.textContent = 'Faceprint berhasil didaftarkan';
+        try { window.showWelvraToast && window.showWelvraToast('Faceprint berhasil didaftarkan'); } catch(e){}
+        setTimeout(function(){
+          closeFaceprintEnrollModal();
+          renderFaceprintEnrollSection();
+        }, 600);
+      } else {
+        statusEl.textContent = 'Gagal menyimpan';
+        btn.disabled = false; btn.style.opacity = '';
+        cancelBtn.disabled = false; cancelBtn.style.opacity = '';
+      }
+    }, 1500);
+  }
+
+  function stopCamera(){
+    if (state.cameraStream){
+      try { state.cameraStream.getTracks().forEach(function(t){ t.stop(); }); } catch(e){}
+      state.cameraStream = null;
+    }
+    var video = document.getElementById('welvraFpVideo');
+    if (video){ try { video.srcObject = null; } catch(e){} }
+  }
+
+  function closeFaceprintEnrollModal(){
+    if (!state.isModalOpen) return;
+    var overlay = document.getElementById('welvraFaceprintOverlay');
+    var modal = document.getElementById('welvraFaceprintEnrollModal');
+    if (overlay) overlay.hidden = true;
+    if (modal) modal.hidden = true;
+    stopCamera();
+    state.isModalOpen = false;
+    state.mode = 'idle';
+    document.body.style.overflow = '';
+    if (state.lastFocusedBefore && document.body.contains(state.lastFocusedBefore)){
+      try { state.lastFocusedBefore.focus({ preventScroll:true }); } catch(e){}
+    }
+  }
+
+  // ----- Delete confirm (reuse Rekam confirm modal pattern) -----
+  function confirmDeleteFaceprint(){
+    // Reuse the existing welvra-rekam-confirm modal by mutating its content briefly.
+    var overlay = document.getElementById('welvraRekamConfirmOverlay');
+    var modal = document.getElementById('welvraRekamConfirm');
+    if (!overlay || !modal){
+      if (confirm('Yakin hapus pendaftaran Faceprint? Anda perlu daftar ulang untuk membuka Rekam Medis.')){
+        doDeleteFaceprint();
+      }
+      return;
+    }
+    var titleEl = document.getElementById('rekamConfirmTitle');
+    var descEl = document.getElementById('rekamConfirmDesc');
+    var deleteBtn = modal.querySelector('.welvra-rekam-confirm__delete');
+    var cancelBtn = modal.querySelector('.welvra-rekam-confirm__cancel');
+    if (titleEl) titleEl.textContent = 'Yakin hapus pendaftaran Faceprint?';
+    if (descEl) descEl.textContent = 'Anda perlu daftar ulang untuk membuka Rekam Medis dengan Faceprint.';
+    overlay.hidden = false; modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var prevOnClick = deleteBtn.onclick;
+    var origCancelHandler = cancelBtn.onclick;
+    function restore(){
+      deleteBtn.onclick = prevOnClick;
+      cancelBtn.onclick = origCancelHandler;
+      overlay.hidden = true; modal.hidden = true;
+      document.body.style.overflow = '';
+      if (titleEl) titleEl.textContent = 'Yakin hapus catatan ini?';
+      if (descEl) descEl.textContent = 'Catatan yang dihapus tidak bisa dikembalikan.';
+    }
+    deleteBtn.onclick = function(){ doDeleteFaceprint(); restore(); };
+    cancelBtn.onclick = function(){ restore(); };
+  }
+  function doDeleteFaceprint(){
+    welvraFaceprintDelete();
+    try { window.showWelvraToast && window.showWelvraToast('Pendaftaran Faceprint dihapus'); } catch(e){}
+    renderFaceprintEnrollSection();
+  }
+
+  // ----- Not-enrolled notice modal -----
+  function ensureFaceprintNoticeDom(){
+    if (state.noticeBuilt) return;
+    state.noticeBuilt = true;
+    var overlay = document.createElement('div');
+    overlay.className = 'welvra-fp-overlay';
+    overlay.id = 'welvraFpNoticeOverlay';
+    overlay.hidden = true;
+    overlay.addEventListener('click', hideFaceprintNotEnrolledNotice);
+
+    var modal = document.createElement('div');
+    modal.className = 'welvra-fp-notice-modal';
+    modal.id = 'welvraFpNoticeModal';
+    modal.setAttribute('role','alertdialog');
+    modal.setAttribute('aria-modal','true');
+    modal.setAttribute('aria-labelledby','welvraFpNoticeTitle');
+    modal.hidden = true;
+    modal.innerHTML = ''
+      + '<div class="welvra-fp-notice-icon" aria-hidden="true">'
+      +   '<svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4"/><path d="M4 21a8 8 0 0116 0"/><circle cx="18" cy="6" r="3" fill="currentColor" stroke="none" opacity=".25"/><path d="M16 6h4M18 4v4" stroke-width="2"/></svg>'
+      + '</div>'
+      + '<h3 id="welvraFpNoticeTitle" class="welvra-fp-notice-title">Daftarkan Faceprint Dulu</h3>'
+      + '<p class="welvra-fp-notice-desc">Untuk mengunci Rekam Medis dengan Faceprint, daftarkan wajah Anda terlebih dahulu di Profil → Pengenalan Faceprint.</p>'
+      + '<div class="welvra-fp-notice-actions">'
+      +   '<button type="button" class="welvra-fp-btn welvra-fp-btn--ghost" id="welvraFpNoticeCancel">Batal</button>'
+      +   '<button type="button" class="welvra-fp-btn welvra-fp-btn--primary" id="welvraFpNoticeEnroll">Daftarkan Sekarang</button>'
+      + '</div>';
+    document.body.appendChild(overlay);
+    document.body.appendChild(modal);
+    document.getElementById('welvraFpNoticeCancel').addEventListener('click', hideFaceprintNotEnrolledNotice);
+    document.getElementById('welvraFpNoticeEnroll').addEventListener('click', function(){
+      hideFaceprintNotEnrolledNotice();
+      if (typeof window.openProfilePanel === 'function') window.openProfilePanel();
+      setTimeout(function(){
+        var section = document.getElementById('welvraFaceprintEnrollSection');
+        if (section){ try { section.scrollIntoView({ behavior:'smooth', block:'center' }); } catch(_){ } }
+        openFaceprintEnrollModal();
+      }, 320);
+    });
+  }
+  function showFaceprintNotEnrolledNotice(){
+    ensureFaceprintNoticeDom();
+    var overlay = document.getElementById('welvraFpNoticeOverlay');
+    var modal = document.getElementById('welvraFpNoticeModal');
+    overlay.hidden = false; modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function hideFaceprintNotEnrolledNotice(){
+    var overlay = document.getElementById('welvraFpNoticeOverlay');
+    var modal = document.getElementById('welvraFpNoticeModal');
+    if (overlay) overlay.hidden = true;
+    if (modal) modal.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  // ----- Profile-section injection + render -----
+  function injectFaceprintEnrollSection(){
+    var targets = [];
+    var legacy = document.getElementById('profile-panel');
+    if (legacy) targets.push(legacy);
+    var screen = document.getElementById('welvraProfileScreen') || document.querySelector('.welvra-profile-screen');
+    if (screen) targets.push(screen);
+    if (!targets.length) return false;
+    targets.forEach(function(host, idx){
+      var sectionId = idx === 0 ? 'welvraFaceprintEnrollSection' : 'welvraFaceprintEnrollSection2';
+      if (host.querySelector('#' + sectionId)) return;
+      var lockSection = host.querySelector('.welvra-rekam-lock-section');
+      var signOutSection = host.querySelector('#profileSignOutSection');
+      var section = document.createElement('section');
+      section.className = 'welvra-profile-section welvra-fp-enroll-section';
+      section.id = sectionId;
+      if (lockSection && lockSection.parentNode){
+        lockSection.parentNode.insertBefore(section, lockSection);
+      } else if (signOutSection && signOutSection.parentNode){
+        signOutSection.parentNode.insertBefore(section, signOutSection);
+      } else {
+        host.appendChild(section);
+      }
+    });
+    renderFaceprintEnrollSection();
+    return true;
+  }
+  function renderFaceprintEnrollSection(){
+    var sections = document.querySelectorAll('#welvraFaceprintEnrollSection, #welvraFaceprintEnrollSection2');
+    if (!sections.length) return;
+    sections.forEach(function(section){ renderFaceprintEnrollSectionInto(section); });
+  }
+  function renderFaceprintEnrollSectionInto(section){
+    var enrolled = welvraFaceprintLoad();
+    if (enrolled){
+      section.innerHTML = ''
+        + '<div class="welvra-fp-enroll-row">'
+        +   '<div class="welvra-fp-enroll-icon enrolled" aria-hidden="true">'
+        +     '<svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4"/><path d="M4 21a8 8 0 0116 0"/><polyline points="9 12 11 14 15 10" stroke-width="2"/></svg>'
+        +   '</div>'
+        +   '<div class="welvra-fp-enroll-text">'
+        +     '<h3 class="welvra-fp-enroll-title">Pengenalan Faceprint <span class="welvra-fp-enroll-badge"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="2 6 5 9 10 3"/></svg>Aktif</span></h3>'
+        +     '<p class="welvra-fp-enroll-sub">Terakhir digunakan: ' + escapeHtml(formatRelative(enrolled.lastUsedAt)) + '. Wajah Anda tersimpan aman di perangkat ini.</p>'
+        +     '<div class="welvra-fp-enroll-actions">'
+        +       '<button type="button" class="welvra-fp-btn welvra-fp-btn--ghost" onclick="window.openFaceprintEnrollModal()">Atur Ulang</button>'
+        +       '<button type="button" class="welvra-fp-btn welvra-fp-btn--danger" onclick="window.confirmDeleteFaceprint()">Hapus Pendaftaran</button>'
+        +     '</div>'
+        +   '</div>'
+        + '</div>';
+    } else {
+      section.innerHTML = ''
+        + '<div class="welvra-fp-enroll-row">'
+        +   '<div class="welvra-fp-enroll-icon" aria-hidden="true">'
+        +     '<svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>'
+        +   '</div>'
+        +   '<div class="welvra-fp-enroll-text">'
+        +     '<h3 class="welvra-fp-enroll-title">Pengenalan Faceprint</h3>'
+        +     '<p class="welvra-fp-enroll-sub">Daftarkan wajah Anda untuk membuka Rekam Medis dengan cepat. Hanya tersimpan di perangkat ini.</p>'
+        +     '<div class="welvra-fp-enroll-actions">'
+        +       '<button type="button" class="welvra-fp-btn welvra-fp-btn--primary" onclick="window.openFaceprintEnrollModal()">Daftarkan Faceprint</button>'
+        +     '</div>'
+        +   '</div>'
+        + '</div>';
+    }
+  }
+  function escapeHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+
+  // Hook profile panel mount
+  function tryInject(){
+    setTimeout(function(){ injectFaceprintEnrollSection(); }, 60);
+  }
+  if (typeof window.openProfilePanel === 'function'){
+    var __orig = window.openProfilePanel;
+    window.openProfilePanel = function(){ var r = __orig.apply(this, arguments); tryInject(); return r; };
+  }
+  if (typeof window.openProfileScreen === 'function'){
+    var __origS = window.openProfileScreen;
+    window.openProfileScreen = function(){ var r = __origS.apply(this, arguments); tryInject(); return r; };
+  }
+  // Also try once on DOM ready in case screen is already mounted
+  if (document.readyState === 'complete' || document.readyState === 'interactive') tryInject();
+  else document.addEventListener('DOMContentLoaded', tryInject);
+
+  // ESC closes Faceprint modals (priority over Rekam Medis since they are stacked above)
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Escape') return;
+    var noticeModal = document.getElementById('welvraFpNoticeModal');
+    if (noticeModal && !noticeModal.hidden){ e.preventDefault(); e.stopPropagation(); hideFaceprintNotEnrolledNotice(); return; }
+    var enrollModal = document.getElementById('welvraFaceprintEnrollModal');
+    if (enrollModal && !enrollModal.hidden){ e.preventDefault(); e.stopPropagation(); closeFaceprintEnrollModal(); return; }
+  }, true);
+
+  // Expose
+  window.welvraFaceprintLoad = welvraFaceprintLoad;
+  window.welvraFaceprintSave = welvraFaceprintSave;
+  window.welvraFaceprintDelete = welvraFaceprintDelete;
+  window.welvraFaceprintIsEnrolled = welvraFaceprintIsEnrolled;
+  window.welvraFaceprintTouchLastUsed = welvraFaceprintTouchLastUsed;
+  window.openFaceprintEnrollModal = openFaceprintEnrollModal;
+  window.closeFaceprintEnrollModal = closeFaceprintEnrollModal;
+  window.confirmDeleteFaceprint = confirmDeleteFaceprint;
+  window.doDeleteFaceprint = doDeleteFaceprint;
+  window.showFaceprintNotEnrolledNotice = showFaceprintNotEnrolledNotice;
+  window.hideFaceprintNotEnrolledNotice = hideFaceprintNotEnrolledNotice;
+  window.renderFaceprintEnrollSection = renderFaceprintEnrollSection;
+  window.injectFaceprintEnrollSection = injectFaceprintEnrollSection;
+})();
+</script>
+
+<!-- =========================================================== -->
+<!-- PHASE 2I — Task C: Profil "Bantuan & Info" section          -->
+<!-- =========================================================== -->
+<style>
+.welvra-profile-help-section{padding:8px 0 16px}
+.welvra-profile-help-label{
+  display:block;padding:24px 24px 8px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:2px;color:var(--sage-muted,#9CAA9F);text-transform:uppercase
+}
+html.dark .welvra-profile-help-label{color:rgba(140,180,150,.6)}
+.welvra-profile-help-row{
+  display:flex;align-items:center;gap:14px;width:100%;
+  padding:14px 24px;background:transparent;border:none;cursor:pointer;
+  font-family:inherit;color:inherit;text-align:left;min-height:48px;
+  transition:background 200ms ease;-webkit-tap-highlight-color:transparent
+}
+.welvra-profile-help-row:hover,.welvra-profile-help-row:focus-visible{background:rgba(200,134,10,.06)}
+.welvra-profile-help-row:focus-visible{outline:none;box-shadow:inset 3px 0 0 var(--gold,#C8860A)}
+html.dark .welvra-profile-help-row:hover,html.dark .welvra-profile-help-row:focus-visible{background:rgba(200,134,10,.10)}
+.welvra-profile-help-row[data-info-only="true"]{cursor:default}
+.welvra-profile-help-row[data-info-only="true"]:hover{background:transparent}
+.welvra-profile-help-icon{
+  flex-shrink:0;width:34px;height:34px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(10,123,108,.08);color:var(--teal,#0A7B6C)
+}
+html.dark .welvra-profile-help-icon{background:rgba(10,123,108,.18);color:#7FD1C2}
+.welvra-profile-help-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.welvra-profile-help-icon--danger{background:rgba(200,75,48,.08);color:#C84B30}
+html.dark .welvra-profile-help-icon--danger{background:rgba(200,75,48,.20);color:#E78A6E}
+.welvra-profile-help-label-text{
+  flex:1;min-width:0;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;font-weight:500;color:var(--text-primary,#15191D);letter-spacing:-.1px
+}
+html.dark .welvra-profile-help-label-text{color:#F0EDE8}
+.welvra-profile-help-row--danger .welvra-profile-help-label-text{color:#C84B30}
+html.dark .welvra-profile-help-row--danger .welvra-profile-help-label-text{color:#E78A6E}
+.welvra-profile-help-value{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-tertiary,#9CA3AF)
+}
+.welvra-profile-help-chevron{
+  font-family:'Plus Jakarta Sans',sans-serif;color:var(--txt-tertiary,#9CA3AF);
+  font-size:18px;font-weight:300;line-height:1;transition:transform 200ms ease,color 200ms ease
+}
+.welvra-profile-help-row:hover .welvra-profile-help-chevron{color:var(--gold,#C8860A);transform:translateX(3px)}
+</style>
+<script>
+(function(){
+  'use strict';
+  // ============================================================
+  // PHASE 2I — Task C: Drawer cleanup migration
+  // ------------------------------------------------------------
+  // Migrates utility links (Tutorial, Beri Masukan, Pusat Bantuan,
+  // Tentang Welvra, Kebijakan Privasi, Syarat Layanan, Versi Aplikasi,
+  // Reset Data) from the removed drawer into the Profil tab.
+  // ============================================================
+  var APP_VERSION = '2.9.0';
+
+  function injectProfilHelpSection(){
+    var targets = [];
+    var legacy = document.getElementById('profile-panel');
+    if (legacy) targets.push(legacy);
+    var screen = document.getElementById('welvraProfileScreen') || document.querySelector('.welvra-profile-screen');
+    if (screen) targets.push(screen);
+    if (!targets.length) return false;
+    targets.forEach(function(host, idx){
+      var sectionId = idx === 0 ? 'welvraProfileHelpSection' : 'welvraProfileHelpSection2';
+      if (host.querySelector('#' + sectionId)) return;
+      var content = host.querySelector('.welvra-profile-content') || host;
+      var signOutSection = content.querySelector('#profileSignOutSection');
+      var section = document.createElement('section');
+      section.className = 'welvra-profile-section welvra-profile-help-section';
+      section.id = sectionId;
+      section.innerHTML = ''
+        + '<span class="welvra-profile-help-label">Bantuan &amp; Info</span>'
+        + helpRow({ icon:iconBook(), label:'Tutorial Welvra', action:"showWelvraToast('Tutorial Welvra segera hadir')" })
+        + helpRow({ icon:iconMail(), label:'Beri Masukan', action:"if(window.openModal)openModal('feedback')" })
+        + helpRow({ icon:iconQuestion(), label:'Pusat Bantuan', action:"if(window.openInfoModal)openInfoModal('helpModal')" })
+        + helpRow({ icon:iconInfo(), label:'Tentang Welvra', action:"if(window.openInfoModal)openInfoModal('aboutWelvraModal')" })
+        + helpRow({ icon:iconShield(), label:'Kebijakan Privasi', action:"if(window.openInfoModal)openInfoModal('privacyModal')" })
+        + helpRow({ icon:iconDoc(), label:'Syarat Layanan', action:"showWelvraToast('Syarat Layanan segera hadir')" })
+        + helpRowInfo({ icon:iconTag(), label:'Versi Aplikasi', value:APP_VERSION })
+        + '<span class="welvra-profile-help-label" style="margin-top:8px">Zona Berbahaya</span>'
+        + helpRowDanger({ icon:iconReset(), label:'Reset Data Welvra', action:'if(window.openWelvraResetConfirm)openWelvraResetConfirm()' });
+      if (signOutSection && signOutSection.parentNode){
+        signOutSection.parentNode.insertBefore(section, signOutSection);
+      } else {
+        content.appendChild(section);
+      }
+    });
+    return true;
+  }
+
+  function helpRow(o){
+    return '<button type="button" class="welvra-profile-help-row" onclick="'+o.action+'">'
+         +   '<span class="welvra-profile-help-icon" aria-hidden="true">'+o.icon+'</span>'
+         +   '<span class="welvra-profile-help-label-text">'+o.label+'</span>'
+         +   '<span class="welvra-profile-help-chevron" aria-hidden="true">&rsaquo;</span>'
+         + '</button>';
+  }
+  function helpRowDanger(o){
+    return '<button type="button" class="welvra-profile-help-row welvra-profile-help-row--danger" onclick="'+o.action+'">'
+         +   '<span class="welvra-profile-help-icon welvra-profile-help-icon--danger" aria-hidden="true">'+o.icon+'</span>'
+         +   '<span class="welvra-profile-help-label-text">'+o.label+'</span>'
+         +   '<span class="welvra-profile-help-chevron" aria-hidden="true">&rsaquo;</span>'
+         + '</button>';
+  }
+  function helpRowInfo(o){
+    return '<div class="welvra-profile-help-row" data-info-only="true">'
+         +   '<span class="welvra-profile-help-icon" aria-hidden="true">'+o.icon+'</span>'
+         +   '<span class="welvra-profile-help-label-text">'+o.label+'</span>'
+         +   '<span class="welvra-profile-help-value">'+o.value+'</span>'
+         + '</div>';
+  }
+  function iconBook(){ return '<svg viewBox="0 0 24 24"><path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1z"/><line x1="12" y1="6" x2="12" y2="20"/></svg>'; }
+  function iconMail(){ return '<svg viewBox="0 0 24 24"><path d="M3 6l9 7 9-7"/><path d="M3 6h18v11a1 1 0 01-1 1H4a1 1 0 01-1-1z"/></svg>'; }
+  function iconQuestion(){ return '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9C9.5 7.5 10.7 6.5 12 6.5c1.3 0 2.5 1 2.5 2.3 0 1.7-2.5 2.2-2.5 3.7"/><circle cx="12" cy="16.5" r=".8" fill="currentColor"/></svg>'; }
+  function iconInfo(){ return '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="8" r=".8" fill="currentColor"/></svg>'; }
+  function iconShield(){ return '<svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/><polyline points="9 12 11 14 15 10"/></svg>'; }
+  function iconDoc(){ return '<svg viewBox="0 0 24 24"><path d="M7 3h8l4 4v13a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z"/><polyline points="14 3 14 8 19 8"/><line x1="9" y1="13" x2="16" y2="13"/><line x1="9" y1="16.5" x2="14" y2="16.5"/></svg>'; }
+  function iconTag(){ return '<svg viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/></svg>'; }
+  function iconReset(){ return '<svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 11-3-6.3"/><polyline points="20 4 20 9 15 9"/></svg>'; }
+
+  function tryInject(){ setTimeout(injectProfilHelpSection, 80); }
+  if (typeof window.openProfilePanel === 'function'){
+    var __orig = window.openProfilePanel;
+    window.openProfilePanel = function(){ var r = __orig.apply(this, arguments); tryInject(); return r; };
+  }
+  if (typeof window.openProfileScreen === 'function'){
+    var __origS = window.openProfileScreen;
+    window.openProfileScreen = function(){ var r = __origS.apply(this, arguments); tryInject(); return r; };
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') tryInject();
+  else document.addEventListener('DOMContentLoaded', tryInject);
+  window.injectProfilHelpSection = injectProfilHelpSection;
+})();
+</script>
+
+<!-- =========================================================== -->
+<!-- PHASE 2I — Task A: Jadwal Tab MVP                           -->
+<!-- =========================================================== -->
+<style>
+/* ----- Panel ----- */
+.welvra-jadwal-overlay{position:fixed;inset:0;background:rgba(10,47,41,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);z-index:945;opacity:0;visibility:hidden;transition:opacity 300ms cubic-bezier(.16,1,.3,1),visibility 0s 300ms}
+.welvra-jadwal-overlay.open{opacity:1;visibility:visible;transition:opacity 300ms cubic-bezier(.16,1,.3,1),visibility 0s 0s}
+.welvra-jadwal-panel{
+  position:fixed;left:0;right:0;bottom:0;top:0;z-index:946;
+  background:#FAFAF7;display:flex;flex-direction:column;overflow:hidden;
+  transform:translateY(100%);transition:transform 360ms cubic-bezier(.16,1,.3,1)
+}
+.welvra-jadwal-panel.open{transform:translateY(0)}
+html.dark .welvra-jadwal-panel{background:#14140F}
+@media(min-width:481px){.welvra-jadwal-panel{left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:480px;border-radius:24px 24px 0 0}.welvra-jadwal-panel.open{transform:translateX(-50%) translateY(0)}}
+
+/* ----- Header ----- */
+.welvra-jadwal-header{
+  position:relative;padding:18px 20px 8px;background:#FAFAF7;
+  border-bottom:1px solid rgba(200,134,10,.10);flex-shrink:0
+}
+html.dark .welvra-jadwal-header{background:#14140F;border-bottom-color:rgba(200,134,10,.16)}
+.welvra-jadwal-header__top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.welvra-jadwal-header__close{
+  width:36px;height:36px;border-radius:50%;background:rgba(10,123,108,.08);
+  border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--teal,#0A7B6C);flex-shrink:0;-webkit-tap-highlight-color:transparent
+}
+.welvra-jadwal-header__close:hover{background:rgba(10,123,108,.16)}
+.welvra-jadwal-header__close:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-jadwal-header__close{background:rgba(10,123,108,.18);color:#7FD1C2}
+.welvra-jadwal-header__close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.welvra-jadwal-header__title{
+  flex:1;font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;font-style:italic;
+  color:var(--teal-dark,#0A2F29);margin:0;text-align:center;letter-spacing:-.3px
+}
+html.dark .welvra-jadwal-header__title{color:#F0EDE8}
+.welvra-jadwal-header__placeholder{width:36px;flex-shrink:0}
+.welvra-jadwal-profile-switcher{
+  display:flex;align-items:center;gap:8px;margin:0 auto;padding:6px 12px;border-radius:999px;
+  background:rgba(10,123,108,.06);border:none;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:500;color:var(--teal,#0A7B6C)
+}
+.welvra-jadwal-profile-switcher:hover{background:rgba(10,123,108,.12)}
+.welvra-jadwal-profile-switcher:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-jadwal-profile-switcher{background:rgba(10,123,108,.16);color:#7FD1C2}
+.welvra-jadwal-profile-switcher svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8}
+
+/* ----- Segmented tabs ----- */
+.welvra-jadwal-tabs{
+  display:flex;gap:4px;padding:6px;background:rgba(10,123,108,.06);
+  border-radius:999px;margin:0 20px 12px;flex-shrink:0
+}
+html.dark .welvra-jadwal-tabs{background:rgba(10,123,108,.14)}
+.welvra-jadwal-tab{
+  flex:1;padding:10px 8px;border:none;background:transparent;cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;
+  color:var(--txt-secondary);border-radius:999px;-webkit-tap-highlight-color:transparent;
+  transition:background 200ms ease,color 200ms ease;min-height:36px
+}
+.welvra-jadwal-tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.welvra-jadwal-tab.active{background:#FAFAF7;color:var(--teal,#0A7B6C);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+html.dark .welvra-jadwal-tab{color:rgba(240,237,232,.6)}
+html.dark .welvra-jadwal-tab.active{background:#1F1F1A;color:#7FD1C2}
+
+/* ----- Content ----- */
+.welvra-jadwal-content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 20px 120px}
+.welvra-jadwal-day-heading{
+  font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;font-style:italic;
+  color:var(--teal,#0A7B6C);margin:18px 4px 8px;letter-spacing:-.2px
+}
+html.dark .welvra-jadwal-day-heading{color:#7FD1C2}
+.welvra-jadwal-day-heading:first-child{margin-top:8px}
+
+/* ----- Item card ----- */
+.welvra-jadwal-item{
+  display:flex;align-items:flex-start;gap:12px;width:100%;
+  padding:14px;border-radius:14px;background:rgba(255,255,255,.85);
+  border:1px solid rgba(200,134,10,.08);margin-bottom:8px;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform 180ms ease,background 180ms ease;
+  text-align:left;font-family:inherit
+}
+.welvra-jadwal-item:hover{background:rgba(255,255,255,.95);transform:translateY(-1px)}
+.welvra-jadwal-item:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-jadwal-item{background:rgba(31,31,26,.6);border-color:rgba(200,134,10,.14)}
+html.dark .welvra-jadwal-item:hover{background:rgba(31,31,26,.8)}
+.welvra-jadwal-item.done{opacity:.62}
+.welvra-jadwal-item.done .welvra-jadwal-item__title{text-decoration:line-through}
+.welvra-jadwal-item__icon{
+  width:36px;height:36px;border-radius:11px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center
+}
+.welvra-jadwal-item__icon svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.welvra-jadwal-item__icon--obat{background:rgba(10,123,108,.12);color:var(--teal,#0A7B6C)}
+.welvra-jadwal-item__icon--janji{background:rgba(200,134,10,.14);color:var(--gold,#C8860A)}
+.welvra-jadwal-item__icon--rutin{background:rgba(107,158,120,.14);color:var(--sage,#6B9E78)}
+.welvra-jadwal-item__icon--lainnya{background:rgba(120,120,120,.08);color:#6B6B6B}
+html.dark .welvra-jadwal-item__icon--lainnya{background:rgba(255,255,255,.10);color:rgba(240,237,232,.7)}
+.welvra-jadwal-item__main{flex:1;min-width:0;padding-top:2px}
+.welvra-jadwal-item__title{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;
+  color:var(--text-primary,#15191D);margin:0 0 3px;letter-spacing:-.1px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+html.dark .welvra-jadwal-item__title{color:#F0EDE8}
+.welvra-jadwal-item__meta{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;color:var(--txt-secondary);
+  margin:0;line-height:1.4;display:block;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+html.dark .welvra-jadwal-item__meta{color:rgba(240,237,232,.62)}
+.welvra-jadwal-item__check{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;border:1.8px solid rgba(200,134,10,.30);
+  background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  -webkit-tap-highlight-color:transparent;transition:all 200ms cubic-bezier(.16,1,.3,1);align-self:center
+}
+.welvra-jadwal-item__check:hover{border-color:var(--teal,#0A7B6C)}
+.welvra-jadwal-item__check:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.welvra-jadwal-item__check svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity 200ms ease}
+.welvra-jadwal-item__check[aria-pressed="true"]{background:linear-gradient(135deg,var(--teal,#0A7B6C),var(--sage,#6B9E78));border-color:transparent}
+.welvra-jadwal-item__check[aria-pressed="true"] svg{opacity:1}
+
+/* ----- FAB ----- */
+.welvra-jadwal-fab{
+  position:absolute;right:20px;bottom:calc(20px + env(safe-area-inset-bottom));
+  width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--teal,#0A7B6C),var(--gold,#C8860A));
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(10,123,108,.32);-webkit-tap-highlight-color:transparent;
+  color:#fff;transition:transform 220ms cubic-bezier(.16,1,.3,1);z-index:5
+}
+.welvra-jadwal-fab:hover{transform:translateY(-2px) scale(1.04)}
+.welvra-jadwal-fab:active{transform:scale(.96)}
+.welvra-jadwal-fab:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.welvra-jadwal-fab svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ----- Empty state ----- */
+.welvra-jadwal-empty{padding:48px 24px 24px;text-align:center}
+.welvra-jadwal-empty__icon{
+  width:72px;height:72px;border-radius:50%;margin:0 auto 16px;
+  background:linear-gradient(135deg,rgba(10,123,108,.10),rgba(200,134,10,.10));
+  display:flex;align-items:center;justify-content:center;color:var(--teal,#0A7B6C)
+}
+html.dark .welvra-jadwal-empty__icon{background:linear-gradient(135deg,rgba(10,123,108,.20),rgba(200,134,10,.16));color:#7FD1C2}
+.welvra-jadwal-empty__icon svg{width:36px;height:36px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.welvra-jadwal-empty__title{
+  font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;font-style:italic;
+  color:var(--teal-dark,#0A2F29);margin:0 0 6px
+}
+html.dark .welvra-jadwal-empty__title{color:#F0EDE8}
+.welvra-jadwal-empty__desc{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;color:var(--txt-secondary);
+  line-height:1.55;margin:0 0 18px;max-width:280px;margin-left:auto;margin-right:auto
+}
+html.dark .welvra-jadwal-empty__desc{color:rgba(240,237,232,.62)}
+.welvra-jadwal-empty__cta{
+  padding:11px 22px;border-radius:999px;background:linear-gradient(135deg,var(--teal,#0A7B6C),#0D9488);
+  color:#fff;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:600;-webkit-tap-highlight-color:transparent
+}
+.welvra-jadwal-empty__cta:hover{transform:translateY(-1px)}
+.welvra-jadwal-empty__cta:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ----- Form / detail modal (slide-up) ----- */
+.welvra-jadwal-modal-overlay{position:fixed;inset:0;background:rgba(10,47,41,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);z-index:960;opacity:0;visibility:hidden;transition:opacity 240ms ease,visibility 0s 240ms}
+.welvra-jadwal-modal-overlay.open{opacity:1;visibility:visible;transition:opacity 240ms ease,visibility 0s 0s}
+.welvra-jadwal-modal{
+  position:fixed;left:0;right:0;bottom:0;background:#FAFAF7;border-radius:24px 24px 0 0;
+  z-index:961;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;
+  transform:translateY(100%);transition:transform 320ms cubic-bezier(.16,1,.3,1);
+  box-shadow:0 -8px 32px rgba(0,0,0,.18)
+}
+.welvra-jadwal-modal.open{transform:translateY(0)}
+html.dark .welvra-jadwal-modal{background:#1F1F1A}
+@media(min-width:481px){.welvra-jadwal-modal{left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:480px}.welvra-jadwal-modal.open{transform:translateX(-50%) translateY(0)}}
+.welvra-jadwal-modal__handle{width:40px;height:4px;border-radius:2px;background:rgba(20,20,15,.18);margin:10px auto 0}
+html.dark .welvra-jadwal-modal__handle{background:rgba(255,255,255,.22)}
+.welvra-jadwal-modal__header{padding:14px 24px 8px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.welvra-jadwal-modal__title{
+  flex:1;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;font-style:italic;
+  color:var(--teal-dark,#0A2F29);margin:0;letter-spacing:-.2px
+}
+html.dark .welvra-jadwal-modal__title{color:#F0EDE8}
+.welvra-jadwal-modal__close{
+  width:34px;height:34px;border-radius:50%;background:rgba(10,123,108,.08);
+  border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--teal,#0A7B6C);flex-shrink:0
+}
+.welvra-jadwal-modal__close:hover{background:rgba(10,123,108,.16)}
+.welvra-jadwal-modal__close:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-jadwal-modal__close{background:rgba(10,123,108,.18);color:#7FD1C2}
+.welvra-jadwal-modal__close svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.welvra-jadwal-modal__body{padding:8px 24px 16px;overflow-y:auto;flex:1}
+.welvra-jadwal-modal__footer{
+  padding:12px 24px calc(20px + env(safe-area-inset-bottom));
+  border-top:1px solid rgba(200,134,10,.10);display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0;
+  background:rgba(255,255,255,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)
+}
+html.dark .welvra-jadwal-modal__footer{background:rgba(31,31,26,.6);border-top-color:rgba(200,134,10,.16)}
+
+/* Form fields */
+.welvra-jadwal-field{margin-bottom:14px}
+.welvra-jadwal-field-label{
+  display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;
+  color:var(--txt-secondary);text-transform:uppercase;letter-spacing:.8px;margin:0 0 6px
+}
+html.dark .welvra-jadwal-field-label{color:rgba(240,237,232,.6)}
+.welvra-jadwal-field-input,.welvra-jadwal-field-textarea,.welvra-jadwal-field-select{
+  width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid rgba(200,134,10,.18);
+  background:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;
+  color:var(--text-primary,#15191D);transition:border 180ms ease;box-sizing:border-box
+}
+.welvra-jadwal-field-input:focus,.welvra-jadwal-field-textarea:focus,.welvra-jadwal-field-select:focus{outline:none;border-color:var(--teal,#0A7B6C)}
+.welvra-jadwal-field-textarea{min-height:80px;resize:vertical;font-family:inherit}
+html.dark .welvra-jadwal-field-input,html.dark .welvra-jadwal-field-textarea,html.dark .welvra-jadwal-field-select{background:#0F0F0C;border-color:rgba(200,134,10,.22);color:#F0EDE8}
+.welvra-jadwal-segment{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.welvra-jadwal-segment-btn{
+  padding:10px 4px;border-radius:12px;border:1.5px solid rgba(200,134,10,.18);
+  background:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;color:var(--txt-secondary);
+  transition:all 180ms ease;-webkit-tap-highlight-color:transparent
+}
+.welvra-jadwal-segment-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
+.welvra-jadwal-segment-btn.active{background:linear-gradient(135deg,var(--teal,#0A7B6C),#0D9488);color:#fff;border-color:transparent}
+.welvra-jadwal-segment-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+html.dark .welvra-jadwal-segment-btn{background:#0F0F0C;border-color:rgba(200,134,10,.22);color:rgba(240,237,232,.6)}
+.welvra-jadwal-toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
+.welvra-jadwal-toggle-row__label{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--text-primary)}
+html.dark .welvra-jadwal-toggle-row__label{color:#F0EDE8}
+.welvra-jadwal-mini-btn{
+  padding:8px 12px;border-radius:999px;background:rgba(10,123,108,.06);color:var(--teal,#0A7B6C);
+  border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;
+  -webkit-tap-highlight-color:transparent;display:inline-flex;align-items:center;gap:6px
+}
+.welvra-jadwal-mini-btn:hover{background:rgba(10,123,108,.14)}
+html.dark .welvra-jadwal-mini-btn{background:rgba(10,123,108,.18);color:#7FD1C2}
+
+/* Detail view */
+.welvra-jadwal-detail-row{padding:8px 0;border-bottom:1px solid rgba(200,134,10,.06)}
+html.dark .welvra-jadwal-detail-row{border-bottom-color:rgba(200,134,10,.14)}
+.welvra-jadwal-detail-row:last-child{border-bottom:none}
+.welvra-jadwal-detail-label{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;
+  color:var(--txt-secondary);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px
+}
+html.dark .welvra-jadwal-detail-label{color:rgba(240,237,232,.55)}
+.welvra-jadwal-detail-value{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--text-primary);line-height:1.45
+}
+html.dark .welvra-jadwal-detail-value{color:#F0EDE8}
+
+/* Footer buttons */
+.welvra-jadwal-btn{
+  padding:11px 18px;border-radius:999px;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;border:none;-webkit-tap-highlight-color:transparent;
+  transition:transform 180ms ease,background 180ms ease;min-height:42px
+}
+.welvra-jadwal-btn:active{transform:scale(.97)}
+.welvra-jadwal-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.welvra-jadwal-btn--primary{background:linear-gradient(135deg,var(--teal,#0A7B6C),#0D9488);color:#fff;flex:1}
+.welvra-jadwal-btn--primary:hover{transform:translateY(-1px)}
+.welvra-jadwal-btn--ghost{background:rgba(10,123,108,.08);color:var(--teal,#0A7B6C)}
+.welvra-jadwal-btn--ghost:hover{background:rgba(10,123,108,.16)}
+html.dark .welvra-jadwal-btn--ghost{background:rgba(10,123,108,.18);color:#7FD1C2}
+.welvra-jadwal-btn--danger{background:rgba(200,75,75,.10);color:#C84B4B}
+.welvra-jadwal-btn--danger:hover{background:rgba(200,75,75,.18)}
+.welvra-jadwal-btn--gold{background:rgba(200,134,10,.10);color:var(--gold,#C8860A)}
+.welvra-jadwal-btn--gold:hover{background:rgba(200,134,10,.18)}
+html.dark .welvra-jadwal-btn--gold{background:rgba(200,134,10,.22);color:#E5C078}
+
+@media(prefers-reduced-motion:reduce){
+  .welvra-jadwal-overlay,.welvra-jadwal-panel,.welvra-jadwal-modal,.welvra-jadwal-modal-overlay,
+  .welvra-jadwal-fab,.welvra-jadwal-item,.welvra-jadwal-item__check svg,.welvra-jadwal-item__check{transition:none}
+}
+</style>
+<script>
+(function(){
+  'use strict';
+  // ============================================================
+  // PHASE 2I — Task A: Jadwal Tab MVP
+  // ------------------------------------------------------------
+  // NOTE: setTimeout-based notifications only fire while tab/app is open.
+  // For background notifications, Phase 3C PWA (Service Worker + Push API) required.
+  // Don't schedule >24h ahead since the page may have been closed by then.
+  // ============================================================
+  var STORAGE_KEY = 'welvra.jadwal.data';
+  var HIDDEN_KEY = 'welvra.jadwal.autoHidden';
+  var TYPE_LABELS = { obat:'Obat', janji:'Janji Dokter', rutin:'Rutin', lainnya:'Agenda' };
+  var DAYS_ID = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  var MONTHS_ID = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  var MONTHS_SHORT_ID = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+
+  var state = {
+    panelOpen:false, panelBuilt:false, activeSegment:'hari-ini',
+    formModalOpen:false, formModalBuilt:false, editingItem:null, formItemType:'obat', formAllDay:false,
+    detailModalOpen:false, detailModalBuilt:false, currentDetailItem:null, currentDetailOccurrenceDate:null,
+    pendingDelete:null,
+    lastFocusedBeforePanel:null, lastFocusedBeforeForm:null, lastFocusedBeforeDetail:null,
+    notifPermissionRequested:false, scheduledTimeouts:[]
+  };
+
+  // ----- Helpers -----
+  function getProfileId(){
+    try { return (window.welvraRekamGetCurrentProfile && window.welvraRekamGetCurrentProfile() || {}).id || 'default'; }
+    catch(e){ return 'default'; }
+  }
+  function welvraJadwalLoad(){
+    var profileId = getProfileId();
+    var all = {};
+    try { all = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e){}
+    if (!all || typeof all !== 'object') all = {};
+    if (!Array.isArray(all[profileId])) all[profileId] = [];
+    return all[profileId];
+  }
+  function welvraJadwalSave(items){
+    var profileId = getProfileId();
+    var all = {};
+    try { all = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e){}
+    if (!all || typeof all !== 'object') all = {};
+    all[profileId] = items;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(all)); return true; }
+    catch(e){
+      try { window.showWelvraToast && window.showWelvraToast('Penyimpanan penuh — hapus agenda lama'); } catch(_){}
+      return false;
+    }
+  }
+  function getAutoHidden(){
+    try { var arr = JSON.parse(localStorage.getItem(HIDDEN_KEY) || '[]'); return Array.isArray(arr) ? arr : []; }
+    catch(e){ return []; }
+  }
+  function addAutoHidden(autoSource){
+    if (!autoSource) return;
+    var arr = getAutoHidden();
+    if (arr.indexOf(autoSource) === -1){ arr.push(autoSource); try { localStorage.setItem(HIDDEN_KEY, JSON.stringify(arr)); } catch(e){} }
+  }
+  function welvraJadwalGenerateId(){
+    return 'jdw_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,7);
+  }
+
+  // ----- Date helpers -----
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function todayIso(){
+    var d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
+  }
+  function isoToDate(iso){
+    if (!iso || typeof iso !== 'string') return null;
+    var m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!m) return null;
+    return new Date(parseInt(m[1],10), parseInt(m[2],10)-1, parseInt(m[3],10));
+  }
+  function dateToIso(d){ return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()); }
+  function isToday(iso){ return iso === todayIso(); }
+  function daysBetween(isoA, isoB){
+    var a = isoToDate(isoA), b = isoToDate(isoB);
+    if (!a || !b) return null;
+    return Math.round((b - a) / 86400000);
+  }
+  function isWithinNext7Days(iso){
+    var diff = daysBetween(todayIso(), iso);
+    return diff != null && diff > 0 && diff <= 7;
+  }
+  function formatJadwalDate(iso){
+    var d = isoToDate(iso); if (!d) return iso || '';
+    return d.getDate() + ' ' + MONTHS_SHORT_ID[d.getMonth()] + ' ' + d.getFullYear();
+  }
+  function formatJadwalDateLong(iso){
+    var d = isoToDate(iso); if (!d) return iso || '';
+    return DAYS_ID[d.getDay()] + ', ' + d.getDate() + ' ' + MONTHS_ID[d.getMonth()] + ' ' + d.getFullYear();
+  }
+  function formatJadwalRelative(iso){
+    var diff = daysBetween(todayIso(), iso);
+    if (diff === 0) return 'Hari Ini';
+    if (diff === 1) return 'Besok';
+    if (diff === -1) return 'Kemarin';
+    return '';
+  }
+  function parseJadwalDateTime(iso, time){
+    var d = isoToDate(iso); if (!d) return null;
+    if (time && /^\d{2}:\d{2}$/.test(time)){
+      var hh = parseInt(time.slice(0,2),10), mm = parseInt(time.slice(3,5),10);
+      d.setHours(hh, mm, 0, 0);
+    } else { d.setHours(0,0,0,0); }
+    return d;
+  }
+  function escapeHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+
+  // ----- Recurrence expansion -----
+  function expandRecurringForDateRange(item, startIso, endIso){
+    if (!item || !item.date) return [];
+    var startD = isoToDate(startIso); var endD = isoToDate(endIso);
+    var baseD = isoToDate(item.date);
+    if (!startD || !endD || !baseD) return [];
+    if (!item.recurrence || item.recurrence === 'none'){
+      var iso = item.date;
+      if (iso >= startIso && iso <= endIso) return [{ item:item, date:iso }];
+      return [];
+    }
+    var hidden = getAutoHidden();
+    if (item.autoSource && hidden.indexOf(item.autoSource) !== -1) return [];
+    var out = [];
+    var cur = new Date(Math.max(startD.getTime(), baseD.getTime()));
+    cur.setHours(0,0,0,0);
+    var endTime = endD.getTime();
+    var safety = 0;
+    while (cur.getTime() <= endTime && safety < 400){
+      var iso2 = dateToIso(cur);
+      var matches = false;
+      if (item.recurrence === 'daily') matches = iso2 >= item.date;
+      else if (item.recurrence === 'weekly') matches = iso2 >= item.date && ((cur.getTime() - baseD.getTime()) % (7*86400000) === 0);
+      else if (item.recurrence === 'monthly') matches = iso2 >= item.date && cur.getDate() === baseD.getDate();
+      if (matches) out.push({ item:item, date:iso2 });
+      cur.setDate(cur.getDate() + 1);
+      safety++;
+    }
+    return out;
+  }
+
+  // ----- Frequency parser (Indonesian) -----
+  function parseFrequencyToTimeSlots(freq){
+    if (!freq) return ['08:00'];
+    var f = String(freq).toLowerCase().trim();
+    if (/1\s*x\s*sehari/i.test(f) || /sekali sehari/.test(f)){
+      if (/pagi/.test(f)) return ['07:00'];
+      if (/siang/.test(f)) return ['13:00'];
+      if (/malam/.test(f) || /sore/.test(f)) return ['21:00'];
+      return ['07:00'];
+    }
+    if (/2\s*x\s*sehari/i.test(f) || /dua kali/.test(f)) return ['07:00','19:00'];
+    if (/3\s*x\s*sehari/i.test(f) || /tiga kali/.test(f)) return ['07:00','13:00','19:00'];
+    if (/4\s*x\s*sehari/i.test(f) || /empat kali/.test(f)) return ['07:00','12:00','17:00','22:00'];
+    if (/setiap\s*8\s*jam/.test(f)) return ['07:00','15:00','23:00'];
+    if (/setiap\s*12\s*jam/.test(f)) return ['07:00','19:00'];
+    if (/sebelum\s*tidur/.test(f)) return ['21:00'];
+    if (/setelah\s*makan/.test(f)) return ['08:00','13:00','19:00'];
+    return ['08:00'];
+  }
+
+  // ----- Auto-import from Rekam Medis -----
+  function welvraJadwalSyncFromRekam(){
+    if (typeof window.welvraRekamLoad !== 'function') return;
+    var rekam = window.welvraRekamLoad();
+    if (!rekam || typeof rekam !== 'object') return;
+    var items = welvraJadwalLoad();
+    var hidden = getAutoHidden();
+    var existingBySource = {};
+    items.forEach(function(it){ if (it.autoSource) existingBySource[it.autoSource] = it; });
+    var existingByRecordId = {};
+    items.forEach(function(it){
+      if (it.autoSource){
+        var parts = it.autoSource.split(':');
+        if (parts.length >= 2) existingByRecordId[parts[0] + ':' + parts[1]] = (existingByRecordId[parts[0]+':'+parts[1]]||[]);
+        existingByRecordId[parts[0] + ':' + parts[1]].push(it);
+      }
+    });
+    var activeSources = {};
+
+    // Obat (active)
+    (rekam.obat || []).forEach(function(rec){
+      if (!rec || rec.status !== 'aktif') return;
+      var slots = parseFrequencyToTimeSlots(rec.frequency);
+      slots.forEach(function(slot){
+        var autoSource = 'rekam-obat:' + rec.id + ':' + slot;
+        activeSources[autoSource] = true;
+        if (hidden.indexOf(autoSource) !== -1) return;
+        if (existingBySource[autoSource]) return;
+        items.push({
+          id: welvraJadwalGenerateId(),
+          type:'obat',
+          title: (rec.name || 'Obat') + (rec.dosage ? ' ' + rec.dosage : ''),
+          date: todayIso(),
+          time: slot,
+          recurrence:'daily',
+          notes: 'Diresepkan ' + (rec.doctor || 'oleh dokter') + (rec.notes ? '. ' + rec.notes : ''),
+          reminderOffset: 0,
+          autoSource: autoSource,
+          status:'pending',
+          doneAt:null, occurrences:{},
+          createdAt: Date.now(), updatedAt: Date.now()
+        });
+      });
+    });
+
+    // Catatan with nextVisit
+    (rekam.catatan || []).forEach(function(rec){
+      if (!rec || !rec.nextVisit) return;
+      var autoSource = 'rekam-catatan:' + rec.id;
+      activeSources[autoSource] = true;
+      if (hidden.indexOf(autoSource) !== -1) return;
+      var existing = existingBySource[autoSource];
+      if (existing){
+        // Update date if changed
+        if (existing.date !== rec.nextVisit){ existing.date = rec.nextVisit; existing.updatedAt = Date.now(); }
+        return;
+      }
+      items.push({
+        id: welvraJadwalGenerateId(),
+        type:'janji',
+        title: 'Kontrol dengan ' + (rec.doctor || 'dokter') + (rec.clinic ? ' di ' + rec.clinic : ''),
+        date: rec.nextVisit,
+        time: '09:00',
+        recurrence:'none',
+        notes: rec.advice || '',
+        reminderOffset: 60,
+        autoSource: autoSource,
+        status:'pending',
+        doneAt:null, occurrences:{},
+        createdAt: Date.now(), updatedAt: Date.now()
+      });
+    });
+
+    // Drop auto-imported items whose source no longer exists (record deleted/inactive)
+    items = items.filter(function(it){
+      if (!it.autoSource) return true;
+      return !!activeSources[it.autoSource];
+    });
+    welvraJadwalSave(items);
+  }
+
+  // ----- Panel mechanics -----
+  function ensurePanelDom(){
+    if (state.panelBuilt) return;
+    state.panelBuilt = true;
+    var overlay = document.createElement('div');
+    overlay.className = 'welvra-jadwal-overlay';
+    overlay.id = 'welvraJadwalOverlay';
+    overlay.addEventListener('click', closeJadwalPanel);
+
+    var panel = document.createElement('aside');
+    panel.className = 'welvra-jadwal-panel';
+    panel.id = 'welvraJadwalPanel';
+    panel.setAttribute('role','dialog');
+    panel.setAttribute('aria-modal','true');
+    panel.setAttribute('aria-labelledby','welvraJadwalTitle');
+    panel.innerHTML = ''
+      + '<header class="welvra-jadwal-header">'
+      +   '<div class="welvra-jadwal-header__top">'
+      +     '<button type="button" class="welvra-jadwal-header__close" id="welvraJadwalCloseBtn" aria-label="Tutup">'
+      +       '<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>'
+      +     '</button>'
+      +     '<h1 id="welvraJadwalTitle" class="welvra-jadwal-header__title">Jadwal</h1>'
+      +     '<span class="welvra-jadwal-header__placeholder" aria-hidden="true"></span>'
+      +   '</div>'
+      +   '<div style="display:flex;justify-content:center;margin-bottom:10px">'
+      +     '<button type="button" class="welvra-jadwal-profile-switcher" id="welvraJadwalProfileSwitcher" aria-label="Ganti profil">'
+      +       '<svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="4" r="2"/><path d="M2 10c0-2 2-3 4-3s4 1 4 3"/></svg>'
+      +       '<span id="welvraJadwalProfileName">Saya</span>'
+      +       '<svg viewBox="0 0 12 12" aria-hidden="true"><polyline points="3 5 6 8 9 5"/></svg>'
+      +     '</button>'
+      +   '</div>'
+      +   '<div class="welvra-jadwal-tabs" role="tablist" aria-label="Filter agenda">'
+      +     '<button type="button" class="welvra-jadwal-tab active" data-segment="hari-ini" role="tab" aria-selected="true">Hari Ini</button>'
+      +     '<button type="button" class="welvra-jadwal-tab" data-segment="mendatang" role="tab" aria-selected="false">Mendatang</button>'
+      +     '<button type="button" class="welvra-jadwal-tab" data-segment="selesai" role="tab" aria-selected="false">Selesai</button>'
+      +   '</div>'
+      + '</header>'
+      + '<div class="welvra-jadwal-content" id="welvraJadwalContent" role="region" aria-live="polite"></div>'
+      + '<button type="button" class="welvra-jadwal-fab" id="welvraJadwalFab" aria-label="Tambah agenda">'
+      +   '<svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
+      + '</button>';
+    document.body.appendChild(overlay);
+    document.body.appendChild(panel);
+    document.getElementById('welvraJadwalCloseBtn').addEventListener('click', closeJadwalPanel);
+    document.getElementById('welvraJadwalFab').addEventListener('click', function(){ openJadwalForm(null); });
+    document.getElementById('welvraJadwalProfileSwitcher').addEventListener('click', function(){
+      if (typeof window.openRekamProfilesModal === 'function') window.openRekamProfilesModal();
+    });
+    panel.querySelectorAll('.welvra-jadwal-tab').forEach(function(t){
+      t.addEventListener('click', function(){ switchJadwalSegment(t.dataset.segment); });
+      t.addEventListener('keydown', function(e){
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+          e.preventDefault();
+          var tabs = Array.prototype.slice.call(panel.querySelectorAll('.welvra-jadwal-tab'));
+          var idx = tabs.indexOf(t);
+          var next = e.key === 'ArrowRight' ? (idx+1) % tabs.length : (idx-1+tabs.length) % tabs.length;
+          tabs[next].focus();
+          tabs[next].click();
+        }
+      });
+    });
+  }
+
+  function openJadwalPanel(){
+    ensurePanelDom();
+    state.lastFocusedBeforePanel = document.activeElement;
+    welvraJadwalSyncFromRekam();
+    var overlay = document.getElementById('welvraJadwalOverlay');
+    var panel = document.getElementById('welvraJadwalPanel');
+    overlay.classList.add('open');
+    requestAnimationFrame(function(){ panel.classList.add('open'); });
+    document.body.style.overflow = 'hidden';
+    state.panelOpen = true;
+    renderJadwalProfileName();
+    renderJadwalTab(state.activeSegment);
+    rescheduleAllUpcomingJadwalNotifications();
+    setTimeout(function(){ var c = document.getElementById('welvraJadwalCloseBtn'); if (c) c.focus(); }, 360);
+  }
+  function closeJadwalPanel(){
+    if (!state.panelOpen) return;
+    var overlay = document.getElementById('welvraJadwalOverlay');
+    var panel = document.getElementById('welvraJadwalPanel');
+    if (panel) panel.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+    setTimeout(function(){ if (!document.querySelector('.modal-panel.open, .profile-panel.open')) document.body.style.overflow = ''; }, 320);
+    state.panelOpen = false;
+    if (state.lastFocusedBeforePanel && document.body.contains(state.lastFocusedBeforePanel)){
+      try { state.lastFocusedBeforePanel.focus({preventScroll:true}); } catch(e){}
+    }
+  }
+
+  function renderJadwalProfileName(){
+    var el = document.getElementById('welvraJadwalProfileName');
+    if (!el) return;
+    var profile = (window.welvraRekamGetCurrentProfile && window.welvraRekamGetCurrentProfile()) || null;
+    el.textContent = (profile && profile.name) ? profile.name : 'Saya';
+  }
+  function switchJadwalSegment(segment){
+    if (!segment) return;
+    state.activeSegment = segment;
+    var panel = document.getElementById('welvraJadwalPanel');
+    if (panel){
+      panel.querySelectorAll('.welvra-jadwal-tab').forEach(function(t){
+        var active = t.dataset.segment === segment;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+    }
+    renderJadwalTab(segment);
+  }
+
+  // ----- Render -----
+  function renderJadwalTab(segment){
+    var content = document.getElementById('welvraJadwalContent');
+    if (!content) return;
+    var items = welvraJadwalLoad();
+    var todayIsoVal = todayIso();
+    var instances = []; // {item, date, occurrenceStatus, isOccurrence}
+
+    if (segment === 'hari-ini'){
+      items.forEach(function(it){
+        var occ = expandRecurringForDateRange(it, todayIsoVal, todayIsoVal);
+        occ.forEach(function(o){
+          var occStatus = (it.occurrences && it.occurrences[o.date]) ? it.occurrences[o.date].status : (it.recurrence==='none' ? it.status : 'pending');
+          if (occStatus === 'skipped') return;
+          instances.push({ item:it, date:o.date, occurrenceStatus:occStatus });
+        });
+      });
+      instances.sort(function(a,b){ return (a.item.time||'').localeCompare(b.item.time||''); });
+    } else if (segment === 'mendatang'){
+      var endIso = (function(){ var d = isoToDate(todayIsoVal); d.setDate(d.getDate()+7); return dateToIso(d); })();
+      var startIso = (function(){ var d = isoToDate(todayIsoVal); d.setDate(d.getDate()+1); return dateToIso(d); })();
+      items.forEach(function(it){
+        var occ = expandRecurringForDateRange(it, startIso, endIso);
+        occ.forEach(function(o){
+          var occStatus = (it.occurrences && it.occurrences[o.date]) ? it.occurrences[o.date].status : 'pending';
+          if (occStatus === 'skipped' || occStatus === 'done') return;
+          instances.push({ item:it, date:o.date, occurrenceStatus:occStatus });
+        });
+      });
+      instances.sort(function(a,b){
+        if (a.date !== b.date) return a.date.localeCompare(b.date);
+        return (a.item.time||'').localeCompare(b.item.time||'');
+      });
+    } else if (segment === 'selesai'){
+      var thirtyDaysAgo = (function(){ var d = isoToDate(todayIsoVal); d.setDate(d.getDate()-30); return dateToIso(d); })();
+      items.forEach(function(it){
+        if (it.recurrence === 'none'){
+          if (it.status === 'done' && it.date >= thirtyDaysAgo){
+            instances.push({ item:it, date:it.date, occurrenceStatus:'done', doneAt:it.doneAt });
+          }
+        } else {
+          if (it.occurrences){
+            Object.keys(it.occurrences).forEach(function(occIso){
+              if (it.occurrences[occIso].status === 'done' && occIso >= thirtyDaysAgo){
+                instances.push({ item:it, date:occIso, occurrenceStatus:'done', doneAt:it.occurrences[occIso].doneAt });
+              }
+            });
+          }
+        }
+      });
+      instances.sort(function(a,b){ return (b.doneAt||0) - (a.doneAt||0); });
+    }
+
+    if (!instances.length){ content.innerHTML = renderJadwalEmpty(segment); bindEmptyCta(); return; }
+
+    var html = '';
+    if (segment === 'hari-ini'){
+      html += '<h3 class="welvra-jadwal-day-heading">Hari Ini · ' + escapeHtml(formatJadwalDateLong(todayIsoVal)) + '</h3>';
+      instances.forEach(function(inst){ html += renderJadwalItemCard(inst); });
+    } else {
+      var lastDate = '';
+      instances.forEach(function(inst){
+        if (inst.date !== lastDate){
+          var rel = formatJadwalRelative(inst.date);
+          var heading = rel ? (rel + ' · ' + formatJadwalDateLong(inst.date)) : formatJadwalDateLong(inst.date);
+          html += '<h3 class="welvra-jadwal-day-heading">' + escapeHtml(heading) + '</h3>';
+          lastDate = inst.date;
+        }
+        html += renderJadwalItemCard(inst);
+      });
+    }
+    content.innerHTML = html;
+    bindItemCardEvents();
+  }
+  function renderJadwalItemCard(inst){
+    var it = inst.item;
+    var isDone = inst.occurrenceStatus === 'done';
+    var iconSvg = typeIconSvg(it.type);
+    var timeStr = it.time ? escapeHtml(it.time) : 'Sepanjang hari';
+    var notes = it.notes ? ' · ' + escapeHtml(it.notes) : '';
+    return '<div class="welvra-jadwal-item' + (isDone ? ' done' : '') + '" data-id="' + escapeHtml(it.id) + '" data-occ="' + escapeHtml(inst.date) + '" role="button" tabindex="0">'
+         +   '<span class="welvra-jadwal-item__icon welvra-jadwal-item__icon--' + escapeHtml(it.type) + '" aria-hidden="true">' + iconSvg + '</span>'
+         +   '<span class="welvra-jadwal-item__main">'
+         +     '<span class="welvra-jadwal-item__title">' + escapeHtml(it.title) + '</span>'
+         +     '<span class="welvra-jadwal-item__meta">' + timeStr + notes + '</span>'
+         +   '</span>'
+         +   '<button class="welvra-jadwal-item__check" type="button" aria-pressed="' + (isDone ? 'true' : 'false') + '" aria-label="' + (isDone ? 'Tandai belum selesai' : 'Tandai selesai') + '" data-toggle-id="' + escapeHtml(it.id) + '" data-occ="' + escapeHtml(inst.date) + '">'
+         +     '<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="5 12 10 17 19 7"/></svg>'
+         +   '</button>'
+         + '</div>';
+  }
+  function typeIconSvg(type){
+    if (type === 'obat') return '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="12" height="16" rx="6"/><line x1="6" y1="12" x2="18" y2="12"/></svg>';
+    if (type === 'janji') return '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/><polyline points="9 14 11 16 15 12"/></svg>';
+    if (type === 'rutin') return '<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="21 8 21 3 16 3"/><path d="M21 3l-7 7"/><polyline points="3 16 3 21 8 21"/><path d="M3 21l7-7"/><path d="M21 12a9 9 0 11-9-9"/></svg>';
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg>';
+  }
+  function renderJadwalEmpty(segment){
+    var icon, title, desc, ctaHtml = '';
+    if (segment === 'hari-ini'){
+      icon = '<svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/><polyline points="8 14 11 17 16 11"/></svg>';
+      title = 'Tidak Ada Agenda Hari Ini';
+      desc = 'Hari santai juga bagian dari sehat. Nikmati harimu.';
+      ctaHtml = '<button class="welvra-jadwal-empty__cta" id="welvraJadwalEmptyCta">Tambah Agenda</button>';
+    } else if (segment === 'mendatang'){
+      icon = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 16 14"/><line x1="18" y1="6" x2="22" y2="6"/><line x1="20" y1="4" x2="20" y2="8"/></svg>';
+      title = 'Belum Ada Agenda Mendatang';
+      desc = 'Tambah pengingat obat atau janji dokter agar tidak terlupa. Agenda otomatis akan muncul setelah Anda menyimpan obat aktif di Rekam Medis.';
+      ctaHtml = '<button class="welvra-jadwal-empty__cta" id="welvraJadwalEmptyCta">Tambah Agenda</button>';
+    } else {
+      icon = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="8 12 11 15 16 9"/></svg>';
+      title = 'Belum Ada yang Selesai';
+      desc = 'Tandai agenda sebagai selesai saat Anda menyelesaikannya. Riwayat 30 hari terakhir akan muncul di sini.';
+    }
+    return '<div class="welvra-jadwal-empty">'
+         +   '<div class="welvra-jadwal-empty__icon" aria-hidden="true">' + icon + '</div>'
+         +   '<h3 class="welvra-jadwal-empty__title">' + title + '</h3>'
+         +   '<p class="welvra-jadwal-empty__desc">' + desc + '</p>'
+         +   ctaHtml
+         + '</div>';
+  }
+  function bindEmptyCta(){
+    var cta = document.getElementById('welvraJadwalEmptyCta');
+    if (cta) cta.addEventListener('click', function(){ openJadwalForm(null); });
+  }
+  function bindItemCardEvents(){
+    var content = document.getElementById('welvraJadwalContent');
+    if (!content) return;
+    content.querySelectorAll('.welvra-jadwal-item').forEach(function(card){
+      card.addEventListener('click', function(e){
+        if (e.target.closest('.welvra-jadwal-item__check')) return;
+        openJadwalDetail(card.dataset.id, card.dataset.occ);
+      });
+      card.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){
+          if (e.target.closest('.welvra-jadwal-item__check')) return;
+          e.preventDefault();
+          openJadwalDetail(card.dataset.id, card.dataset.occ);
+        }
+      });
+    });
+    content.querySelectorAll('.welvra-jadwal-item__check').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        toggleJadwalItemDone(e, btn.dataset.toggleId, btn.dataset.occ);
+      });
+    });
+  }
+
+  // ----- CRUD -----
+  function ensureFormModalDom(){
+    if (state.formModalBuilt) return;
+    state.formModalBuilt = true;
+    var overlay = document.createElement('div');
+    overlay.className = 'welvra-jadwal-modal-overlay'; overlay.id = 'welvraJadwalFormOverlay';
+    overlay.addEventListener('click', closeJadwalForm);
+
+    var modal = document.createElement('aside');
+    modal.className = 'welvra-jadwal-modal'; modal.id = 'welvraJadwalFormModal';
+    modal.setAttribute('role','dialog'); modal.setAttribute('aria-modal','true');
+    modal.setAttribute('aria-labelledby','welvraJadwalFormTitle');
+    modal.innerHTML = ''
+      + '<div class="welvra-jadwal-modal__handle" aria-hidden="true"></div>'
+      + '<header class="welvra-jadwal-modal__header">'
+      +   '<h2 id="welvraJadwalFormTitle" class="welvra-jadwal-modal__title">Tambah Agenda</h2>'
+      +   '<button type="button" class="welvra-jadwal-modal__close" id="welvraJadwalFormCloseBtn" aria-label="Tutup"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>'
+      + '</header>'
+      + '<div class="welvra-jadwal-modal__body">'
+      +   '<div class="welvra-jadwal-field"><label class="welvra-jadwal-field-label">Tipe</label>'
+      +     '<div class="welvra-jadwal-segment" id="welvraJadwalTypeSegment">'
+      +       segmentBtn('obat','Obat',typeIconSvg('obat'))
+      +       segmentBtn('janji','Janji',typeIconSvg('janji'))
+      +       segmentBtn('rutin','Rutin',typeIconSvg('rutin'))
+      +       segmentBtn('lainnya','Lainnya',typeIconSvg('lainnya'))
+      +     '</div>'
+      +   '</div>'
+      +   '<div class="welvra-jadwal-field"><label class="welvra-jadwal-field-label" for="welvraJadwalTitle2">Judul</label><input class="welvra-jadwal-field-input" id="welvraJadwalTitle2" type="text" maxlength="100" placeholder="Mis. Amlodipine 5mg"/></div>'
+      +   '<div class="welvra-jadwal-field"><label class="welvra-jadwal-field-label" for="welvraJadwalDate">Tanggal</label><input class="welvra-jadwal-field-input" id="welvraJadwalDate" type="date"/></div>'
+      +   '<div class="welvra-jadwal-field">'
+      +     '<div class="welvra-jadwal-toggle-row"><span class="welvra-jadwal-toggle-row__label">Sepanjang hari</span><button type="button" class="welvra-toggle" id="welvraJadwalAllDayToggle" role="switch" aria-checked="false"><span class="welvra-toggle__thumb" aria-hidden="true"></span></button></div>'
+      +   '</div>'
+      +   '<div class="welvra-jadwal-field" id="welvraJadwalTimeWrap"><label class="welvra-jadwal-field-label" for="welvraJadwalTime">Waktu</label><input class="welvra-jadwal-field-input" id="welvraJadwalTime" type="time"/></div>'
+      +   '<div class="welvra-jadwal-field"><label class="welvra-jadwal-field-label" for="welvraJadwalRecurrence">Pengulangan</label>'
+      +     '<select class="welvra-jadwal-field-select" id="welvraJadwalRecurrence">'
+      +       '<option value="none">Tidak diulang</option>'
+      +       '<option value="daily">Setiap hari</option>'
+      +       '<option value="weekly">Mingguan</option>'
+      +       '<option value="monthly">Bulanan</option>'
+      +     '</select>'
+      +   '</div>'
+      +   '<div class="welvra-jadwal-field"><label class="welvra-jadwal-field-label" for="welvraJadwalReminder">Pengingat</label>'
+      +     '<select class="welvra-jadwal-field-select" id="welvraJadwalReminder">'
+      +       '<option value="">Tanpa pengingat</option>'
+      +       '<option value="0">Saat waktu tiba</option>'
+      +       '<option value="5">5 menit sebelum</option>'
+      +       '<option value="15">15 menit sebelum</option>'
+      +       '<option value="30">30 menit sebelum</option>'
+      +       '<option value="60">1 jam sebelum</option>'
+      +     '</select>'
+      +   '</div>'
+      +   '<div class="welvra-jadwal-field"><label class="welvra-jadwal-field-label" for="welvraJadwalNotes">Catatan</label><textarea class="welvra-jadwal-field-textarea" id="welvraJadwalNotes" maxlength="500" placeholder="Opsional"></textarea></div>'
+      +   '<div style="margin-top:14px"><button type="button" class="welvra-jadwal-mini-btn" id="welvraJadwalTestNotifBtn">Tes pengingat</button></div>'
+      + '</div>'
+      + '<footer class="welvra-jadwal-modal__footer">'
+      +   '<button type="button" class="welvra-jadwal-btn welvra-jadwal-btn--ghost" id="welvraJadwalFormCancelBtn">Batal</button>'
+      +   '<button type="button" class="welvra-jadwal-btn welvra-jadwal-btn--primary" id="welvraJadwalFormSaveBtn">Simpan</button>'
+      + '</footer>';
+    document.body.appendChild(overlay);
+    document.body.appendChild(modal);
+    document.getElementById('welvraJadwalFormCloseBtn').addEventListener('click', closeJadwalForm);
+    document.getElementById('welvraJadwalFormCancelBtn').addEventListener('click', closeJadwalForm);
+    document.getElementById('welvraJadwalFormSaveBtn').addEventListener('click', saveJadwalItem);
+    document.getElementById('welvraJadwalAllDayToggle').addEventListener('click', function(){
+      state.formAllDay = !state.formAllDay;
+      this.classList.toggle('on', state.formAllDay);
+      this.setAttribute('aria-checked', state.formAllDay ? 'true' : 'false');
+      document.getElementById('welvraJadwalTimeWrap').style.display = state.formAllDay ? 'none' : '';
+    });
+    document.getElementById('welvraJadwalTypeSegment').querySelectorAll('.welvra-jadwal-segment-btn').forEach(function(b){
+      b.addEventListener('click', function(){
+        state.formItemType = b.dataset.type;
+        document.getElementById('welvraJadwalTypeSegment').querySelectorAll('.welvra-jadwal-segment-btn').forEach(function(x){ x.classList.toggle('active', x === b); });
+      });
+    });
+    document.getElementById('welvraJadwalTestNotifBtn').addEventListener('click', function(){
+      requestJadwalNotificationPermission().then(function(granted){
+        if (granted){
+          try { new Notification('Pengingat dari Welvra', { body:'Ini contoh pengingat — agenda akan muncul seperti ini.' }); }
+          catch(e){ try { window.showWelvraToast && window.showWelvraToast('Notifikasi tidak didukung browser ini'); } catch(_){} }
+        } else {
+          try { window.showWelvraToast && window.showWelvraToast('Izin notifikasi belum diberikan'); } catch(_){}
+        }
+      });
+    });
+  }
+  function segmentBtn(type, label, svg){
+    return '<button type="button" class="welvra-jadwal-segment-btn" data-type="' + type + '">' + svg + '<span>' + label + '</span></button>';
+  }
+  function openJadwalForm(existingItem){
+    ensureFormModalDom();
+    state.editingItem = existingItem || null;
+    state.lastFocusedBeforeForm = document.activeElement;
+    var titleEl = document.getElementById('welvraJadwalFormTitle');
+    titleEl.textContent = existingItem ? 'Edit Agenda' : 'Tambah Agenda';
+    var typeBtns = document.querySelectorAll('#welvraJadwalTypeSegment .welvra-jadwal-segment-btn');
+    var t = existingItem ? existingItem.type : 'obat';
+    state.formItemType = t;
+    typeBtns.forEach(function(b){ b.classList.toggle('active', b.dataset.type === t); });
+    document.getElementById('welvraJadwalTitle2').value = existingItem ? existingItem.title : '';
+    document.getElementById('welvraJadwalDate').value = existingItem ? existingItem.date : todayIso();
+    state.formAllDay = !!(existingItem && !existingItem.time);
+    var toggleBtn = document.getElementById('welvraJadwalAllDayToggle');
+    toggleBtn.classList.toggle('on', state.formAllDay);
+    toggleBtn.setAttribute('aria-checked', state.formAllDay ? 'true' : 'false');
+    document.getElementById('welvraJadwalTimeWrap').style.display = state.formAllDay ? 'none' : '';
+    document.getElementById('welvraJadwalTime').value = existingItem && existingItem.time ? existingItem.time : '08:00';
+    document.getElementById('welvraJadwalRecurrence').value = existingItem ? existingItem.recurrence || 'none' : 'none';
+    document.getElementById('welvraJadwalReminder').value = existingItem && existingItem.reminderOffset != null ? String(existingItem.reminderOffset) : '';
+    document.getElementById('welvraJadwalNotes').value = existingItem ? existingItem.notes || '' : '';
+    var overlay = document.getElementById('welvraJadwalFormOverlay');
+    var modal = document.getElementById('welvraJadwalFormModal');
+    overlay.classList.add('open');
+    requestAnimationFrame(function(){ modal.classList.add('open'); });
+    state.formModalOpen = true;
+    setTimeout(function(){ var input = document.getElementById('welvraJadwalTitle2'); if (input) input.focus(); }, 320);
+  }
+  function closeJadwalForm(){
+    if (!state.formModalOpen) return;
+    var overlay = document.getElementById('welvraJadwalFormOverlay');
+    var modal = document.getElementById('welvraJadwalFormModal');
+    if (modal) modal.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+    state.formModalOpen = false;
+    if (state.lastFocusedBeforeForm && document.body.contains(state.lastFocusedBeforeForm)){
+      try { state.lastFocusedBeforeForm.focus({preventScroll:true}); } catch(e){}
+    }
+  }
+  function saveJadwalItem(){
+    var title = (document.getElementById('welvraJadwalTitle2').value || '').trim();
+    var date = document.getElementById('welvraJadwalDate').value;
+    var time = state.formAllDay ? null : document.getElementById('welvraJadwalTime').value;
+    var recurrence = document.getElementById('welvraJadwalRecurrence').value || 'none';
+    var reminderRaw = document.getElementById('welvraJadwalReminder').value;
+    var reminderOffset = reminderRaw === '' ? null : parseInt(reminderRaw, 10);
+    var notes = document.getElementById('welvraJadwalNotes').value || '';
+    if (!title){ try { window.showWelvraToast && window.showWelvraToast('Judul harus diisi'); } catch(e){} return; }
+    if (!date){ try { window.showWelvraToast && window.showWelvraToast('Tanggal harus diisi'); } catch(e){} return; }
+    if (!state.formAllDay && !time){ try { window.showWelvraToast && window.showWelvraToast('Waktu harus diisi'); } catch(e){} return; }
+    var items = welvraJadwalLoad();
+    if (state.editingItem){
+      var idx = items.findIndex(function(it){ return it.id === state.editingItem.id; });
+      if (idx !== -1){
+        items[idx] = Object.assign({}, items[idx], {
+          type:state.formItemType, title:title, date:date, time:time,
+          recurrence:recurrence, reminderOffset:reminderOffset, notes:notes,
+          updatedAt:Date.now()
+        });
+      }
+    } else {
+      items.push({
+        id: welvraJadwalGenerateId(),
+        type:state.formItemType, title:title, date:date, time:time,
+        recurrence:recurrence, reminderOffset:reminderOffset, notes:notes,
+        autoSource:null, status:'pending', doneAt:null, occurrences:{},
+        createdAt:Date.now(), updatedAt:Date.now()
+      });
+    }
+    if (welvraJadwalSave(items)){
+      try { window.showWelvraToast && window.showWelvraToast('Agenda tersimpan'); } catch(e){}
+      if (reminderOffset != null && reminderOffset >= 0){
+        requestJadwalNotificationPermission().then(function(){
+          var saved = items[items.length-1];
+          scheduleJadwalNotification(saved, date);
+        });
+      }
+      closeJadwalForm();
+      renderJadwalTab(state.activeSegment);
+      state.editingItem = null;
+    }
+  }
+
+  // ----- Detail modal -----
+  function ensureDetailModalDom(){
+    if (state.detailModalBuilt) return;
+    state.detailModalBuilt = true;
+    var overlay = document.createElement('div');
+    overlay.className = 'welvra-jadwal-modal-overlay'; overlay.id = 'welvraJadwalDetailOverlay';
+    overlay.addEventListener('click', closeJadwalDetail);
+
+    var modal = document.createElement('aside');
+    modal.className = 'welvra-jadwal-modal'; modal.id = 'welvraJadwalDetailModal';
+    modal.setAttribute('role','dialog'); modal.setAttribute('aria-modal','true');
+    modal.setAttribute('aria-labelledby','welvraJadwalDetailTitle');
+    modal.innerHTML = ''
+      + '<div class="welvra-jadwal-modal__handle" aria-hidden="true"></div>'
+      + '<header class="welvra-jadwal-modal__header">'
+      +   '<h2 id="welvraJadwalDetailTitle" class="welvra-jadwal-modal__title">Detail Agenda</h2>'
+      +   '<button type="button" class="welvra-jadwal-modal__close" id="welvraJadwalDetailCloseBtn" aria-label="Tutup"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>'
+      + '</header>'
+      + '<div class="welvra-jadwal-modal__body" id="welvraJadwalDetailBody"></div>'
+      + '<footer class="welvra-jadwal-modal__footer" id="welvraJadwalDetailFooter"></footer>';
+    document.body.appendChild(overlay);
+    document.body.appendChild(modal);
+    document.getElementById('welvraJadwalDetailCloseBtn').addEventListener('click', closeJadwalDetail);
+  }
+  function openJadwalDetail(itemId, occurrenceDate){
+    ensureDetailModalDom();
+    var items = welvraJadwalLoad();
+    var item = items.find(function(x){ return x.id === itemId; });
+    if (!item){ try { window.showWelvraToast && window.showWelvraToast('Agenda tidak ditemukan'); } catch(e){} return; }
+    state.currentDetailItem = item;
+    state.currentDetailOccurrenceDate = occurrenceDate || item.date;
+    state.lastFocusedBeforeDetail = document.activeElement;
+    document.getElementById('welvraJadwalDetailTitle').textContent = item.title;
+    var body = document.getElementById('welvraJadwalDetailBody');
+    var footer = document.getElementById('welvraJadwalDetailFooter');
+    var occStatus = (item.occurrences && item.occurrences[state.currentDetailOccurrenceDate]) ? item.occurrences[state.currentDetailOccurrenceDate].status : (item.recurrence === 'none' ? item.status : 'pending');
+    var rows = '';
+    rows += detailRow('Tipe', escapeHtml(TYPE_LABELS[item.type] || 'Agenda'));
+    rows += detailRow('Tanggal', escapeHtml(formatJadwalDateLong(state.currentDetailOccurrenceDate)));
+    rows += detailRow('Waktu', escapeHtml(item.time || 'Sepanjang hari'));
+    rows += detailRow('Pengulangan', escapeHtml({ none:'Tidak diulang', daily:'Setiap hari', weekly:'Mingguan', monthly:'Bulanan' }[item.recurrence] || 'Tidak diulang'));
+    var rem = item.reminderOffset;
+    var remLabel = rem == null ? 'Tanpa pengingat' : (rem === 0 ? 'Saat waktu tiba' : rem + ' menit sebelum');
+    rows += detailRow('Pengingat', escapeHtml(remLabel));
+    if (item.notes) rows += detailRow('Catatan', escapeHtml(item.notes));
+    rows += detailRow('Status', occStatus === 'done' ? '✓ Selesai' : (occStatus === 'skipped' ? 'Dilewati' : 'Belum dilakukan'));
+    if (item.autoSource) rows += detailRow('Sumber', 'Otomatis dari Rekam Medis');
+    body.innerHTML = rows;
+    var footerHtml = '';
+    if (item.type === 'obat' || item.type === 'janji'){
+      footerHtml += '<button type="button" class="welvra-jadwal-btn welvra-jadwal-btn--gold" id="welvraJadwalAskBtn">Tanya Dr. Sly</button>';
+    }
+    footerHtml += '<button type="button" class="welvra-jadwal-btn welvra-jadwal-btn--ghost" id="welvraJadwalEditBtn">Edit</button>';
+    if (item.recurrence !== 'none' && state.activeSegment === 'hari-ini' && occStatus !== 'done'){
+      footerHtml += '<button type="button" class="welvra-jadwal-btn welvra-jadwal-btn--ghost" id="welvraJadwalSkipBtn">Lewati Hari Ini</button>';
+    }
+    footerHtml += '<button type="button" class="welvra-jadwal-btn welvra-jadwal-btn--danger" id="welvraJadwalDeleteBtn">Hapus</button>';
+    footer.innerHTML = footerHtml;
+    var askBtn = document.getElementById('welvraJadwalAskBtn'); if (askBtn) askBtn.addEventListener('click', askDrSlyAboutJadwal);
+    var editBtn = document.getElementById('welvraJadwalEditBtn'); if (editBtn) editBtn.addEventListener('click', function(){ closeJadwalDetail(); openJadwalForm(item); });
+    var skipBtn = document.getElementById('welvraJadwalSkipBtn'); if (skipBtn) skipBtn.addEventListener('click', function(){ skipJadwalToday(item.id); });
+    var delBtn = document.getElementById('welvraJadwalDeleteBtn'); if (delBtn) delBtn.addEventListener('click', confirmDeleteJadwalItem);
+    var overlay = document.getElementById('welvraJadwalDetailOverlay');
+    var modal = document.getElementById('welvraJadwalDetailModal');
+    overlay.classList.add('open');
+    requestAnimationFrame(function(){ modal.classList.add('open'); });
+    state.detailModalOpen = true;
+  }
+  function detailRow(label, value){
+    return '<div class="welvra-jadwal-detail-row"><div class="welvra-jadwal-detail-label">' + label + '</div><div class="welvra-jadwal-detail-value">' + value + '</div></div>';
+  }
+  function closeJadwalDetail(){
+    if (!state.detailModalOpen) return;
+    var overlay = document.getElementById('welvraJadwalDetailOverlay');
+    var modal = document.getElementById('welvraJadwalDetailModal');
+    if (modal) modal.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+    state.detailModalOpen = false;
+    if (state.lastFocusedBeforeDetail && document.body.contains(state.lastFocusedBeforeDetail)){
+      try { state.lastFocusedBeforeDetail.focus({preventScroll:true}); } catch(e){}
+    }
+  }
+  function toggleJadwalItemDone(e, itemId, occurrenceDate){
+    var items = welvraJadwalLoad();
+    var idx = items.findIndex(function(x){ return x.id === itemId; });
+    if (idx === -1) return;
+    var item = items[idx];
+    if (item.recurrence === 'none'){
+      if (item.status === 'done'){ item.status = 'pending'; item.doneAt = null; }
+      else { item.status = 'done'; item.doneAt = Date.now(); }
+    } else {
+      if (!item.occurrences) item.occurrences = {};
+      var occ = item.occurrences[occurrenceDate];
+      if (occ && occ.status === 'done'){ delete item.occurrences[occurrenceDate]; }
+      else { item.occurrences[occurrenceDate] = { status:'done', doneAt:Date.now() }; }
+    }
+    item.updatedAt = Date.now();
+    welvraJadwalSave(items);
+    renderJadwalTab(state.activeSegment);
+  }
+  function skipJadwalToday(itemId){
+    var items = welvraJadwalLoad();
+    var idx = items.findIndex(function(x){ return x.id === itemId; });
+    if (idx === -1) return;
+    var item = items[idx];
+    if (!item.occurrences) item.occurrences = {};
+    item.occurrences[state.currentDetailOccurrenceDate || todayIso()] = { status:'skipped' };
+    item.updatedAt = Date.now();
+    welvraJadwalSave(items);
+    try { window.showWelvraToast && window.showWelvraToast('Agenda dilewati untuk hari ini'); } catch(e){}
+    closeJadwalDetail();
+    renderJadwalTab(state.activeSegment);
+  }
+  function confirmDeleteJadwalItem(){
+    var overlay = document.getElementById('welvraRekamConfirmOverlay');
+    var modal = document.getElementById('welvraRekamConfirm');
+    if (!overlay || !modal){
+      if (confirm('Yakin hapus agenda ini?')) doDeleteJadwalItem();
+      return;
+    }
+    var titleEl = document.getElementById('rekamConfirmTitle');
+    var descEl = document.getElementById('rekamConfirmDesc');
+    var deleteBtn = modal.querySelector('.welvra-rekam-confirm__delete');
+    var cancelBtn = modal.querySelector('.welvra-rekam-confirm__cancel');
+    if (titleEl) titleEl.textContent = 'Yakin hapus agenda ini?';
+    if (descEl) descEl.textContent = 'Agenda yang dihapus tidak bisa dikembalikan.';
+    overlay.hidden = false; modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var prevOk = deleteBtn.onclick; var prevCancel = cancelBtn.onclick;
+    function restore(){
+      deleteBtn.onclick = prevOk; cancelBtn.onclick = prevCancel;
+      overlay.hidden = true; modal.hidden = true;
+      if (titleEl) titleEl.textContent = 'Yakin hapus catatan ini?';
+      if (descEl) descEl.textContent = 'Catatan yang dihapus tidak bisa dikembalikan.';
+    }
+    deleteBtn.onclick = function(){ doDeleteJadwalItem(); restore(); };
+    cancelBtn.onclick = function(){ restore(); };
+  }
+  function doDeleteJadwalItem(){
+    if (!state.currentDetailItem) return;
+    var items = welvraJadwalLoad();
+    var target = state.currentDetailItem;
+    items = items.filter(function(x){ return x.id !== target.id; });
+    if (target.autoSource) addAutoHidden(target.autoSource);
+    welvraJadwalSave(items);
+    try { window.showWelvraToast && window.showWelvraToast('Agenda dihapus'); } catch(e){}
+    closeJadwalDetail();
+    renderJadwalTab(state.activeSegment);
+  }
+  function askDrSlyAboutJadwal(){
+    var item = state.currentDetailItem; if (!item) return;
+    var occDate = state.currentDetailOccurrenceDate || item.date;
+    var message;
+    var occStatus = (item.occurrences && item.occurrences[occDate]) ? item.occurrences[occDate].status : (item.recurrence === 'none' ? item.status : 'pending');
+    if (item.type === 'obat'){
+      var verb = occStatus === 'done' ? 'sudah' : 'akan';
+      message = 'Saya ' + verb + ' minum obat ' + item.title + (item.time ? ' jam ' + item.time : '') + '. Ada yang perlu saya perhatikan?';
+    } else {
+      message = 'Saya ada janji ' + item.title + ' pada ' + formatJadwalDateLong(occDate) + (item.time ? ' jam ' + item.time : '') + '. Apa yang perlu saya siapkan?';
+    }
+    if (typeof window.welvraOpenDrSlyWithQuestion === 'function'){
+      closeJadwalDetail();
+      closeJadwalPanel();
+      window.welvraOpenDrSlyWithQuestion(message, { source:'jadwal', itemId:item.id, itemType:item.type });
+    } else {
+      try { window.showWelvraToast && window.showWelvraToast('Dr. Sly belum siap'); } catch(e){}
+    }
+  }
+
+  // ----- Notifications -----
+  function requestJadwalNotificationPermission(){
+    return new Promise(function(resolve){
+      if (typeof Notification === 'undefined'){ resolve(false); return; }
+      if (Notification.permission === 'granted'){ resolve(true); return; }
+      if (Notification.permission === 'denied'){ resolve(false); return; }
+      try {
+        Notification.requestPermission().then(function(p){ resolve(p === 'granted'); }).catch(function(){ resolve(false); });
+      } catch(e){ resolve(false); }
+    });
+  }
+  function scheduleJadwalNotification(item, occurrenceDate){
+    if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
+    if (item.reminderOffset == null) return;
+    var dateTime = parseJadwalDateTime(occurrenceDate || item.date, item.time);
+    if (!dateTime) return;
+    var fireAt = dateTime.getTime() - (item.reminderOffset * 60 * 1000);
+    var delay = fireAt - Date.now();
+    if (delay < 0) return;
+    if (delay > 24 * 60 * 60 * 1000) return;
+    var t = setTimeout(function(){
+      try {
+        var current = welvraJadwalLoad().find(function(x){ return x.id === item.id; });
+        if (!current) return;
+        var occStatus = (current.occurrences && current.occurrences[occurrenceDate]) ? current.occurrences[occurrenceDate].status : (current.recurrence === 'none' ? current.status : 'pending');
+        if (occStatus === 'done' || occStatus === 'skipped') return;
+        var body = item.reminderOffset === 0
+          ? (TYPE_LABELS[item.type] || 'Agenda') + ': ' + item.title + ' sekarang'
+          : (TYPE_LABELS[item.type] || 'Agenda') + ': ' + item.title + ' dalam ' + item.reminderOffset + ' menit';
+        new Notification('Pengingat dari Welvra', { body: body, tag: 'welvra-jadwal-' + item.id });
+      } catch(e){}
+    }, delay);
+    state.scheduledTimeouts.push(t);
+  }
+  function rescheduleAllUpcomingJadwalNotifications(){
+    state.scheduledTimeouts.forEach(function(t){ try { clearTimeout(t); } catch(e){} });
+    state.scheduledTimeouts = [];
+    if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
+    var items = welvraJadwalLoad();
+    var todayD = todayIso();
+    items.forEach(function(it){
+      if (it.reminderOffset == null) return;
+      var occ = expandRecurringForDateRange(it, todayD, todayD);
+      occ.forEach(function(o){ scheduleJadwalNotification(it, o.date); });
+    });
+  }
+
+  // ----- ESC stacking -----
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Escape') return;
+    if (state.detailModalOpen){ e.preventDefault(); closeJadwalDetail(); return; }
+    if (state.formModalOpen){ e.preventDefault(); closeJadwalForm(); return; }
+    if (state.panelOpen){
+      var fpNotice = document.getElementById('welvraFpNoticeModal');
+      var fpEnroll = document.getElementById('welvraFaceprintEnrollModal');
+      if (fpNotice && !fpNotice.hidden) return;
+      if (fpEnroll && !fpEnroll.hidden) return;
+      e.preventDefault(); closeJadwalPanel();
+    }
+  });
+
+  // ----- Hook into Rekam Medis save/delete for auto-sync -----
+  function hookRekamSync(){
+    if (window.__welvraJadwalRekamHooked) return;
+    window.__welvraJadwalRekamHooked = true;
+    if (typeof window.saveRekamRecord === 'function'){
+      var __origSave = window.saveRekamRecord;
+      window.saveRekamRecord = function(){
+        var r = __origSave.apply(this, arguments);
+        try { welvraJadwalSyncFromRekam(); } catch(e){}
+        if (state.panelOpen) renderJadwalTab(state.activeSegment);
+        return r;
+      };
+    }
+    if (typeof window.doDeleteRekamRecord === 'function'){
+      var __origDel = window.doDeleteRekamRecord;
+      window.doDeleteRekamRecord = function(){
+        var r = __origDel.apply(this, arguments);
+        try { welvraJadwalSyncFromRekam(); } catch(e){}
+        if (state.panelOpen) renderJadwalTab(state.activeSegment);
+        return r;
+      };
+    }
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') hookRekamSync();
+  else document.addEventListener('DOMContentLoaded', hookRekamSync);
+
+  // Re-render when profile switches (selectRekamProfile is exposed)
+  if (typeof window.selectRekamProfile === 'function'){
+    var __origSelect = window.selectRekamProfile;
+    window.selectRekamProfile = function(){
+      var r = __origSelect.apply(this, arguments);
+      if (state.panelOpen){
+        renderJadwalProfileName();
+        welvraJadwalSyncFromRekam();
+        renderJadwalTab(state.activeSegment);
+      }
+      return r;
+    };
+  }
+
+  // ----- Expose -----
+  window.openJadwalPanel = openJadwalPanel;
+  window.closeJadwalPanel = closeJadwalPanel;
+  window.welvraJadwalLoad = welvraJadwalLoad;
+  window.welvraJadwalSave = welvraJadwalSave;
+  window.welvraJadwalGenerateId = welvraJadwalGenerateId;
+  window.welvraJadwalSyncFromRekam = welvraJadwalSyncFromRekam;
+  window.renderJadwalTab = renderJadwalTab;
+  window.openJadwalForm = openJadwalForm;
+  window.closeJadwalForm = closeJadwalForm;
+  window.saveJadwalItem = saveJadwalItem;
+  window.openJadwalDetail = openJadwalDetail;
+  window.closeJadwalDetail = closeJadwalDetail;
+  window.toggleJadwalItemDone = toggleJadwalItemDone;
+  window.skipJadwalToday = skipJadwalToday;
+  window.confirmDeleteJadwalItem = confirmDeleteJadwalItem;
+  window.doDeleteJadwalItem = doDeleteJadwalItem;
+  window.askDrSlyAboutJadwal = askDrSlyAboutJadwal;
+  window.requestJadwalNotificationPermission = requestJadwalNotificationPermission;
+  window.scheduleJadwalNotification = scheduleJadwalNotification;
+  window.rescheduleAllUpcomingJadwalNotifications = rescheduleAllUpcomingJadwalNotifications;
+  window.formatJadwalDate = formatJadwalDate;
+  window.formatJadwalDateLong = formatJadwalDateLong;
+  window.formatJadwalRelative = formatJadwalRelative;
+  window.parseJadwalDateTime = parseJadwalDateTime;
+  window.expandRecurringForDateRange = expandRecurringForDateRange;
 })();
 </script>
 
