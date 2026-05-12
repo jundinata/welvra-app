@@ -229,15 +229,25 @@ body.w-home-v2-active .bottom-nav:not(.w-bottom-nav) { display: none !important;
    Transparency means no circular mask — figure outline carries the shape. */
 .w-drsly-portrait {
   position: absolute;
-  bottom: 6px;
-  right: 6px;
-  width: 60px;
-  height: 60px;
+  bottom: 8px;
+  right: 8px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
   object-position: bottom right;
   pointer-events: none;
   z-index: 1;
   filter: drop-shadow(0 3px 6px rgba(0,0,0,0.22));
+}
+/* Reserve right-side runway for avatar so "Konsultasi medis cepat dengan Dr. Sly"
+   wraps before reaching the figure — zero bounding-box overlap. */
+.w-feature-card--drsly .w-feature-card__block:last-of-type .w-feature-card__block-copy{
+  padding-right: 76px;
+  max-width: 100%;
+}
+@media (max-width: 360px){
+  .w-drsly-portrait { width: 68px; height: 68px; bottom: 6px; right: 6px; }
+  .w-feature-card--drsly .w-feature-card__block:last-of-type .w-feature-card__block-copy{ padding-right: 60px; }
 }
 html.dark .w-drsly-portrait,
 [data-theme="dark"] .w-drsly-portrait {
