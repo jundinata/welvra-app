@@ -224,20 +224,24 @@ body.w-home-v2-active .bottom-nav:not(.w-bottom-nav) { display: none !important;
 .w-hero-col__rings { background: transparent !important; }
 [data-theme="light"] .w-hero-col__rings { background: transparent !important; }
 
-/* Dr. Sly portrait — circular clip of the square asset, anchored bottom-right of amber card.
-   Phase 2 asset is a square photo with opaque background; rounding to a circle keeps the
-   composition clean and prevents the standalone label "Tanya Dr. Sly" from being obscured. */
+/* Dr. Sly portrait — transparent PNG anchored bottom-right of amber card.
+   Smaller accent size so it doesn't crowd the "Tanya Dr. Sly" label/copy.
+   Transparency means no circular mask — figure outline carries the shape. */
 .w-drsly-portrait {
   position: absolute;
-  bottom: 8px;
-  right: 8px;
-  width: 86px;
-  height: 86px;
-  border-radius: 50%;
-  object-fit: cover;
+  bottom: 6px;
+  right: 6px;
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  object-position: bottom right;
   pointer-events: none;
   z-index: 1;
-  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.28));
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.22));
+}
+html.dark .w-drsly-portrait,
+[data-theme="dark"] .w-drsly-portrait {
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.42));
 }
 
 /* Reset Phase 1 placeholder border on Faceprint face-icon span (real SVG inside now) */
@@ -7728,12 +7732,11 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
               <p class="w-feature-card__block-copy">Konsultasi medis cepat dengan Dr. Sly</p>
             </div>
             <img class="w-drsly-portrait"
-                 src="assets/illustrations/dr-sly-portrait.webp"
+                 src="avatars/dr-sly-transparent.png"
                  alt=""
                  aria-hidden="true"
                  loading="lazy"
-                 decoding="async"
-                 onerror="this.onerror=null;this.src='assets/illustrations/dr-sly-portrait.svg';">
+                 decoding="async">
           </button>
 
           <button class="w-feature-card w-feature-card--wawasan" aria-label="Wawasan Nutrisi dan Data" onclick="welvraOpenFeature('makan', this)">
