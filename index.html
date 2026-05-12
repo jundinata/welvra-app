@@ -283,46 +283,44 @@ body.w-home-v2-active .bottom-nav:not(.w-bottom-nav) { display: none !important;
   position: relative;
   z-index: 2;
 }
-/* Analisa Wajah — ivory overlay fades from top-left for text readability */
+/* Analisa Wajah — ivory overlay, top-fade so centered face reads clean below title */
 .w-feature-card--faceprint .w-feature-card__overlay {
-  background: linear-gradient(150deg,
-    rgba(250, 250, 247, 1.00) 0%,
-    rgba(250, 250, 247, 0.94) 32%,
-    rgba(250, 250, 247, 0.55) 58%,
-    rgba(250, 250, 247, 0.12) 82%,
-    rgba(250, 250, 247, 0.00) 100%);
+  background: linear-gradient(180deg,
+    rgba(250, 250, 247, 0.92) 0%,
+    rgba(250, 250, 247, 0.72) 30%,
+    rgba(250, 250, 247, 0.25) 60%,
+    rgba(250, 250, 247, 0.00) 95%);
 }
 .w-feature-card--faceprint .w-feature-card__hero-img {
-  object-position: 82% center; /* shift face firmly right so title area reads clean ivory */
+  object-position: center center;
 }
-/* Siklus Mens — burgundy overlay matching existing card hue */
+/* Siklus Mens — burgundy overlay, top-fade matching card hue */
 .w-feature-card--siklus .w-feature-card__overlay {
-  background: linear-gradient(150deg,
-    rgba(120, 60, 70, 0.92) 0%,
-    rgba(120, 60, 70, 0.70) 32%,
-    rgba(120, 60, 70, 0.28) 60%,
-    rgba(120, 60, 70, 0.00) 100%);
+  background: linear-gradient(180deg,
+    rgba(120, 60, 70, 0.88) 0%,
+    rgba(120, 60, 70, 0.62) 30%,
+    rgba(120, 60, 70, 0.22) 60%,
+    rgba(120, 60, 70, 0.00) 95%);
 }
 .w-feature-card--siklus .w-feature-card__hero-img {
-  object-position: 70% center;
+  object-position: center center;
 }
-/* Dark mode — deeper overlay tones */
+/* Dark mode — deeper overlay tones, top-fade direction */
 html.dark .w-feature-card--faceprint .w-feature-card__overlay,
 [data-theme="dark"] .w-feature-card--faceprint .w-feature-card__overlay {
-  background: linear-gradient(150deg,
-    rgba(20, 20, 15, 0.96) 0%,
-    rgba(20, 20, 15, 0.85) 32%,
-    rgba(20, 20, 15, 0.45) 58%,
-    rgba(20, 20, 15, 0.10) 82%,
-    rgba(20, 20, 15, 0.00) 100%);
+  background: linear-gradient(180deg,
+    rgba(20, 20, 15, 0.94) 0%,
+    rgba(20, 20, 15, 0.78) 30%,
+    rgba(20, 20, 15, 0.32) 60%,
+    rgba(20, 20, 15, 0.00) 95%);
 }
 html.dark .w-feature-card--siklus .w-feature-card__overlay,
 [data-theme="dark"] .w-feature-card--siklus .w-feature-card__overlay {
-  background: linear-gradient(150deg,
-    rgba(50, 20, 28, 0.94) 0%,
-    rgba(50, 20, 28, 0.72) 32%,
-    rgba(50, 20, 28, 0.28) 60%,
-    rgba(50, 20, 28, 0.00) 100%);
+  background: linear-gradient(180deg,
+    rgba(50, 20, 28, 0.92) 0%,
+    rgba(50, 20, 28, 0.70) 30%,
+    rgba(50, 20, 28, 0.25) 60%,
+    rgba(50, 20, 28, 0.00) 95%);
 }
 
 /* ============================================================
