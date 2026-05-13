@@ -177,6 +177,8 @@ body.w-home-v2-active main.container { padding: 0; background: var(--bg-canvas);
 .w-feature-card__title--inline { margin: 0; }
 .w-feature-card__block { margin-top: 14px; }
 .w-feature-card__block:first-of-type { margin-top: 0; }
+button.w-feature-card__block { appearance: none; background: transparent; border: none; padding: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%; display: block; border-radius: 8px; }
+button.w-feature-card__block:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 3px; }
 .w-feature-card__block-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
 .w-feature-card__block-icon { width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .w-feature-card__block-label { font-family: var(--font-sans); font-size: 14px; font-weight: 600; color: var(--text-primary); }
@@ -8043,11 +8045,11 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
                  decoding="async">
           </button>
 
-          <button class="w-feature-card w-feature-card--wawasan" aria-label="Wawasan Nutrisi dan Data" onclick="welvraOpenFeature('makan', this)">
+          <div class="w-feature-card w-feature-card--wawasan" role="group" aria-label="Wawasan Nutrisi dan Data">
             <img class="w-feature-card__hero-img" src="assets/illustrations/wawasan-nutrisi-hero.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="600" height="600">
             <span class="w-feature-card__overlay" aria-hidden="true"></span>
             <h3 class="w-feature-card__title">Wawasan Nutrisi &amp; Data</h3>
-            <div class="w-feature-card__block">
+            <button type="button" class="w-feature-card__block" aria-label="Buka Analisa Nutrisi Makan" onclick="welvraOpenFeature('makan', this)">
               <div class="w-feature-card__block-head">
                 <span class="w-feature-card__block-icon" aria-hidden="true">
                   <svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">
@@ -8060,8 +8062,8 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
                 <span class="w-feature-card__block-label">Analisa Nutrisi Makan</span>
               </div>
               <p class="w-feature-card__block-copy">Evaluasi gizi makan harian</p>
-            </div>
-            <div class="w-feature-card__block">
+            </button>
+            <button type="button" class="w-feature-card__block" aria-label="Buka Cek hasil Lab" onclick="welvraOpenFeature('lab', this)">
               <div class="w-feature-card__block-head">
                 <span class="w-feature-card__block-icon" aria-hidden="true">
                   <svg class="w-icon-stroke" viewBox="0 0 18 18" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -8074,11 +8076,11 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
                     <path d="M13 11.5 L13 15.5"/>
                   </svg>
                 </span>
-                <span class="w-feature-card__block-label">Interpretasi Lab</span>
+                <span class="w-feature-card__block-label">Cek hasil Lab</span>
               </div>
-              <p class="w-feature-card__block-copy">Interpretasi hasil pemeriksaan lab</p>
-            </div>
-          </button>
+              <p class="w-feature-card__block-copy">Baca &amp; interpretasi hasil pemeriksaan lab</p>
+            </button>
+          </div>
 
           <button class="w-feature-card w-feature-card--faceprint" aria-label="Buka Analisa Wajah" onclick="welvraOpenFeature('faceprint', this)">
             <img class="w-feature-card__hero-img" src="assets/illustrations/analisa-wajah-hero.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" width="600" height="600">
