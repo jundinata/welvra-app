@@ -22,7 +22,13 @@
 - Indonesian UI
 
 ## Design Tokens
-- Fonts: Cormorant Garamond (serif headings) + Plus Jakarta Sans (sans body)
+- Font: Plus Jakarta Sans — sole brand typeface for ALL text (headings, body, big-number displays, taglines).
+  - Rationale: modern + clean health/nutrition aesthetic (Cal AI, MyFitnessPal premium tier vibe). Cormorant Garamond was retired 2026-05.
+  - Stack: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif
+  - Weights loaded: 300, 400, 500, 600, 700, 800
+  - CSS vars: --font-sans, --font-serif (aliased), --font-display all point to the same stack
+  - Italic is NOT used anywhere — sans-serif italic looks awkward
+  - Hierarchy via weight + size + letter-spacing (tighter -0.5px to -1.5px on big numbers/display)
 - Colors: --teal #0A7B6C, --gold #C8860A, --sage #6B9E78, --ivory #FAFAF7
 
 ## Existing Features
