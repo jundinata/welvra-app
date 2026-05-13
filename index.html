@@ -178,7 +178,8 @@ body.w-home-v2-active main.container { padding: 0; background: var(--bg-canvas);
 .w-feature-card__title--inline { margin: 0; }
 .w-feature-card__block { margin-top: 14px; }
 .w-feature-card__block:first-of-type { margin-top: 0; }
-button.w-feature-card__block { appearance: none; background: transparent; border: none; padding: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%; display: block; border-radius: 8px; }
+button.w-feature-card__block { appearance: none; -webkit-appearance: none; background: transparent; border: none; padding: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%; display: block; border-radius: 8px; -webkit-tap-highlight-color: rgba(0,0,0,0.05); touch-action: manipulation; pointer-events: auto; position: relative; z-index: 1; }
+button.w-feature-card__block:active { transform: scale(0.98); transition: transform 0.12s ease-out; }
 button.w-feature-card__block:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 3px; }
 .w-feature-card__block-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
 .w-feature-card__block-icon { width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -7785,14 +7786,14 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
    DR. SLY CHAT — Phase 3 redesign (dsv2 namespace)
    Blue palette scoped to #modal-chat ONLY. Welvra rest unchanged.
    ============================================================ */
-#overlay-chat.dsv2-overlay{background:rgba(20,30,60,0.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-#modal-chat.dsv2-panel{position:fixed;inset:0;top:0;left:0;right:0;bottom:0;z-index:790;background:#FAFCFF;display:flex;flex-direction:column;overflow:hidden;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;color:#1A1A1A;border-radius:0;width:100vw;max-width:none;height:100vh;margin:0;padding:0;transform:translateY(100%);transition:transform .42s cubic-bezier(.16,1,.3,1);opacity:1;visibility:visible}
-.modal-overlay#overlay-chat.dsv2-overlay.open + #modal-chat.dsv2-panel,
-#modal-chat.dsv2-panel.open{transform:translateY(0) !important}
+#overlay-chat.dsv2-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(20,30,60,0.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:780;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s,visibility .28s}
+#overlay-chat.dsv2-overlay.active,#overlay-chat.dsv2-overlay.open{opacity:1;visibility:visible;pointer-events:auto}
+#modal-chat.dsv2-panel{position:fixed;top:0;left:0;right:0;bottom:0;z-index:790;background:#FAFCFF;display:flex;flex-direction:column;overflow:hidden;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;color:#1A1A1A;border-radius:0;width:100vw;max-width:none;height:100vh;height:100dvh;max-height:none;margin:0;padding:0;transform:translateY(100%);transition:transform .42s cubic-bezier(.16,1,.3,1);opacity:1;visibility:visible}
+#modal-chat.dsv2-panel.active,#modal-chat.dsv2-panel.open{transform:translateY(0)}
 html.dark #modal-chat.dsv2-panel{background:#0E1424;color:#F0EDE8}
-@media(min-width:481px){#modal-chat.dsv2-panel{inset:0 0 0 50%;left:50%;width:480px;max-width:100vw;height:100vh;transform:translate(-50%,100%);top:0}#modal-chat.dsv2-panel.open,.modal-overlay#overlay-chat.dsv2-overlay.open + #modal-chat.dsv2-panel{transform:translate(-50%,0) !important}}
+@media(min-width:481px){#modal-chat.dsv2-panel{top:0;left:50%;right:auto;bottom:auto;width:480px;height:100vh;height:100dvh;transform:translate(-50%,100%)}#modal-chat.dsv2-panel.active,#modal-chat.dsv2-panel.open{transform:translate(-50%,0)}}
 
-#modal-chat.dsv2-panel .modal-handle{display:none}
+#modal-chat.dsv2-panel .modal-handle,#modal-chat.dsv2-panel::before{display:none !important;content:none !important}
 #modal-chat.dsv2-panel .modal-header{display:none}
 
 .dsv2-header{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 14px 12px;padding-top:calc(14px + env(safe-area-inset-top));min-height:60px;background:linear-gradient(180deg,rgba(212,227,245,0.32) 0%,rgba(212,227,245,0) 100%);position:relative}
@@ -7910,12 +7911,12 @@ html.dark #modal-chat.dsv2-panel .chat-scroll-btn{background:#1B2238;color:#6B8B
    ANALISA NUTRISI MAKAN — Phase 2A redesign (mkv2 namespace)
    Premium food tracker layout, Plus Jakarta Sans uniform.
    ============================================================ */
-.mkv2-overlay{position:fixed;inset:0;background:rgba(20,20,18,0.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:780;opacity:0;pointer-events:none;transition:opacity .28s}
-.mkv2-overlay.open{opacity:1;pointer-events:auto}
-.mkv2-panel{position:fixed;inset:0;z-index:790;background:#F5F1E8;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .42s cubic-bezier(.16,1,.3,1);overflow:hidden;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;color:#1A1A1A}
-.mkv2-panel.open{transform:translateY(0)}
-html.dark .mkv2-panel{background:#16181B;color:#F0EDE8}
-@media(min-width:481px){.mkv2-panel{inset:auto 50% auto 50%;width:480px;max-width:100vw;height:100vh;transform:translate(-50%,100%)}.mkv2-panel.open{transform:translate(-50%,0)}}
+.mkv2-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(20,20,18,0.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:780;opacity:0;pointer-events:none;transition:opacity .28s}
+.mkv2-overlay.active,.mkv2-overlay.open{opacity:1;pointer-events:auto}
+#modal-makan.mkv2-panel{position:fixed;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border-radius:0;z-index:790;background:#F5F1E8;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .42s cubic-bezier(.16,1,.3,1);overflow:hidden;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;color:#1A1A1A;opacity:1;visibility:visible}
+#modal-makan.mkv2-panel.active,#modal-makan.mkv2-panel.open{transform:translateY(0)}
+html.dark #modal-makan.mkv2-panel{background:#16181B;color:#F0EDE8}
+@media(min-width:481px){#modal-makan.mkv2-panel{top:0;left:50%;right:auto;bottom:auto;width:480px;height:100vh;height:100dvh;transform:translate(-50%,100%)}#modal-makan.mkv2-panel.active,#modal-makan.mkv2-panel.open{transform:translate(-50%,0)}}
 
 .mkv2-header{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:14px 14px 12px;padding-top:calc(14px + env(safe-area-inset-top));background:#F5F1E8;border-bottom:1px solid rgba(0,0,0,0.05);position:relative}
 html.dark .mkv2-header{background:#16181B;border-bottom-color:rgba(255,255,255,0.06)}
@@ -8896,7 +8897,7 @@ html.dark .mkv2-vision-ingredient{color:rgba(240,237,232,0.75)}
 
 <!-- MODAL: CHAT — Dr. Sly redesign (dsv2 namespace, blue palette scoped) -->
 <div class="modal-overlay dsv2-overlay" id="overlay-chat" onclick="closeModal('chat')"></div>
-<div class="modal-panel dsv2-panel" id="modal-chat" role="dialog" aria-modal="true" aria-label="Tanya Dr. Sly">
+<div class="dsv2-panel" id="modal-chat" role="dialog" aria-modal="true" aria-label="Tanya Dr. Sly">
   <!-- HEADER STRIP -->
   <div class="dsv2-header">
     <button class="dsv2-back" type="button" onclick="closeModal('chat')" aria-label="Kembali">
