@@ -8092,8 +8092,26 @@ html.dark .mkv2-chip--macro{border-color:rgba(255,255,255,0.10);color:rgba(240,2
 .mkv2-entry__src{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:500;color:#888;padding-top:8px;border-top:1px dashed rgba(0,0,0,0.06)}
 html.dark .mkv2-entry__src{color:rgba(240,237,232,0.55);border-top-color:rgba(255,255,255,0.06)}
 .mkv2-entry__src svg{width:11px;height:11px;color:#6B9E78;flex-shrink:0}
-.mkv2-entry__src-pill{background:rgba(10,123,108,0.10);color:#0A7B6C;padding:2px 7px;border-radius:8px;font-size:9px;font-weight:700;letter-spacing:0.1px;margin-left:auto}
+.mkv2-entry__src-pill{background:rgba(10,123,108,0.10);color:#0A7B6C;padding:2px 7px;border-radius:8px;font-size:9px;font-weight:700;letter-spacing:0.1px;margin-left:auto;white-space:nowrap}
 html.dark .mkv2-entry__src-pill{background:rgba(10,123,108,0.18);color:#1FAE9B}
+/* Phase 2B — source attribution color variants */
+.mkv2-entry__src-pill--tkpi{background:rgba(10,123,108,0.12);color:#0A7B6C}
+.mkv2-entry__src-pill--off{background:rgba(59,130,246,0.12);color:#2D3DA8}
+.mkv2-entry__src-pill--vision{background:rgba(200,134,10,0.12);color:#8a5a16}
+.mkv2-entry__src-pill--manual{background:rgba(107,158,120,0.16);color:#3d6a48}
+html.dark .mkv2-entry__src-pill--tkpi{background:rgba(31,174,155,0.18);color:#1FAE9B}
+html.dark .mkv2-entry__src-pill--off{background:rgba(107,139,255,0.18);color:#A6B7FF}
+html.dark .mkv2-entry__src-pill--vision{background:rgba(245,167,54,0.18);color:#f0c474}
+html.dark .mkv2-entry__src-pill--manual{background:rgba(155,210,171,0.20);color:#9bd2ab}
+/* Vision result source pill variants */
+.mkv2-vision-result__src--tkpi{background:rgba(10,123,108,0.12)!important;color:#0A7B6C!important}
+.mkv2-vision-result__src--off{background:rgba(59,130,246,0.12)!important;color:#2D3DA8!important}
+.mkv2-vision-result__src--vision{background:rgba(200,134,10,0.12)!important;color:#8a5a16!important}
+.mkv2-vision-result__src--manual{background:rgba(107,158,120,0.16)!important;color:#3d6a48!important}
+html.dark .mkv2-vision-result__src--tkpi{background:rgba(31,174,155,0.18)!important;color:#1FAE9B!important}
+html.dark .mkv2-vision-result__src--off{background:rgba(107,139,255,0.18)!important;color:#A6B7FF!important}
+html.dark .mkv2-vision-result__src--vision{background:rgba(245,167,54,0.18)!important;color:#f0c474!important}
+html.dark .mkv2-vision-result__src--manual{background:rgba(155,210,171,0.20)!important;color:#9bd2ab!important}
 .mkv2-entry__del{margin-top:8px;display:inline-flex;align-items:center;gap:4px;background:none;border:none;color:#B14545;font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;padding:4px 0;-webkit-tap-highlight-color:transparent}
 .mkv2-entry__del:hover{color:#8C2C2C}
 html.dark .mkv2-entry__del{color:#E07A7A}
@@ -11799,6 +11817,7 @@ async function analyzeKebutuhan() {
       thumbHtml = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h18"/><path d="M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4"/><path d="M5 11v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-6"/><path d="M9 4v3M15 4v3"/></svg>';
     }
     var srcLabel = e.source || 'Estimasi Dr. Sly';
+    var srcVariant = sourceVariantClass(srcLabel, 'mkv2-entry__src-pill--');
     var ingredientsHtml = '';
     if (Array.isArray(e.ingredients) && e.ingredients.length){
       ingredientsHtml = '<div class="mkv2-ingredients">' + e.ingredients.map(function(ing){
@@ -11836,8 +11855,8 @@ async function analyzeKebutuhan() {
       '<div class="mkv2-entry__expand">' + ingredientsHtml +
         '<div class="mkv2-entry__src">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>' +
-          'Data nutrisi: ' + escHtml(srcLabel) +
-          '<span class="mkv2-entry__src-pill">' + escHtml(srcLabel) + '</span>' +
+          'Data nutrisi' +
+          '<span class="mkv2-entry__src-pill ' + srcVariant + '">' + escHtml(srcLabel) + '</span>' +
         '</div>' +
         '<button class="mkv2-entry__del" type="button" onclick="mkv2DeleteEntry(\'' + escAttr(e.id) + '\')">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>' +
@@ -11992,17 +12011,21 @@ async function analyzeKebutuhan() {
     if (!file.type.startsWith('image/')){ if (typeof showToast==='function') showToast('Format harus gambar'); return; }
     showSub('vision');
     showVisionState('loading');
+    var visionParsed = null;
     resizeImageToWebP(file, 800, 0.78).then(function(out){
       mkState.pendingPhotoB64 = out.base64;
       mkState.pendingPhotoMedia = out.mediaType;
       return callVisionAnalyze(out.base64, out.mediaType);
     }).then(function(parsed){
-      renderVisionResult(parsed, mkState.pendingPhotoB64, mkState.pendingPhotoMedia);
+      visionParsed = parsed;
+      // Phase 2B: chain 4-tier lookup (TKPI → OFF → Vision fallback)
+      return fourTierLookup(parsed);
+    }).then(function(tierResult){
+      renderVisionResultWithSource(visionParsed, tierResult, mkState.pendingPhotoB64, mkState.pendingPhotoMedia);
     }).catch(function(err){
-      console.error('vision error', err);
+      console.error('[mkv2] vision error', err);
       showVisionState('error', err && err.message);
     }).finally(function(){
-      // Reset input so same file can be picked again
       e.target.value = '';
     });
   };
@@ -12123,7 +12146,7 @@ async function analyzeKebutuhan() {
       karbo_g: parseFloat(document.getElementById('mkv2-v-karbo').value) || 0,
       ingredients: mkState.pendingIngredients || [],
       foto: mkState.pendingPhotoB64 ? 'data:' + mkState.pendingPhotoMedia + ';base64,' + mkState.pendingPhotoB64 : null,
-      source: 'Estimasi Dr. Sly',
+      source: mkState.pendingSource || 'Estimasi Dr. Sly',
       confidence: mkState.pendingConfidence || 0.7
     });
     addEntry(entry);
@@ -12131,6 +12154,7 @@ async function analyzeKebutuhan() {
     if (typeof showToast === 'function') showToast('Tersimpan');
     mkState.pendingPhotoB64 = null;
     mkState.pendingIngredients = null;
+    mkState.pendingSource = null;
   };
 
   // ----- sub-panel show/hide -----
@@ -12155,6 +12179,215 @@ async function analyzeKebutuhan() {
   // ----- helpers -----
   function escHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function escAttr(s){ return escHtml(s); }
+
+  // ============================================================
+  // PHASE 2B — TKPI Indonesian DB + OpenFoodFacts + 4-tier lookup
+  // ============================================================
+  var tkpiCache = null;
+  var tkpiLoadPromise = null;
+  function loadTKPI(){
+    if (tkpiCache) return Promise.resolve(tkpiCache);
+    if (tkpiLoadPromise) return tkpiLoadPromise;
+    tkpiLoadPromise = fetch('data/tkpi-seed-v1.json')
+      .then(function(r){ if (!r.ok) throw new Error('TKPI fetch failed HTTP ' + r.status); return r.json(); })
+      .then(function(data){ tkpiCache = Array.isArray(data) ? data : (data.foods || []); return tkpiCache; })
+      .catch(function(err){ console.warn('[mkv2] TKPI load failed:', err && err.message); tkpiCache = []; return []; });
+    return tkpiLoadPromise;
+  }
+  function tkpiLookup(queryName){
+    return loadTKPI().then(function(foods){
+      if (!foods.length || !queryName) return null;
+      var q = String(queryName).toLowerCase().trim();
+      var qClean = q.replace(/\b(goreng|bakar|rebus|tumis|kukus|panggang)\b/g, '').replace(/\s+/g,' ').trim();
+      // Tier A: exact nama match
+      var exact = foods.find(function(f){ return f.nama.toLowerCase() === q; });
+      if (exact) return { food: exact, confidence: 1.0, matchType: 'exact' };
+      // Tier B: exact alias match
+      var aliasExact = foods.find(function(f){ return (f.aliases || []).some(function(a){ return a.toLowerCase() === q; }); });
+      if (aliasExact) return { food: aliasExact, confidence: 0.95, matchType: 'alias_exact' };
+      // Tier C: contains match
+      var contains = foods.find(function(f){
+        var fn = f.nama.toLowerCase();
+        var fnClean = fn.replace(/\b(goreng|bakar|rebus|tumis|kukus|panggang)\b/g, '').replace(/\s+/g,' ').trim();
+        return (q.indexOf(fn) >= 0 || fn.indexOf(qClean) >= 0 || qClean.indexOf(fnClean) >= 0) && fnClean.length > 2;
+      });
+      if (contains) return { food: contains, confidence: 0.85, matchType: 'contains' };
+      // Tier D: token overlap
+      var qTokens = qClean.split(/\s+/).filter(function(t){ return t.length > 2; });
+      if (qTokens.length === 0) return null;
+      var best = null, bestScore = 0;
+      foods.forEach(function(f){
+        var ftoks = (f.nama + ' ' + (f.aliases || []).join(' ')).toLowerCase().split(/\s+/);
+        var overlap = qTokens.filter(function(t){ return ftoks.indexOf(t) >= 0; }).length;
+        var score = overlap / qTokens.length;
+        if (score > bestScore && score >= 0.5){ best = f; bestScore = score; }
+      });
+      if (best) return { food: best, confidence: 0.70 + bestScore * 0.15, matchType: 'token_overlap' };
+      return null;
+    });
+  }
+  function tkpiScaleToPortion(food, portionGram){
+    var factor = (portionGram || 100) / 100;
+    return {
+      nama: food.nama,
+      kalori: Math.round((food.kalori_per_100g || 0) * factor),
+      protein_g: +((food.protein_g || 0) * factor).toFixed(1),
+      lemak_g: +((food.lemak_g || 0) * factor).toFixed(1),
+      karbo_g: +((food.karbo_g || 0) * factor).toFixed(1),
+      serat_g: +((food.serat_g || 0) * factor).toFixed(1),
+      source: food.source || 'TKPI Kemenkes 2017'
+    };
+  }
+
+  // ----- OpenFoodFacts API client -----
+  var OFF_API = 'https://world.openfoodfacts.org/cgi/search.pl';
+  function offSearch(query){
+    if (!query) return Promise.resolve(null);
+    var url = OFF_API + '?search_terms=' + encodeURIComponent(query) + '&search_simple=1&action=process&json=1&page_size=3&fields=product_name,nutriments,serving_size,brands';
+    return fetch(url, { method: 'GET' })
+      .then(function(r){ if (!r.ok) throw new Error('OFF HTTP ' + r.status); return r.json(); })
+      .then(function(data){
+        if (!data.products || !data.products.length) return null;
+        var p = data.products.find(function(pp){
+          return pp.nutriments && (pp.nutriments['energy-kcal_100g'] || pp.nutriments['energy_100g']);
+        });
+        if (!p) return null;
+        var n = p.nutriments;
+        var kcal = +(n['energy-kcal_100g'] || (n['energy_100g'] ? n['energy_100g'] / 4.184 : 0)) || 0;
+        return {
+          nama: p.product_name || query,
+          kalori_per_100g: Math.round(kcal),
+          protein_g: +(n.proteins_100g || 0).toFixed(1),
+          lemak_g: +(n.fat_100g || 0).toFixed(1),
+          karbo_g: +(n.carbohydrates_100g || 0).toFixed(1),
+          serat_g: +(n.fiber_100g || 0).toFixed(1),
+          source: 'OpenFoodFacts'
+        };
+      })
+      .catch(function(err){ console.warn('[mkv2] OFF search failed:', err && err.message); return null; });
+  }
+  function offLookupScaled(query, portionGram){
+    return offSearch(query).then(function(food){
+      if (!food) return null;
+      var scaled = tkpiScaleToPortion(food, portionGram);
+      scaled.source = 'OpenFoodFacts';
+      return { food: scaled, confidence: 0.75, matchType: 'off_api' };
+    });
+  }
+
+  // ----- 4-tier orchestrator -----
+  function fourTierLookup(visionResult){
+    if (!visionResult || !visionResult.makanan) return Promise.resolve(tierFallbackVision(visionResult || {}));
+    var query = visionResult.makanan;
+    var portion = visionResult.porsi_total_gram || 100;
+    return tkpiLookup(query).then(function(tkpiMatch){
+      if (tkpiMatch && tkpiMatch.confidence >= 0.85){
+        var scaled = tkpiScaleToPortion(tkpiMatch.food, portion);
+        return {
+          tier: 1, source: 'TKPI Kemenkes',
+          confidence: tkpiMatch.confidence, matchType: tkpiMatch.matchType,
+          nutrition: scaled, porsiGram: portion,
+          ingredients: visionResult.ingredients || []
+        };
+      }
+      // Tier 2: OFF for international or low-confidence
+      var shouldTryOFF = (visionResult.kategori === 'international') || ((+visionResult.confidence || 0) < 0.7) || !tkpiMatch;
+      if (shouldTryOFF){
+        return offLookupScaled(query, portion).then(function(offMatch){
+          if (offMatch){
+            return {
+              tier: 2, source: 'OpenFoodFacts',
+              confidence: offMatch.confidence, matchType: offMatch.matchType,
+              nutrition: offMatch.food, porsiGram: portion,
+              ingredients: visionResult.ingredients || []
+            };
+          }
+          // Fall through to vision estimate
+          if (tkpiMatch){
+            // Use weaker TKPI match if available
+            var scaled = tkpiScaleToPortion(tkpiMatch.food, portion);
+            return {
+              tier: 1, source: 'TKPI Kemenkes',
+              confidence: tkpiMatch.confidence, matchType: tkpiMatch.matchType,
+              nutrition: scaled, porsiGram: portion,
+              ingredients: visionResult.ingredients || []
+            };
+          }
+          return tierFallbackVision(visionResult);
+        });
+      }
+      return tierFallbackVision(visionResult);
+    }).catch(function(err){
+      console.warn('[mkv2] 4-tier lookup error:', err && err.message);
+      return tierFallbackVision(visionResult);
+    });
+  }
+  function tierFallbackVision(visionResult){
+    return {
+      tier: 3, source: 'Estimasi Dr. Sly',
+      confidence: +visionResult.confidence || 0.7, matchType: 'vision_only',
+      nutrition: {
+        nama: visionResult.makanan || 'Makanan',
+        kalori: Math.round(+visionResult.kalori_total || 0),
+        protein_g: +(+visionResult.protein_total_g || 0).toFixed(1),
+        lemak_g: +(+visionResult.lemak_total_g || 0).toFixed(1),
+        karbo_g: +(+visionResult.karbo_total_g || 0).toFixed(1),
+        serat_g: 0,
+        source: 'Estimasi Dr. Sly'
+      },
+      porsiGram: visionResult.porsi_total_gram || null,
+      ingredients: visionResult.ingredients || []
+    };
+  }
+
+  // Render result with source attribution badge
+  function renderVisionResultWithSource(parsed, tierResult, b64, media){
+    showVisionState('result');
+    var thumb = document.getElementById('mkv2-vision-thumb');
+    if (thumb) thumb.src = 'data:' + media + ';base64,' + b64;
+    var n = tierResult.nutrition || {};
+    document.getElementById('mkv2-v-nama').value = n.nama || parsed.makanan;
+    document.getElementById('mkv2-v-kalori').value = Math.round(n.kalori || 0);
+    document.getElementById('mkv2-v-porsi').value = tierResult.porsiGram || '';
+    document.getElementById('mkv2-v-protein').value = +(+n.protein_g || 0).toFixed(1);
+    document.getElementById('mkv2-v-lemak').value = +(+n.lemak_g || 0).toFixed(1);
+    document.getElementById('mkv2-v-karbo').value = +(+n.karbo_g || 0).toFixed(1);
+    // Update source badge in vision result panel
+    var srcEl = document.querySelector('.mkv2-vision-result__src');
+    if (srcEl){
+      srcEl.className = 'mkv2-vision-result__src ' + sourceVariantClass(tierResult.source, 'mkv2-vision-result__src--');
+      var label = tierResult.source;
+      var tagline = tierLabelTagline(tierResult.tier);
+      srcEl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>' +
+        '<span>' + escHtml(label) + ' &middot; ' + escHtml(tagline) + '</span>';
+    }
+    // Render ingredients (carried from vision)
+    var ingEl = document.getElementById('mkv2-vision-ingredients');
+    if (ingEl){
+      if (tierResult.ingredients && tierResult.ingredients.length){
+        ingEl.innerHTML = tierResult.ingredients.map(function(i){
+          return '<div class="mkv2-vision-ingredient"><span class="mkv2-vision-ingredient__nm">' + escHtml(i.nama) + (i.berat_gram?(' (' + Math.round(i.berat_gram) + 'g)'):'') + '</span><span class="mkv2-vision-ingredient__sub">' + Math.round(i.kalori) + ' kal &middot; P' + (+i.protein_g).toFixed(1) + ' &middot; L' + (+i.lemak_g).toFixed(1) + ' &middot; K' + (+i.karbo_g).toFixed(1) + '</span></div>';
+        }).join('');
+      } else { ingEl.innerHTML = ''; }
+    }
+    mkState.pendingPhotoB64 = b64;
+    mkState.pendingPhotoMedia = media;
+    mkState.pendingIngredients = tierResult.ingredients || [];
+    mkState.pendingConfidence = tierResult.confidence;
+    mkState.pendingSource = tierResult.source;
+  }
+  function sourceVariantClass(source, prefix){
+    if (!source) return prefix + 'vision';
+    if (source.indexOf('TKPI') >= 0) return prefix + 'tkpi';
+    if (source.indexOf('OpenFoodFacts') >= 0 || source.indexOf('OFF') >= 0) return prefix + 'off';
+    if (source === 'Manual') return prefix + 'manual';
+    return prefix + 'vision';
+  }
+  function tierLabelTagline(tier){
+    if (tier === 1) return 'Data terverifikasi';
+    if (tier === 2) return 'Database internasional';
+    return 'Estimasi otomatis';
+  }
 
   // ----- entry hook (run on modal open) -----
   function onMakanModalOpen(){
