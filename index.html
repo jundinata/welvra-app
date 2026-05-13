@@ -10924,13 +10924,20 @@ Welvra.weather = (function(){
   }
 
   async function fetchCity(lat, lon){
-    var url = 'https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' + lat
-      + '&longitude=' + lon + '&localityLanguage=id';
+    // Nominatim OpenStreetMap reverse geocoder — accurate Indonesian admin areas
+    // (replaces bigdatacloud which misclassified Tangsel as Jakarta Selatan via metro routing).
+    var url = 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat
+      + '&lon=' + lon + '&zoom=10&addressdetails=1&accept-language=id';
     var res = await fetchWithTimeout(url, 7000);
-    if (!res.ok) throw new Error('reverse-geo failed');
+    if (!res.ok) throw new Error('nominatim failed');
     var data = await res.json();
-    var raw = data.city || data.locality || data.principalSubdivision || '';
-    return raw ? titleCase(raw) : '';
+    var a = (data && data.address) || {};
+    // Priority chain — city/town/village respects Indonesian admin boundaries (kota/kabupaten)
+    var raw = a.city || a.town || a.village || a.municipality || a.county || a.state_district || a.state || '';
+    if (!raw) return '';
+    // Strip 'Kota '/'Kabupaten ' prefix for compact display
+    raw = String(raw).replace(/^(Kota|Kabupaten)\s+/i, '').trim();
+    return titleCase(raw);
   }
 
   function renderSkeleton(){
@@ -10954,7 +10961,29 @@ Welvra.weather = (function(){
       '<span class="welvra-weather-card__sr" id="' + SR_ID + '">Cuaca saat ini tidak tersedia karena lokasi tidak diizinkan.</span>';
   }
 
+  // Render home header .w-weather widget (the one user actually sees on Phase 1 home).
+  // Mirrors Welvra.weather data into the header widget elements.
+  function renderHeader(payload){
+    var labelEl = document.querySelector('.w-weather__label');
+    var iconEl = document.querySelector('.w-weather__icon');
+    var tempEl = document.querySelector('.w-weather__temp');
+    var subEl = document.querySelector('.w-weather__sub');
+    if (!labelEl && !iconEl && !tempEl && !subEl) return;
+    var city = payload.city || '';
+    var temp = (payload.temp != null) ? payload.temp + '°C' : '—';
+    var desc = descFor(payload.code);
+    var descTitle = desc.charAt(0).toUpperCase() + desc.slice(1);
+    if (labelEl) labelEl.textContent = city || 'Lokasi tidak diketahui';
+    if (tempEl) tempEl.innerHTML = escapeHtml(temp);
+    if (subEl) subEl.textContent = descTitle;
+    if (iconEl) {
+      iconEl.innerHTML = '<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + iconFor(payload.code) + '</svg>';
+    }
+  }
+
   function renderData(payload, opts){
+    // Always update the home header widget (visible in Phase 1 layout)
+    try { renderHeader(payload); } catch(e){}
     var el = getCard(); if (!el) return;
     var fade = opts && opts.fade;
     var temp = (payload.temp != null) ? payload.temp + '°' : '—';
