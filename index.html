@@ -7781,6 +7781,293 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
   .welvra-rekam-profiles-add,.welvra-rekam-detail-share{transition:none}
 }
 
+/* ============================================================
+   ANALISA NUTRISI MAKAN — Phase 2A redesign (mkv2 namespace)
+   Premium food tracker layout, Plus Jakarta Sans uniform.
+   ============================================================ */
+.mkv2-overlay{position:fixed;inset:0;background:rgba(20,20,18,0.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:780;opacity:0;pointer-events:none;transition:opacity .28s}
+.mkv2-overlay.open{opacity:1;pointer-events:auto}
+.mkv2-panel{position:fixed;inset:0;z-index:790;background:#F5F1E8;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .42s cubic-bezier(.16,1,.3,1);overflow:hidden;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;color:#1A1A1A}
+.mkv2-panel.open{transform:translateY(0)}
+html.dark .mkv2-panel{background:#16181B;color:#F0EDE8}
+@media(min-width:481px){.mkv2-panel{inset:auto 50% auto 50%;width:480px;max-width:100vw;height:100vh;transform:translate(-50%,100%)}.mkv2-panel.open{transform:translate(-50%,0)}}
+
+.mkv2-header{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:14px 14px 12px;padding-top:calc(14px + env(safe-area-inset-top));background:#F5F1E8;border-bottom:1px solid rgba(0,0,0,0.05);position:relative}
+html.dark .mkv2-header{background:#16181B;border-bottom-color:rgba(255,255,255,0.06)}
+.mkv2-iconbtn{flex-shrink:0;width:38px;height:38px;border-radius:50%;border:none;background:rgba(0,0,0,0.04);color:#1A1A1A;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .2s,transform .15s;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.mkv2-iconbtn:hover{background:rgba(0,0,0,0.07)}
+.mkv2-iconbtn:active{transform:scale(.92)}
+.mkv2-iconbtn:disabled{opacity:.35;cursor:not-allowed}
+.mkv2-iconbtn svg{width:18px;height:18px}
+html.dark .mkv2-iconbtn{background:rgba(255,255,255,0.06);color:#F0EDE8}
+html.dark .mkv2-iconbtn:hover{background:rgba(255,255,255,0.10)}
+
+.mkv2-datepill{flex:1;max-width:200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;border-radius:22px;border:1px solid rgba(0,0,0,0.06);background:rgba(255,255,255,0.65);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .2s,transform .15s;box-shadow:0 1px 3px rgba(0,0,0,0.04);font-family:inherit}
+.mkv2-datepill:hover{background:rgba(255,255,255,0.85)}
+.mkv2-datepill:active{transform:scale(.97)}
+.mkv2-datepill svg{flex-shrink:0;color:#666}
+.mkv2-datepill svg:first-child{width:13px;height:13px}
+.mkv2-datepill__chev{width:11px;height:11px}
+.mkv2-datepill__label{font-size:15px;font-weight:600;color:#1A1A1A;letter-spacing:-0.1px}
+html.dark .mkv2-datepill{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08)}
+html.dark .mkv2-datepill:hover{background:rgba(255,255,255,0.08)}
+html.dark .mkv2-datepill__label{color:#F0EDE8}
+html.dark .mkv2-datepill svg{color:rgba(240,237,232,0.7)}
+
+.mkv2-close{flex-shrink:0;width:36px;height:36px;border-radius:50%;border:none;background:transparent;color:#1A1A1A;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .2s,transform .15s}
+.mkv2-close:hover{background:rgba(0,0,0,0.05)}
+.mkv2-close:active{transform:scale(.92)}
+.mkv2-close svg{width:18px;height:18px}
+html.dark .mkv2-close{color:#F0EDE8}
+html.dark .mkv2-close:hover{background:rgba(255,255,255,0.06)}
+
+.mkv2-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 0 28px}
+
+.mkv2-statsgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px;margin-bottom:14px}
+.mkv2-card{background:#FFFFFF;border-radius:22px;padding:14px;box-shadow:0 1px 0 rgba(255,255,255,0.6) inset,0 2px 4px rgba(0,0,0,0.05),0 12px 24px -8px rgba(0,0,0,0.08);border:1px solid rgba(200,134,10,0.08);position:relative;overflow:hidden}
+html.dark .mkv2-card{background:#1E2126;box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 2px 4px rgba(0,0,0,0.20),0 12px 24px -8px rgba(0,0,0,0.30);border-color:rgba(200,134,10,0.10)}
+
+.mkv2-profile-card{display:flex;flex-direction:column;min-height:140px}
+.mkv2-profile-card__eyebrow{font-size:13px;font-weight:600;color:#666;letter-spacing:-0.1px;margin-bottom:6px}
+html.dark .mkv2-profile-card__eyebrow{color:rgba(240,237,232,0.7)}
+.mkv2-profile-card__body{display:flex;align-items:center;gap:8px;flex:1}
+.mkv2-sparkline{flex:1;height:50px;min-width:0}
+.mkv2-profile-card__stats{flex-shrink:0;display:flex;flex-direction:column;gap:4px}
+.mkv2-profile-stat{display:flex;flex-direction:column;align-items:flex-end}
+.mkv2-profile-stat__val{font-size:13px;font-weight:700;color:#1A1A1A;line-height:1.1;letter-spacing:-0.2px}
+.mkv2-profile-stat__lbl{font-size:10px;font-weight:500;color:#888;letter-spacing:0.1px}
+html.dark .mkv2-profile-stat__val{color:#F0EDE8}
+html.dark .mkv2-profile-stat__lbl{color:rgba(240,237,232,0.55)}
+.mkv2-profile-card__empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;gap:4px;color:#888}
+.mkv2-profile-card__empty-link{font-size:13px;font-weight:600;color:#0A7B6C;background:none;border:none;cursor:pointer;padding:0}
+html.dark .mkv2-profile-card__empty{color:rgba(240,237,232,0.55)}
+html.dark .mkv2-profile-card__empty-link{color:#1FAE9B}
+
+.mkv2-cal-card{display:flex;flex-direction:column;min-height:140px;padding:14px 12px}
+.mkv2-cal-card__head{display:flex;align-items:baseline;gap:6px;font-size:11px;color:#666;margin-bottom:6px;justify-content:center}
+html.dark .mkv2-cal-card__head{color:rgba(240,237,232,0.6)}
+.mkv2-cal-card__target-label{font-weight:500}
+.mkv2-cal-card__target-val{font-weight:700;font-size:13px;color:#1A1A1A}
+html.dark .mkv2-cal-card__target-val{color:#F0EDE8}
+.mkv2-cal-card__ringwrap{position:relative;width:118px;height:118px;margin:0 auto 6px}
+.mkv2-cal-ring{width:118px;height:118px;display:block}
+#mkv2-cal-ring-fg{transition:stroke-dashoffset .6s cubic-bezier(.16,1,.3,1)}
+.mkv2-cal-ring__center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.mkv2-cal-ring__big{font-size:28px;font-weight:800;color:#1A1A1A;letter-spacing:-0.5px;line-height:1}
+.mkv2-cal-ring__sub{font-size:9px;font-weight:700;color:#888;letter-spacing:0.5px;margin-top:3px}
+html.dark .mkv2-cal-ring__big{color:#F0EDE8}
+html.dark .mkv2-cal-ring__sub{color:rgba(240,237,232,0.55)}
+.mkv2-cal-card__macros{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:auto;padding-top:6px}
+.mkv2-cal-macro{display:flex;flex-direction:column;align-items:center;gap:1px}
+.mkv2-cal-macro__val{font-size:12px;font-weight:700;color:#1A1A1A;line-height:1}
+.mkv2-cal-macro__val-target{font-weight:500;color:#888}
+.mkv2-cal-macro__lbl{font-size:10px;font-weight:500;color:#888;letter-spacing:0.1px}
+html.dark .mkv2-cal-macro__val{color:#F0EDE8}
+html.dark .mkv2-cal-macro__val-target{color:rgba(240,237,232,0.55)}
+html.dark .mkv2-cal-macro__lbl{color:rgba(240,237,232,0.55)}
+
+.mkv2-target-card{margin:0 14px 18px;padding:18px;display:flex;align-items:flex-start;gap:14px}
+.mkv2-target-card__left{flex:1;min-width:0}
+.mkv2-target-card__title{font-size:15px;font-weight:700;color:#1A1A1A;margin-bottom:8px;letter-spacing:-0.2px}
+html.dark .mkv2-target-card__title{color:#F0EDE8}
+.mkv2-target-card__big{display:flex;align-items:baseline;gap:8px}
+.mkv2-target-card__big-val{font-size:46px;font-weight:800;color:#1A1A1A;letter-spacing:-1.5px;line-height:.95}
+html.dark .mkv2-target-card__big-val{color:#F0EDE8}
+.mkv2-target-card__big-units{display:flex;flex-direction:column}
+.mkv2-target-card__big-unit-1{font-size:13px;font-weight:700;color:#1A1A1A;line-height:1.2}
+.mkv2-target-card__big-unit-2{font-size:11px;font-weight:500;color:#888;line-height:1.2}
+html.dark .mkv2-target-card__big-unit-1{color:#F0EDE8}
+html.dark .mkv2-target-card__big-unit-2{color:rgba(240,237,232,0.55)}
+.mkv2-target-card__right{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.mkv2-target-card__macros{display:flex;gap:14px}
+.mkv2-target-macro{display:flex;flex-direction:column;align-items:flex-end}
+.mkv2-target-macro__val{font-size:20px;font-weight:800;color:#1A1A1A;line-height:1;letter-spacing:-0.3px}
+.mkv2-target-macro__lbl{font-size:10px;font-weight:500;color:#666;margin-top:2px}
+html.dark .mkv2-target-macro__val{color:#F0EDE8}
+html.dark .mkv2-target-macro__lbl{color:rgba(240,237,232,0.6)}
+.mkv2-target-card__cta{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;background:#1A1A1A;color:#fff;border:none;border-radius:22px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s,opacity .2s}
+.mkv2-target-card__cta:hover{opacity:.88}
+.mkv2-target-card__cta:active{transform:scale(.96)}
+.mkv2-target-card__cta svg{width:13px;height:13px}
+html.dark .mkv2-target-card__cta{background:#F0EDE8;color:#1A1A1A}
+
+.mkv2-history{padding:0 14px}
+.mkv2-history__head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+.mkv2-history__title{font-size:18px;font-weight:700;color:#1A1A1A;letter-spacing:-0.2px}
+html.dark .mkv2-history__title{color:#F0EDE8}
+.mkv2-history__count{font-size:11px;font-weight:500;color:#888}
+html.dark .mkv2-history__count{color:rgba(240,237,232,0.55)}
+
+.mkv2-cta-card{background:linear-gradient(135deg,#0A7B6C 0%,#0D9488 100%);border-radius:22px;padding:16px;color:#fff;box-shadow:0 10px 28px rgba(10,123,108,0.20);margin-bottom:14px}
+.mkv2-cta-card__head{margin-bottom:14px}
+.mkv2-cta-card__title{font-size:15px;font-weight:700;letter-spacing:-0.1px;margin-bottom:2px}
+.mkv2-cta-card__sub{font-size:12px;font-weight:500;opacity:0.88;letter-spacing:-0.05px}
+.mkv2-cta-card__btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mkv2-cta-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 12px;border-radius:14px;border:none;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s,background .2s}
+.mkv2-cta-btn:active{transform:scale(.97)}
+.mkv2-cta-btn svg{width:15px;height:15px;flex-shrink:0}
+.mkv2-cta-btn--primary{background:#fff;color:#0A7B6C}
+.mkv2-cta-btn--primary:hover{background:#FAFAF7}
+.mkv2-cta-btn--secondary{background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff}
+.mkv2-cta-btn--secondary:hover{background:rgba(255,255,255,0.22)}
+
+.mkv2-entries{display:flex;flex-direction:column;gap:12px}
+.mkv2-empty{text-align:center;padding:32px 16px;color:#888}
+.mkv2-empty__title{font-size:15px;font-weight:600;color:#1A1A1A;margin-bottom:6px}
+.mkv2-empty__sub{font-size:13px;font-weight:500;color:#888;line-height:1.5}
+html.dark .mkv2-empty__title{color:#F0EDE8}
+html.dark .mkv2-empty__sub{color:rgba(240,237,232,0.55)}
+
+.mkv2-entry{background:#fff;border-radius:22px;padding:14px;box-shadow:0 1px 0 rgba(255,255,255,0.6) inset,0 2px 4px rgba(0,0,0,0.05),0 12px 24px -8px rgba(0,0,0,0.08);border:1px solid rgba(200,134,10,0.10);overflow:hidden;transition:box-shadow .3s}
+html.dark .mkv2-entry{background:#1E2126;box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 2px 4px rgba(0,0,0,0.20),0 12px 24px -8px rgba(0,0,0,0.30);border-color:rgba(200,134,10,0.12)}
+.mkv2-entry__row{display:flex;gap:12px;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.mkv2-entry__thumb{flex-shrink:0;width:72px;height:72px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#6B9E78 0%,#0A7B6C 100%);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.85)}
+.mkv2-entry__thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.mkv2-entry__thumb svg{width:32px;height:32px}
+.mkv2-entry__info{flex:1;min-width:0}
+.mkv2-entry__badge{display:inline-block;background:rgba(111,158,120,0.18);color:#3d6a48;padding:3px 9px;border-radius:11px;font-size:10px;font-weight:600;letter-spacing:0.1px;margin-bottom:4px}
+html.dark .mkv2-entry__badge{background:rgba(111,158,120,0.22);color:#9bd2ab}
+.mkv2-entry__name{font-size:14px;font-weight:700;color:#1A1A1A;line-height:1.25;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;letter-spacing:-0.1px}
+html.dark .mkv2-entry__name{color:#F0EDE8}
+.mkv2-entry__macros{display:flex;gap:14px}
+.mkv2-entry__macro{display:flex;align-items:stretch;gap:6px}
+.mkv2-entry__macro-bar{width:3px;border-radius:2px;flex-shrink:0}
+.mkv2-entry__macro-bar--kal{background:#C8860A}
+.mkv2-entry__macro-bar--p{background:#0A7B6C}
+.mkv2-entry__macro-bar--l{background:#6B9E78}
+.mkv2-entry__macro-bar--k{background:#A1623E}
+.mkv2-entry__macro-stack{display:flex;flex-direction:column}
+.mkv2-entry__macro-val{font-size:11px;font-weight:700;color:#1A1A1A;line-height:1.1}
+.mkv2-entry__macro-lbl{font-size:9px;font-weight:500;color:#888;line-height:1.1;letter-spacing:0.05px}
+html.dark .mkv2-entry__macro-val{color:#F0EDE8}
+html.dark .mkv2-entry__macro-lbl{color:rgba(240,237,232,0.55)}
+.mkv2-entry__chev{flex-shrink:0;color:#888;transition:transform .25s}
+.mkv2-entry__chev svg{width:15px;height:15px;display:block}
+.mkv2-entry.is-open .mkv2-entry__chev{transform:rotate(180deg)}
+
+.mkv2-entry__expand{display:none;border-top:1px solid rgba(0,0,0,0.06);padding-top:12px;margin-top:14px}
+html.dark .mkv2-entry__expand{border-top-color:rgba(255,255,255,0.06)}
+.mkv2-entry.is-open .mkv2-entry__expand{display:block}
+.mkv2-ingredients{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+.mkv2-ingredient{display:flex;gap:8px;align-items:stretch}
+.mkv2-ingredient__bar{width:3px;border-radius:2px;background:#6B9E78;flex-shrink:0}
+.mkv2-ingredient__main{flex:1;min-width:0}
+.mkv2-ingredient__head{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:4px}
+.mkv2-ingredient__name{font-size:13px;font-weight:600;color:#1A1A1A;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html.dark .mkv2-ingredient__name{color:#F0EDE8}
+.mkv2-ingredient__weight{font-size:11px;font-weight:500;color:#666;flex-shrink:0}
+html.dark .mkv2-ingredient__weight{color:rgba(240,237,232,0.6)}
+.mkv2-ingredient__chips{display:flex;flex-wrap:wrap;gap:5px}
+.mkv2-chip{padding:3px 9px;border-radius:11px;font-size:11px;font-weight:600;letter-spacing:-0.05px;white-space:nowrap}
+.mkv2-chip--kal{background:rgba(245,167,54,0.12);color:#8a5a16}
+html.dark .mkv2-chip--kal{background:rgba(245,167,54,0.18);color:#f0c474}
+.mkv2-chip--macro{border:1px solid rgba(0,0,0,0.10);color:#444;font-weight:500;background:transparent}
+html.dark .mkv2-chip--macro{border-color:rgba(255,255,255,0.10);color:rgba(240,237,232,0.75)}
+.mkv2-chip__prefix{font-weight:700;margin-right:2px}
+.mkv2-entry__src{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:500;color:#888;padding-top:8px;border-top:1px dashed rgba(0,0,0,0.06)}
+html.dark .mkv2-entry__src{color:rgba(240,237,232,0.55);border-top-color:rgba(255,255,255,0.06)}
+.mkv2-entry__src svg{width:11px;height:11px;color:#6B9E78;flex-shrink:0}
+.mkv2-entry__src-pill{background:rgba(10,123,108,0.10);color:#0A7B6C;padding:2px 7px;border-radius:8px;font-size:9px;font-weight:700;letter-spacing:0.1px;margin-left:auto}
+html.dark .mkv2-entry__src-pill{background:rgba(10,123,108,0.18);color:#1FAE9B}
+.mkv2-entry__del{margin-top:8px;display:inline-flex;align-items:center;gap:4px;background:none;border:none;color:#B14545;font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;padding:4px 0;-webkit-tap-highlight-color:transparent}
+.mkv2-entry__del:hover{color:#8C2C2C}
+html.dark .mkv2-entry__del{color:#E07A7A}
+
+/* SUB-MODALS (manual, goals, vision) */
+.mkv2-sub-overlay{position:fixed;inset:0;background:rgba(20,20,18,0.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:800;opacity:0;pointer-events:none;transition:opacity .25s}
+.mkv2-sub-overlay.active{opacity:1;pointer-events:auto}
+.mkv2-sub-panel{position:fixed;left:0;right:0;bottom:0;z-index:810;background:#fff;border-radius:24px 24px 0 0;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transform:translateY(100%);transition:transform .38s cubic-bezier(.16,1,.3,1);padding:18px 18px calc(28px + env(safe-area-inset-bottom));font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;color:#1A1A1A}
+.mkv2-sub-panel.active{transform:translateY(0)}
+.mkv2-sub-panel--tall{max-height:94vh}
+html.dark .mkv2-sub-panel{background:#1E2126;color:#F0EDE8}
+@media(min-width:481px){.mkv2-sub-panel{left:50%;right:auto;transform:translate(-50%,100%);width:440px;border-radius:24px;bottom:auto;top:50%;max-height:92vh}.mkv2-sub-panel.active{transform:translate(-50%,-50%)}}
+
+.mkv2-sub-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.mkv2-sub-title{font-size:18px;font-weight:700;color:#1A1A1A;letter-spacing:-0.2px}
+html.dark .mkv2-sub-title{color:#F0EDE8}
+
+.mkv2-form{display:flex;flex-direction:column;gap:12px}
+.mkv2-form__hint{font-size:12px;font-weight:500;color:#888;line-height:1.5;margin:0}
+html.dark .mkv2-form__hint{color:rgba(240,237,232,0.6)}
+.mkv2-form__row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mkv2-form__row--3{grid-template-columns:repeat(3,1fr)}
+.mkv2-form__field{display:flex;flex-direction:column;gap:4px}
+.mkv2-form__field--full{grid-column:1/-1}
+.mkv2-form__label{font-size:11px;font-weight:600;color:#666;letter-spacing:0.1px}
+html.dark .mkv2-form__label{color:rgba(240,237,232,0.65)}
+.mkv2-form__field input{font-family:inherit;font-size:14px;font-weight:500;padding:11px 12px;border:1px solid rgba(0,0,0,0.10);border-radius:12px;background:#FAFAF7;color:#1A1A1A;outline:none;transition:border-color .2s,background .2s;width:100%}
+.mkv2-form__field input:focus{border-color:#0A7B6C;background:#fff}
+html.dark .mkv2-form__field input{background:#15171A;border-color:rgba(255,255,255,0.10);color:#F0EDE8}
+html.dark .mkv2-form__field input:focus{border-color:#1FAE9B;background:#1B1E22}
+
+.mkv2-form__photo{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.mkv2-form__photo-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 12px;border-radius:12px;background:rgba(10,123,108,0.08);color:#0A7B6C;font-size:13px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .2s}
+.mkv2-form__photo-btn:hover{background:rgba(10,123,108,0.14)}
+.mkv2-form__photo-btn svg{width:15px;height:15px}
+html.dark .mkv2-form__photo-btn{background:rgba(31,174,155,0.14);color:#1FAE9B}
+.mkv2-form__photo-preview{width:100%;max-width:160px;border-radius:12px;display:block}
+.mkv2-form__photo-preview[hidden]{display:none}
+
+.mkv2-form__submit{margin-top:6px;padding:13px 16px;background:#0A7B6C;color:#fff;border:none;border-radius:14px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;letter-spacing:-0.1px;transition:opacity .2s,transform .15s}
+.mkv2-form__submit:hover{opacity:.92}
+.mkv2-form__submit:active{transform:scale(.98)}
+.mkv2-form__submit:disabled{opacity:.5;cursor:not-allowed}
+
+.mkv2-form__actions{display:flex;gap:8px;align-items:center;margin-top:6px}
+.mkv2-form__reset{background:none;border:none;color:#888;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;padding:8px;text-decoration:underline;text-underline-offset:3px}
+.mkv2-form__reset:hover{color:#1A1A1A}
+.mkv2-form__actions .mkv2-form__submit{margin-top:0;flex:1}
+
+.mkv2-vision-loading{padding:32px 0;text-align:center}
+.mkv2-vision-loading__spinner{width:42px;height:42px;border:3px solid rgba(10,123,108,0.15);border-top-color:#0A7B6C;border-radius:50%;margin:0 auto 16px;animation:mkv2Spin .9s linear infinite}
+@keyframes mkv2Spin{to{transform:rotate(360deg)}}
+.mkv2-vision-loading__title{font-size:15px;font-weight:700;color:#1A1A1A;margin-bottom:4px}
+html.dark .mkv2-vision-loading__title{color:#F0EDE8}
+.mkv2-vision-loading__sub{font-size:13px;font-weight:500;color:#888;line-height:1.5}
+.mkv2-vision-error{padding:24px 0;text-align:center;display:flex;flex-direction:column;gap:10px}
+.mkv2-vision-error__title{font-size:16px;font-weight:700;color:#B14545}
+.mkv2-vision-error__sub{font-size:13px;font-weight:500;color:#666;line-height:1.5}
+html.dark .mkv2-vision-error__sub{color:rgba(240,237,232,0.6)}
+.mkv2-vision-result{display:flex;flex-direction:column;gap:14px}
+.mkv2-vision-result__thumb{width:100%;max-height:200px;object-fit:cover;border-radius:14px;display:block}
+.mkv2-vision-result__src{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:11px;background:rgba(10,123,108,0.10);color:#0A7B6C;font-size:11px;font-weight:700;align-self:flex-start;letter-spacing:0.1px}
+.mkv2-vision-result__src svg{width:12px;height:12px}
+html.dark .mkv2-vision-result__src{background:rgba(31,174,155,0.16);color:#1FAE9B}
+.mkv2-vision-ingredients{display:flex;flex-direction:column;gap:8px;background:rgba(0,0,0,0.025);border-radius:12px;padding:10px}
+.mkv2-vision-ingredients:empty{display:none}
+html.dark .mkv2-vision-ingredients{background:rgba(255,255,255,0.04)}
+.mkv2-vision-ingredient{font-size:12px;color:#444;display:flex;justify-content:space-between;gap:6px;padding:4px 0}
+.mkv2-vision-ingredient__nm{font-weight:600}
+.mkv2-vision-ingredient__sub{color:#888;font-weight:500}
+html.dark .mkv2-vision-ingredient{color:rgba(240,237,232,0.75)}
+
+/* Reduced motion */
+@media(prefers-reduced-motion:reduce){
+  .mkv2-panel,.mkv2-overlay,.mkv2-sub-panel,.mkv2-sub-overlay,.mkv2-iconbtn,.mkv2-close,.mkv2-cta-btn,.mkv2-form__submit,#mkv2-cal-ring-fg{transition:none}
+  .mkv2-vision-loading__spinner{animation:none}
+}
+
+/* Narrow viewport (320-360) */
+@media(max-width:360px){
+  .mkv2-statsgrid{gap:8px;padding:0 12px}
+  .mkv2-history{padding:0 12px}
+  .mkv2-target-card{margin:0 12px 18px;padding:14px;gap:10px}
+  .mkv2-target-card__big-val{font-size:38px;letter-spacing:-1.2px}
+  .mkv2-target-card__macros{gap:10px}
+  .mkv2-target-macro__val{font-size:17px}
+  .mkv2-cal-card{padding:12px 8px}
+  .mkv2-cal-card__ringwrap{width:96px;height:96px;margin-bottom:8px}
+  .mkv2-cal-ring{width:96px;height:96px}
+  .mkv2-cal-ring__big{font-size:22px}
+  .mkv2-cal-card__macros{grid-template-columns:repeat(3,1fr);gap:2px}
+  .mkv2-cal-macro__val{font-size:10px}
+  .mkv2-cal-macro__lbl{font-size:9px}
+  .mkv2-cta-btn{font-size:12px;padding:10px 8px;gap:4px;white-space:nowrap}
+  .mkv2-cta-btn svg{width:14px;height:14px}
+  .mkv2-entry__thumb{width:60px;height:60px}
+  .mkv2-entry__macros{gap:10px}
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -8993,158 +9280,278 @@ html.dark .welvra-rekam-detail-share{background:rgba(107,158,120,.2);color:#a3d4
   </div>
 </div>
 
-<!-- MODAL: ANALISA MAKANKU -->
-<div class="modal-overlay" id="overlay-makan" onclick="closeModal('makan')"></div>
-<div class="modal-panel welvra-glass-strong" id="modal-makan" role="dialog" aria-modal="true" aria-label="Analisa Makanku">
-  <div class="modal-handle"></div>
-  <div class="modal-header"><h2>Analisa Makanku</h2><button class="modal-close" onclick="closeModal('makan')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
-  <div class="makan-tabs">
-    <button class="makan-tab active" onclick="switchMakanTab('foto',this)"></button>
-    <button class="makan-tab" onclick="switchMakanTab('kebutuhan',this)"></button>
-    <button class="makan-tab" onclick="switchMakanTab('warung',this)"></button>
+<!-- MODAL: ANALISA NUTRISI MAKAN (Phase 2A redesign) -->
+<div class="mkv2-overlay" id="overlay-makan" onclick="closeModal('makan')"></div>
+<div class="mkv2-panel" id="modal-makan" role="dialog" aria-modal="true" aria-label="Analisa Nutrisi Makan">
+  <!-- HEADER STRIP -->
+  <div class="mkv2-header">
+    <button class="mkv2-iconbtn" type="button" id="mkv2-prev-day" onclick="mkv2NavDay(-1)" aria-label="Hari sebelumnya">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"/></svg>
+    </button>
+    <button class="mkv2-datepill" type="button" id="mkv2-datepill" onclick="mkv2ToggleDatePicker()" aria-label="Pilih tanggal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+      <span class="mkv2-datepill__label" id="mkv2-datepill-label">Hari Ini</span>
+      <svg class="mkv2-datepill__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <button class="mkv2-iconbtn" type="button" id="mkv2-next-day" onclick="mkv2NavDay(1)" aria-label="Hari berikutnya">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+    </button>
+    <button class="mkv2-close" type="button" onclick="closeModal('makan')" aria-label="Tutup">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
   </div>
-  <div class="makan-section" id="makan-foto">
-    <p class="makan-desc">Foto makananmu &mdash; Dr. Sly analisa kandungan gizi dan kesesuaiannya dengan kondisi kesehatanmu</p>
-    <div class="upload-area" id="makan-upload-area">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-      <p>Tap untuk foto atau upload gambar makanan</p><small>JPG, PNG &mdash; maks 10MB</small>
-      <input type="file" id="makan-img-input" accept="image/*" onchange="handleMakanPhoto(event)">
-    </div>
-    <img id="makan-preview-img" class="preview-img" style="display:none">
-    <button class="btn-primary" id="makan-analyze-btn" onclick="analyzeMakan()" style="display:none"><span>Analisa Makanan Ini </span></button>
-    <div class="makan-separator">&mdash; atau ketik nama makanan &mdash;</div>
-    <div class="form-group"><input type="text" id="makan-nama-input" placeholder="Contoh: nasi padang, gado-gado, soto betawi, kerak telor..." onkeydown="if(event.key==='Enter')analyzeMakanText()"></div>
-    <button class="btn-primary" id="makan-text-analyze-btn" onclick="analyzeMakanText()"><span>Analisa Gizi </span></button>
-    <div class="results-area" id="makan-result"></div>
-  </div>
-  <div class="makan-section" id="makan-kebutuhan" style="display:none">
-    <p class="makan-desc">Berdasarkan profil kesehatanmu, Dr. Sly akan rekomendasikan nutrisi dan makanan yang paling kamu butuhkan</p>
-    <button class="btn-primary" id="kebutuhan-analyze-btn" onclick="analyzeKebutuhan()"><span>Analisa Kebutuhanku </span></button>
-    <div class="results-area" id="kebutuhan-result"></div>
-  </div>
-  <div class="makan-section" id="makan-warung" style="display:none">
-    <div class="ws-root" id="ws-root">
-      <!-- Permission phase -->
-      <div class="ws-phase active" id="ws-phase-permission">
-        <div class="ws-hero">
-          <svg class="ws-hero-illus" viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M50 18c-10 0-18 8-18 18 0 14 18 30 18 30s18-16 18-30c0-10-8-18-18-18z"/>
-            <path d="M50 30c-2.5 0-4.5 2-4.5 4.5s2 4.5 4.5 4.5 4.5-2 4.5-4.5S52.5 30 50 30z" fill="white"/>
-            <path d="M46 34c-0.5-2 0.5-4 2-5 1 1.5 1 3.5 0 5" stroke="#0A7B6C" stroke-width="1.5"/>
-            <circle cx="22" cy="72" r="5"/>
-            <path d="M22 68v-4M22 74v4"/>
-            <circle cx="78" cy="72" r="5"/>
-            <path d="M75 70l6 4M75 74l6-4"/>
-            <path d="M42 82c0-3 3-5 8-5s8 2 8 5" />
+
+  <div class="mkv2-scroll">
+    <!-- TOP STATS GRID -->
+    <div class="mkv2-statsgrid">
+      <!-- B1: Profile sparkline card -->
+      <div class="mkv2-card mkv2-profile-card" id="mkv2-profile-card">
+        <div class="mkv2-profile-card__eyebrow">Berat</div>
+        <div class="mkv2-profile-card__body">
+          <svg class="mkv2-sparkline" id="mkv2-sparkline" viewBox="0 0 120 50" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="mkv2SparkFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#6B9E78" stop-opacity="0.45"/>
+                <stop offset="100%" stop-color="#6B9E78" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path class="mkv2-spark__fill" d="" fill="url(#mkv2SparkFill)"/>
+            <path class="mkv2-spark__line" d="" fill="none" stroke="#6B9E78" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <g class="mkv2-spark__dots"></g>
           </svg>
-          <h2>Warung Sehat Terdekat</h2>
-          <p>Temukan tempat makan sehat di sekitar kamu &mdash; Dr. Sly bantu pilihkan yang terbaik untukmu</p>
-          <button class="ws-loc-btn" onclick="requestLocationAndSearch()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="9"/></svg>
-            Temukan Warung Sehat di Sekitarku
-          </button>
-          <div class="ws-privacy">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-            Lokasi kamu aman &mdash; hanya digunakan untuk pencarian, tidak disimpan
+          <div class="mkv2-profile-card__stats" id="mkv2-profile-stats">
+            <!-- Populated by JS: berat / tinggi / usia -->
           </div>
-          <button class="ws-manual-link" onclick="showWarungPhase('manual')">Ketik kota manual &rarr;</button>
-        </div>
-        <div class="ws-features">
-          <span class="ws-feature-pill"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-7-7-13a7 7 0 1 1 14 0c0 6-7 13-7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
-          <span class="ws-feature-pill"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 4v3"/><circle cx="9" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1" fill="currentColor" stroke="none"/><path d="M9 16h6"/></svg></span>
-          <span class="ws-feature-pill"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h11l3 3v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/><rect x="8" y="13" width="8" height="6"/></svg></span>
         </div>
       </div>
 
-      <!-- Manual city phase -->
-      <div class="ws-phase" id="ws-phase-manual">
-        <div class="ws-manual-card">
-          <div class="ws-manual-icon"></div>
-          <h3 class="ws-manual-title">Ketik kotamu untuk rekomendasi warung sehat terdekat</h3>
-          <p class="ws-manual-desc">Dr. Sly akan carikan tempat makan sehat yang populer di kotamu</p>
-          <input type="text" class="ws-manual-input" id="ws-manual-city" placeholder="Contoh: Jakarta Selatan, Bandung, Surabaya..." autocomplete="off" onkeydown="if(event.key==='Enter')submitWarungManualSearch()">
-          <button class="ws-manual-btn" onclick="submitWarungManualSearch()">Cari Warung Sehat</button>
-          <button class="ws-manual-back" onclick="showWarungPhase('permission')">&larr; Kembali</button>
+      <!-- B2: Calorie progress card -->
+      <div class="mkv2-card mkv2-cal-card">
+        <div class="mkv2-cal-card__head">
+          <span class="mkv2-cal-card__target-label">Target</span>
+          <span class="mkv2-cal-card__target-val" id="mkv2-cal-target-val">1800 Kalori</span>
         </div>
-        <div id="ws-manual-results"></div>
-      </div>
-
-      <!-- Loading phase -->
-      <div class="ws-phase" id="ws-phase-loading">
-        <div class="ws-loading">
-          <svg class="ws-spinner" viewBox="0 0 50 50">
-            <circle cx="25" cy="25" r="20" fill="none" stroke="#E6F5F0" stroke-width="4"/>
-            <circle cx="25" cy="25" r="20" fill="none" stroke="#0A7B6C" stroke-width="4" stroke-linecap="round" stroke-dasharray="90 36"/>
+        <div class="mkv2-cal-card__ringwrap">
+          <svg class="mkv2-cal-ring" viewBox="0 0 118 118" aria-hidden="true">
+            <circle cx="59" cy="59" r="50" fill="none" stroke="rgba(10,123,108,0.12)" stroke-width="7"/>
+            <circle id="mkv2-cal-ring-fg" cx="59" cy="59" r="50" fill="none" stroke="#0A7B6C" stroke-width="7" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="314.16" transform="rotate(-90 59 59)"/>
           </svg>
-          <svg class="ws-pulse-pin" viewBox="0 0 24 24" fill="#0A7B6C"><path d="M12 2C7.58 2 4 5.58 4 10c0 6 8 12 8 12s8-6 8-12c0-4.42-3.58-8-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
-          <div class="ws-loading-title">Mendeteksi lokasimu...</div>
-          <div class="ws-loading-sub">Sebentar ya, Dr. Sly sedang mencari warung sehat terdekat</div>
-          <div class="ws-dots"><span></span><span></span><span></span></div>
-        </div>
-      </div>
-
-      <!-- Error phase -->
-      <div class="ws-phase" id="ws-phase-error">
-        <div class="ws-empty">
-          <svg class="ws-empty-illus" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2"><circle cx="40" cy="40" r="30"/><path d="M28 44c4 4 20 4 24 0"/><circle cx="32" cy="34" r="2" fill="currentColor"/><circle cx="48" cy="34" r="2" fill="currentColor"/></svg>
-          <h3 id="ws-error-title">Tidak bisa mengakses lokasi</h3>
-          <p id="ws-error-msg">Izinkan akses lokasi di browser kamu lalu coba lagi</p>
-          <button class="ws-pill active" onclick="showWarungPhase('permission')">Coba Lagi</button>
-        </div>
-      </div>
-
-      <!-- Results phase -->
-      <div class="ws-phase" id="ws-phase-results">
-        <div class="ws-map-wrap">
-          <div id="warung-map"></div>
-          <button class="ws-map-ctl ws-map-ctl-top-left" onclick="centerWarungMapToUser()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-            Lokasimu
-          </button>
-          <div class="ws-zoom-wrap">
-            <button class="ws-zoom-btn" onclick="warungMap&&warungMap.zoomIn()">+</button>
-            <button class="ws-zoom-btn" onclick="warungMap&&warungMap.zoomOut()">&minus;</button>
+          <div class="mkv2-cal-ring__center">
+            <div class="mkv2-cal-ring__big" id="mkv2-cal-consumed">0</div>
+            <div class="mkv2-cal-ring__sub">KALORI TERPAKAI</div>
           </div>
         </div>
-
-        <div class="ws-filter-bar">
-          <div class="ws-filter-row">
-            <div class="ws-loc-label" id="ws-loc-label"><svg class="welvra-icon" viewBox="0 0 24 24" aria-hidden="true" style="width:0.9em;height:0.9em"><path d="M12 22s-7-7-7-13a7 7 0 1 1 14 0c0 6-7 13-7 13Z"/><circle cx="12" cy="9" r="2.5"/></svg> Mendeteksi...</div>
-            <button class="ws-refresh-btn" id="ws-refresh-btn" onclick="searchNearbyRestaurants()" title="Refresh">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-            </button>
-          </div>
-          <div class="ws-filter-row">
-            <span class="ws-mini-label">Radius:</span>
-            <div class="ws-pill-row" id="ws-radius-pills">
-              <button class="ws-pill" data-r="500">500m</button>
-              <button class="ws-pill active" data-r="1000">1km</button>
-              <button class="ws-pill" data-r="2000">2km</button>
-              <button class="ws-pill" data-r="5000">5km</button>
-            </div>
-          </div>
-          <div class="ws-filter-row">
-            <span class="ws-mini-label">Urutkan:</span>
-            <div class="ws-pill-row" id="ws-sort-pills">
-              <button class="ws-pill active" data-s="dist">Terdekat</button>
-              <button class="ws-pill" data-s="az">A&ndash;Z</button>
-              <button class="ws-pill" data-s="type">Tipe</button>
-            </div>
-          </div>
+        <div class="mkv2-cal-card__macros" id="mkv2-cal-macros">
+          <!-- 3 macro mini stats populated by JS -->
         </div>
-
-        <div class="ws-results-header">
-          <h3 id="ws-count">Ditemukan 0 warung sehat</h3>
-          <p id="ws-count-sub">Dalam radius 1km dari lokasimu</p>
-          <div class="ws-tab-toggle">
-            <button class="ws-tab active" data-tab="all" onclick="switchWarungTab('all',this)">Semua</button>
-            <button class="ws-tab" data-tab="fav" onclick="switchWarungTab('fav',this)">Favorit</button>
-          </div>
-        </div>
-
-        <div id="ws-cards"></div>
       </div>
     </div>
+
+    <!-- C: TARGET NUTRISI CARD -->
+    <div class="mkv2-card mkv2-target-card">
+      <div class="mkv2-target-card__left">
+        <div class="mkv2-target-card__title">Target Nutrisi Saya</div>
+        <div class="mkv2-target-card__big">
+          <span class="mkv2-target-card__big-val" id="mkv2-target-kalori">1800</span>
+          <span class="mkv2-target-card__big-units">
+            <span class="mkv2-target-card__big-unit-1">Kalori</span>
+            <span class="mkv2-target-card__big-unit-2">Target</span>
+          </span>
+        </div>
+      </div>
+      <div class="mkv2-target-card__right">
+        <div class="mkv2-target-card__macros" id="mkv2-target-macros">
+          <!-- 3 macro values populated by JS -->
+        </div>
+        <button class="mkv2-target-card__cta" type="button" onclick="mkv2OpenGoals()">
+          Atur Target
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- D: RIWAYAT HARI INI -->
+    <div class="mkv2-history">
+      <div class="mkv2-history__head">
+        <div class="mkv2-history__title">Riwayat Hari Ini</div>
+        <div class="mkv2-history__count" id="mkv2-history-count">0 makanan</div>
+      </div>
+
+      <!-- D1: Catat Makananmu CTA -->
+      <div class="mkv2-cta-card">
+        <div class="mkv2-cta-card__head">
+          <div class="mkv2-cta-card__title">Catat Makananmu</div>
+          <div class="mkv2-cta-card__sub">Scan foto langsung atau ketik manual</div>
+        </div>
+        <div class="mkv2-cta-card__btns">
+          <button class="mkv2-cta-btn mkv2-cta-btn--primary" type="button" onclick="mkv2TriggerScan()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            Scan Foto
+          </button>
+          <button class="mkv2-cta-btn mkv2-cta-btn--secondary" type="button" onclick="mkv2OpenManual()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+            Ketik Manual
+          </button>
+        </div>
+        <input type="file" id="mkv2-photo-input" accept="image/*" capture="environment" style="display:none" onchange="mkv2HandlePhoto(event)">
+      </div>
+
+      <!-- E: Food entry list (rendered by JS) -->
+      <div class="mkv2-entries" id="mkv2-entries">
+        <!-- Empty state OR food cards -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUB-MODAL: MANUAL ENTRY -->
+<div class="mkv2-sub-overlay" id="mkv2-manual-overlay" onclick="if(event.target===this)mkv2CloseManual()" hidden></div>
+<div class="mkv2-sub-panel" id="mkv2-manual-panel" role="dialog" aria-modal="true" aria-label="Tambah Makanan Manual" hidden>
+  <div class="mkv2-sub-header">
+    <div class="mkv2-sub-title">Ketik Manual</div>
+    <button class="mkv2-close" type="button" onclick="mkv2CloseManual()" aria-label="Tutup">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <form class="mkv2-form" id="mkv2-manual-form" onsubmit="event.preventDefault(); mkv2SaveManual();" novalidate>
+    <label class="mkv2-form__field mkv2-form__field--full">
+      <span class="mkv2-form__label">Nama Makanan</span>
+      <input type="text" id="mkv2-m-nama" required placeholder="Contoh: Nasi padang, gado-gado, oatmeal pisang" autocomplete="off">
+    </label>
+    <div class="mkv2-form__row">
+      <label class="mkv2-form__field">
+        <span class="mkv2-form__label">Kalori</span>
+        <input type="number" id="mkv2-m-kalori" required min="0" max="5000" step="1" inputmode="numeric" placeholder="0">
+      </label>
+      <label class="mkv2-form__field">
+        <span class="mkv2-form__label">Porsi (gram)</span>
+        <input type="number" id="mkv2-m-porsi" min="0" max="3000" step="1" inputmode="numeric" placeholder="opsional">
+      </label>
+    </div>
+    <div class="mkv2-form__row mkv2-form__row--3">
+      <label class="mkv2-form__field">
+        <span class="mkv2-form__label">Protein (g)</span>
+        <input type="number" id="mkv2-m-protein" min="0" max="500" step="0.1" inputmode="decimal" placeholder="0">
+      </label>
+      <label class="mkv2-form__field">
+        <span class="mkv2-form__label">Lemak (g)</span>
+        <input type="number" id="mkv2-m-lemak" min="0" max="500" step="0.1" inputmode="decimal" placeholder="0">
+      </label>
+      <label class="mkv2-form__field">
+        <span class="mkv2-form__label">Karbo (g)</span>
+        <input type="number" id="mkv2-m-karbo" min="0" max="700" step="0.1" inputmode="decimal" placeholder="0">
+      </label>
+    </div>
+    <div class="mkv2-form__photo">
+      <label class="mkv2-form__photo-btn" for="mkv2-m-foto">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <span id="mkv2-m-foto-label">Tambah Foto (opsional)</span>
+      </label>
+      <input type="file" id="mkv2-m-foto" accept="image/*" style="display:none" onchange="mkv2HandleManualPhoto(event)">
+      <img id="mkv2-m-foto-preview" class="mkv2-form__photo-preview" alt="Pratinjau" hidden>
+    </div>
+    <button type="submit" class="mkv2-form__submit">Simpan Makanan</button>
+  </form>
+</div>
+
+<!-- SUB-MODAL: GOALS EDITOR -->
+<div class="mkv2-sub-overlay" id="mkv2-goals-overlay" onclick="if(event.target===this)mkv2CloseGoals()" hidden></div>
+<div class="mkv2-sub-panel" id="mkv2-goals-panel" role="dialog" aria-modal="true" aria-label="Atur Target Nutrisi" hidden>
+  <div class="mkv2-sub-header">
+    <div class="mkv2-sub-title">Atur Target Nutrisi</div>
+    <button class="mkv2-close" type="button" onclick="mkv2CloseGoals()" aria-label="Tutup">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <form class="mkv2-form" id="mkv2-goals-form" onsubmit="event.preventDefault(); mkv2SaveGoals();" novalidate>
+    <p class="mkv2-form__hint">Konsultasi dengan Dr. Sly untuk target nutrisi personal yang aman.</p>
+    <label class="mkv2-form__field mkv2-form__field--full">
+      <span class="mkv2-form__label">Target Kalori Harian</span>
+      <input type="number" id="mkv2-g-kalori" required min="500" max="6000" step="1" inputmode="numeric" placeholder="1800">
+    </label>
+    <div class="mkv2-form__row mkv2-form__row--3">
+      <label class="mkv2-form__field">
+        <span class="mkv2-form__label">Protein (g)</span>
+        <input type="number" id="mkv2-g-protein" required min="20" max="400" step="1" inputmode="numeric" placeholder="100">
+      </label>
+      <label class="mkv2-form__field">
+        <span class="mkv2-form__label">Lemak (g)</span>
+        <input type="number" id="mkv2-g-lemak" required min="20" max="300" step="1" inputmode="numeric" placeholder="70">
+      </label>
+      <label class="mkv2-form__field">
+        <span class="mkv2-form__label">Karbo (g)</span>
+        <input type="number" id="mkv2-g-karbo" required min="50" max="700" step="1" inputmode="numeric" placeholder="200">
+      </label>
+    </div>
+    <div class="mkv2-form__actions">
+      <button type="button" class="mkv2-form__reset" onclick="mkv2ResetGoals()">Reset Default</button>
+      <button type="submit" class="mkv2-form__submit">Simpan Target</button>
+    </div>
+  </form>
+</div>
+
+<!-- SUB-MODAL: VISION PREVIEW -->
+<div class="mkv2-sub-overlay" id="mkv2-vision-overlay" onclick="if(event.target===this)mkv2CloseVision()" hidden></div>
+<div class="mkv2-sub-panel mkv2-sub-panel--tall" id="mkv2-vision-panel" role="dialog" aria-modal="true" aria-label="Hasil Analisa Foto" hidden>
+  <div class="mkv2-sub-header">
+    <div class="mkv2-sub-title">Hasil Analisa Foto</div>
+    <button class="mkv2-close" type="button" onclick="mkv2CloseVision()" aria-label="Tutup">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <!-- Loading state -->
+  <div class="mkv2-vision-loading" id="mkv2-vision-loading" hidden>
+    <div class="mkv2-vision-loading__spinner"></div>
+    <div class="mkv2-vision-loading__title">Sedang menganalisa foto...</div>
+    <div class="mkv2-vision-loading__sub">Dr. Sly sedang mengenali makananmu dan memperkirakan kandungan gizi.</div>
+  </div>
+  <!-- Error state -->
+  <div class="mkv2-vision-error" id="mkv2-vision-error" hidden>
+    <div class="mkv2-vision-error__title" id="mkv2-vision-error-title">Tidak bisa menganalisa</div>
+    <div class="mkv2-vision-error__sub" id="mkv2-vision-error-sub">Coba foto ulang atau gunakan Ketik Manual.</div>
+    <button class="mkv2-form__submit" type="button" onclick="mkv2CloseVision()">Tutup</button>
+  </div>
+  <!-- Result state -->
+  <div class="mkv2-vision-result" id="mkv2-vision-result" hidden>
+    <img id="mkv2-vision-thumb" class="mkv2-vision-result__thumb" alt="Foto makanan">
+    <div class="mkv2-vision-result__src">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      <span>Estimasi Dr. Sly</span>
+    </div>
+    <form class="mkv2-form" id="mkv2-vision-form" onsubmit="event.preventDefault(); mkv2SaveVisionResult();" novalidate>
+      <label class="mkv2-form__field mkv2-form__field--full">
+        <span class="mkv2-form__label">Nama Makanan</span>
+        <input type="text" id="mkv2-v-nama" required>
+      </label>
+      <div class="mkv2-form__row">
+        <label class="mkv2-form__field">
+          <span class="mkv2-form__label">Kalori Total</span>
+          <input type="number" id="mkv2-v-kalori" required min="0" step="1" inputmode="numeric">
+        </label>
+        <label class="mkv2-form__field">
+          <span class="mkv2-form__label">Porsi (gram)</span>
+          <input type="number" id="mkv2-v-porsi" min="0" step="1" inputmode="numeric">
+        </label>
+      </div>
+      <div class="mkv2-form__row mkv2-form__row--3">
+        <label class="mkv2-form__field">
+          <span class="mkv2-form__label">Protein (g)</span>
+          <input type="number" id="mkv2-v-protein" min="0" step="0.1" inputmode="decimal">
+        </label>
+        <label class="mkv2-form__field">
+          <span class="mkv2-form__label">Lemak (g)</span>
+          <input type="number" id="mkv2-v-lemak" min="0" step="0.1" inputmode="decimal">
+        </label>
+        <label class="mkv2-form__field">
+          <span class="mkv2-form__label">Karbo (g)</span>
+          <input type="number" id="mkv2-v-karbo" min="0" step="0.1" inputmode="decimal">
+        </label>
+      </div>
+      <div class="mkv2-vision-ingredients" id="mkv2-vision-ingredients">
+        <!-- Ingredient list rendered by JS -->
+      </div>
+      <button type="submit" class="mkv2-form__submit">Simpan Makanan</button>
+    </form>
   </div>
 </div>
 
@@ -11038,7 +11445,610 @@ async function analyzeKebutuhan() {
   btn.disabled = false; btn.innerHTML = '<span>Analisa Kebutuhanku </span>';
 }
 
-// ===== WARUNG SEHAT — PREMIUM FINDER =====
+// ============================================================
+// ANALISA NUTRISI MAKAN — Phase 2A (mkv2)
+// Food tracker: storage v2, daily aggregation, photo scan via Vision,
+// manual entry, goals editor. Source attribution: Estimasi Dr. Sly.
+// ============================================================
+(function(){
+  'use strict';
+  var ENTRIES_KEY = 'welvra.makan.entries.v2';
+  var GOALS_KEY   = 'welvra.makan.goals.v1';
+  var STATE_KEY   = 'welvra.makan.state.v1';
+  var DEFAULT_GOALS = { kalori: 1800, protein: 100, lemak: 70, karbo: 200 };
+  var PHOTO_RETAIN_DAYS = 30;
+
+  // ----- state -----
+  var mkState = { activeDate: null, openEntryId: null, pendingPhotoB64: null, pendingPhotoMedia: 'image/webp', manualFotoB64: null, manualFotoMedia: null };
+
+  function todayISO(){ var d = new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function pad(n){ return (n<10?'0':'') + n; }
+  function loadJSON(key, fallback){ try { var v = JSON.parse(localStorage.getItem(key)); return v == null ? fallback : v; } catch(e){ return fallback; } }
+  function saveJSON(key, val){ try { localStorage.setItem(key, JSON.stringify(val)); return true; } catch(e){ if (typeof showToast === 'function') showToast('Penyimpanan penuh, hapus entri lama'); return false; } }
+
+  function getProfileId(){
+    if (typeof window.welvraRekamGetCurrentProfile === 'function'){
+      var p = window.welvraRekamGetCurrentProfile();
+      if (p && p.id) return p.id;
+    }
+    return 'default';
+  }
+  function getHealthProfileData(){
+    try { var p = JSON.parse(localStorage.getItem('welvra_health_profile') || '{}');
+      var weight = parseFloat(p.weight) || null;
+      var height = parseFloat(p.height) || null;
+      var age = null;
+      if (p.dob){ try { var d = new Date(p.dob); var t = new Date(); age = t.getFullYear() - d.getFullYear(); var m = t.getMonth() - d.getMonth(); if (m<0 || (m===0 && t.getDate()<d.getDate())) age--; } catch(e){} }
+      return { weight: weight, height: height, age: age };
+    } catch(e){ return { weight:null, height:null, age:null }; }
+  }
+  function getGoals(){
+    var g = loadJSON(GOALS_KEY, null);
+    if (!g) return Object.assign({}, DEFAULT_GOALS);
+    return { kalori: +g.kalori || DEFAULT_GOALS.kalori, protein: +g.protein || DEFAULT_GOALS.protein, lemak: +g.lemak || DEFAULT_GOALS.lemak, karbo: +g.karbo || DEFAULT_GOALS.karbo };
+  }
+  function saveGoals(g){ saveJSON(GOALS_KEY, g); }
+  function loadAllEntries(){ var a = loadJSON(ENTRIES_KEY, []); return Array.isArray(a) ? a : []; }
+  function saveAllEntries(a){ return saveJSON(ENTRIES_KEY, a); }
+  function genId(){ return 'mk_' + Date.now() + '_' + Math.random().toString(36).slice(2,7); }
+
+  function photoCleanup(){
+    var all = loadAllEntries();
+    var cutoff = Date.now() - PHOTO_RETAIN_DAYS * 86400000;
+    var changed = false;
+    all.forEach(function(e){
+      var t = e.timestamp ? Date.parse(e.timestamp) : 0;
+      if (t && t < cutoff && e.foto){ e.foto = null; changed = true; }
+    });
+    if (changed) saveAllEntries(all);
+  }
+
+  function entriesForDate(date, profileId){
+    return loadAllEntries().filter(function(e){ return e.date === date && (!profileId || e.profile_id === profileId); });
+  }
+  function computeTotals(entries){
+    var t = { kalori:0, protein:0, lemak:0, karbo:0 };
+    entries.forEach(function(e){ t.kalori += +e.kalori||0; t.protein += +e.protein_g||0; t.lemak += +e.lemak_g||0; t.karbo += +e.karbo_g||0; });
+    return t;
+  }
+  function weightHistoryFromEntries(){
+    // Read recent weight readings from rekam medis vitals if available
+    try {
+      var raw = localStorage.getItem('welvra_rekam_data');
+      if (!raw) return [];
+      var all = JSON.parse(raw);
+      var profileId = getProfileId();
+      var bucket = all[profileId] || all.default || {};
+      var vitals = Array.isArray(bucket.vital) ? bucket.vital : [];
+      var weights = vitals.filter(function(v){ return v && (v.berat || v.weight); }).map(function(v){ return { date: v.tanggal || v.date, value: parseFloat(v.berat || v.weight) || null }; }).filter(function(v){ return v.value; });
+      weights.sort(function(a,b){ return (a.date||'').localeCompare(b.date||''); });
+      return weights.slice(-14);
+    } catch(e){ return []; }
+  }
+
+  // ----- date / formatting -----
+  function fmtDateLabel(iso){
+    if (!iso) return 'Hari Ini';
+    var today = todayISO();
+    if (iso === today) return 'Hari Ini';
+    var yest = new Date(); yest.setDate(yest.getDate()-1); var y = yest.getFullYear()+'-'+pad(yest.getMonth()+1)+'-'+pad(yest.getDate());
+    if (iso === y) return 'Kemarin';
+    try { var d = new Date(iso); var hari = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'][d.getDay()]; var bln = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'][d.getMonth()]; return hari + ', ' + d.getDate() + ' ' + bln; } catch(e){ return iso; }
+  }
+  function shiftDate(iso, delta){ var d = new Date(iso); d.setDate(d.getDate() + delta); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+
+  window.mkv2NavDay = function(delta){
+    var next = shiftDate(mkState.activeDate || todayISO(), delta);
+    if (next > todayISO()) return; // no future days
+    mkState.activeDate = next;
+    mkv2RenderAll();
+  };
+  window.mkv2ToggleDatePicker = function(){
+    // Phase 2A: simple prompt-based date picker. Phase 2B: full calendar UI.
+    var current = mkState.activeDate || todayISO();
+    var input = prompt('Pilih tanggal (YYYY-MM-DD):', current);
+    if (!input) return;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(input)) { if (typeof showToast==='function') showToast('Format tanggal salah'); return; }
+    if (input > todayISO()) { if (typeof showToast==='function') showToast('Tidak bisa pilih tanggal mendatang'); return; }
+    mkState.activeDate = input;
+    mkv2RenderAll();
+  };
+
+  // ----- render -----
+  function mkv2RenderHeader(){
+    var label = document.getElementById('mkv2-datepill-label');
+    if (label) label.textContent = fmtDateLabel(mkState.activeDate);
+    var next = document.getElementById('mkv2-next-day');
+    if (next) next.disabled = (mkState.activeDate === todayISO());
+  }
+  function mkv2RenderProfileCard(){
+    var pdata = getHealthProfileData();
+    var statsEl = document.getElementById('mkv2-profile-stats');
+    if (!statsEl) return;
+    if (!pdata.weight && !pdata.height && !pdata.age){
+      statsEl.innerHTML = '<button class="mkv2-profile-card__empty-link" type="button" onclick="mkv2OpenProfileEdit()">Lengkapi profil &rarr;</button>';
+      var spark = document.getElementById('mkv2-sparkline');
+      if (spark){ var fill = spark.querySelector('.mkv2-spark__fill'); var line = spark.querySelector('.mkv2-spark__line'); var dots = spark.querySelector('.mkv2-spark__dots'); if (fill) fill.setAttribute('d',''); if (line) line.setAttribute('d',''); if (dots) dots.innerHTML = ''; }
+      return;
+    }
+    var rows = [];
+    if (pdata.weight) rows.push({val: pdata.weight + ' kg', lbl: 'Berat'});
+    if (pdata.height) rows.push({val: pdata.height + ' cm', lbl: 'Tinggi'});
+    if (pdata.age) rows.push({val: pdata.age + ' thn', lbl: 'Usia'});
+    statsEl.innerHTML = rows.map(function(r){ return '<div class="mkv2-profile-stat"><div class="mkv2-profile-stat__val">' + escHtml(r.val) + '</div><div class="mkv2-profile-stat__lbl">' + escHtml(r.lbl) + '</div></div>'; }).join('');
+    // Sparkline
+    var hist = weightHistoryFromEntries();
+    var spark = document.getElementById('mkv2-sparkline');
+    if (spark){
+      var fill = spark.querySelector('.mkv2-spark__fill');
+      var line = spark.querySelector('.mkv2-spark__line');
+      var dots = spark.querySelector('.mkv2-spark__dots');
+      if (hist.length >= 2){
+        var W = 120, H = 50, pad_y = 6;
+        var values = hist.map(function(h){ return h.value; });
+        var min = Math.min.apply(null, values), max = Math.max.apply(null, values);
+        if (min === max){ min -= 1; max += 1; }
+        var range = max - min;
+        var step = W / (hist.length - 1);
+        var pts = hist.map(function(h, i){ var x = i * step; var y = H - pad_y - ((h.value - min) / range) * (H - pad_y*2); return [x, y]; });
+        var linePath = pts.map(function(p, i){ return (i===0?'M':'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' ');
+        var fillPath = linePath + ' L' + W + ' ' + H + ' L0 ' + H + ' Z';
+        if (line) line.setAttribute('d', linePath);
+        if (fill) fill.setAttribute('d', fillPath);
+        if (dots){
+          var first = pts[0], last = pts[pts.length-1];
+          dots.innerHTML = '<circle cx="'+first[0]+'" cy="'+first[1]+'" r="2.5" fill="#6B9E78"/>' +
+                           '<circle cx="'+last[0]+'" cy="'+last[1]+'" r="2.8" fill="#6B9E78" stroke="#fff" stroke-width="1"/>';
+        }
+      } else {
+        // Single value or empty: subtle flat line at value level (or hide)
+        if (line) line.setAttribute('d', '');
+        if (fill) fill.setAttribute('d', '');
+        if (dots) dots.innerHTML = '';
+      }
+    }
+  }
+  function mkv2RenderCalorieRing(totals, goals){
+    var consumedEl = document.getElementById('mkv2-cal-consumed');
+    if (consumedEl) consumedEl.textContent = Math.round(totals.kalori);
+    var targetVal = document.getElementById('mkv2-cal-target-val');
+    if (targetVal) targetVal.textContent = goals.kalori + ' Kalori';
+    var ring = document.getElementById('mkv2-cal-ring-fg');
+    if (ring){
+      var pct = Math.max(0, Math.min(1, totals.kalori / Math.max(1, goals.kalori)));
+      var circ = 2 * Math.PI * 50; // r=50
+      ring.setAttribute('stroke-dasharray', circ.toFixed(2));
+      ring.setAttribute('stroke-dashoffset', (circ * (1 - pct)).toFixed(2));
+      ring.setAttribute('stroke', pct >= 1 ? '#C8860A' : '#0A7B6C');
+    }
+    var macros = document.getElementById('mkv2-cal-macros');
+    if (macros){
+      macros.innerHTML = [
+        renderCalMacro(totals.protein, goals.protein, 'Protein'),
+        renderCalMacro(totals.lemak,   goals.lemak,   'Lemak'),
+        renderCalMacro(totals.karbo,   goals.karbo,   'Karbo')
+      ].join('');
+    }
+  }
+  function renderCalMacro(used, target, lbl){
+    return '<div class="mkv2-cal-macro">' +
+      '<div class="mkv2-cal-macro__val">' + Math.round(used) + '<span class="mkv2-cal-macro__val-target">/' + target + '</span></div>' +
+      '<div class="mkv2-cal-macro__lbl">' + escHtml(lbl) + '</div>' +
+    '</div>';
+  }
+  function mkv2RenderTargetCard(goals){
+    var k = document.getElementById('mkv2-target-kalori'); if (k) k.textContent = goals.kalori;
+    var macros = document.getElementById('mkv2-target-macros');
+    if (macros){
+      macros.innerHTML = [
+        renderTargetMacro(goals.protein, 'Protein'),
+        renderTargetMacro(goals.lemak, 'Lemak'),
+        renderTargetMacro(goals.karbo, 'Karbo')
+      ].join('');
+    }
+  }
+  function renderTargetMacro(val, lbl){
+    return '<div class="mkv2-target-macro"><div class="mkv2-target-macro__val">' + val + '</div><div class="mkv2-target-macro__lbl">' + escHtml(lbl) + '</div></div>';
+  }
+  function mkv2RenderHistoryList(entries){
+    var countEl = document.getElementById('mkv2-history-count');
+    if (countEl) countEl.textContent = entries.length + ' makanan';
+    var listEl = document.getElementById('mkv2-entries');
+    if (!listEl) return;
+    if (!entries.length){
+      listEl.innerHTML = '<div class="mkv2-empty"><div class="mkv2-empty__title">Belum ada catatan</div><div class="mkv2-empty__sub">Mulai dengan Scan Foto atau Ketik Manual di atas.</div></div>';
+      return;
+    }
+    listEl.innerHTML = entries.map(function(e, idx){ return renderEntryCard(e, idx); }).join('');
+  }
+  function renderEntryCard(e, idx){
+    var open = (mkState.openEntryId === e.id);
+    var thumbHtml;
+    if (e.foto){
+      thumbHtml = '<img src="' + escAttr(e.foto) + '" alt="">';
+    } else {
+      thumbHtml = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h18"/><path d="M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4"/><path d="M5 11v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-6"/><path d="M9 4v3M15 4v3"/></svg>';
+    }
+    var srcLabel = e.source || 'Estimasi Dr. Sly';
+    var ingredientsHtml = '';
+    if (Array.isArray(e.ingredients) && e.ingredients.length){
+      ingredientsHtml = '<div class="mkv2-ingredients">' + e.ingredients.map(function(ing){
+        return '<div class="mkv2-ingredient">' +
+          '<div class="mkv2-ingredient__bar"></div>' +
+          '<div class="mkv2-ingredient__main">' +
+            '<div class="mkv2-ingredient__head">' +
+              '<div class="mkv2-ingredient__name">' + escHtml(ing.nama || '—') + '</div>' +
+              (ing.berat_gram ? '<div class="mkv2-ingredient__weight">' + (+ing.berat_gram).toFixed(0) + ' g</div>' : '') +
+            '</div>' +
+            '<div class="mkv2-ingredient__chips">' +
+              (ing.kalori ? '<div class="mkv2-chip mkv2-chip--kal">' + Math.round(ing.kalori) + ' Kalori</div>' : '') +
+              (ing.protein_g != null ? '<div class="mkv2-chip mkv2-chip--macro"><span class="mkv2-chip__prefix">P</span>' + (+ing.protein_g).toFixed(1) + '</div>' : '') +
+              (ing.lemak_g != null ? '<div class="mkv2-chip mkv2-chip--macro"><span class="mkv2-chip__prefix">L</span>' + (+ing.lemak_g).toFixed(1) + '</div>' : '') +
+              (ing.karbo_g != null ? '<div class="mkv2-chip mkv2-chip--macro"><span class="mkv2-chip__prefix">K</span>' + (+ing.karbo_g).toFixed(1) + '</div>' : '') +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('') + '</div>';
+    }
+    return '<div class="mkv2-entry' + (open ? ' is-open' : '') + '" data-id="' + escAttr(e.id) + '">' +
+      '<div class="mkv2-entry__row" onclick="mkv2ToggleEntry(\'' + escAttr(e.id) + '\')">' +
+        '<div class="mkv2-entry__thumb">' + thumbHtml + '</div>' +
+        '<div class="mkv2-entry__info">' +
+          '<div class="mkv2-entry__badge">Entri ' + (idx + 1) + '</div>' +
+          '<div class="mkv2-entry__name">' + escHtml(e.nama || 'Makanan') + '</div>' +
+          '<div class="mkv2-entry__macros">' +
+            '<div class="mkv2-entry__macro"><div class="mkv2-entry__macro-bar mkv2-entry__macro-bar--kal"></div><div class="mkv2-entry__macro-stack"><div class="mkv2-entry__macro-val">' + Math.round(e.kalori || 0) + '</div><div class="mkv2-entry__macro-lbl">Kalori</div></div></div>' +
+            '<div class="mkv2-entry__macro"><div class="mkv2-entry__macro-bar mkv2-entry__macro-bar--l"></div><div class="mkv2-entry__macro-stack"><div class="mkv2-entry__macro-val">' + (+e.lemak_g||0).toFixed(0) + '</div><div class="mkv2-entry__macro-lbl">Lemak</div></div></div>' +
+            '<div class="mkv2-entry__macro"><div class="mkv2-entry__macro-bar mkv2-entry__macro-bar--k"></div><div class="mkv2-entry__macro-stack"><div class="mkv2-entry__macro-val">' + (+e.karbo_g||0).toFixed(0) + '</div><div class="mkv2-entry__macro-lbl">Karbo</div></div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="mkv2-entry__chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>' +
+      '</div>' +
+      '<div class="mkv2-entry__expand">' + ingredientsHtml +
+        '<div class="mkv2-entry__src">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>' +
+          'Data nutrisi: ' + escHtml(srcLabel) +
+          '<span class="mkv2-entry__src-pill">' + escHtml(srcLabel) + '</span>' +
+        '</div>' +
+        '<button class="mkv2-entry__del" type="button" onclick="mkv2DeleteEntry(\'' + escAttr(e.id) + '\')">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>' +
+          'Hapus' +
+        '</button>' +
+      '</div>' +
+    '</div>';
+  }
+  window.mkv2ToggleEntry = function(id){
+    mkState.openEntryId = (mkState.openEntryId === id) ? null : id;
+    var listEl = document.getElementById('mkv2-entries');
+    if (!listEl) return;
+    listEl.querySelectorAll('.mkv2-entry').forEach(function(el){
+      el.classList.toggle('is-open', el.dataset.id === mkState.openEntryId);
+    });
+  };
+  window.mkv2DeleteEntry = function(id){
+    if (!confirm('Hapus entri makanan ini?')) return;
+    var all = loadAllEntries().filter(function(e){ return e.id !== id; });
+    saveAllEntries(all);
+    mkState.openEntryId = null;
+    mkv2RenderAll();
+  };
+
+  function mkv2RenderAll(){
+    if (!mkState.activeDate) mkState.activeDate = todayISO();
+    var goals = getGoals();
+    var entries = entriesForDate(mkState.activeDate, getProfileId()).sort(function(a,b){ return (b.timestamp||'').localeCompare(a.timestamp||''); });
+    var totals = computeTotals(entries);
+    mkv2RenderHeader();
+    mkv2RenderProfileCard();
+    mkv2RenderCalorieRing(totals, goals);
+    mkv2RenderTargetCard(goals);
+    mkv2RenderHistoryList(entries);
+  }
+  window.mkv2RenderAll = mkv2RenderAll;
+
+  // ----- profile edit shortcut -----
+  window.mkv2OpenProfileEdit = function(){
+    if (typeof openProfilePanel === 'function'){ openProfilePanel(); }
+    else if (typeof window.openProfilePanel === 'function'){ window.openProfilePanel(); }
+    else if (typeof showToast === 'function'){ showToast('Buka Profil dari menu untuk isi data'); }
+  };
+
+  // ----- goals editor -----
+  window.mkv2OpenGoals = function(){
+    var g = getGoals();
+    document.getElementById('mkv2-g-kalori').value = g.kalori;
+    document.getElementById('mkv2-g-protein').value = g.protein;
+    document.getElementById('mkv2-g-lemak').value = g.lemak;
+    document.getElementById('mkv2-g-karbo').value = g.karbo;
+    showSub('goals');
+  };
+  window.mkv2CloseGoals = function(){ hideSub('goals'); };
+  window.mkv2SaveGoals = function(){
+    var g = {
+      kalori: parseInt(document.getElementById('mkv2-g-kalori').value, 10) || DEFAULT_GOALS.kalori,
+      protein: parseInt(document.getElementById('mkv2-g-protein').value, 10) || DEFAULT_GOALS.protein,
+      lemak: parseInt(document.getElementById('mkv2-g-lemak').value, 10) || DEFAULT_GOALS.lemak,
+      karbo: parseInt(document.getElementById('mkv2-g-karbo').value, 10) || DEFAULT_GOALS.karbo
+    };
+    saveGoals(g);
+    hideSub('goals');
+    mkv2RenderAll();
+    if (typeof showToast === 'function') showToast('Target nutrisi tersimpan');
+  };
+  window.mkv2ResetGoals = function(){
+    document.getElementById('mkv2-g-kalori').value = DEFAULT_GOALS.kalori;
+    document.getElementById('mkv2-g-protein').value = DEFAULT_GOALS.protein;
+    document.getElementById('mkv2-g-lemak').value = DEFAULT_GOALS.lemak;
+    document.getElementById('mkv2-g-karbo').value = DEFAULT_GOALS.karbo;
+  };
+
+  // ----- manual entry -----
+  window.mkv2OpenManual = function(){
+    document.getElementById('mkv2-manual-form').reset();
+    var prev = document.getElementById('mkv2-m-foto-preview'); if (prev){ prev.src=''; prev.hidden = true; }
+    var lbl = document.getElementById('mkv2-m-foto-label'); if (lbl) lbl.textContent = 'Tambah Foto (opsional)';
+    mkState.manualFotoB64 = null; mkState.manualFotoMedia = null;
+    showSub('manual');
+    setTimeout(function(){ var inp = document.getElementById('mkv2-m-nama'); if (inp) inp.focus(); }, 200);
+  };
+  window.mkv2CloseManual = function(){ hideSub('manual'); };
+  window.mkv2HandleManualPhoto = function(e){
+    var file = e.target.files[0]; if (!file) return;
+    if (!file.type.startsWith('image/')){ if (typeof showToast==='function') showToast('Format harus gambar'); return; }
+    resizeImageToWebP(file, 800, 0.78).then(function(out){
+      mkState.manualFotoB64 = out.base64; mkState.manualFotoMedia = out.mediaType;
+      var prev = document.getElementById('mkv2-m-foto-preview'); if (prev){ prev.src = 'data:' + out.mediaType + ';base64,' + out.base64; prev.hidden = false; }
+      var lbl = document.getElementById('mkv2-m-foto-label'); if (lbl) lbl.textContent = 'Foto siap';
+    }).catch(function(){ if (typeof showToast==='function') showToast('Gagal memproses foto'); });
+  };
+  window.mkv2SaveManual = function(){
+    var nama = (document.getElementById('mkv2-m-nama').value || '').trim();
+    var kalori = parseFloat(document.getElementById('mkv2-m-kalori').value);
+    if (!nama || !(kalori >= 0)){ if (typeof showToast==='function') showToast('Lengkapi nama & kalori'); return; }
+    var entry = buildEntry({
+      nama: nama,
+      kalori: kalori,
+      porsi: parseFloat(document.getElementById('mkv2-m-porsi').value) || null,
+      protein_g: parseFloat(document.getElementById('mkv2-m-protein').value) || 0,
+      lemak_g: parseFloat(document.getElementById('mkv2-m-lemak').value) || 0,
+      karbo_g: parseFloat(document.getElementById('mkv2-m-karbo').value) || 0,
+      ingredients: [],
+      foto: mkState.manualFotoB64 ? 'data:' + mkState.manualFotoMedia + ';base64,' + mkState.manualFotoB64 : null,
+      source: 'Manual',
+      confidence: 1.0,
+      user_edited: true
+    });
+    addEntry(entry);
+    hideSub('manual');
+    if (typeof showToast === 'function') showToast('Tersimpan');
+  };
+
+  function buildEntry(p){
+    var now = new Date();
+    return {
+      id: genId(),
+      timestamp: now.toISOString(),
+      date: now.getFullYear() + '-' + pad(now.getMonth()+1) + '-' + pad(now.getDate()),
+      profile_id: getProfileId(),
+      nama: p.nama,
+      kategori: p.kategori || 'general',
+      porsi_total_gram: p.porsi || null,
+      kalori: Math.max(0, +p.kalori || 0),
+      protein_g: Math.max(0, +p.protein_g || 0),
+      lemak_g: Math.max(0, +p.lemak_g || 0),
+      karbo_g: Math.max(0, +p.karbo_g || 0),
+      ingredients: Array.isArray(p.ingredients) ? p.ingredients : [],
+      foto: p.foto || null,
+      source: p.source || 'Estimasi Dr. Sly',
+      confidence: p.confidence != null ? p.confidence : 0.8,
+      notes: p.notes || '',
+      user_edited: !!p.user_edited
+    };
+  }
+  function addEntry(entry){
+    var all = loadAllEntries(); all.push(entry); saveAllEntries(all);
+    // If active date was today, keep view; else switch to entry's date
+    if (mkState.activeDate !== entry.date) mkState.activeDate = entry.date;
+    mkState.openEntryId = entry.id;
+    mkv2RenderAll();
+  }
+
+  // ----- photo scan -----
+  window.mkv2TriggerScan = function(){
+    var input = document.getElementById('mkv2-photo-input');
+    if (input) input.click();
+  };
+  window.mkv2HandlePhoto = function(e){
+    var file = e.target.files[0]; if (!file) return;
+    if (!file.type.startsWith('image/')){ if (typeof showToast==='function') showToast('Format harus gambar'); return; }
+    showSub('vision');
+    showVisionState('loading');
+    resizeImageToWebP(file, 800, 0.78).then(function(out){
+      mkState.pendingPhotoB64 = out.base64;
+      mkState.pendingPhotoMedia = out.mediaType;
+      return callVisionAnalyze(out.base64, out.mediaType);
+    }).then(function(parsed){
+      renderVisionResult(parsed, mkState.pendingPhotoB64, mkState.pendingPhotoMedia);
+    }).catch(function(err){
+      console.error('vision error', err);
+      showVisionState('error', err && err.message);
+    }).finally(function(){
+      // Reset input so same file can be picked again
+      e.target.value = '';
+    });
+  };
+
+  function resizeImageToWebP(file, maxW, quality){
+    return new Promise(function(resolve, reject){
+      var reader = new FileReader();
+      reader.onerror = function(){ reject(new Error('FileReader error')); };
+      reader.onload = function(ev){
+        var img = new Image();
+        img.onerror = function(){ reject(new Error('Image decode error')); };
+        img.onload = function(){
+          var ratio = img.width > maxW ? maxW / img.width : 1;
+          var w = Math.round(img.width * ratio);
+          var h = Math.round(img.height * ratio);
+          var canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          var supportsWebP = false;
+          try { supportsWebP = canvas.toDataURL('image/webp').indexOf('image/webp') >= 0; } catch(e){}
+          var mime = supportsWebP ? 'image/webp' : 'image/jpeg';
+          var dataUrl = canvas.toDataURL(mime, quality);
+          var base64 = dataUrl.split(',')[1];
+          resolve({ base64: base64, mediaType: mime, width: w, height: h });
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  var VISION_PROMPT = "Analisa foto makanan ini sebagai ahli gizi Indonesia. Berikan response HANYA JSON valid (tanpa markdown wrapping, tanpa kalimat pembuka/penutup), format:\n{\n  \"makanan\": \"nama makanan dalam Bahasa Indonesia\",\n  \"kategori\": \"indonesia | international | snack | minuman\",\n  \"porsi_total_gram\": <angka>,\n  \"kalori_total\": <angka>,\n  \"protein_total_g\": <angka>,\n  \"lemak_total_g\": <angka>,\n  \"karbo_total_g\": <angka>,\n  \"ingredients\": [{\"nama\":\"...\",\"berat_gram\":<n>,\"kalori\":<n>,\"protein_g\":<n>,\"lemak_g\":<n>,\"karbo_g\":<n>}],\n  \"confidence\": <0-1>,\n  \"notes\": \"\"\n}\nIdentifikasi makanan dengan akurat. Estimate porsi dari objek referensi (sendok, piring, tangan). Pecah jadi ingredients individual jika kompleks. JANGAN tambahkan teks di luar JSON.";
+
+  function callVisionAnalyze(base64, mediaType){
+    if (typeof callClaude !== 'function') return Promise.reject(new Error('Vision API belum siap'));
+    var content = [
+      { type: 'image', source: { type: 'base64', media_type: mediaType, data: base64 } },
+      { type: 'text', text: VISION_PROMPT }
+    ];
+    return callClaude([{ role: 'user', content: content }], 'Kamu adalah Dr. Sly, ahli gizi Indonesia. Selalu jawab dalam JSON valid persis sesuai format yang diminta.').then(function(raw){
+      return parseVisionJSON(raw);
+    });
+  }
+  function parseVisionJSON(raw){
+    if (!raw) throw new Error('Response kosong');
+    // Strip code fences if any
+    var s = String(raw).trim();
+    s = s.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
+    // Find first { and last }
+    var first = s.indexOf('{'); var last = s.lastIndexOf('}');
+    if (first === -1 || last === -1) throw new Error('Format hasil tidak dikenal');
+    var jsonStr = s.slice(first, last + 1);
+    var obj;
+    try { obj = JSON.parse(jsonStr); } catch(e){ throw new Error('JSON parse gagal'); }
+    return {
+      makanan: String(obj.makanan || 'Makanan'),
+      kategori: String(obj.kategori || 'general'),
+      porsi_total_gram: +obj.porsi_total_gram || null,
+      kalori_total: +obj.kalori_total || 0,
+      protein_total_g: +obj.protein_total_g || 0,
+      lemak_total_g: +obj.lemak_total_g || 0,
+      karbo_total_g: +obj.karbo_total_g || 0,
+      ingredients: Array.isArray(obj.ingredients) ? obj.ingredients.map(function(i){ return {
+        nama: String(i.nama || ''),
+        berat_gram: +i.berat_gram || null,
+        kalori: +i.kalori || 0,
+        protein_g: +i.protein_g || 0,
+        lemak_g: +i.lemak_g || 0,
+        karbo_g: +i.karbo_g || 0
+      }; }) : [],
+      confidence: +obj.confidence || 0.7,
+      notes: String(obj.notes || '')
+    };
+  }
+  function showVisionState(state, errMsg){
+    var ids = { loading: 'mkv2-vision-loading', error: 'mkv2-vision-error', result: 'mkv2-vision-result' };
+    Object.keys(ids).forEach(function(k){ var el = document.getElementById(ids[k]); if (el) el.hidden = (k !== state); });
+    if (state === 'error' && errMsg){
+      var sub = document.getElementById('mkv2-vision-error-sub');
+      if (sub) sub.textContent = errMsg + ' — coba foto ulang atau gunakan Ketik Manual.';
+    }
+  }
+  function renderVisionResult(parsed, b64, media){
+    showVisionState('result');
+    var thumb = document.getElementById('mkv2-vision-thumb');
+    if (thumb) thumb.src = 'data:' + media + ';base64,' + b64;
+    document.getElementById('mkv2-v-nama').value = parsed.makanan;
+    document.getElementById('mkv2-v-kalori').value = Math.round(parsed.kalori_total);
+    document.getElementById('mkv2-v-porsi').value = parsed.porsi_total_gram || '';
+    document.getElementById('mkv2-v-protein').value = +(+parsed.protein_total_g).toFixed(1);
+    document.getElementById('mkv2-v-lemak').value = +(+parsed.lemak_total_g).toFixed(1);
+    document.getElementById('mkv2-v-karbo').value = +(+parsed.karbo_total_g).toFixed(1);
+    var ingEl = document.getElementById('mkv2-vision-ingredients');
+    if (ingEl){
+      if (parsed.ingredients.length){
+        ingEl.innerHTML = parsed.ingredients.map(function(i){
+          return '<div class="mkv2-vision-ingredient"><span class="mkv2-vision-ingredient__nm">' + escHtml(i.nama) + (i.berat_gram?(' (' + Math.round(i.berat_gram) + 'g)'):'') + '</span><span class="mkv2-vision-ingredient__sub">' + Math.round(i.kalori) + ' kal · P' + (+i.protein_g).toFixed(1) + ' · L' + (+i.lemak_g).toFixed(1) + ' · K' + (+i.karbo_g).toFixed(1) + '</span></div>';
+        }).join('');
+      } else { ingEl.innerHTML = ''; }
+    }
+    mkState.pendingPhotoB64 = b64;
+    mkState.pendingPhotoMedia = media;
+    mkState.pendingIngredients = parsed.ingredients;
+    mkState.pendingConfidence = parsed.confidence;
+  }
+  window.mkv2CloseVision = function(){ hideSub('vision'); };
+  window.mkv2SaveVisionResult = function(){
+    var nama = (document.getElementById('mkv2-v-nama').value || '').trim();
+    var kalori = parseFloat(document.getElementById('mkv2-v-kalori').value);
+    if (!nama || !(kalori >= 0)){ if (typeof showToast==='function') showToast('Lengkapi data sebelum simpan'); return; }
+    var entry = buildEntry({
+      nama: nama,
+      kalori: kalori,
+      porsi: parseFloat(document.getElementById('mkv2-v-porsi').value) || null,
+      protein_g: parseFloat(document.getElementById('mkv2-v-protein').value) || 0,
+      lemak_g: parseFloat(document.getElementById('mkv2-v-lemak').value) || 0,
+      karbo_g: parseFloat(document.getElementById('mkv2-v-karbo').value) || 0,
+      ingredients: mkState.pendingIngredients || [],
+      foto: mkState.pendingPhotoB64 ? 'data:' + mkState.pendingPhotoMedia + ';base64,' + mkState.pendingPhotoB64 : null,
+      source: 'Estimasi Dr. Sly',
+      confidence: mkState.pendingConfidence || 0.7
+    });
+    addEntry(entry);
+    hideSub('vision');
+    if (typeof showToast === 'function') showToast('Tersimpan');
+    mkState.pendingPhotoB64 = null;
+    mkState.pendingIngredients = null;
+  };
+
+  // ----- sub-panel show/hide -----
+  function showSub(name){
+    var overlayId = 'mkv2-' + name + '-overlay';
+    var panelId = 'mkv2-' + name + '-panel';
+    var ov = document.getElementById(overlayId); var pn = document.getElementById(panelId);
+    if (!ov || !pn) return;
+    ov.hidden = false; pn.hidden = false;
+    // Force reflow for transition
+    void ov.offsetWidth; void pn.offsetWidth;
+    ov.classList.add('active'); pn.classList.add('active');
+  }
+  function hideSub(name){
+    var ov = document.getElementById('mkv2-' + name + '-overlay');
+    var pn = document.getElementById('mkv2-' + name + '-panel');
+    if (!ov || !pn) return;
+    ov.classList.remove('active'); pn.classList.remove('active');
+    setTimeout(function(){ ov.hidden = true; pn.hidden = true; }, 320);
+  }
+
+  // ----- helpers -----
+  function escHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function escAttr(s){ return escHtml(s); }
+
+  // ----- entry hook (run on modal open) -----
+  function onMakanModalOpen(){
+    photoCleanup();
+    mkState.activeDate = todayISO();
+    mkState.openEntryId = null;
+    mkv2RenderAll();
+  }
+  window.mkv2OnOpen = onMakanModalOpen;
+
+  // Patch openModal to run mkv2 init on makan
+  if (typeof window.openModal === 'function' && !window.__mkv2_openModalPatched){
+    var origOpen = window.openModal;
+    window.openModal = function(id){
+      var r = origOpen.apply(this, arguments);
+      if (id === 'makan') { try { onMakanModalOpen(); } catch(e){ console.error(e); } }
+      return r;
+    };
+    window.__mkv2_openModalPatched = true;
+  }
+})();
+
+// ===== WARUNG SEHAT — PREMIUM FINDER (legacy, no longer reachable from Analisa Nutrisi Makan modal) =====
 var warungMap = null, warungUserLat = null, warungUserLon = null;
 var warungResults = [], currentWarungRadius = 1000, currentWarungSort = 'dist';
 var currentWarungTab = 'all', warungMarkers = [], warungUserMarker = null;
